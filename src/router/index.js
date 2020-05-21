@@ -6,6 +6,7 @@ import Profile from '@/components/Profile'
 import Home from '@/components/Home'
 import Support from '@/components/Support'
 import Thankyou from '@/components/Thankyou'
+import Admin from '@/components/Admin'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/dash',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin
     },
     {
       path: '/profile',

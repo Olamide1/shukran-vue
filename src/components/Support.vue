@@ -4,10 +4,9 @@
          
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
        <h3 class="uk-card-title">Meet, <br> {{fullname}}</h3>
-                  
-       <p> <i>Message from {{$route.params.username}}:</i> <br> {{summary}}</p>
-       </div>
-            
+       <p> <i>{{field}}</i> <br> 
+          <i>Message from {{$route.params.username}}:</i> <br> {{summary}}</p>
+    </div>        
 </div>
       <div class="uk-container">
          <div class="uk-container-expand" align="center" >
@@ -58,7 +57,7 @@ export default {
           amount: '',
           phone: localStorage.getItem('shukran_phone'),
           tipbtn: 'Tip',
-          country: 'NGN'
+          field: ''
        }
     },
     methods:{
@@ -68,6 +67,7 @@ export default {
              }).then( res => {
                 this.summary = res.data[0].summary
                 this.fullname = res.data[0].fullname
+                this.field = res.data[0].craft_type
             }).catch( err => {
                console.log(err)
                })
@@ -79,7 +79,6 @@ export default {
           var message = this.message
           var amount = this.amount
           var phone = this.phone
-          var country = this.country
           this.tipbtn = 'Give me a sec...'
           if(email == '' || supporter_nickname == '' || amount == '') {
              console.log('fill in every info')
@@ -93,8 +92,8 @@ export default {
                 customer_email: email,
                 customer_phone: phone,
                 amount: amount,
-                currency: country,
-                payment_options: 'card, mpesa',
+                currency: 'NGN',
+                payment_options: 'card, ussd',
                 txref: this.reference(),
                 custom_title: 'Shukran Checkout' ,
                 callback: function(response) {
@@ -119,7 +118,7 @@ export default {
                      console.log(err)
                   })
                 } else {
-                    alert('Payment failed.')
+                    alert('Payment unsuccessful.')
                 }
                 x.close(); // use this to close the modal immediately after payment.
             }

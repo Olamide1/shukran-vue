@@ -1,34 +1,18 @@
 <template>
     <div>
-    <div class="uk-position-relative">
-    <img src="../assets/background.jpg" alt="">
-    <div class="uk-position-top">
-        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-            <div class="uk-navbar-left">
-                <ul class="uk-navbar-nav">
-                    <li class="uk-navbar-item uk-logo"><a href="#">Shukran</a></li>
-                </ul>
-            </div>
+<div class="uk-height-medium uk-background-cover uk-flex" uk-parallax="bgy: -100" style="background: #CDD5DC !important;">
+    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+        <h2 style="color: #516784 !important">Shukran</h2>
+        <p style="color: #516784 !important">somebody save me</p>
+    </div>
 
-        <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-            <li>
-                <router-link to="/accounts">Accounts</router-link> 
-            </li>
-        </ul>
-    </div>
-        </nav>
-        <h2 class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
-            Hello world
-        </h2>
-    </div>
 </div>
         
 
-<div class="uk-section uk-section-muted">
+<div class="uk-section" style="background: #F4F4F4 !important; color: #4E555E !important">
     <div class="uk-container">
 
-        <h3>Section Muted</h3>
+        <h3 style="color: #4E555E !important;">Section Muted</h3>
 
         <div class="uk-grid-match uk-child-width-1-3@m" uk-grid>
             <div>
@@ -42,30 +26,25 @@
     </div>
 </div>
 
-<div class="uk-section uk-section-primary uk-light">
+<div class="uk-section" style="background: #E0E0E0 !important; color: #516784;">
     <div class="uk-container">
 
-        <h3>Section Primary</h3>
+        <h3 style="color: #516784;">Section Primary</h3>
 
         <div class="uk-grid-match uk-child-width-1-3@m" uk-grid>
             <div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
             </div>
-            <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-            </div>
-            <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-            </div>
+            
         </div>
 
     </div>
 </div>
 
-<div class="uk-section uk-section-secondary uk-light">
+<div class="uk-section" style="background: #B2B6BB !important; color: #4E555E !important;">
     <div class="uk-container">
 
-        <h3>Section Secondary</h3>
+        <h3 class="color: #4E555E;">Section Secondary</h3>
 
         <div class="uk-grid-match uk-child-width-1-3@m" uk-grid>
             <div>

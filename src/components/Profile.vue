@@ -31,7 +31,22 @@
     </div>
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
-    <li>Show us <a uk-icon="heart"></a></li>
+    <!--Feedback area start -->
+    <li uk-toggle="target: #my-id">Give feedback <a uk-icon="heart"></a></li>
+    <div id="my-id" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Hey, {{username}}</h2>
+          <p>Show some love or raise an issue</p>
+          <div class="uk-margin">
+            <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
+          </div>
+          <div class="uk-margin">
+            <button class="uk-button uk-button-default" @click="submitFeedback">{{feed}}</button>
+          </div>
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+    </div>
+</div>
+<!--Feebdack area end -->
     <li  @click="logout">Logout</li>
 </ul>
     </div>
@@ -52,7 +67,7 @@
     </div>
 
  <div class="uk-card-body">
-    <ul class="uk-subnav uk-subnav-pill" uk-switcher>
+    <ul uk-tab>
     <li><a href="#">Personal Info</a></li>
     <li><a href="#">Banking info</a></li>
     <li><a href="#">Brand Info</a></li>
@@ -71,7 +86,10 @@
       <div class="uk-margin"> 
           <input type="text" class="uk-input" v-model="profile.username">
        </div>
-        <button class="uk-button uk-button-default">{{savebtn}}</button>
+       <div class="uk-margin"> 
+          <input type="text" class="uk-input" v-model="profile.phone" placeholder="Phone number">
+       </div>
+        <button class="uk-button uk-button-default" @click="personalInfo">{{savebtn}}</button>
     </div>
     </li>
     <li>
@@ -125,6 +143,8 @@ export default {
      profiles: [],
      savebtn: 'Save',
      url: 'cr/' + sessionStorage.getItem('username'),
+     comment: '',
+     feed: 'Submit'
     }
   },
   methods: {
@@ -167,6 +187,21 @@ export default {
         console.log(err)
       })
     },
+    submitFeedback(){
+      var username = this.username
+      var comment = this.comment
+
+      axios.post('http://localhost:3000/api/givefeedback', {
+        username: username,
+        comment: comment
+      }).then( res => {
+        console.log(res.data)
+        UIkit.modal('#my-id').hide();
+        alert('Thank you for your feedback!')
+      }).catch(err => {
+        console.log(err)
+      })
+    }, 
     bankUpdate(){
       var id = this.id
       var bank = this.profiles[0].bank
@@ -177,6 +212,26 @@ export default {
         bank: bank,
         account_name: account_name,
         account_number: account_number
+      }).then(res => {
+        console.log('updated')
+        this.savebtn = 'Updated!'
+      }).catch(error => {
+        console.log('error occured')
+      })
+    },
+    personalInfo(){
+      var id = this.id
+      var fullname = this.profiles[0].fullname
+      var email = this.profiles[0].email
+      var username = this.profiles[0].username
+      var phone = this.profiles[0].phone
+      this.savebtn = 'please wait...'
+      axios.post('http://localhost:3000/api/update', {
+        id: id,
+        fullname: fullname,
+        email: email,
+        username: username,
+        phone: phone
       }).then(res => {
         console.log('updated')
         this.savebtn = 'Updated!'
