@@ -1,13 +1,12 @@
 <template>
-   <div>
-      <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
-         
+   <div class="uk-container">
+   <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
-       <h3 class="uk-card-title">Meet, <br> {{fullname}}</h3>
-       <p> <i>{{field}}</i> <br> 
+       <h3 >Support, <br> {{fullname}}</h3>
+       <p> He's a <i>{{field}}</i> <br> 
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}</p>
     </div>        
-</div>
+   </div>
       <div class="uk-container">
          <div class="uk-container-expand" align="center" >
       <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true" align="center">
@@ -37,7 +36,8 @@
         
     </div>
 </div>
-</div></div>   
+</div>
+</div>   
 
    </div> 
 </template>
@@ -141,5 +141,23 @@ export default {
 }
 </script>
 <style scoped>
-
+.uk-flex {
+   background-color: #EBEBE7;
+   color: #EBEBE7 !important;
+}
+.uk-margin-auto{
+  background-color: #ffffff !important;
+  color: #208cb7;
+}
+.uk-card, .uk-card-title {
+   background-color: #EBEBE7;
+   color: #208cb7;
+}
+.uk-button{
+  background-color: #208cb7 !important;
+  color: #ffffff;
+}
+h3 {
+   color: #208cb7;
+}
 </style>

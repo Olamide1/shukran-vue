@@ -20,16 +20,14 @@
         <h3>Shukran</h3>
 <ul class="uk-list uk-list-divider">
   <li><router-link to="/dash">Home</router-link></li>
-    <li href="#modal-center" uk-toggle>Your URL</li>
+    <li href="#modal-center" uk-toggle>Get tipped</li>
     <div id="modal-center" class="uk-flex-top" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto" uk-overflow-auto>
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
-        <p> 
-          Your url is: <a @click="copy">http://localhost:8080/{{url}}</a>
-        </p>
-
+  
+          <a class="uk-modal-body">http://localhost:8080/{{url}}</a> 
     </div>
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
@@ -37,7 +35,7 @@
     <li uk-toggle="target: #my-id">Give feedback <a uk-icon="heart"></a></li>
     <div id="my-id" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-modal-title">Hey, {{username}}</h2>
+        <h2 class="uk-modal-title">{{username}}</h2>
           <p>Show some love or raise an issue</p>
           <div class="uk-margin">
             <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
@@ -55,7 +53,7 @@
 </div>
 <!-- Sidebar end -->
     <div class="uk-container">
-        <h3>Hello, {{username}}</h3>
+        <h3 class="h3">Hello, {{username}}</h3>
 
    <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
     <div>
@@ -66,32 +64,32 @@
   <div id="modal-middle" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
  <div class="uk-modal-header">
-            <h3 class="uk-modal-title">Withdraw request</h3>
+            <h4 class="uk-modal-title">Withdrawal request</h4>
           </div>
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-margin">
-          <h4>Available: {{tipTotal - tipWithdrawn}}</h4>
+          <h4>Available: &#x20a6;{{tipTotal - tipWithdrawn}}</h4>
         </div>
-          <div class="uk-margin">
+          <div class="uk-margin" align="center">
             <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
-            <span v-if="amount > (tipTotal - tipWithdrawn)" align="center">
-              Cannot Withdraw beyond {{tipTotal - tipWithdrawn}}
+            <span v-if="amount > (tipTotal - tipWithdrawn)">
+              Cannot withdraw beyond &#x20a6;{{tipTotal - tipWithdrawn}}
             </span>
           </div>
           <div class="uk-margin">
-            <button class="uk-button" @click="withdrawRequest()">Request</button>
+            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn)" @click="withdrawRequest()">{{request}}</button>
           </div>
     </div>
 </div>
 <!-- Withdraw request modal end -->
-            <h3 class="uk-card-title">{{tipTotal}}</h3>
+            <h3 class="uk-card-title">&#x20a6;{{tipTotal}}</h3>
             <p>Total tips.</p>
         </div>
     <!-- Total tips end -->
     </div>
     <div>
         <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-            <h3 class="uk-card-title">{{tipWithdrawn}}</h3>
+            <h3 class="uk-card-title">&#x20a6;{{tipWithdrawn}}</h3>
             <p>Withdrawn.</p>
         </div>
     </div>
@@ -99,7 +97,7 @@
 
 <ul uk-accordion>
     <li>
-        <a class="uk-accordion-title" href="#">Tips information</a>
+        <a class="uk-accordion-title h3" href="#">Tips details</a>
         <div class="uk-accordion-content">
             <p v-if="transactions.length == 0" align="center">No tips sent to you yet</p>
 
@@ -107,15 +105,15 @@
         <table class="uk-table uk-table-middle uk-table-divider">
     <thead>
         <tr>
-            <th class="uk-width-small">Nickname</th>
-            <th>Amount</th>
-            <th>Message</th>
+            <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
+            <th style="color:#516E6F;">Amount</th>
+            <th style="color:#516E6F;">Message</th>
         </tr>
     </thead>
     <tbody>
         <tr v-for="(transaction, index) in transactions" :key="index">
             <td>{{transaction.supporter_nickname}}</td>
-            <td>{{transaction.amount}}</td>
+            <td>&#x20a6;{{transaction.amount}}</td>
             <td>{{transaction.message}}</td>
         </tr>
     </tbody>
@@ -147,7 +145,8 @@ export default {
      withdrawals: [],
      balance: 0,
      comment: '',
-     feed: 'Submit'
+     feed: 'Submit',
+     request: 'Request'
     }
   },
   methods: {
@@ -188,14 +187,14 @@ export default {
       var username = this.username
       var amount = this.amount
       var status = 'requested'
-      this.feed = 'submitting...'
+      this.request = 'submitting...'
       axios.post('http://localhost:3000/api/createtransaction', {
         username: username,
         amount: amount,
         status: status
       }).then( res => {
         console.log('done')
-        this.feed('Done')
+        this.request = 'Done'
         UIkit.modal('#modal-middle').hide();
         alert('thank you')
       }).catch( err => {
@@ -242,22 +241,46 @@ export default {
 <style scoped>
 .uk-navbar, .uk-navbar-item {
   background: transparent !important;
-  color: #FAF8F0 !important;
+  color: #208cb7 !important;
 }
 .uk-container-expand{
-  background-color: #043353;
+  background-color: #ffffff;
   height: 33.5rem;
-  color: #FAF8F0 !important;
+  color: #EBEBE7 !important;
 }
-.uk-card {
-  background-color: #FAF8F0 !important;
-  color: #18A4E0 !important;
+.uk-accordion-content {
+  background-color: #ffffff;
+  color: #208cb7;
+}
+.h3 {
+  color: #208cb7;
+}
+.uk-offcanvas-bar {
+background-color: #208cb7 !important;
+color: #ffffff;
+}
+.uk-card, .uk-card-title {
+  background-color: #F4F4F4 !important;
+  color: #208cb7 !important;
 }
 .uk-section{
-  background-color: #D3DDE6 !important;
-  color: #648796 !important;
+  background-color: #ffffff !important;
+  color: #208cb7 !important;
+}
+.uk-label {
+  background: #208cb7;
+  color: #ffffff;
 }
 .uk-modal{
-  background-color: #C8CEC4 !important;
+  background-color: #208cb7 !important;
+  color: #ffffff;
+}
+#modal-middle, #my-id {
+  background-color: #EBEBE7;
+  color: #208cb7;
+}
+.uk-button{
+  background-color: #208cb7 !important;
+  color: #ffffff;
 }
 </style>

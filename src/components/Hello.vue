@@ -6,7 +6,7 @@
     </div>
     </nav>
     <div class="uk-container-expand" align="center">
-      <div class="uk-card uk-card-default uk-width-1-2@m" v-if="loginbutton == true">
+      <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding" v-if="loginbutton == true">
     <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-expand"  align="center">
@@ -29,7 +29,7 @@
      
     </div>
     <div class="uk-card-footer"  align="center">
-        <a @click="loginbutton = false" class="uk-button uk-button-text">Sign up</a>
+        <a @click="loginbutton = false" class="uk-button-text">Sign up</a>
     </div>
   </div>
 
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="uk-card-body">
+    <div class="uk-card-body uk-box-shadow-large uk-padding">
       <div class="uk-margin">
         <input class="uk-input uk-form" v-model="username" type="text" placeholder="Username">
       </div>
@@ -62,7 +62,7 @@
           <p>{{issue}}</p>
         <button class="uk-button uk-button-default uk-width-1-1" @click="signup">{{signupbtn}}</button>
         <br>
-           <a @click="loginbutton = true" class="uk-button uk-button-text">Login</a>
+           <a @click="loginbutton = true" class="uk-button-text">Login</a>
          
       </div>
     </div>
@@ -157,12 +157,19 @@ export default {
 <style scoped>
 .uk-navbar, .uk-navbar-item {
   background: transparent !important;
-  color: #516784 !important;
+  color: #208cb7 !important;
 }
 .uk-container{
-  background-color: #CDD5DC;
-  color: #FAF8F0 ;
+  background-color: #ffffff !important;
+  color: #ee7155 !important;
   height: 40rem !important;
 }
-
+.uk-card {
+  background-color: #F4F4F4;
+  color: #333333;
+}
+.uk-button{
+  background-color: #208cb7 !important;
+  color: #ffffff;
+}
 </style>

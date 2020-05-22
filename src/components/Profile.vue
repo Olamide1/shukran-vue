@@ -1,6 +1,6 @@
 <template>
-  <div>
-<nav class="uk-navbar uk-navbar-container uk-margin">
+  <div class="uk-container-expand">
+    <nav class="uk-navbar uk-navbar-container uk-margin">
     <div class="uk-navbar-left">
       <a class="uk-navbar-toggle" 
      uk-toggle="target: #offcanvas-usage">
@@ -12,20 +12,21 @@
 </nav>
 
 
-  <div id="offcanvas-usage" uk-offcanvas>
+
+    <div id="offcanvas-usage" uk-offcanvas>
     <div class="uk-offcanvas-bar">
         <button class="uk-offcanvas-close" type="button" uk-close></button>
     <h3>Shukran</h3>
 <ul class="uk-list uk-list-divider">
     <li><router-link to="/dash">Home</router-link></li>
-    <li href="#modal-center" uk-toggle>Your URL</li>
+    <li href="#modal-center" uk-toggle>Get tipped</li>
     <div id="modal-center" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
-        <p> 
-          Your url is: <a >http://localhost:8080/{{url}}</a>
+        <p class="uk-modal-body"> 
+          <a>http://localhost:8080/{{url}}</a>
         </p>
 
     </div>
@@ -51,40 +52,30 @@
 </ul>
     </div>
 </div>
-
-
-
-
-  <div class="uk-container">
-    <div class="uk-container-expand" align="center">
-      <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true" align="center">
-    <div class="uk-card-header">
-        <div class="uk-grid-small uk-flex-middle" uk-grid>
-            <div class="uk-width-expand" align="center">
-                <h3 class="uk-card-title uk-margin-remove-bottom">Update profile</h3>
-            </div>
+   <div class="uk-section uk-section-muted uk-padding" align="center">
+    <div class="uk-card uk-width-1-2@m">
+        <div class="uk-card-header">
+          <h3 class="uk-card-title"> User Profile</h3>
         </div>
-    </div>
-
- <div class="uk-card-body">
-    <ul uk-tab>
-    <li><a href="#">Personal Info</a></li>
-    <li><a href="#">Banking info</a></li>
-    <li><a href="#">Brand Info</a></li>
+      
+    <ul uk-tab align="center">
+    <li><a href="#" style="color: #208cb7">Personal Info</a></li>
+    <li><a href="#" style="color: #208cb7">Banking info</a></li>
+    <li><a href="#" style="color: #208cb7">Brand Info</a></li>
     </ul>
 
-<ul class="uk-switcher uk-margin">
+<ul class="uk-switcher">
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
        <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Fullname" v-model="profile.fullname">
        </div>
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" v-model="profile.email">
+          <input type="text" class="uk-input" v-model="profile.email" placeholder="Email">
        </div>
 
       <div class="uk-margin"> 
-          <input type="text" class="uk-input" v-model="profile.username">
+          <input type="text" class="uk-input" v-model="profile.username" placeholder="Username">
        </div>
        <div class="uk-margin"> 
           <input type="text" class="uk-input" v-model="profile.phone" placeholder="Phone number">
@@ -95,7 +86,7 @@
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Bank (e.g Access, MPESA etc)" v-model="profile.bank">
+          <input type="text" class="uk-input" placeholder="Bank (e.g GTBank etc)" v-model="profile.bank">
        </div>
        <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Account Name" v-model="profile.account_name">
@@ -110,10 +101,10 @@
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="What do you do?" v-model="profile.craft_type">
+          <input type="text" class="uk-input" placeholder="What do you do? (Podcaster, Videographer)" v-model="profile.craft_type">
        </div>
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Approx audience size(listeners, subs etc)" v-model="profile.audience_size">
+          <input type="text" class="uk-input" placeholder="~ audience size(listeners, subs etc)" v-model="profile.audience_size">
        </div>
 
       <div class="uk-margin"> 
@@ -123,13 +114,11 @@
     </div>
     </li>
 </ul>
- </div>  
-</div>
+          
+        </div>
     </div>
+ </div>
 
-  </div>
-
-  </div>
 </template>
 
 <script>
@@ -249,5 +238,33 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.uk-navbar, .uk-navbar-item {
+  background: #ffffff !important;
+  color: #208cb7 !important;
+}
+.uk-modal{
+  background-color: #208cb7 !important;
+  color: #208cb7;
+}
+.uk-container-expand{
+  background-color:transparent;
+  color: #EBEBE7 !important;
+}
+.uk-offcanvas-bar {
+background-color: #208cb7 !important;
+color: #ffffff;
+}
+.uk-section{
+  background-color: #ffffff !important;
+  height: 33.7rem !important;
+  color: #ffffff !important;
+}
+.uk-button{
+  background-color: #208cb7 !important;
+  color: #ffffff;
+}
+.uk-card, .uk-card-title {
+  background-color: #F4F4F4;
+  color: #208cb7 !important;
+}
 </style>
