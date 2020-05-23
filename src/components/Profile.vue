@@ -26,7 +26,7 @@
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
         <p class="uk-modal-body"> 
-          <a>http://localhost:8080/{{url}}</a>
+          <router-link :to="'/cr/' + username">http://localhost:8080/{{url}}</router-link>
         </p>
 
     </div>

@@ -1,9 +1,23 @@
 <template>
-   <div class="uk-container">
+   <div>
+       <nav class="uk-navbar uk-navbar-container uk-margin" uk-navbar="boundary-align: true; align: center;">
+        <div class="uk-navbar-left">
+     <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
+    </div>
+
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li>
+                <router-link to="/accounts" class="lead">Creators</router-link>
+            </li>
+            
+        </ul>
+    </div>
+</nav>
    <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
        <h3 >Support, <br> {{fullname}}</h3>
-       <p> He's a <i>{{field}}</i> <br> 
+       <p> He's a(an) <i>{{field}}</i> <br> 
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}</p>
     </div>        
    </div>
@@ -141,6 +155,10 @@ export default {
 }
 </script>
 <style scoped>
+.uk-navbar, .uk-navbar-item, .lead {
+  background: transparent !important;
+  color: #208cb7 !important;
+}
 .uk-flex {
    background-color: #EBEBE7;
    color: #EBEBE7 !important;

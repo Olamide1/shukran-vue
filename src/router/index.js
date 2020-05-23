@@ -29,7 +29,7 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/admin',
+      path: '/boss',
       name: 'Admin',
       component: Admin
     },
