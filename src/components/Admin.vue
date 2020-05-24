@@ -49,8 +49,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(user, index) in users" :key="index" uk-toggle="target: #my-bo">
-            <td>{{user.username}}</td>
+        <tr v-for="(user, index) in users" :key="index">
+            <td uk-toggle="target: #my-bo">{{user.username}}</td>
             <td>{{user.email}}</td>
     <div id="my-bo" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
@@ -80,8 +80,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(transaction, index) in transactions" :key="index" uk-toggle="target: #my-id">
-            <td>{{transaction.username}}</td>
+        <tr v-for="(transaction, index) in transactions" :key="index">
+            <td uk-toggle="target: #my-id">{{transaction.username}}</td>
             <td>{{transaction.amount}}</td>
             <td>{{transaction.status}}</td>
             <div id="my-id" uk-modal>
@@ -109,8 +109,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for= "(request, index) in requests" :key="index" uk-toggle="target: #my-req">
-            <td>{{request.username}}</td>
+        <tr v-for= "(request, index) in requests" :key="index">
+            <td uk-toggle="target: #my-req">{{request.username}}</td>
             <td>{{request.amount}}</td>
             <td>{{request.status}}</td>
                <div id="my-req" uk-modal>
