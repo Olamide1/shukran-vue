@@ -115,11 +115,9 @@ export default {
     },
     methods: {
         getCreators () {
-            const options = {
-        headers: {'Content-Type': 'application/json'}
-      }
-            axios.get('https://shukran-api.herokuapp.com/api/allusers',{ crossdomain: true }, options).then( res => {
+            axios.get('https://shukran-api.herokuapp.com/api/allusers/').then( res => {
                 this.creators = res.data
+                console.log(this.creators)
             }).catch(err => {
                 console.log(err)
             })

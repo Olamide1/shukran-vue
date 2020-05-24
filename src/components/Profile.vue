@@ -180,7 +180,7 @@ export default {
       var username = this.username
       var comment = this.comment
 
-      axios.post('https://shukran-api.herokuapp.com/api/givefeedback', {
+      axios.post('https://shukran-api.herokuapp.com/api/givefeedback/', {
         username: username,
         comment: comment
       }).then( res => {
@@ -196,7 +196,7 @@ export default {
       var bank = this.profiles[0].bank
       var account_name = this.profiles[0].account_name
       var account_number = this.profiles[0].account_number
-      axios.post('https://shukran-api.herokuapp.com/api/update', {
+      axios.post('https://shukran-api.herokuapp.com/api/update/', {
         id: id,
         bank: bank,
         account_name: account_name,
@@ -215,7 +215,7 @@ export default {
       var username = this.profiles[0].username
       var phone = this.profiles[0].phone
       this.savebtn = 'please wait...'
-      axios.post('https://shukran-api.herokuapp.com/api/update', {
+      axios.post('https://shukran-api.herokuapp.com/api/update/', {
         id: id,
         fullname: fullname,
         email: email,

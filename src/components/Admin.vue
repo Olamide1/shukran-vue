@@ -200,7 +200,7 @@ export default {
             })
         },
         loadRequest() {
-            axios.post('https://shukran-api.herokuapp.com/api/requests', {
+            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
                 status: 'requested'
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
@@ -211,7 +211,7 @@ export default {
         },
         update(id){
             this.paid = 'paying...'
-            axios.post('https://shukran-api.herokuapp.com/api/updatetransaction', {
+            axios.post('https://shukran-api.herokuapp.com/api/updatetransaction/', {
                 id: id,
                 status: 'paid'
             }).then( resp => {
@@ -222,7 +222,7 @@ export default {
             })
         },
         getFeedback(){
-            axios.get('https://shukran-api.herokuapp.com/api/allfeedback').then( res =>{
+            axios.get('https://shukran-api.herokuapp.com/api/allfeedback/').then( res =>{
                 this.allfeedback = res.data
                 console.log('loaded feedback')
             }).catch(err => {
