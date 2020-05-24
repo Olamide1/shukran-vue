@@ -225,12 +225,14 @@ export default {
             })
         },
         deleteUser(id){
+            this.deleted = 'deleting..'
             axios.post('https://shukran-api.herokuapp.com/api/deleteuser/', {
                 id: id,
             }).then( resp => {
-                this.deleted = 'deleting..'
-               UIkit.modal('#my-id').hide();
-               console.log('deleted')
+                this.deleted = 'Done'
+                console.log('deleted')
+               UIkit.modal('#my-bo').hide();
+               
             }).catch(err => {
                 console.log(err)
             })
