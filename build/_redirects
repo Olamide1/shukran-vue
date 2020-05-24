@@ -1,2 +1,2 @@
-/boss /cr/:username /accounts
-/profile /dash 302
+# Netlify settings for single-page application
+/*    /index.html   200
