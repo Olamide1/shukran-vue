@@ -80,7 +80,7 @@
        <div class="uk-margin"> 
           <input type="text" class="uk-input" v-model="profile.phone" placeholder="Phone number">
        </div>
-        <button class="uk-button uk-button-default" @click="personalInfo">{{savebtn}}</button>
+        <button class="uk-button uk-button-default" @click="personalInfo">{{savebtnOne}}</button>
     </div>
     </li>
     <li>
@@ -95,7 +95,7 @@
       <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Account Number" v-model="profile.account_number">
        </div>
-        <button class="uk-button uk-button-default" @click="bankUpdate">{{savebtn}}</button>
+        <button class="uk-button uk-button-default" @click="bankUpdate">{{savebtnTwo}}</button>
     </div>
     </li>
     <li>
@@ -110,7 +110,7 @@
       <div class="uk-margin"> 
           <textarea class="uk-textarea" placeholder="Heartfelt Message to audience" v-model="profile.summary"></textarea>
        </div>
-        <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtn}}</button>
+        <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
     </div>
     </li>
 </ul>
@@ -130,7 +130,9 @@ export default {
      username: sessionStorage.getItem('username'),
      id: '',
      profiles: [],
-     savebtn: 'Save',
+     savebtnOne: 'Save',
+      savebtnTwo: 'Save',
+       savebtnThree: 'Save',
      url: 'cr/' + sessionStorage.getItem('username'),
      comment: '',
      feed: 'Submit'
@@ -162,7 +164,7 @@ export default {
       var summary = this.profiles[0].summary
       var craft_type = this.profiles[0].craft_type
       var audience_size = this.profiles[0].audience_size
-      this.savebtn = 'chill...'
+      this.savebtnThree = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         summary: summary,
         craft_type: craft_type,
@@ -170,7 +172,7 @@ export default {
         id: id
       }).then(res => {
         console.log('updated')
-        this.savebtn = 'Updated!'
+        this.savebtnThree = 'Saved!'
       }).catch(err => {
         console.log(err)
       })
@@ -195,6 +197,7 @@ export default {
       var bank = this.profiles[0].bank
       var account_name = this.profiles[0].account_name
       var account_number = this.profiles[0].account_number
+      this.savebtnTwo = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         id: id,
         bank: bank,
@@ -202,7 +205,7 @@ export default {
         account_number: account_number
       }).then(res => {
         console.log('updated')
-        this.savebtn = 'Updated!'
+        this.savebtnTwo = 'Saved!'
       }).catch(error => {
         console.log('error occured')
       })
@@ -213,7 +216,7 @@ export default {
       var email = this.profiles[0].email
       var username = this.profiles[0].username
       var phone = this.profiles[0].phone
-      this.savebtn = 'please wait...'
+      this.savebtnOne = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         id: id,
         fullname: fullname,
@@ -222,7 +225,7 @@ export default {
         phone: phone
       }).then(res => {
         console.log('updated')
-        this.savebtn = 'Updated!'
+        this.savebtn = 'Saved!'
       }).catch(error => {
         console.log('error occured')
       })
