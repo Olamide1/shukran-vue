@@ -171,6 +171,7 @@ export default {
             axios.get('https://shukran-api.herokuapp.com/api/allusers/').then(res => {
                 console.log('loaded users')
                 this.users = res.data
+                console.log(res.data)
                 this.totalUsers = this.users.length
             }).catch(err => {
                 console.log(err)

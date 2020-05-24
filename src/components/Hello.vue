@@ -128,7 +128,7 @@ export default {
               this.signupbtn = 'Signup'
           } else {
             axios.post('https://shukran-api.herokuapp.com/api/createaccount/', {
-              username: this.username,
+              username: this.username.toLowerCase(),
               fullname: this.fullname,
               email: this.email,
               password: this.password
