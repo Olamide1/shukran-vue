@@ -225,7 +225,7 @@ export default {
         phone: phone
       }).then(res => {
         console.log('updated')
-        this.savebtn = 'Saved!'
+        this.savebtnOne = 'Saved!'
       }).catch(error => {
         console.log('error occured')
       })
