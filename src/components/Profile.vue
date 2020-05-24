@@ -142,7 +142,7 @@ export default {
         this.$router.push('/')
     },
     getId() {
-      axios.post('http://localhost:3000/api/myprofile', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/myprofile', {
         username: this.username
       }).then( res => {
        // console.log(res.data)
@@ -164,7 +164,7 @@ export default {
       var craft_type = this.profiles[0].craft_type
       var audience_size = this.profiles[0].audience_size
       this.savebtn = 'chill...'
-      axios.post('http://localhost:3000/api/update', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/update', {
         summary: summary,
         craft_type: craft_type,
         audience_size: audience_size,
@@ -180,7 +180,7 @@ export default {
       var username = this.username
       var comment = this.comment
 
-      axios.post('http://localhost:3000/api/givefeedback', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/givefeedback', {
         username: username,
         comment: comment
       }).then( res => {
@@ -196,7 +196,7 @@ export default {
       var bank = this.profiles[0].bank
       var account_name = this.profiles[0].account_name
       var account_number = this.profiles[0].account_number
-      axios.post('http://localhost:3000/api/update', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/update', {
         id: id,
         bank: bank,
         account_name: account_name,
@@ -215,7 +215,7 @@ export default {
       var username = this.profiles[0].username
       var phone = this.profiles[0].phone
       this.savebtn = 'please wait...'
-      axios.post('http://localhost:3000/api/update', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/update', {
         id: id,
         fullname: fullname,
         email: email,

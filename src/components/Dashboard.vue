@@ -156,7 +156,7 @@ export default {
     },
     loadTransactions(){
       var username = this.username
-      axios.post('http://localhost:3000/api/findall', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/findall', {
         username: username,
         status: 'received'
       }).then( res => {
@@ -171,7 +171,7 @@ export default {
     },
     loadWithdrawn(){
       var username = this.username
-      axios.post('http://localhost:3000/api/findall', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/findall', {
         username: username,
         status: 'paid'
       }).then(res => {
@@ -188,7 +188,7 @@ export default {
       var amount = this.amount
       var status = 'requested'
       this.request = 'submitting...'
-      axios.post('http://localhost:3000/api/createtransaction', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/createtransaction', {
         username: username,
         amount: amount,
         status: status
@@ -205,7 +205,7 @@ export default {
       var username = this.username
       var comment = this.comment
 
-      axios.post('http://localhost:3000/api/givefeedback', {
+      axios.post('https://shukran-api.herokuapp.com:80/api/givefeedback', {
         username: username,
         comment: comment
       }).then( res => {

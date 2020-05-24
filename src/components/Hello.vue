@@ -96,7 +96,7 @@ export default {
       } else {
         this.issue = ''
         this.loginbtn = 'Give me a sec...';
-        axios.post('http://localhost:3000/api/login', {
+        axios.post('https://shukran-api.herokuapp.com:80/api/login', {
             username: this.username.toLowerCase(),
             password: this.password
         }).then( res => {
@@ -119,7 +119,7 @@ export default {
       } else {
         console.log(this.username)
         this.signupbtn = 'Give me a sec...'
-        axios.post('http://localhost:3000/api/myprofile', {
+        axios.post('https://shukran-api.herokuapp.com:80/api/myprofile', {
            username: this.username.toLowerCase()
         }).then(res => {
           console.log(res.data)
@@ -127,7 +127,7 @@ export default {
               this.issue = 'Username already taken...'
               this.signupbtn = 'Signup'
           } else {
-            axios.post('http://localhost:3000/api/createaccount', {
+            axios.post('https://shukran-api.herokuapp.com:80/api/createaccount', {
               username: this.username,
               fullname: this.fullname,
               email: this.email,
