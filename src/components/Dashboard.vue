@@ -77,7 +77,7 @@
             </span>
           </div>
           <div class="uk-margin">
-            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn)" @click="withdrawRequest()">{{request}}</button>
+            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) || amount == 0" @click="withdrawRequest()">{{request}}</button>
           </div>
     </div>
 </div>
