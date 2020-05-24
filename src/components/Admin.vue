@@ -52,7 +52,7 @@
         <tr v-for="(user, index) in users" :key="index" uk-toggle="target: #my-bo">
             <td>{{user.username}}</td>
             <td>{{user.email}}</td>
-            <div id="my-bo" uk-modal>
+    <div id="my-bo" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
     <h2 class="uk-modal-title">More info</h2>
     <ul class="uk-list uk-list-divider">
