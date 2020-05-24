@@ -95,7 +95,7 @@ export default {
         this.issue = 'Please fill in the empty fields.'
       } else {
         this.issue = ''
-        this.loginbtn = 'Give me a sec...';
+        this.loginbtn = 'loading...';
         axios.post('http://localhost:3000/api/login', {
             username: this.username.toLowerCase(),
             password: this.password
@@ -103,7 +103,7 @@ export default {
           console.log(res.data)
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
-            this.issue = 'User does not exist..'
+            this.issue = 'Email or password incorrect..'
           } else {
             sessionStorage.setItem('username', this.username)
             this.$router.push('/dash')
@@ -118,7 +118,7 @@ export default {
         this.issue = 'Please fill in the empty fields.'
       } else {
         console.log(this.username)
-        this.signupbtn = 'Give me a sec...'
+        this.signupbtn = 'loading...'
         axios.post('http://localhost:3000/api/myprofile', {
            username: this.username.toLowerCase()
         }).then(res => {

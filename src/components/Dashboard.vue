@@ -187,7 +187,7 @@ export default {
       var username = this.username
       var amount = this.amount
       var status = 'requested'
-      this.request = 'submitting...'
+      this.request = 'loading...'
       axios.post('http://localhost:3000/api/createtransaction', {
         username: username,
         amount: amount,
@@ -204,7 +204,7 @@ export default {
     submitFeedback(){
       var username = this.username
       var comment = this.comment
-
+      this.feed = 'loading...'
       axios.post('http://localhost:3000/api/givefeedback', {
         username: username,
         comment: comment
@@ -223,9 +223,6 @@ export default {
       if (this.username == null) {
       this.$router.push('/accounts')
     }
-    },
-    copy() {
-      console.log('copied')
     }
   }, 
   mounted() {

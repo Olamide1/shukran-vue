@@ -93,7 +93,7 @@ export default {
           var message = this.message
           var amount = this.amount
           var phone = this.phone
-          this.tipbtn = 'Give me a sec...'
+          this.tipbtn = '...'
           if(email == '' || supporter_nickname == '' || amount == '') {
              console.log('fill in every info')
           } else {
