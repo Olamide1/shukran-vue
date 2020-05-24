@@ -61,6 +61,7 @@
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
     <li>Craft type: {{user.craft_type}}</li>
+    <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
     </ul>
         <button class="uk-modal-close" type="button" uk-close></button>
     </div>
@@ -163,7 +164,8 @@ export default {
             requests: [],
             transactionVolume: 0,
             paid: 'Pay',
-            allfeedback: []
+            allfeedback: [],
+            deleted: 'Delete'
         }
     }, 
     methods: {
@@ -218,6 +220,17 @@ export default {
             }).then( resp => {
                 this.paid = 'Paid'
                 console.log('paid')
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        deleteUser(id){
+            axios.post('https://shukran-api.herokuapp.com/api/deleteuser/', {
+                id: id,
+            }).then( resp => {
+                this.deleted = 'deleting..'
+               UIkit.modal('#my-id').hide();
+               console.log('deleted')
             }).catch(err => {
                 console.log(err)
             })
