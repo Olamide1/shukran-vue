@@ -49,7 +49,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(user, index) in users" :key="index" uk-toggle="target: #my-bo">
+        <tr v-for="(user, index) in users" :key="index" href="#my-bo" uk-toggle>
             <td>{{user.username}}</td>
             <td>{{user.email}}</td>
     <div id="my-bo" uk-modal>
@@ -231,8 +231,7 @@ export default {
             }).then( resp => {
                 this.deleted = 'Done'
                 console.log('deleted')
-               UIkit.modal('#my-bo').hide();
-               
+                UIkit.modal('#my-bo').hide();
             }).catch(err => {
                 console.log(err)
             })
