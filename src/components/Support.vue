@@ -76,7 +76,7 @@ export default {
     },
     methods:{
        showUserWelcome(){
-          axios.post('https://shukran-api.herokuapp.com:80/api/myprofile', {
+          axios.post('https://shukran-api.herokuapp.com/api/myprofile', {
              username: this.username
              }).then( res => {
                 this.summary = res.data[0].summary
@@ -118,7 +118,7 @@ export default {
                     response.data.chargeResponseCode == "0"
                 ) {
                     // redirect to a success page
-                  axios.post('https://shukran-api.herokuapp.com:80/api/createtransaction', {
+                  axios.post('https://shukran-api.herokuapp.com/api/createtransaction', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,

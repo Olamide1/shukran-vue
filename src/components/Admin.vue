@@ -168,7 +168,7 @@ export default {
     }, 
     methods: {
         loadUsers() {
-            axios.get('https://shukran-api.herokuapp.com:80/api/allusers').then(res => {
+            axios.get('https://shukran-api.herokuapp.com/api/allusers').then(res => {
                 console.log('loaded users')
                 this.users = res.data
                 this.totalUsers = this.users.length
@@ -177,7 +177,7 @@ export default {
             })
         },
         loadTransactions(){
-             axios.get('https://shukran-api.herokuapp.com:80/api/alltransactions').then( res=> { 
+             axios.get('https://shukran-api.herokuapp.com/api/alltransactions').then( res=> { 
                 console.log('loaded transactions')
                 this.transactions = res.data
             }).catch( error => {
@@ -185,7 +185,7 @@ export default {
             })
         },
         loadReceived(){
-            axios.post('https://shukran-api.herokuapp.com:80/api/requests', {
+            axios.post('https://shukran-api.herokuapp.com/api/requests', {
                 status: 'received'
             }).then( res => {
                 let rec = []
@@ -200,7 +200,7 @@ export default {
             })
         },
         loadRequest() {
-            axios.post('https://shukran-api.herokuapp.com:80/api/requests', {
+            axios.post('https://shukran-api.herokuapp.com/api/requests', {
                 status: 'requested'
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
@@ -211,7 +211,7 @@ export default {
         },
         update(id){
             this.paid = 'paying...'
-            axios.post('https://shukran-api.herokuapp.com:80/api/updatetransaction', {
+            axios.post('https://shukran-api.herokuapp.com/api/updatetransaction', {
                 id: id,
                 status: 'paid'
             }).then( resp => {
@@ -222,7 +222,7 @@ export default {
             })
         },
         getFeedback(){
-            axios.get('https://shukran-api.herokuapp.com:80/api/allfeedback').then( res =>{
+            axios.get('https://shukran-api.herokuapp.com/api/allfeedback').then( res =>{
                 this.allfeedback = res.data
                 console.log('loaded feedback')
             }).catch(err => {

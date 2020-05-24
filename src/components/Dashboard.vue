@@ -27,7 +27,7 @@
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
   
-          <router-link class="uk-modal-body" :to="'/cr/' + username">http://localhost:8080/{{url}}</router-link> 
+          <router-link class="uk-modal-body" :to="'/cr/' + username">http://localhost80/{{url}}</router-link> 
     </div>
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
@@ -156,7 +156,7 @@ export default {
     },
     loadTransactions(){
       var username = this.username
-      axios.post('https://shukran-api.herokuapp.com:80/api/findall', {
+      axios.post('https://shukran-api.herokuapp.com/api/findall', {
         username: username,
         status: 'received'
       }).then( res => {
@@ -171,7 +171,7 @@ export default {
     },
     loadWithdrawn(){
       var username = this.username
-      axios.post('https://shukran-api.herokuapp.com:80/api/findall', {
+      axios.post('https://shukran-api.herokuapp.com/api/findall', {
         username: username,
         status: 'paid'
       }).then(res => {
@@ -188,7 +188,7 @@ export default {
       var amount = this.amount
       var status = 'requested'
       this.request = 'loading...'
-      axios.post('https://shukran-api.herokuapp.com:80/api/createtransaction', {
+      axios.post('https://shukran-api.herokuapp.com/api/createtransaction', {
         username: username,
         amount: amount,
         status: status
@@ -205,7 +205,7 @@ export default {
       var username = this.username
       var comment = this.comment
       this.feed = 'loading...'
-      axios.post('https://shukran-api.herokuapp.com:80/api/givefeedback', {
+      axios.post('https://shukran-api.herokuapp.com/api/givefeedback', {
         username: username,
         comment: comment
       }).then( res => {
