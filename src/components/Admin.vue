@@ -168,7 +168,7 @@ export default {
     }, 
     methods: {
         loadUsers() {
-            axios.get('https://shukran-api.herokuapp.com/api/allusers').then(res => {
+            axios.get('https://shukran-api.herokuapp.com/api/allusers/').then(res => {
                 console.log('loaded users')
                 this.users = res.data
                 this.totalUsers = this.users.length
@@ -177,7 +177,7 @@ export default {
             })
         },
         loadTransactions(){
-             axios.get('https://shukran-api.herokuapp.com/api/alltransactions').then( res=> { 
+             axios.get('https://shukran-api.herokuapp.com/api/alltransactions/').then( res=> { 
                 console.log('loaded transactions')
                 this.transactions = res.data
             }).catch( error => {
@@ -185,7 +185,7 @@ export default {
             })
         },
         loadReceived(){
-            axios.post('https://shukran-api.herokuapp.com/api/requests', {
+            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
                 status: 'received'
             }).then( res => {
                 let rec = []

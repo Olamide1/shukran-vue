@@ -142,7 +142,7 @@ export default {
         this.$router.push('/')
     },
     getId() {
-      axios.post('https://shukran-api.herokuapp.com/api/myprofile', {
+      axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
         username: this.username
       }).then( res => {
        // console.log(res.data)
@@ -164,7 +164,7 @@ export default {
       var craft_type = this.profiles[0].craft_type
       var audience_size = this.profiles[0].audience_size
       this.savebtn = 'chill...'
-      axios.post('https://shukran-api.herokuapp.com/api/update', {
+      axios.post('https://shukran-api.herokuapp.com/api/update/', {
         summary: summary,
         craft_type: craft_type,
         audience_size: audience_size,
