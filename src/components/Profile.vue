@@ -95,7 +95,7 @@
       <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Account Number" v-model="profile.account_number">
        </div>
-        <button class="uk-button uk-button-default" @click="bankUpdate">{{savebtnThree}}</button>
+        <button class="uk-button uk-button-default" @click="bankUpdate">{{savebtnTwo}}</button>
     </div>
     </li>
     <li>
@@ -110,7 +110,7 @@
       <div class="uk-margin"> 
           <textarea class="uk-textarea" placeholder="Heartfelt Message to audience" v-model="profile.summary"></textarea>
        </div>
-        <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnTwo}}</button>
+        <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
     </div>
     </li>
 </ul>
@@ -164,7 +164,7 @@ export default {
       var summary = this.profiles[0].summary
       var craft_type = this.profiles[0].craft_type
       var audience_size = this.profiles[0].audience_size
-      this.savebtnTwo = 'chill...'
+      this.savebtnThree = 'chill...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         summary: summary,
         craft_type: craft_type,
@@ -172,7 +172,7 @@ export default {
         id: id
       }).then(res => {
         console.log('updated')
-        this.savebtnTwo = 'Updated!'
+        this.savebtnThree = 'Updated!'
       }).catch(err => {
         console.log(err)
       })
@@ -195,7 +195,7 @@ export default {
     bankUpdate(){
       var id = this.id
       var bank = this.profiles[0].bank
-      this.savebtnThree = 'Updating...'
+      this.savebtnTwo = 'Updating...'
       var account_name = this.profiles[0].account_name
       var account_number = this.profiles[0].account_number
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
@@ -205,7 +205,7 @@ export default {
         account_number: account_number
       }).then(res => {
         console.log('updated')
-        this.savebtnThree = 'Updated!'
+        this.savebtnTwo = 'Updated!'
       }).catch(error => {
         console.log('error occured')
       })
