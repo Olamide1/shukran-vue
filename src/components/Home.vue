@@ -118,7 +118,7 @@ export default {
             const options = {
         headers: {'Content-Type': 'application/json'}
       }
-            axios.get('https://shukran-api.herokuapp.com/api/allusers/'
+            axios.get('http://shukran-api.herokuapp.com/api/allusers/'
             ,{ crossdomain: true }, options).then( res => {
                 this.creators = res.data
                 console.log(this.creators)
