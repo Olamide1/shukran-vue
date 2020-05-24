@@ -103,7 +103,7 @@ export default {
           console.log(res.data)
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
-            this.issue = 'Email or password incorrect..'
+            this.issue = 'Username or password incorrect..'
           } else {
             sessionStorage.setItem('username', this.username)
             this.$router.push('/dash')
