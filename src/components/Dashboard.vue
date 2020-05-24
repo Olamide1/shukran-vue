@@ -209,7 +209,7 @@ export default {
         username: username,
         comment: comment
       }).then( res => {
-        console.log(res.data)
+        console.log('feedback submitted')
         UIkit.modal('#my-id').hide();
         alert('Thank you for your feedback!')
       }).catch(err => {

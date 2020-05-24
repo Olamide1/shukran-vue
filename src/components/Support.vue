@@ -125,7 +125,7 @@ export default {
                      message: message,
                      status: 'received'
                   }).then(res => {
-                     console.log(res.data)
+                     console.log('tipped')
                      this.$router.push('/thanks')
                   }).catch(err => {
                      this.tipbtn = 'Tip'

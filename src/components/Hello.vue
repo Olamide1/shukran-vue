@@ -100,7 +100,6 @@ export default {
             username: this.username.toLowerCase(),
             password: this.password
         }).then( res => {
-          console.log(res.data)
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
             this.issue = 'Username or password incorrect..'
@@ -117,13 +116,12 @@ export default {
       if (this.username == '' || this.fullname == '' || this.email == '' || this.password == '') {
         this.issue = 'Please fill in the empty fields.'
       } else {
-        console.log(this.username)
         this.signupbtn = 'loading...'
         axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
            username: this.username.toLowerCase()
         }).then(res => {
-          console.log(res.data)
           if (res.data.length >= 1) {
+            console.log('username taken')
               this.issue = 'Username already taken...'
               this.signupbtn = 'Signup'
           } else {
@@ -135,8 +133,10 @@ export default {
             }).then(res => {
               this.signupbtn = 'Signup'
               if (res.data.message == "User's email exist") {
+                console.log('cannot register')
                 this.issue = "User's email exist"
               } else {
+                console.log('registered')
                 sessionStorage.setItem('username', res.data.username)
                 this.$router.push('/profile')
               }

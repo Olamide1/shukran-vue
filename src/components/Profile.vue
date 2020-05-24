@@ -145,9 +145,8 @@ export default {
       axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
         username: this.username
       }).then( res => {
-       // console.log(res.data)
         this.id = res.data[0]._id
-        console.log(res.data)
+        console.log('id gotten')
         this.profiles = res.data
       }).catch( err => {
         console.log(err)
@@ -184,7 +183,7 @@ export default {
         username: username,
         comment: comment
       }).then( res => {
-        console.log(res.data)
+        console.log('feedback submited')
         UIkit.modal('#my-id').hide();
         alert('Thank you for your feedback!')
       }).catch(err => {
