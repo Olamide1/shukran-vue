@@ -51,7 +51,7 @@
     </thead>
     <tbody>
         <tr v-for="(user, index) in users" :key="index">
-            <td >{{user.username}}</td>
+            <td>{{user.username}}</td>
             <td>{{user.email}}</td>
             <td> {{user.fullname}}</td>
             <td class="uk-inline">
@@ -63,8 +63,8 @@
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
     <li>Craft type: {{user.craft_type}}</li>
-    <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
     </ul>
+    <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
                 </td>
         </tr>
     </tbody>
