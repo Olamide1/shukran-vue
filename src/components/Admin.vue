@@ -113,7 +113,7 @@
             <td>{{request.status}}</td>
             <td>Transaction: {{request.transaction_date}}</td>
             <td><button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button></td>
-            <button class="uk-button" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
+            <button class="uk-button" @click="deleteTransaction(request._id)">{{deleted}}</button>
             <hr class="uk-divider-icon">
         </tr>
     </tbody>
