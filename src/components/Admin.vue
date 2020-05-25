@@ -55,10 +55,10 @@
             <td>{{user.email}}</td>
             <td> {{user.fullname}}</td>
             <td class="uk-inline">
-                <button class="uk-button uk-button-default" type="button">
+                <button class="uk-button" type="button">
                     info
                 </button>
-        <ul uk-dropdown="mode: click">
+        <ul uk-dropdown="mode: click" class="uk-list uk-list-divider">
      <li>Bank: {{user.bank}}</li>
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
@@ -86,9 +86,10 @@
             <td>{{transaction.status}}</td>
             <td class="uk-inline">
                 <button class="uk-button uk-button-default" type="button">Info</button>
-                <ul uk-dropdown="mode: click">
+                <ul uk-dropdown="mode: click" class="uk-list uk-list-divider">
                 <li>Fullname: {{transaction.supporter_nickname}}</li>
              <li>Date: {{transaction.transaction_date}}</li>
+              <button class="uk-button" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
                 </ul>
             </td>
         </tr>
@@ -112,12 +113,14 @@
             <td>{{request.status}}</td>
             <td>Transaction: {{request.transaction_date}}</td>
             <td><button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button></td>
+            <button class="uk-button" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
+            <hr class="uk-divider-icon">
         </tr>
     </tbody>
         </table>
     </li>
         <li align="center">
-            <table class="uk-table uk-table-divider">
+            <table class="uk-table uk-table-divider uk-table-responsive">
                 <thead>
                     <tr>
                         <th>Username</th>
@@ -128,6 +131,7 @@
                     <tr v-for="(feedback, index) in allfeedback" :key="index">
                         <td>{{feedback.username}}</td>
                         <td>{{feedback.comment}}</td>
+                        <hr class="uk-divider-icon">
                     </tr>
                 </tbody>
             </table>
@@ -219,7 +223,17 @@ export default {
             }).then( resp => {
                 this.deleted = 'Done'
                 console.log('deleted')
-                UIkit.modal('#my-bo').hide();
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+         deleteTransaction(id){
+            this.deleted = 'deleting..'
+            axios.post('https://shukran-api.herokuapp.com/api/deletetransaction/', {
+                id: id,
+            }).then( resp => {
+                this.deleted = 'Done'
+                console.log('deleted')
             }).catch(err => {
                 console.log(err)
             })
