@@ -236,9 +236,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.uk-navbar, .uk-navbar-item {
+.uk-navbar, .uk-navbar-item, .lead {
   background: transparent !important;
-  color: #208cb7 !important;
+  color: #c63968 !important;
 }
 .uk-container-expand{
   background-color: #ffffff;
@@ -246,38 +246,38 @@ export default {
   color: #EBEBE7 !important;
 }
 .uk-accordion-content {
-  background-color: #ffffff;
-  color: #208cb7;
+   background-color: #fceedd !important;
+  color: #ff6870 !important;
 }
 .h3 {
-  color: #208cb7;
+  color: #c63968;
 }
 .uk-offcanvas-bar {
-background-color: #208cb7 !important;
-color: #ffffff;
+background-color: #c63968 !important;
+color: #fceedd;
 }
 .uk-card, .uk-card-title {
-  background-color: #F4F4F4 !important;
-  color: #208cb7 !important;
+  background-color: #fceedd !important;
+  color: #ff6870 !important;
 }
 .uk-section{
-  background-color: #ffffff !important;
-  color: #208cb7 !important;
+  background-color: #fceedd !important;
+  color: #ff6870 !important;
 }
 .uk-label {
-  background: #208cb7;
-  color: #ffffff;
+  background: #ff6870;
+  color: #fceedd;
 }
 .uk-modal{
-  background-color: #208cb7 !important;
-  color: #ffffff;
+  background-color: #ff6870 !important;
+  color: #fceedd;
 }
 #modal-middle, #my-id {
-  background-color: #EBEBE7;
-  color: #208cb7;
+  background-color: #fceedd;
+  color: #ff6870;
 }
 .uk-button{
-  background-color: #208cb7 !important;
-  color: #ffffff;
+  background-color: #c63968 !important;
+  color: #fceedd;
 }
 </style>

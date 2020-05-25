@@ -257,22 +257,22 @@ export default {
 <style scoped>
 .uk-navbar, .uk-navbar-item {
   background: transparent !important;
-  color: #208cb7 !important;
+  color: #c63968 !important;
 }
 .background {
   background-color: #ffffff;
   height: 33.5rem;
-  color: #208cb7 !important;
+  color: #c63968 !important;
 }
 .uk-section {
-  background-color: #ffffff;
-  color: #516E6F;
+  background-color: #fceedd;
+  color: #ff6870;
 }
 .uk-card, .uk-card-title {
-    background-color: #EBEBE7;
-    color: #208cb7;
+    background-color: #fceedd;
+    color: #ff6870;
 }
 h2 {
-    color: #208cb7;
+    color: #c63968;
 }
 </style>

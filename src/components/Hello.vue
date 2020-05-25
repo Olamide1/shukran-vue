@@ -155,21 +155,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.uk-navbar, .uk-navbar-item {
+.uk-navbar, .uk-navbar-item, .lead {
   background: transparent !important;
-  color: #208cb7 !important;
+  color: #c63968 !important;
 }
 .uk-container{
   background-color: #ffffff !important;
   color: #ee7155 !important;
   height: 40rem !important;
 }
-.uk-card {
-  background-color: #F4F4F4;
-  color: #333333;
+.uk-card, .uk-card-title {
+  background-color: #fceedd !important;
+  color: #ff6870 !important;
 }
 .uk-button{
-  background-color: #208cb7 !important;
-  color: #ffffff;
+  background-color: #c63968 !important;
+  color: #fceedd;
 }
 </style>

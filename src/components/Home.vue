@@ -71,10 +71,10 @@
 </div>
 
 
-<div class="uk-section uk-section-muted">
-    <div class="uk-container backy">
+<div class="uk-section uk-section-muted backy">
+    <div class="uk-container">
 
-        <h3 style="color: #208cb7;">Shukran</h3>
+        <h3 style="color: #fceedd;">Shukran</h3>
 
         <div class="uk-grid-match uk-child-width-1-3@m" uk-grid>
             <div>
@@ -145,7 +145,25 @@ export default {
 </script>
 
 <style scoped>
+
 .uk-navbar, .uk-navbar-item, .lead {
+  background: transparent !important;
+  color: #c63968 !important;
+}
+
+.uk-card, .uk-card-title {
+  background-color: #fceedd !important;
+  color: #ff6870 !important;
+}
+.uk-button{
+  background-color: #c63968 !important;
+  color: #fceedd;
+}
+.backy {
+     background-color: #ff6870 !important;
+  color: #fceedd !important;
+}
+/*.uk-navbar, .uk-navbar-item, .lead {
   background: transparent !important;
   color: #208cb7 !important;
 }
@@ -161,5 +179,5 @@ export default {
 .backy {
      background-color: #F4F4F4 !important;
   color: #208cb7 !important;
-}
+} */
 </style>

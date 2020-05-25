@@ -157,25 +157,25 @@ export default {
 <style scoped>
 .uk-navbar, .uk-navbar-item, .lead {
   background: transparent !important;
-  color: #208cb7 !important;
+  color: #c63968 !important;
 }
 .uk-flex {
-   background-color: #EBEBE7;
-   color: #EBEBE7 !important;
+   background-color: #fceedd;
+   color: #fceedd !important;
 }
 .uk-margin-auto{
-  background-color: #ffffff !important;
-  color: #208cb7;
+  background-color: #fceedd !important;
+  color: #ff6870;
 }
 .uk-card, .uk-card-title {
-   background-color: #EBEBE7;
-   color: #208cb7;
+   background-color: #fceedd;
+   color: #ff6870;
 }
 .uk-button{
-  background-color: #208cb7 !important;
-  color: #ffffff;
+  background-color: #c63968 !important;
+  color: #fceedd;
 }
 h3 {
-   color: #208cb7;
+   color: #ff6870;
 }
 </style>

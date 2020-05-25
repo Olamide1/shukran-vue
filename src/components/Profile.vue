@@ -242,31 +242,31 @@ export default {
 <style scoped>
 .uk-navbar, .uk-navbar-item {
   background: #ffffff !important;
-  color: #208cb7 !important;
+  color: #c63968 !important;
 }
 .uk-modal{
-  background-color: #208cb7 !important;
-  color: #208cb7;
+  background-color: #ff6870 !important;
+  color: #fceedd;
 }
 .uk-container-expand{
   background-color:transparent;
   color: #EBEBE7 !important;
 }
 .uk-offcanvas-bar {
-background-color: #208cb7 !important;
-color: #ffffff;
+background-color: #c63968 !important;
+color: #fceedd;
 }
 .uk-section{
-  background-color: #ffffff !important;
+  background-color: #fceedd !important;
   height: 33.7rem !important;
   color: #ffffff !important;
 }
 .uk-button{
-  background-color: #208cb7 !important;
-  color: #ffffff;
+  background-color: #c63968 !important;
+  color: #fceedd;
 }
 .uk-card, .uk-card-title {
-  background-color: #F4F4F4;
-  color: #208cb7 !important;
+  background-color: #fceedd;
+  color: #ff6870 !important;
 }
 </style>
