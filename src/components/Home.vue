@@ -45,7 +45,7 @@
             <div v-for="(creator, index) in creators" :key="index">
                 <router-link :to="'/cr/' + creator.username">{{creator.username}}</router-link>
                 <p>{{creator.summary}}</p>
-                <router-link :to="'/cr/' + creator.username" class="uk-button" uk-close>Tip</router-link>
+                <router-link :to="'/cr/' + creator.username" class="uk-button uk-modal-close-default">Tip</router-link>
                 <hr class="uk-divider-icon">
             </div>
             </div>
