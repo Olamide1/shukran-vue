@@ -59,7 +59,7 @@
                     info
                 </button>
        <div uk-dropdown="mode: click">
-        <ul class="uk-nav uk-dropdown-nav uk-list uk-panel-scrollable" >
+        <ul class="uk-nav uk-dropdown-nav" >
      <li>Bank: {{user.bank}}</li>
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
@@ -89,7 +89,7 @@
             <td class="uk-inline">
                 <button class="uk-button uk-button-default" type="button">Info</button>
                 <div uk-dropdown="mode: click">
-                    <ul class="uk-nav uk-dropdown-nav uk-list uk-panel-scrollable">
+                    <ul class="uk-nav uk-dropdown-nav">
                 <li>Fullname: {{transaction.supporter_nickname}}</li>
              <li>Date: {{transaction.transaction_date}}</li>
               <button class="uk-button" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
