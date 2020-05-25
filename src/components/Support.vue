@@ -97,6 +97,9 @@ export default {
           if(email == '' || supporter_nickname == '' || amount == '') {
              console.log('fill in every info')
           } else {
+             localStorage.setItem('shukran_email', email)
+             localStorage.setItem('shukran_nickname', supporter_nickname)
+             localStorage.setItem('shukran_phone', phone)
              var API_publicKey = 'FLWPUBK-cf2b3d8af1418e72ecb501098eba6074-X'
              var x = getpaidSetup({
                 PBFPubKey: API_publicKey,
@@ -114,7 +117,9 @@ export default {
                     response.data.chargeResponseCode == "00" ||
                     response.data.chargeResponseCode == "0"
                 ) {
-                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+                  this.$router.push('/thanks')
+                } else {
+                    axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
@@ -127,7 +132,6 @@ export default {
                      this.tipbtn = 'Tip'
                      console.log(err)
                   })
-                } else {
                     alert('Payment unsuccessful.')
                 }
                 x.close(); // use this to close the modal immediately after payment.
