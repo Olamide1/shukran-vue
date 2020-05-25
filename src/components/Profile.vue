@@ -21,7 +21,7 @@
     <li><router-link to="/dash">Home</router-link></li>
     <li href="#modal-center" uk-toggle>Get tipped</li>
     <div id="modal-center" class="uk-flex-top" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto" uk-overflow-auto>
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
