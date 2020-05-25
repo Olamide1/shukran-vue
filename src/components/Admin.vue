@@ -40,38 +40,38 @@
      <li><a href="#">Feedback</a></li>
 </ul>
 <ul class="uk-switcher uk-margin">
-    <li>
-    <table class="uk-table uk-table-divider">
+    <li class="uk-overflow-auto">
+    <table class="uk-table uk-table-divider uk-table-responsive">
     <thead>
         <tr>
             <th class="uk-width-small">Username</th>
             <th>Email</th>
+            <th>Fullname</th>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(user, index) in users" :key="index" uk-toggle="target: #my-bo">
+        <tr v-for="(user, index) in users" :key="index">
             <td >{{user.username}}</td>
             <td>{{user.email}}</td>
-    <div id="my-bo" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-    <h2 class="uk-modal-title">More info</h2>
-    <ul class="uk-list uk-list-divider">
-    <li>Fullname: {{user.fullname}}</li>
+            <td> {{user.fullname}}</td>
+            <td class="uk-inline">
+                <button class="uk-button uk-button-default" type="button">
+                    info
+                </button>
+        <ul uk-dropdown="mode: click">
      <li>Bank: {{user.bank}}</li>
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
     <li>Craft type: {{user.craft_type}}</li>
     <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
     </ul>
-        <button class="uk-modal-close" type="button" uk-close></button>
-    </div>
-</div>
+                </td>
         </tr>
     </tbody>
 </table>
     </li>
-    <li class="uk-container">
-        <table class="uk-table uk-table-divider">
+    <li class="uk-overflow-auto">
+        <table class="uk-table uk-table-divider uk-table-responsive">
     <thead>
         <tr>
             <th>Username</th>
@@ -81,26 +81,23 @@
     </thead>
     <tbody>
         <tr v-for="(transaction, index) in transactions" :key="index">
-            <td uk-toggle="target: #my-id">{{transaction.username}}</td>
+            <td>{{transaction.username}}</td>
             <td>{{transaction.amount}}</td>
             <td>{{transaction.status}}</td>
-            <div id="my-id" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-modal-title">Transaction info.</h2>
-    <ul class="uk-list uk-list-divider">
-    <li>Fullname: {{transaction.supporter_nickname}}</li>
-     <li>Bank: {{transaction.transaction_date}}</li>
-    </ul>
-        <button class="uk-modal-close" type="button" uk-close></button>
-    </div>
-</div>
+            <td class="uk-inline">
+                <button class="uk-button uk-button-default" type="button">Info</button>
+                <ul uk-dropdown="mode: click">
+                <li>Fullname: {{transaction.supporter_nickname}}</li>
+             <li>Date: {{transaction.transaction_date}}</li>
+                </ul>
+            </td>
         </tr>
     </tbody>
 </table>
     </li>
-    <li align="center">
+    <li align="center" class="uk-overflow-auto">
         <span v-if= "requests.length == 0" align="center">No requests made yet.</span>
-        <table class="uk-table uk-table-divider" v-else>
+        <table class="uk-table uk-table-divider uk-table-responsive" v-else>
              <thead>
         <tr>
             <th>Username</th>
@@ -109,21 +106,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for= "(request, index) in requests" :key="index" uk-toggle="target: #my-req">
+        <tr v-for= "(request, index) in requests" :key="index">
             <td>{{request.username}}</td>
             <td>{{request.amount}}</td>
             <td>{{request.status}}</td>
-    <div id="my-req" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-        <h2 class="uk-modal-title">Transaction info.</h2>
-    <ul class="uk-list uk-list-divider">
-    <li>Nickname: {{request.username}}</li>
-     <li>Transaction: {{request.transaction_date}}</li>
-     <button class="uk-button" @click="update(request._id)">{{paid}}</button>
-    </ul>
-        <button class="uk-modal-close" type="button" uk-close></button>
-    </div>
-</div>
+            <td>Transaction: {{request.transaction_date}}</td>
+            <td><button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button></td>
         </tr>
     </tbody>
         </table>
