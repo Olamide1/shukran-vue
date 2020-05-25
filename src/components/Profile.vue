@@ -25,10 +25,7 @@
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
-        <p class="uk-modal-body"> 
           <router-link :to="'/cr/' + username">https://shukran.netlify.app/{{url}}</router-link>
-        </p>
-
     </div>
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
