@@ -210,7 +210,8 @@ export default {
                 id: id,
                 status: 'paid'
             }).then( resp => {
-                this.paid = 'Paid'
+                this.paid = 'Pay'
+                alert('Paid')
                 console.log('paid')
             }).catch(err => {
                 console.log(err)
@@ -221,8 +222,8 @@ export default {
             axios.post('https://shukran-api.herokuapp.com/api/deleteuser/', {
                 id: id,
             }).then( resp => {
-                this.deleted = 'Done'
-                console.log('deleted')
+                this.deleted = 'Delete'
+                alert('Deleted')
             }).catch(err => {
                 console.log(err)
             })
@@ -232,8 +233,8 @@ export default {
             axios.post('https://shukran-api.herokuapp.com/api/deletetransaction/', {
                 id: id,
             }).then( resp => {
-                this.deleted = 'Done'
-                console.log('deleted')
+                this.deleted = 'Delete'
+                alert('Deleted')
             }).catch(err => {
                 console.log(err)
             })
