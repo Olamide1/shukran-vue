@@ -58,12 +58,14 @@
                 <button class="uk-button" type="button">
                     info
                 </button>
-        <ul uk-dropdown="mode: click, pos: top-right" class="uk-list uk-list-divider">
+       <div uk-dropdown="mode: click, pos: bottom-right">
+        <ul class="uk-nav uk-dropdown-nav uk-list uk-list-divider">
      <li>Bank: {{user.bank}}</li>
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
     <li>Craft type: {{user.craft_type}}</li>
     </ul>
+       </div>
     <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
                 </td>
         </tr>
@@ -86,11 +88,13 @@
             <td>{{transaction.status}}</td>
             <td class="uk-inline">
                 <button class="uk-button uk-button-default" type="button">Info</button>
-                <ul uk-dropdown="mode: click, pos: top-right" class="uk-list uk-list-divider">
+                <div uk-dropdown="mode: click, pos: bottom-right">
+                    <ul class="uk-nav uk-dropdown-nav uk-list uk-list-divider">
                 <li>Fullname: {{transaction.supporter_nickname}}</li>
              <li>Date: {{transaction.transaction_date}}</li>
               <button class="uk-button" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
                 </ul>
+                </div>
             </td>
         </tr>
     </tbody>
