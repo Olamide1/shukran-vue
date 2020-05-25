@@ -58,8 +58,8 @@
                 <button class="uk-button" type="button">
                     info
                 </button>
-       <div uk-dropdown="mode: click, pos: bottom-right" uk-scroll>
-        <ul class="uk-nav uk-dropdown-nav uk-list uk-list-divider">
+       <div uk-dropdown="mode: click, pos: bottom-right">
+        <ul class="uk-nav uk-dropdown-nav uk-list uk-list-divider" uk-scroll>
      <li>Bank: {{user.bank}}</li>
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
@@ -88,8 +88,8 @@
             <td>{{transaction.status}}</td>
             <td class="uk-inline">
                 <button class="uk-button uk-button-default" type="button">Info</button>
-                <div uk-dropdown="mode: click, pos: bottom-right" uk-scroll>
-                    <ul class="uk-nav uk-dropdown-nav uk-list uk-list-divider">
+                <div uk-dropdown="mode: click, pos: bottom-right">
+                    <ul class="uk-nav uk-dropdown-nav uk-list uk-list-divider" uk-scroll>
                 <li>Fullname: {{transaction.supporter_nickname}}</li>
              <li>Date: {{transaction.transaction_date}}</li>
               <button class="uk-button" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
