@@ -117,9 +117,7 @@ export default {
                     response.data.chargeResponseCode == "00" ||
                     response.data.chargeResponseCode == "0"
                 ) {
-                  this.$router.push('/thanks')
-                } else {
-                    axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
@@ -127,14 +125,15 @@ export default {
                      status: 'received'
                   }).then(res => {
                      console.log('tipped')
-                     this.$router.push('/thanks')
+                     //this.$router.push('/thanks')
                   }).catch(err => {
                      this.tipbtn = 'Tip'
                      console.log(err)
                   })
+                } else {
                     alert('Payment unsuccessful.')
                 }
-                x.close(); // use this to close the modal immediately after payment.
+            //    x.close(); // use this to close the modal immediately after payment.
             }
         });
           }
