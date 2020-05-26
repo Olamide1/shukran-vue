@@ -26,7 +26,7 @@
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
-  <p>Share this link to get tipped.</p>
+  <p style="color: #fceedd">Share this link to get tipped.</p>
     <router-link class="uk-modal-body" :to="'/cr/' + username">https://useshukran.com/{{url}}</router-link> 
     </div> 
 </div>
@@ -77,7 +77,7 @@
             </span>
           </div>
           <div class="uk-margin">
-            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) & amount == 0" @click="withdrawRequest()">{{request}}</button>
+            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) & amount != 0" @click="withdrawRequest()">{{request}}</button>
           </div>
     </div>
 </div>
