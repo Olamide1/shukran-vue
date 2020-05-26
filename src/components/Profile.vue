@@ -158,6 +158,11 @@ export default {
       }
       return data
     },
+     checkUser() {
+      if (this.username == null) {
+      this.$router.push('/accounts')
+    }
+    },
     messageUpdate(){
       var id = this.id
       var summary = this.profiles[0].summary
@@ -232,6 +237,7 @@ export default {
   },
   mounted() {
     this.getId()
+    this.checkUser()
   }
 }
 </script>
