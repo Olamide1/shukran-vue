@@ -100,22 +100,19 @@ export default {
              localStorage.setItem('shukran_email', email)
              localStorage.setItem('shukran_nickname', supporter_nickname)
              localStorage.setItem('shukran_phone', phone)
-             var handler = PaystackPop.setup({
-                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
-                email: email,
-                amount: parseInt(amount) * 100,
-                currency: "NGN",
-                metadata: {
-                   custom_fields: [
-                      {
-                         display_name: "Mobile Number",
-                         variable_name: "mobile_number",
-                         value: phone
-                       }
-                     ]
-                     },
-               callback: function(response){
-                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+             var API_publicKey = 'FLWPUBK-cf2b3d8af1418e72ecb501098eba6074-X'
+             var x = getpaidSetup({
+                PBFPubKey: API_publicKey,
+                customer_email: email,
+                customer_phone: phone,
+                amount: amount,
+                currency: 'NGN',
+                payment_options: 'card, ussd',
+                txref: this.reference(),
+                custom_title: 'Shukran Checkout' ,
+                callback: function(response) {
+                  console.log("This is the response returned after a charge", response);
+                  axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
@@ -123,21 +120,26 @@ export default {
                      status: 'received'
                   }).then(res => {
                      console.log('tipped')
+                     this.tipbtn = 'Tip'
                      this.$router.push('/thanks')
                   }).catch(err => {
                      this.tipbtn = 'Tip'
                      console.log(err)
                   })
-                  console.log('success. transaction ref is ' + response.reference);
-                  },
-               onClose: function(){
-                  alert('window closed');
-                  }
-                  });
-               handler.openIframe();
+                x.close(); // use this to close the modal immediately after payment.
+            }
+        });
           }
        },
-      
+      reference(){
+        let text = "";
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+ 
+        for( let i=0; i < 10; i++ )
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+ 
+        return text;
+      }
     },
     beforeMount(){
        this.showUserWelcome()
