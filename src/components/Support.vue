@@ -101,24 +101,20 @@ export default {
              localStorage.setItem('shukran_nickname', supporter_nickname)
              localStorage.setItem('shukran_phone', phone)
              var API_publicKey = 'FLWPUBK-cf2b3d8af1418e72ecb501098eba6074-X'
-
-            var x = getpaidSetup({
-
-               PBFPubKey: API_publicKey,
-               customer_email: email,
-               amount: amount,
-               customer_phone: phone,
-               currency: "NGN",
-               txref: this.reference(),
-               onclose: function() {},
-               callback: function(response) {
-                  var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
+             var x = getpaidSetup({
+                PBFPubKey: API_publicKey,
+                customer_email: email,
+                customer_phone: phone,
+                amount: amount,
+                currency: 'NGN',
+                payment_options: 'card, ussd',
+                txref: this.reference(),
+                custom_title: 'Shukran Checkout' ,
+                callback: function(response) {
+                  var txref = response.data.txRef; // collect txRef returned and pass to a server page to complete status check.
                   console.log("This is the response returned after a charge", response);
-                if (
-                    response.data.chargeResponseCode == "00" ||
-                    response.data.chargeResponseCode == "0"
-                ) {
-                  axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+                 if (txref.chargeResponseCode == "00"||txref.chargeResponseCode == "0") {
+                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
@@ -132,13 +128,11 @@ export default {
                      console.log(err)
                   })
                 } else {
-                    alert('payment unsuccesful')
+                    alert('Payment unsuccessful.')
                 }
-
                 x.close(); // use this to close the modal immediately after payment.
             }
         });
-   
           }
        },
       reference(){
