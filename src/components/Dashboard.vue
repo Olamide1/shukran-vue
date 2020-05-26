@@ -161,12 +161,12 @@ export default {
       axios.post('https://shukran-api.herokuapp.com/api/findall/', {
         username: username,
         status: 'received'
-      }).then( res => {
+      }).then( function(res) {
         this.transactions = this.makeJsonObject(res.data)
         for(var i = 0; i <= this.transactions.length; i++){
           this.tipTotal += parseInt(this.transactions[i].amount);
         }
-      }).catch(err => {
+      }).catch(function(err) {
         console.log(err)
       })
       console.log(username)
@@ -176,12 +176,12 @@ export default {
       axios.post('https://shukran-api.herokuapp.com/api/findall/', {
         username: username,
         status: 'paid'
-      }).then(res => {
+      }).then(function(res) {
         this.withdrawals = this.makeJsonObject(res.data)
         for(var i = 0; i <= this.withdrawals.length; i++){
           this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
         }
-      }).catch(err => {
+      }).catch(function(err) {
         console.log(err)
       })
     },
@@ -200,12 +200,12 @@ export default {
         username: username,
         amount: amount,
         status: status
-      }).then( res => {
+      }).then( function(res) {
         console.log('done')
         this.request = 'Done'
         UIkit.modal('#modal-middle').hide();
         alert('thank you')
-      }).catch( err => {
+      }).catch( function(err) {
         console.log(err)
       })
     },

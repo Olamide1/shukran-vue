@@ -144,11 +144,11 @@ export default {
     getId() {
       axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
         username: this.username
-      }).then( res => {
+      }).then(function (res) {
         this.id = res.data[0]._id
         console.log('id')
         this.profiles = this.makeJsonObject(res.data)
-      }).catch( err => {
+      }).catch( function (err) {
         console.log(err)
       })
     },
@@ -174,10 +174,10 @@ export default {
         craft_type: craft_type,
         audience_size: audience_size,
         id: id
-      }).then(res => {
+      }).then(function (res) {
         console.log('updated')
         this.savebtnThree = 'Saved!'
-      }).catch(err => {
+      }).catch(function (err) {
         console.log(err)
       })
     },
@@ -188,11 +188,11 @@ export default {
       axios.post('https://shukran-api.herokuapp.com/api/givefeedback/', {
         username: username,
         comment: comment
-      }).then( res => {
+      }).then( function(res) {
         console.log('feedback submited')
         UIkit.modal('#my-id').hide();
         alert('Thank you for your feedback!')
-      }).catch(err => {
+      }).catch(function(err) {
         console.log(err)
       })
     }, 
@@ -207,10 +207,10 @@ export default {
         bank: bank,
         account_name: account_name,
         account_number: account_number
-      }).then(res => {
+      }).then(function(res) {
         console.log('updated')
         this.savebtnTwo = 'Saved!'
-      }).catch(error => {
+      }).catch(function(err) {
         console.log('error occured')
       })
     },
@@ -227,10 +227,10 @@ export default {
         email: email,
         username: username,
         phone: phone
-      }).then(res => {
+      }).then(function(res) {
         console.log('updated')
         this.savebtnOne = 'Saved!'
-      }).catch(error => {
+      }).catch(function(err){
         console.log('error occured')
       })
     }
