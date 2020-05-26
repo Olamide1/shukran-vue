@@ -162,7 +162,7 @@ export default {
         username: username,
         status: 'received'
       }).then( res => {
-        this.transactions = this.makeJsonObject(res.data)
+        this.transactions = res.data
         for(var i = 0; i <= this.transactions.length; i++){
           this.tipTotal += parseInt(this.transactions[i].amount);
         }
@@ -177,7 +177,7 @@ export default {
         username: username,
         status: 'paid'
       }).then(res => {
-        this.withdrawals = this.makeJsonObject(res.data)
+        this.withdrawals = res.data
         for(var i = 0; i <= this.withdrawals.length; i++){
           this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
         }
@@ -226,12 +226,6 @@ export default {
       this.$router.push('/accounts')
     }
     },
-    makeJsonObject(data){
-      if (typeof data == 'string') {
-        return JSON.parse(data)
-      }
-      return data
-    }
   }, 
   beforeMount(){
      this.loadTransactions();
