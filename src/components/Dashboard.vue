@@ -177,19 +177,13 @@ export default {
         username: username,
         status: 'paid'
       }).then(function(res) {
-        this.withdrawals = this.makeJsonObject(res.data)
+        this.withdrawals = res.data
         for(var i = 0; i <= this.withdrawals.length; i++){
           this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
         }
       }).catch(function(err) {
         console.log(err)
       })
-    },
-    makeJsonObject(data) {
-      if(typeof data == 'string') {
-        return JSON.parse(data)
-      }
-      return data
     },
     withdrawRequest(){
       var username = this.username
