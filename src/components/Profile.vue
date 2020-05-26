@@ -35,7 +35,7 @@
     <div id="my-id" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <h2 class="uk-modal-title">Hey, {{username}}</h2>
-          <p>Show some love or raise an issue</p>
+          <p style="color: #fceedd">Show some love or raise an issue</p>
           <div class="uk-margin">
             <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
           </div>
@@ -144,11 +144,11 @@ export default {
     getId() {
       axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
         username: this.username
-      }).then(function (res) {
+      }).then( res => {
         this.id = res.data[0]._id
-        console.log('this id')
+        console.log('id')
         this.profiles = JSON.parse(JSON.stringify(res.data))
-      }).catch(function (err) {
+      }).catch( err => {
         console.log(err)
       })
     },
@@ -178,6 +178,7 @@ export default {
     submitFeedback(){
       var username = this.username
       var comment = this.comment
+
       axios.post('https://shukran-api.herokuapp.com/api/givefeedback/', {
         username: username,
         comment: comment
@@ -231,7 +232,7 @@ export default {
   mounted() {
     this.getId()
     this.checkUser()
-  },
+  }
 }
 </script>
 

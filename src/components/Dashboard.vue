@@ -225,7 +225,7 @@ export default {
       if (this.username == null) {
       this.$router.push('/accounts')
     }
-    },
+    }
   }, 
   mounted() {
     this.loadTransactions();
