@@ -146,8 +146,8 @@ export default {
         username: this.username
       }).then(function (res) {
         this.id = res.data[0]._id
-        console.log('id')
-        this.profiles = res.data
+        console.log('this id')
+        this.profiles = JSON.parse(JSON.stringify(res.data))
       }).catch(function (err) {
         console.log(err)
       })
@@ -227,10 +227,6 @@ export default {
         console.log('error occured')
       })
     }
-  },
-  beforeMount(){
-     this.getId()
-    this.checkUser()
   },
   mounted() {
     this.getId()
