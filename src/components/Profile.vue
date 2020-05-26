@@ -147,7 +147,7 @@ export default {
       }).then(function (res) {
         this.id = res.data[0]._id
         console.log('id')
-        this.profiles = res.data
+        this.profiles = this.makeJsonObject(res.data)
       }).catch(function (err) {
         console.log(err)
       })
@@ -226,6 +226,12 @@ export default {
       }).catch(error => {
         console.log('error occured')
       })
+    },
+    makeJsonObject(data){
+      if (typeof data == 'string') {
+        return JSON.parse(data)
+      }
+      return data
     }
   },
   beforeMount(){
