@@ -162,7 +162,7 @@ export default {
         username: username,
         status: 'received'
       }).then( res => {
-        this.transactions = JSON.parse(JSON.stringify(res.data))
+        this.transactions = res.data
         for(var i = 0; i <= this.transactions.length; i++){
           this.tipTotal += parseInt(this.transactions[i].amount);
         }
@@ -177,7 +177,7 @@ export default {
         username: username,
         status: 'paid'
       }).then(res => {
-        this.withdrawals = JSON.parse(JSON.stringify(res.data))
+        this.withdrawals = res.data
         for(var i = 0; i <= this.withdrawals.length; i++){
           this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
         }
@@ -185,7 +185,6 @@ export default {
         console.log(err)
       })
     },
-    
     withdrawRequest(){
       var username = this.username
       var amount = this.amount

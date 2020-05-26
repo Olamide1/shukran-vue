@@ -147,7 +147,7 @@ export default {
       }).then( res => {
         this.id = res.data[0]._id
         console.log('id')
-        this.profiles = JSON.parse(JSON.stringify(res.data))
+        this.profiles = res.data
       }).catch( err => {
         console.log(err)
       })
