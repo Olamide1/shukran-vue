@@ -235,7 +235,6 @@ export default {
   }, 
   mounted() {
     this.loadTransactions();
-    this.checkUser()
     this.loadWithdrawn()
     this.getBalance()
   }
