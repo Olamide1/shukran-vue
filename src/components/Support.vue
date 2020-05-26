@@ -114,7 +114,7 @@ export default {
                      }
                      ]},
                callback: function(response){
-                  alert('success. transaction ref is ' + response.reference);
+                  console.log('success. transaction ref is ' + response.reference);
                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
