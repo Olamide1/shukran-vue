@@ -113,7 +113,7 @@ export default {
                 callback: function(response) {
                   var txref = response.data.txRef; // collect txRef returned and pass to a server page to complete status check.
                   console.log("This is the response returned after a charge", response);
-                 if (txref.chargeResponseCode == "00"||txref.chargeResponseCode == "0") {
+                 if (response.status == "success") {
                    axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
