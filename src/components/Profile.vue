@@ -147,10 +147,16 @@ export default {
       }).then( res => {
         this.id = res.data[0]._id
         console.log('id')
-        this.profiles = JSON.parse(JSON.stringify(res.data))
+        this.profiles = this.makeJsonObject(res.data)
       }).catch( err => {
         console.log(err)
       })
+    },
+    makeJsonObject(data) {
+      if(typeof data == 'string') {
+        return JSON.parse(data)
+      }
+      return data
     },
      checkUser() {
       if (this.username == null) {
