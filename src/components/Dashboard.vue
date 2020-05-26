@@ -27,7 +27,7 @@
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
   <div class="uk-modal-body">
-    <p>Share this link to get tipped.</p>
+    <p style="color: #c63968;">Share this link to get tipped.</p>
     <router-link :to="'/cr/' + username">https://useshukran.com/{{url}}</router-link>
     </div> 
     </div> 
