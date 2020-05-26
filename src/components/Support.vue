@@ -100,12 +100,10 @@ export default {
              localStorage.setItem('shukran_email', email)
              localStorage.setItem('shukran_nickname', supporter_nickname)
              localStorage.setItem('shukran_phone', phone)
-
-             var API_publicKey = 'FLWPUBK-cf2b3d8af1418e72ecb501098eba6074-X'
              var handler = PaystackPop.setup({
                 key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                 email: email,
-                amount: amount,
+                amount: parseInt(amount) * 100,
                 currency: "NGN",
                 metadata: {
                    custom_fields: [
