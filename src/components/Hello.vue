@@ -100,8 +100,6 @@ export default {
             username: this.username.toLowerCase().trim(),
             password: this.password
         }).then( res => {
-          console.log(res)
-          console.log(res.data)
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
             this.issue = 'Username or password incorrect..'

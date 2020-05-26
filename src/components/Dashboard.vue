@@ -26,8 +26,9 @@
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
-          <router-link class="uk-modal-body" :to="'/cr/' + username">https://useshukran.com/{{url}}</router-link> 
-    </div>
+  <p>Share this link to get tipped.</p>
+    <router-link class="uk-modal-body" :to="'/cr/' + username">https://useshukran.com/{{url}}</router-link> 
+    </div> 
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
 <!--Feedback area start -->
@@ -72,11 +73,11 @@
           <div class="uk-margin" align="center">
             <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
             <span v-if="amount > (tipTotal - tipWithdrawn)">
-              Cannot withdraw beyond &#x20a6;{{tipTotal - tipWithdrawn}}
+              Available balance insufficient.
             </span>
           </div>
           <div class="uk-margin">
-            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) || amount == 0" @click="withdrawRequest()">{{request}}</button>
+            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) & amount == 0" @click="withdrawRequest()">{{request}}</button>
           </div>
     </div>
 </div>
