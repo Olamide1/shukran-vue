@@ -144,11 +144,11 @@ export default {
     getId() {
       axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
         username: this.username
-      }).then( res => {
+      }).then(function (res) {
         this.id = res.data[0]._id
         console.log('id')
         this.profiles = res.data
-      }).catch( err => {
+      }).catch(function (err) {
         console.log(err)
       })
     },
@@ -178,7 +178,6 @@ export default {
     submitFeedback(){
       var username = this.username
       var comment = this.comment
-
       axios.post('https://shukran-api.herokuapp.com/api/givefeedback/', {
         username: username,
         comment: comment
@@ -232,7 +231,7 @@ export default {
   mounted() {
     this.getId()
     this.checkUser()
-  }
+  },
 }
 </script>
 
