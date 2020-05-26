@@ -100,20 +100,6 @@ export default {
              localStorage.setItem('shukran_email', email)
              localStorage.setItem('shukran_nickname', supporter_nickname)
              localStorage.setItem('shukran_phone', phone)
-             axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
-                     username: username,
-                     supporter_nickname: supporter_nickname,
-                     amount: amount,
-                     message: message,
-                     status: 'received'
-                  }).then(res => {
-                     console.log('tipped')
-                     this.tipbtn = 'Tip'
-                     this.$router.push('/thanks')
-                  }).catch(err => {
-                     this.tipbtn = 'Tip'
-                     console.log(err)
-                  })
             var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
