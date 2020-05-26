@@ -85,7 +85,7 @@ export default {
             }).catch( err => {
                console.log(err)
                })
-               },
+            },
        save() {
           var email = this.email
           var username = this.username

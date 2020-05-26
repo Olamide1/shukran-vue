@@ -41,7 +41,10 @@ export default new Router({
     {
       path: '/cr/:username',
       name: 'Support',
-      component: Support
+      component: Support,
+      meta: {
+        reload: false,
+      }
     },
     {
       path: '/thanks',
