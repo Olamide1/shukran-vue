@@ -162,7 +162,7 @@ export default {
         username: username,
         status: 'received'
       }).then( function(res) {
-        this.transactions = this.makeJsonObject(res.data)
+        this.transactions = res.data
         for(var i = 0; i <= this.transactions.length; i++){
           this.tipTotal += parseInt(this.transactions[i].amount);
         }
