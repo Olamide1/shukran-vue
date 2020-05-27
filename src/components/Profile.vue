@@ -25,7 +25,7 @@
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
-  <p style="color: #c63968;">Share this link to get tipped.</p>
+  <p class="show">Share this link to get tipped.</p>
           <router-link :to="'/cr/' + username">https://useshukran.com/{{url}}</router-link>
     </div>
 </div>
@@ -35,7 +35,7 @@
     <div id="my-id" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <h2 class="uk-modal-title">Hey, {{username}}</h2>
-          <p style="color: #c63968;">Show some love or raise an issue</p>
+          <p class="show">Show some love or raise an issue</p>
           <div class="uk-margin">
             <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
           </div>
@@ -178,7 +178,6 @@ export default {
     submitFeedback(){
       var username = this.username
       var comment = this.comment
-
       axios.post('https://shukran-api.herokuapp.com/api/givefeedback/', {
         username: username,
         comment: comment
@@ -245,6 +244,9 @@ export default {
 .uk-modal{
   background-color: #ff6870 !important;
   color: #fceedd;
+}
+.show {
+  color: #c63968;
 }
 .uk-container-expand{
   background-color:transparent;
