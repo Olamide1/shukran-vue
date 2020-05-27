@@ -7,9 +7,9 @@
 
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-            <li>
+           <!-- <li>
                 <router-link to="/accounts" class="lead">Creators</router-link>
-            </li>
+            </li> -->
             
         </ul>
     </div>
@@ -132,6 +132,7 @@ export default {
                   },
                onClose: function(){
                   alert('window closed');
+                  this.tip = 'Tip'
                   }
                });
                handler.openIframe();

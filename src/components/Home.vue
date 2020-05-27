@@ -7,9 +7,9 @@
 
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-            <li>
+           <!-- <li>
                 <router-link to="/accounts" class="lead">Creators</router-link>
-            </li>
+            </li> -->
             <li>
                 <a class="lead" href="#modal-sections" uk-toggle>Tip a creator</a>
             </li>
@@ -24,8 +24,11 @@
     <div>
         <div class="uk-card uk-card-default uk-card-hover uk-card-body">
             <h3 class="uk-card-title">Creators</h3>
-            <p>Get support for your creative endeavors regardless of your audience.</p>
-            <router-link class="uk-button" to="/accounts">Get started</router-link>
+            <p>Get support for your creative endeavors regardless of your audience.
+                Send a DM to start our onboarding process.
+            </p>
+           <!-- <router-link class="uk-button" to="/accounts">Get started</router-link> -->
+           <a href="https://twitter.com/theakomolafe" target="blank" class="uk-button">Send a DM</a>
         </div>
     </div>
     <div>
