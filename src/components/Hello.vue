@@ -75,6 +75,7 @@
 
 <script>
 import axios from 'axios'
+var md5 = require('md5')
 export default {
   name: 'hello',
   data () {
@@ -98,7 +99,7 @@ export default {
         this.loginbtn = 'loading...';
         axios.post('https://shukran-api.herokuapp.com/api/login/', {
             username: this.username.toLowerCase().trim(),
-            password: this.password
+            password: md5(this.password)
         }).then( res => {
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
@@ -130,7 +131,7 @@ export default {
               username: this.username.toLowerCase().trim(),
               fullname: this.fullname,
               email: this.email,
-              password: this.password
+              password: md5(this.password)
             }).then(res => {
               this.signupbtn = 'Signup'
               if (res.data.message == "User's email exist") {
