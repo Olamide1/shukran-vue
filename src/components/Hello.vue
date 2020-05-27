@@ -104,7 +104,7 @@ export default {
             this.loginbtn = 'Login'
             this.issue = 'Username or password incorrect..'
           } else {
-            sessionStorage.setItem('username', this.username.toLowerCase().trim)
+            sessionStorage.setItem('username', this.username.toLowerCase().trim())
             sessionStorage.setItem('id', res.data[0]._id)
             this.$router.push('/dash')
           }
