@@ -228,10 +228,6 @@ export default {
       })
     }
   },
-  beforeMount(){
-     this.getId()
-    this.checkUser()
-  },
   mounted() {
     this.getId()
     this.checkUser()

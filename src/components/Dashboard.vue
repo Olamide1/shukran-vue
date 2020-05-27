@@ -227,12 +227,6 @@ export default {
     }
     }
   },
-  beforeMount(){
-    this.loadTransactions();
-    this.checkUser()
-    this.loadWithdrawn()
-    this.getBalance()
-  }, 
   mounted() {
     this.loadTransactions();
     this.checkUser()
