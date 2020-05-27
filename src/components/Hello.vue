@@ -105,6 +105,7 @@ export default {
             this.issue = 'Username or password incorrect..'
           } else {
             sessionStorage.setItem('username', this.username)
+            sessionStorage.setItem('id', res.data[0]._id)
             this.$router.push('/dash')
           }
         }).catch( err => {
@@ -138,6 +139,7 @@ export default {
               } else {
                 console.log('registered')
                 sessionStorage.setItem('username', res.data.username)
+                sessionStorage.setItem('id', res.data._id)
                 this.$router.push('/profile')
               }
             }).catch( error => {

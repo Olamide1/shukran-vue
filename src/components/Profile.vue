@@ -126,11 +126,11 @@ export default {
   data () {
     return {
      username: sessionStorage.getItem('username'),
-     id: '',
+     id: sessionStorage.getItem('id'),
      profiles: [],
      savebtnOne: 'Save',
-      savebtnTwo: 'Save',
-       savebtnThree: 'Save',
+     savebtnTwo: 'Save',
+     savebtnThree: 'Save',
      url: 'cr/' + sessionStorage.getItem('username'),
      comment: '',
      feed: 'Submit'
@@ -142,10 +142,11 @@ export default {
         this.$router.push('/')
     },
     getId() {
+      var username = this.username
       axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
-        username: this.username
+        username: username
       }).then( res => {
-        this.id = res.data[0]._id
+       // this.id = res.data[0]._id
         console.log('id')
         this.profiles = res.data
       }).catch( err => {
