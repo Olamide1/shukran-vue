@@ -226,6 +226,12 @@ export default {
       this.$router.push('/accounts')
     }
     }
+  },
+  beforeMount(){
+    this.loadTransactions();
+    this.checkUser()
+    this.loadWithdrawn()
+    this.getBalance()
   }, 
   mounted() {
     this.loadTransactions();
