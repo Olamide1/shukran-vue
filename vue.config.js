@@ -1,6 +1,6 @@
 module.exports = {
- transpileDependencies: [ 'resize-detector' ],
+ transpileDependencies: [ 'resize-detector', 'axios', 'whatwg-fetch', 'vue' ],
     resolve: {
-      alias: {vue: 'vue/dist/vue.js'}
+      alias: {'vue$': 'vue/dist/vue.esm.js'}
     }
   }
