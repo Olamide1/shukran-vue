@@ -20,7 +20,7 @@
        <p>a(an) <i>{{field}}</i> <br> 
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
       </p>
-      <p><a v-bind:href="''+content+''" target="blank">{{content}}</a></p>
+      <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
     </div>        
    </div>
       <div class="uk-container">

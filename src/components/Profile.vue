@@ -117,7 +117,7 @@
 
     <li>
       <div class="uk-margin">
-        <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I%2C+Just%2C+signed+up+to+@useshukran.+Amazngly+simple+to+use.
+        <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Tip+me+on:
 &hashtags=saythanks,shukran" class="uk-button" target="blank">
         Tell others
         </a>
