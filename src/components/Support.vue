@@ -18,7 +18,9 @@
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
        <h3 >Support, <br> {{fullname}}</h3>
        <p>a(an) <i>{{field}}</i> <br> 
-          <i>Message from {{$route.params.username}}:</i> <br> {{summary}}</p>
+          <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
+      </p>
+      <p><a v-bind:href="''+content+''" target="blank">{{content}}</a></p>
     </div>        
    </div>
       <div class="uk-container">
@@ -71,7 +73,8 @@ export default {
           amount: '',
           phone: localStorage.getItem('shukran_phone'),
           tipbtn: 'Tip',
-          field: ''
+          field: '',
+          content: ''
        }
     },
     methods:{
@@ -82,6 +85,7 @@ export default {
                 this.summary = res.data[0].summary
                 this.fullname = res.data[0].fullname
                 this.field = res.data[0].craft_type
+                this.content = res.data[0].primary_link
             }).catch( err => {
                console.log(err)
                })

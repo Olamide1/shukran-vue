@@ -60,6 +60,7 @@
     <li><a href="#" style="color: #208cb7">Personal Info</a></li>
     <li><a href="#" style="color: #208cb7">Banking info</a></li>
     <li><a href="#" style="color: #208cb7">Brand Info</a></li>
+    <li><a href="#" style="color: #208cb7">Tweet about Shukran</a></li>
     </ul>
 
 <ul class="uk-switcher">
@@ -104,12 +105,23 @@
        <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="~ audience size(listeners, subs etc)" v-model="profile.audience_size">
        </div>
-
+  <div class="uk-margin"> 
+          <input type="text" class="uk-input" placeholder="Primary content link(https://youtube.com/username)" v-model="profile.primary_link">
+       </div>
       <div class="uk-margin"> 
           <textarea class="uk-textarea" placeholder="Heartfelt Message to audience" v-model="profile.summary"></textarea>
        </div>
         <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
     </div>
+    </li>
+
+    <li>
+      <div class="uk-margin">
+        <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I%2C+Just%2C+signed+up+to+@useshukran.+Amazngly+simple+to+use.
+&hashtags=saythanks,shukran" class="uk-button" target="blank">
+        Tell others
+        </a>
+      </div>
     </li>
 </ul>
           
@@ -163,11 +175,13 @@ export default {
       var summary = this.profiles[0].summary
       var craft_type = this.profiles[0].craft_type
       var audience_size = this.profiles[0].audience_size
+      var primary_link = this.profiles[0].primary_link
       this.savebtnThree = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         summary: summary,
         craft_type: craft_type,
         audience_size: audience_size,
+        primary_link: primary_link,
         id: id
       }).then(res => {
         console.log('updated')
