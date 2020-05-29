@@ -19,8 +19,10 @@
         <input class="uk-input" v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
-        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: unlock" @click="switchVisibility"></span>
+        <div class="uk-inline">
+          <a class="uk-form-icon uk-form-icon-flip" href="#" uk-icon="icon: unlock" @click="switchVisibility"></a>
          <input class="uk-input" v-model="password" :type="passwordFieldType" placeholder="Password">
+        </div>
       </div>
 
       <div class="uk-margin">
@@ -56,8 +58,10 @@
          <input class="uk-input uk-form" v-model="email" type="email" placeholder="Email">
       </div>
       <div class="uk-margin">
-        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: unlock" @click="switchVisibility"></span>
+        <div class="uk-inline">
+          <a class="uk-form-icon uk-form-icon-flip" href="#" uk-icon="icon: unlock" @click="switchVisibility"></a>
          <input class="uk-input uk-form" :type="passwordFieldType" v-model="password" placeholder="Password">
+        </div>
       </div>
 
       <div class="uk-margin">
