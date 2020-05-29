@@ -19,7 +19,8 @@
         <input class="uk-input" v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
-         <input class="uk-input" v-model="password" type="password" placeholder="Password">
+        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: unlock" @click="switchVisibility"></span>
+         <input class="uk-input" v-model="password" :type="passwordFieldType" placeholder="Password">
       </div>
 
       <div class="uk-margin">
@@ -55,7 +56,8 @@
          <input class="uk-input uk-form" v-model="email" type="email" placeholder="Email">
       </div>
       <div class="uk-margin">
-         <input class="uk-input uk-form" v-model="password" type="password" placeholder="Password">
+        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: unlock" @click="switchVisibility"></span>
+         <input class="uk-input uk-form" :type="passwordFieldType" v-model="password" placeholder="Password">
       </div>
 
       <div class="uk-margin">
@@ -87,7 +89,8 @@ export default {
       fullname: '',
       signupbtn: 'Signup',
       issue: '',
-      email: ''
+      email: '',
+      passwordFieldType: 'password'
     }
   },
   methods: {
@@ -113,6 +116,9 @@ export default {
           console.log(err)
       })
       }
+    },
+    switchVisibility() {
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
     },
     signup(){
       if (this.username == '' || this.fullname == '' || this.email == '' || this.password == '') {
