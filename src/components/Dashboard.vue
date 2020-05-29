@@ -25,7 +25,7 @@
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto" uk-overflow-auto>
 
     <button class="uk-modal-close-default" type="button" uk-close></button>
-  <h2 class="uk-modal-title">Hey {{username}},</h2>
+  <h2 class="uk-modal-title">Hey <span class="capitalize">{{username}}</span>,</h2>
   <div class="uk-modal-body">
     <p class="show">Share this link to get tipped.</p>
     <router-link :to="'/cr/' + username">https://useshukran.com/{{url}}</router-link>
@@ -265,6 +265,9 @@ color: #fceedd;
   background-color: #fceedd !important;
   color: #ff6870 !important;
 }
+ .capitalize {
+    text-transform: capitalize;   
+  }
 .uk-section{
   background-color: #fceedd !important;
   color: #ff6870 !important;

@@ -16,8 +16,8 @@
 </nav>
    <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
-       <h3 >Support, <br> {{fullname}}</h3>
-       <p>a(an) <i>{{field}}</i> <br> 
+       <h3 >Support <br> {{fullname}}</h3>
+       <p>a (an) <i>{{field}}</i> <br> 
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
       </p>
       <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
@@ -136,7 +136,7 @@ export default {
                   },
                onClose: function(){
                   alert('window closed');
-                  this.tip = 'Tip'
+                  this.tipbtn = 'Tip'
                   }
                });
                handler.openIframe();

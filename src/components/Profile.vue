@@ -100,16 +100,16 @@
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="What do you do? (Podcaster, Videographer)" v-model="profile.craft_type">
+          <input type="text" class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)" v-model="profile.craft_type">
        </div>
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="~ audience size(listeners, subs etc)" v-model="profile.audience_size">
+          <input type="text" class="uk-input" placeholder="Approximate Audience Size(listeners, subs etc)" v-model="profile.audience_size">
        </div>
   <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Primary content link(https://youtube.com/username)" v-model="profile.primary_link">
+          <input type="text" class="uk-input" placeholder="Primary Content Link(https://youtube.com/username)" v-model="profile.primary_link">
        </div>
       <div class="uk-margin"> 
-          <textarea class="uk-textarea" placeholder="Heartfelt Message to audience" v-model="profile.summary"></textarea>
+          <textarea class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
        </div>
         <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
     </div>
