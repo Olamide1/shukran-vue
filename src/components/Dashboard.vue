@@ -70,7 +70,7 @@
           </div>
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-margin">
-          <h4>Available: &#x20a6;{{tipTotal - tipWithdrawn}}</h4>
+          <h4>Available balance: &#x20a6;{{tipTotal - tipWithdrawn}}</h4>
         </div>
           <div class="uk-margin" align="center">
             <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
@@ -88,6 +88,12 @@
             <p>Total tips.</p>
         </div>
     <!-- Total tips end -->
+    </div>
+    <div>
+      <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
+           <h3 class="uk-card-title">&#x20a6;{{tipTotal - tipWithdrawn}}</h3>
+            <p>Available balance.</p>
+      </div>
     </div>
     <div>
         <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">

@@ -16,12 +16,12 @@
 </nav>
    <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
-       <h2>Support <br> {{fullname}}</h2>
-       <p>a (an) <i>{{field}}</i>. <br> 
-        <br>
+       <h3>Support <br> {{fullname}}</h3>
+       <div>
+          a (an) <i>{{field}}</i>. <br> 
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
-      </p>
-      <h3><a v-bind:href="''+content+''" target="blank">Find my content here.</a></h3>
+          <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
+      </div>
     </div>        
    </div>
       <div class="uk-container">
@@ -40,6 +40,7 @@
        </div>
        <div>
           <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
+          <p style="color: #ffffff;">{{issue}}</p>
        </div>
        <div class="uk-margin">
           <textarea placeholder="Drop a message" class="uk-textarea" v-model="message"></textarea>
@@ -76,7 +77,8 @@ export default {
           tipbtn: 'Tip',
           field: '',
           content: '',
-          user_email: ''
+          user_email: '',
+          issue: ''
        }
     },
     methods:{
@@ -103,6 +105,8 @@ export default {
           this.tipbtn = '...'
           if(email == '' || supporter_nickname == '' || amount == '') {
              console.log('fill in every info')
+             this.issue = 'Fill in every info'
+             this.tip = "Tip"
           } else {
              localStorage.setItem('shukran_email', email)
              localStorage.setItem('shukran_nickname', supporter_nickname)
@@ -179,5 +183,6 @@ export default {
 }
 h3 {
    color: #ff6870;
+   font-size: 18px; 
 }
 </style>
