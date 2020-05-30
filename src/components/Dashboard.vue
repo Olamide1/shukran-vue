@@ -119,7 +119,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(transaction, index) in transactions" :key="index">
+        <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
             <td>{{transaction.supporter_nickname}}</td>
             <td>&#x20a6;{{transaction.amount}}</td>
             <td>{{transaction.message}}</td>
