@@ -70,7 +70,7 @@ export default {
           summary: '',
           fullname: '',
           message: 'Thanks for all you do.',
-          nickname: localStorage.getItem('shukran_nickname'),
+          nickname: 'Anonymous',
           email: localStorage.getItem('shukran_email'),
           amount: '',
           phone: localStorage.getItem('shukran_phone'),
@@ -103,7 +103,7 @@ export default {
           var amount = this.amount
           var phone = this.phone
           this.tipbtn = '...'
-          if(email == '' || supporter_nickname == '' || amount == '') {
+          if(email == '' || amount == '') {
              console.log('fill in every info')
              this.issue = 'Fill in every info'
              this.tip = "Tip"
@@ -141,12 +141,13 @@ export default {
                            this.tipbtn = 'Tip'
                            console.log(err)
                         })
+                        this.tipbtn = 'Tip'
                         console.log('success. transaction ref is ' + response.reference);
                         },
                onClose: function(){
                   alert('window closed');
                   this.tipbtn = 'Tip'
-                  }
+                  } 
                   });
                   handler.openIframe();
                   }
