@@ -117,10 +117,11 @@
 
     <li>
       <div class="uk-margin">
-        <a v-bind:href="''+twitter+''"  class="uk-button" target="blank">
+        <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:
+&hashtags=saythanks,shukran" class="uk-button" target="blank">
         Tell others
         </a>
-      </div> 
+      </div>
     </li>
 </ul>
           
@@ -144,8 +145,7 @@ export default {
      savebtnThree: 'Save',
      url: 'cr/' + sessionStorage.getItem('username'),
      comment: '',
-     feed: 'Submit',
-     twitter: "https://twitter.com/intent/tweet?url=" + "http%3A%2F%2Fuseshukran.com%2F"+ url + "&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Tip+me+on:",
+     feed: 'Submit'
     }
   },
   methods: {
