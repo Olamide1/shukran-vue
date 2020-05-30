@@ -16,11 +16,12 @@
 </nav>
    <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
-       <h3 >Support <br> {{fullname}}</h3>
-       <p>a (an) <i>{{field}}</i> <br> 
+       <h2>Support <br> {{fullname}}</h2>
+       <p>a (an) <i>{{field}}</i>. <br> 
+        <br>
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
       </p>
-      <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
+      <h3><a v-bind:href="''+content+''" target="blank">Find my content here.</a></h3>
     </div>        
    </div>
       <div class="uk-container">
@@ -74,7 +75,8 @@ export default {
           phone: localStorage.getItem('shukran_phone'),
           tipbtn: 'Tip',
           field: '',
-          content: ''
+          content: '',
+          user_email: ''
        }
     },
     methods:{
@@ -86,6 +88,7 @@ export default {
                 this.fullname = res.data[0].fullname
                 this.field = res.data[0].craft_type
                 this.content = res.data[0].primary_link
+                this.user_email = res.data[0].email
             }).catch( err => {
                console.log(err)
                })
@@ -109,6 +112,7 @@ export default {
                email: email,
                amount: parseInt(amount) * 100,
                currency: "NGN",
+               channels: ['card', 'bank'],
                metadata: {
                   custom_fields: [
                      {
@@ -118,29 +122,30 @@ export default {
                      }
                      ]},
                callback: function(response){
-                  console.log('success. transaction ref is ' + response.reference);
                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
                      message: message,
-                     status: 'received'
-                  }).then(res => {
-                     console.log('tipped')
-                     this.tipbtn = 'Tip'
-                     this.$router.push('/thanks')
-                  }).catch(err => {
-                     this.tipbtn = 'Tip'
-                     console.log(err)
-                  })
-                  },
+                     status: 'received',
+                     email: this.user_email
+                     }).then(res => {
+                        console.log('tipped')
+                        this.tipbtn = 'Tip'
+                        this.$router.push('/thanks')
+                        }).catch(err => {
+                           this.tipbtn = 'Tip'
+                           console.log(err)
+                        })
+                        console.log('success. transaction ref is ' + response.reference);
+                        },
                onClose: function(){
                   alert('window closed');
                   this.tipbtn = 'Tip'
                   }
-               });
-               handler.openIframe();
-          }
+                  });
+                  handler.openIframe();
+                  }
        },
     },
     beforeMount(){

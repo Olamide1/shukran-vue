@@ -193,12 +193,14 @@ export default {
       axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
         username: username,
         amount: amount,
-        status: status
+        status: status,
+        email: ''
       }).then( res => {
         console.log('done')
         this.request = 'Done'
         UIkit.modal('#modal-middle').hide();
-        alert('thank you')
+        var thanks = 'Hi,' + this.username + ' your withdrawal request will be processed within the next 6 - 10 hours & sent to your account. Hang tight';
+        alert(thanks)
       }).catch( err => {
         console.log(err)
       })
