@@ -50,7 +50,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(user, index) in users" :key="index">
+        <tr v-for="(user, index) in users.slice().reverse()" :key="index">
             <td>{{user.username}}</td>
             <td>{{user.email}}</td>
             <td> {{user.fullname}}</td>
@@ -82,7 +82,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(transaction, index) in transactions" :key="index">
+        <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
             <td>{{transaction.username}}</td>
             <td>{{transaction.amount}}</td>
             <td>{{transaction.status}}</td>
@@ -111,7 +111,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for= "(request, index) in requests" :key="index">
+        <tr v-for= "(request, index) in requests.slice().reverse()" :key="index">
             <td>{{request.username}}</td>
             <td>{{request.amount}}</td>
             <td>{{request.status}}</td>
@@ -132,7 +132,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(feedback, index) in allfeedback" :key="index">
+                    <tr v-for="(feedback, index) in allfeedback.slice().reverse()" :key="index">
                         <td>{{feedback.username}}</td>
                         <td>{{feedback.comment}}</td>
                         <hr class="uk-divider-icon">
