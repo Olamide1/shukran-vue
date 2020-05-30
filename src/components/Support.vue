@@ -72,7 +72,7 @@ export default {
           message: 'Thanks for all you do.',
           nickname: 'Anonymous',
           email: localStorage.getItem('shukran_email'),
-          amount: '',
+          amount: '100',
           phone: localStorage.getItem('shukran_phone'),
           tipbtn: 'Tip',
           field: '',
