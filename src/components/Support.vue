@@ -16,7 +16,7 @@
 </nav>
    <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
-       <h3>Support <br> {{fullname}}</h3>
+       <h3>Support <br> {{username}}</h3>
        <div>
           a (an) <i>{{field}}</i>. <br> 
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
@@ -40,7 +40,7 @@
        </div>
        <div>
           <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
-          <p style="color: #ffffff;">{{issue}}</p>
+          <p style="color: #c63968;">{{issue}}</p>
        </div>
        <div class="uk-margin">
           <textarea placeholder="Drop a message" class="uk-textarea" v-model="message"></textarea>
@@ -68,7 +68,6 @@ export default {
        return {
           username: this.$route.params.username,
           summary: '',
-          fullname: '',
           message: 'Thanks for all you do.',
           nickname: 'Anonymous',
           email: localStorage.getItem('shukran_email'),
@@ -77,6 +76,7 @@ export default {
           tipbtn: 'Tip',
           field: '',
           content: '',
+          reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
           user_email: '',
           issue: ''
        }
@@ -87,7 +87,6 @@ export default {
              username: this.username
              }).then( res => {
                 this.summary = res.data[0].summary
-                this.fullname = res.data[0].fullname
                 this.field = res.data[0].craft_type
                 this.content = res.data[0].primary_link
                 this.user_email = res.data[0].email
@@ -104,9 +103,11 @@ export default {
           var phone = this.phone
           this.tipbtn = '...'
           if(email == '' || amount == '') {
-             console.log('fill in every info')
-             this.issue = 'Fill in every info'
+             this.issue = 'Enter Email & Amount Please'
              this.tip = "Tip"
+          } else if(!this.reg.test(this.email)){
+             this.issue = "Please Enter Correct Email";
+             this.tipbtn = "Tip"
           } else {
              localStorage.setItem('shukran_email', email)
              localStorage.setItem('shukran_nickname', supporter_nickname)
@@ -143,7 +144,7 @@ export default {
                         })
                         this.tipbtn = 'Tip'
                         console.log('success. transaction ref is ' + response.reference);
-                        },
+                     },
                onClose: function(){
                   alert('window closed');
                   this.tipbtn = 'Tip'

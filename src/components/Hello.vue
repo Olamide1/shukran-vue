@@ -94,6 +94,7 @@ export default {
       signupbtn: 'Signup',
       issue: '',
       email: '',
+      reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       passwordFieldType: 'password'
     }
   },
@@ -127,6 +128,8 @@ export default {
     signup(){
       if (this.username == '' || this.fullname == '' || this.email == '' || this.password == '') {
         this.issue = 'Please fill in the empty fields.'
+      } else if(!this.reg.test(this.email)){
+        this.issue = "Enter correct email please."
       } else {
         this.signupbtn = 'loading...'
         axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {

@@ -28,7 +28,7 @@
   <h2 class="uk-modal-title">Hey <span class="capitalize">{{username}}</span>,</h2>
   <div class="uk-modal-body">
     <p class="show">Share this link to get tipped.</p>
-    <router-link :to="'/cr/' + username">https://useshukran.com/{{url}}</router-link>
+    <router-link :to="'/cr/' + username" class="uk-modal-close" target="_blank">https://useshukran.com/{{url}}</router-link>
     </div> 
     </div> 
 </div>

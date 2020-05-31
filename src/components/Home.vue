@@ -46,7 +46,7 @@
         </div>
             <div class="uk-modal-body" v-if="search == ''">
             <div v-for="(creator, index) in creators" :key="index">
-                <router-link :to="'/cr/' + creator.username">{{creator.username}}</router-link>
+                <router-link :to="'/cr/' + creator.username" class="uk-modal-close">{{creator.username}}</router-link>
                 <p>{{creator.summary}}</p>
                 <router-link :to="'/cr/' + creator.username" class="uk-button uk-modal-close" type="button">Tip</router-link>
                 <hr class="uk-divider-icon">
@@ -55,7 +55,7 @@
             <div class="uk-modal-body" v-else>
                     <div>
                         <div v-for="result in filteresults" :key="result.id">
-                            <router-link :to="'/cr/' + result.username">{{result.username}}</router-link>
+                            <router-link :to="'/cr/' + result.username" class="uk-modal-close">{{result.username}}</router-link>
                             <p>{{result.summary}}</p>
                             <router-link :to="'/cr/' + result.username" class="uk-button" >Tip</router-link>
                 <hr class="uk-divider-icon">
