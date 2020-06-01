@@ -50,7 +50,8 @@
           <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
        </div>
        <div class="uk-margin" v-if="this.tweet == true">
-          <button class="uk-button">Tweet</button>
+          <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+tipped+someone+on+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:
+&hashtags=saythanks,shukran" class="uk-button">Tweet</a>
        </div>
     </div>
     <div>
