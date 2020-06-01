@@ -49,6 +49,9 @@
        <div class="uk-margin">
           <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
        </div>
+       <div class="uk-margin" v-if="this.tweet == true">
+          <button class="uk-button">Tweet</button>
+       </div>
     </div>
     <div>
         
@@ -76,6 +79,7 @@ export default {
           tipbtn: 'Tip',
           field: '',
           content: '',
+          tweet: false,
           reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
           user_email: '',
           issue: ''
@@ -84,7 +88,7 @@ export default {
     methods:{
        showUserWelcome(){
           axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
-             username: this.username
+             username: this.username.toLowerCase().trim()
              }).then( res => {
                 this.summary = res.data[0].summary
                 this.field = res.data[0].craft_type
@@ -117,7 +121,7 @@ export default {
                email: email,
                amount: parseInt(amount) * 100,
                currency: "NGN",
-               channels: ['card', 'bank'],
+               channels: ['card', 'bank', 'ussd'],
                metadata: {
                   custom_fields: [
                      {
@@ -143,6 +147,9 @@ export default {
                            console.log(err)
                         })
                         this.tipbtn = 'Tip'
+                        var thanks = this.username + ' says Shukran!'
+                        alert(thanks)
+                        this.tweet = true
                         console.log('success. transaction ref is ' + response.reference);
                      },
                onClose: function(){

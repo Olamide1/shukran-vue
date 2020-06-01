@@ -226,7 +226,7 @@ export default {
       var id = this.id
       var fullname = this.profiles[0].fullname
       var email = this.profiles[0].email
-      var username = this.profiles[0].username
+      var username = this.profiles[0].username.toLowerCase().trim()
       var phone = this.profiles[0].phone
       this.savebtnOne = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
