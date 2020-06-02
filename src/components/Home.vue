@@ -81,7 +81,8 @@
             <div>
                 <p>Connect with us: <br>
                     <a uk-icon="twitter" target="blank" href="https://twitter.com/useshukran"></a>
-                <a uk-icon="instagram"></a>
+                <a uk-icon="instagram" target="blank" href="https://instagram.com/useshukran"></a>
+                <a uk-icon="facebook" target="blank" href="https://facebook.com/Useshukran-108863154184686"></a>
                 </p>
                 
             </div>

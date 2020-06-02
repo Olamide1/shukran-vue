@@ -29,8 +29,8 @@
       <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true" align="center">
     <div class="uk-card-body">
         <h3 class="uk-card-title">Let {{username}} know you</h3>
-        <p>You'll not have to fill nickname, 
-           email & phone again for a faster tipping experience.</p>
+        <p>You'll not have to fill your nickname, 
+           email address & phone number again for a faster tipping experience.</p>
        <div>
           <div class="uk-margin">
           <input type="text" class="uk-input" placeholder="Nickname" v-model="nickname">
@@ -40,13 +40,15 @@
        </div>
        <div>
           <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
+          <p style="color: #c63968;" v-if="parseInt(amount) < 100"> Please support this creator with at least &#x20a6;100 </p>
+       </div>
+       <div class="uk-margin">
+          <textarea placeholder="Drop an encouraging message" class="uk-textarea" v-model="message"></textarea>
+       </div>
+       <div class="uk-margin">
           <p style="color: #c63968;">{{issue}}</p>
        </div>
-       <div class="uk-margin">
-          <textarea placeholder="Drop a message" class="uk-textarea" v-model="message"></textarea>
-       </div>
-       
-       <div class="uk-margin">
+       <div class="uk-margin" v-if="parseInt(amount) >= 100">
           <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
        </div>
        <div class="uk-margin" v-if="this.tweet == true">
@@ -72,10 +74,10 @@ export default {
        return {
           username: this.$route.params.username,
           summary: '',
-          message: 'Thanks for all you do.',
-          nickname: 'Anonymous',
+          message: '',
+          nickname: '',
           email: localStorage.getItem('shukran_email'),
-          amount: '100',
+          amount: '',
           phone: localStorage.getItem('shukran_phone'),
           tipbtn: 'Tip',
           field: '',
@@ -109,7 +111,7 @@ export default {
           this.tipbtn = '...'
           if(email == '' || amount == '') {
              this.issue = 'Enter Email & Amount Please'
-             this.tip = "Tip"
+             this.tipbtn = "Tip"
           } else if(!this.reg.test(this.email)){
              this.issue = "Please Enter Correct Email";
              this.tipbtn = "Tip"
