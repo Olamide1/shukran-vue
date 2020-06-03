@@ -156,8 +156,8 @@ export default {
                         console.log('success. transaction ref is ' + response.reference);
                      },
                onClose: function(){
-                  alert('window closed');
-                  this.tipbtn = 'Tip'
+                  alert('Payment action cancelled');
+                  this.tipbtn = 'Tip';
                   } 
                   });
                   handler.openIframe();
