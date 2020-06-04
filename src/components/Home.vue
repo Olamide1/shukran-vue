@@ -16,7 +16,7 @@
         </ul>
     </div>
 </nav>
-<img src="../assets/image.gif" width="" height="150px" alt="" uk-img>
+<img src="../assets/image.gif" height="150px" alt="Home" uk-img>
 
 <div class="uk-section uk-section-default">
     <div class="uk-container uk-container-small">
@@ -98,6 +98,12 @@
                     Coming soon.
                 </p>
             </div>
+            <div>
+                <p>© 2020 Placeholder Limited
+                    <br>
+                    Tips are processed by Paystack.
+                </p>
+            </div>
         </div>
 
     </div>
@@ -160,6 +166,11 @@ export default {
 .uk-button{
   background-color: #c63968 !important;
   color: #fceedd;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    max-height: 10%;
 }
 .backy {
      background-color: #ff6870 !important;

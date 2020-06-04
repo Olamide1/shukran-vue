@@ -108,7 +108,6 @@ export default {
           var message = this.message
           var amount = this.amount
           var phone = this.phone
-          this.tipbtn = '...'
           if(email == '' || amount == '') {
              this.issue = 'Enter Email & Amount Please'
              this.tipbtn = "Tip"
@@ -156,8 +155,7 @@ export default {
                         console.log('success. transaction ref is ' + response.reference);
                      },
                onClose: function(){
-                  alert('Payment action cancelled');
-                  this.tipbtn = 'Tip';
+                  alert('Payment action cancelled'); 
                   } 
                   });
                   handler.openIframe();
