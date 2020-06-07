@@ -80,9 +80,8 @@
         <div class="uk-grid-match uk-child-width-1-3@m" uk-grid>
             <div>
                 <p>Connect with us: <br>
-                    <a uk-icon="twitter" target="blank" href="https://twitter.com/useshukran"></a>
+                <a uk-icon="twitter" target="blank" href="https://twitter.com/useshukran"></a>
                 <a uk-icon="instagram" target="blank" href="https://instagram.com/useshukran"></a>
-                <a uk-icon="facebook" target="blank" href="https://facebook.com/Useshukran-108863154184686"></a>
                 </p>
                 
             </div>
@@ -143,7 +142,7 @@ export default {
         let filtered = this.creators;
       if (this.search) {
         filtered = this.creators.filter(
-          m => m.username.toLowerCase().indexOf(this.search) > -1
+          m => m.username.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         );
       }
       return filtered;

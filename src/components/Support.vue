@@ -23,10 +23,10 @@
           <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
       </div>
     </div>        
-   </div>
+   </div> <br>
       <div class="uk-container">
          <div class="uk-container-expand" align="center" >
-      <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true" align="center">
+      <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
     <div class="uk-card-body">
         <h3 class="uk-card-title">Let {{username}} know you</h3>
         <p>You'll not have to fill your nickname, 

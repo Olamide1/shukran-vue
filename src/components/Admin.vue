@@ -30,10 +30,30 @@
     </div>
    </div>
 
+ <input type="text" v-model="search" placeholder="Search for a creator" class="uk-input">
+ <div class="uk-modal-body" v-if="search !== ''">
+     <div v-for="result in filteresults" :key="result.id">
+         <p>{{result.username}}</p>
+            <p>{{result.email}}</p>
+            <p> {{result.fullname}}</p>
+            <div class="uk-inline">
+                <button class="uk-button" type="button">
+                    info
+                </button>
+        <div uk-dropdown="mode: click">
+        <ul class="uk-nav uk-dropdown-nav" >
+     <li>Bank: {{result.bank}}</li>
+    <li>Account name: {{result.account_name}}</li>
+    <li>Account Number: {{result.account_number}}</li>
+    <li>Craft type: {{result.craft_type}}</li>
+    </ul>
+       </div>
+            </div>
+     </div>
+ </div>
 
 
-
-   <ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-fade">
+<ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-fade">
     <li><a href="#">Creators</a></li>
     <li><a href="#">Transactions</a></li>
     <li><a href="#">Withdrawal requests</a></li>
@@ -64,9 +84,10 @@
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
     <li>Craft type: {{user.craft_type}}</li>
+    <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
     </ul>
        </div>
-    <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
+    
                 </td>
         </tr>
     </tbody>
@@ -160,6 +181,7 @@ export default {
             requests: [],
             transactionVolume: 0,
             paid: 'Pay',
+            search: '',
             allfeedback: [],
             deleted: 'Delete'
         }
@@ -257,6 +279,17 @@ export default {
         this.loadTransactions()
         this.loadReceived()
         this.getFeedback()
+    }, 
+    computed: {
+        filteresults: function (params) {
+        let filtered = this.users;
+      if (this.search) {
+        filtered = this.users.filter(
+          m => m.username.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        );
+      }
+      return filtered;
+        }
     }
 }
 </script>
