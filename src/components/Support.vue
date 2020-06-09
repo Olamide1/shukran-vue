@@ -82,6 +82,7 @@ export default {
           tipbtn: 'Tip',
           field: '',
           content: '',
+          redirect: '',
           tweet: false,
           reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
           user_email: '',
@@ -97,6 +98,7 @@ export default {
                 this.field = res.data[0].craft_type
                 this.content = res.data[0].primary_link
                 this.user_email = res.data[0].email
+                this.redirect = res.data[0].redirect
             }).catch( err => {
                console.log(err)
                })
@@ -143,15 +145,18 @@ export default {
                      }).then(res => {
                         console.log('tipped')
                         this.tipbtn = 'Tip'
-                        this.$router.push('/thanks')
+                        var thanks = this.username + ' says Shukran!'
+                        alert(thanks)
+                        this.tweet = true
+                        if (this.redirect == ''){
+                           console.log('no redirect')
+                        } else {
+                           window.location = this.redirect;
+                        }
                         }).catch(err => {
                            this.tipbtn = 'Tip'
                            console.log(err)
                         })
-                        this.tipbtn = 'Tip'
-                        var thanks = this.username + ' says Shukran!'
-                        alert(thanks)
-                        this.tweet = true
                         console.log('success. transaction ref is ' + response.reference);
                      },
                onClose: function(){

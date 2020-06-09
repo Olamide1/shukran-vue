@@ -32,7 +32,7 @@
      
     </div>
     <div class="uk-card-footer"  align="center">
-        <a @click="loginbutton = false" class="uk-button-text">Sign up</a>
+        <a @click="loginbutton = false" class="uk-button-text">Sign up</a>| 
         <router-link to="/resetpassword">Reset Password</router-link>
     </div>
   </div>

@@ -71,9 +71,10 @@ export default {
                     this.issue = 'Username/Email incorrect!'
                 } else {
                     var id = res.data[0]._id
-                    axios.post('https://shukran-api.herokuapp.com/api/update', {
+                    console.log(id)
+                    axios.post('https://shukran-api.herokuapp.com/api/update/', {
                         id: id,
-                        password: password
+                        password: md5(password)
                     }).then( resp => {
                         this.reset = 'Reset'
                         this.issue = 'Password successfully reset, please login.'

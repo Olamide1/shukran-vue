@@ -105,6 +105,9 @@
        <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Approximate Audience Size(listeners, subs etc)" v-model="profile.audience_size">
        </div>
+       <div class="uk-margin"> 
+          <input type="text" class="uk-input" placeholder="Redirect link(Used when you want to give a product out after getting tipped)" v-model="profile.redirect">
+       </div>
   <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Primary Content Link(https://youtube.com/username)" v-model="profile.primary_link">
        </div>
@@ -176,12 +179,14 @@ export default {
       var craft_type = this.profiles[0].craft_type
       var audience_size = this.profiles[0].audience_size
       var primary_link = this.profiles[0].primary_link
+      var redirect = this.profiles[0].redirect
       this.savebtnThree = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         summary: summary,
         craft_type: craft_type,
         audience_size: audience_size,
         primary_link: primary_link,
+        redirect: redirect,
         id: id
       }).then(res => {
         console.log('updated')
