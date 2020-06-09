@@ -26,7 +26,7 @@
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey {{username}},</h2>
   <p class="show">Share this link to get tipped.</p>
-          <router-link :to="'/cr/' + username" class="uk-modal-close" target="_blank">https://useshukran.com/{{url}}</router-link>
+          <router-link :to="'/cr/' + username" class="uk-modal-close">https://useshukran.com/{{url}}</router-link>
     </div>
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
