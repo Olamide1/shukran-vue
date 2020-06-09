@@ -60,7 +60,7 @@
     <li><a href="#" style="color: #208cb7">Personal Info</a></li>
     <li><a href="#" style="color: #208cb7">Banking info</a></li>
     <li><a href="#" style="color: #208cb7">Brand Info</a></li>
-    <li><a href="#" style="color: #208cb7">Tweet about Shukran</a></li>
+    <li><a href="#" style="color: #208cb7">Add redirect link</a></li>
     </ul>
 
 <ul class="uk-switcher">
@@ -105,9 +105,7 @@
        <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Approximate Audience Size(listeners, subs etc)" v-model="profile.audience_size">
        </div>
-       <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Redirect link(Used when you want to give a product out after getting tipped)" v-model="profile.redirect">
-       </div>
+      
   <div class="uk-margin"> 
           <input type="text" class="uk-input" placeholder="Primary Content Link(https://youtube.com/username)" v-model="profile.primary_link">
        </div>
@@ -119,6 +117,13 @@
     </li>
 
     <li>
+      <p>This link let's people access certain content only after they have tipped you.
+        That means you do not have to sell anything completely free anymore.
+      </p>
+       <div class="uk-margin" v-for="(profile, index) in profiles" :key="index"> 
+          <input type="text" class="uk-input" placeholder="Redirect link(https://downloadmybook.com)" v-model="profile.redirect">
+       </div>
+       <button class="uk-button uk-button-default" @click="updateRef">{{savebtnFour}}</button>
       <div class="uk-margin">
         <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:
 &hashtags=saythanks,shukran" class="uk-button" target="blank">
@@ -146,6 +151,7 @@ export default {
      savebtnOne: 'Save',
      savebtnTwo: 'Save',
      savebtnThree: 'Save',
+     savebtnFour: 'Save',
      url: 'cr/' + sessionStorage.getItem('username'),
      comment: '',
      feed: 'Submit'
@@ -191,6 +197,20 @@ export default {
       }).then(res => {
         console.log('updated')
         this.savebtnThree = 'Saved!'
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    updateRef(){
+       var id = this.id
+       var redirect = this.profiles[0].redirect
+       this.savebtnFour = 'saving...'
+       axios.post('https://shukran-api.herokuapp.com/api/update/', {
+        redirect: redirect,
+        id: id
+      }).then(res => {
+        console.log('updated')
+        this.savebtnFour = 'Saved!'
       }).catch(err => {
         console.log(err)
       })

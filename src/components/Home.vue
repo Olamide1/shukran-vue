@@ -175,21 +175,4 @@ img {
      background-color: #ff6870 !important;
   color: #fceedd !important;
 }
-/*.uk-navbar, .uk-navbar-item, .lead {
-  background: transparent !important;
-  color: #208cb7 !important;
-}
-
-.uk-card, .uk-card-title {
-  background-color: #F4F4F4 !important;
-  color: #208cb7 !important;
-}
-.uk-button{
-  background-color: #208cb7 !important;
-  color: #ffffff;
-}
-.backy {
-     background-color: #F4F4F4 !important;
-  color: #208cb7 !important;
-} */
 </style>

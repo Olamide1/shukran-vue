@@ -141,8 +141,6 @@ export default {
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
-                        var thanks = username + ' says Shukran!'
-                        alert(thanks)
                         if (redirect == '') {
                            this.$router.push('/thanks')
                         } else {
