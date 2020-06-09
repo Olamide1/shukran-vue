@@ -79,6 +79,7 @@ export default {
           field: '',
           content: '',
           redirect: '',
+          userinfos: [],
           reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
           user_email: '',
           issue: ''
@@ -92,8 +93,7 @@ export default {
                 this.summary = res.data[0].summary
                 this.field = res.data[0].craft_type
                 this.content = res.data[0].primary_link
-                this.user_email = res.data[0].email
-                this.redirect = res.data[0].redirect
+                this.userinfos = res.data
             }).catch( err => {
                console.log(err)
                })
@@ -105,8 +105,8 @@ export default {
           var message = this.message
           var amount = this.amount
           var phone = this.phone
-          var redirect = this.redirect
-          var user_email = this.user_email
+          var user_email = this.userinfos[0].email
+          var redirect = this.userinfos[0].redirect
           if(email == '' || amount == '') {
              this.issue = 'Enter Email & Amount Please'
              this.tipbtn = "Tip"
@@ -141,16 +141,18 @@ export default {
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
-                     }).catch(err => {
-                        this.tipbtn = 'Tip'
-                        console.log(err)
-                     })
-                     this.tipbtn = 'Tip'
-                     if (redirect == ''){
-                        this.$router.push('/thanks')
-                     } else {
-                         window.location = redirect
-                     }
+                        var thanks = username + ' says Shukran!'
+                        alert(thanks)
+                        if (redirect == '') {
+                           this.$router.push('/thanks')
+                        } else {
+                           window.location = redirect
+                        }
+                        }).catch(err => {
+                           this.tipbtn = 'Tip'
+                           this.issue = err
+                           console.log(err)
+                        })
                      console.log('success. transaction ref is ' + response.reference);
                      },
                onClose: function(){
