@@ -7,6 +7,7 @@ import Home from '@/components/Home'
 import Support from '@/components/Support'
 import Thankyou from '@/components/Thankyou'
 import Admin from '@/components/Admin'
+import Reset from '@/components/Reset'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
       path: '/thanks',
       name: 'Thankyou',
       component: Thankyou
+    },
+    {
+      path: '/resetpassword',
+      name: 'Reset',
+      component: Reset
     }
   ]
 })
