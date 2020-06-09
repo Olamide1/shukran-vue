@@ -110,6 +110,7 @@ export default {
           var message = this.message
           var amount = this.amount
           var phone = this.phone
+          var redirect = this.redirect
           if(email == '' || amount == '') {
              this.issue = 'Enter Email & Amount Please'
              this.tipbtn = "Tip"
@@ -144,20 +145,20 @@ export default {
                      email: this.user_email
                      }).then(res => {
                         console.log('tipped')
+                     }).catch(err => {
                         this.tipbtn = 'Tip'
-                        var thanks = this.username + ' says Shukran!'
-                        alert(thanks)
-                        this.tweet = true
-                        if (this.redirect == ''){
-                           console.log('no redirect')
-                        } else {
-                           window.location = this.redirect;
-                        }
-                        }).catch(err => {
-                           this.tipbtn = 'Tip'
-                           console.log(err)
-                        })
-                        console.log('success. transaction ref is ' + response.reference);
+                        console.log(err)
+                     })
+                     this.tipbtn = 'Tip'
+                     var thanks = username + ' says Shukran!'
+                     alert(thanks)
+                     this.tweet = true
+                     if (redirect == ''){
+                        this.$router.push('/thanks')
+                     } else {
+                         window.location = redirect
+                     }
+                     console.log('success. transaction ref is ' + response.reference);
                      },
                onClose: function(){
                   alert('Payment action cancelled'); 
