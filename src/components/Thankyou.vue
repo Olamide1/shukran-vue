@@ -8,6 +8,9 @@
     </div>
             
 </div>
+
+   <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+tipped+someone+on+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:
+&hashtags=saythanks,shukran" class="uk-button">Tweet about Shukran</a>
         </div>
     </div>
 </template>

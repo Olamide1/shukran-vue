@@ -51,10 +51,6 @@
        <div class="uk-margin" v-if="parseInt(amount) >= 100">
           <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
        </div>
-       <div class="uk-margin" v-if="this.tweet == true">
-          <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+tipped+someone+on+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:
-&hashtags=saythanks,shukran" class="uk-button">Tweet</a>
-       </div>
     </div>
     <div>
         
@@ -83,7 +79,6 @@ export default {
           field: '',
           content: '',
           redirect: '',
-          tweet: false,
           reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
           user_email: '',
           issue: ''
@@ -111,6 +106,7 @@ export default {
           var amount = this.amount
           var phone = this.phone
           var redirect = this.redirect
+          var user_email = this.user_email
           if(email == '' || amount == '') {
              this.issue = 'Enter Email & Amount Please'
              this.tipbtn = "Tip"
@@ -142,7 +138,7 @@ export default {
                      amount: amount,
                      message: message,
                      status: 'received',
-                     email: this.user_email
+                     email: user_email
                      }).then(res => {
                         console.log('tipped')
                      }).catch(err => {
@@ -150,9 +146,6 @@ export default {
                         console.log(err)
                      })
                      this.tipbtn = 'Tip'
-                     var thanks = username + ' says Shukran!'
-                     alert(thanks)
-                     this.tweet = true
                      if (redirect == ''){
                         this.$router.push('/thanks')
                      } else {
