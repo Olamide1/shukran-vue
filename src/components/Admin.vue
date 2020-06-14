@@ -28,7 +28,13 @@
             <p>Tip volume.</p>
         </div>
     </div>
-   </div>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">&#x20a6;{{paidVolume}}</h3>
+            <p>Tips Paid Out.</p>
+        </div>
+    </div>
+   </div> <br>
 
  <input type="text" v-model="search" placeholder="Search for a creator" class="uk-input">
  <div class="uk-modal-body" v-if="search !== ''">
@@ -181,6 +187,7 @@ export default {
             requests: [],
             transactionVolume: 0,
             paid: 'Pay',
+            paidVolume: 0,
             search: '',
             allfeedback: [],
             deleted: 'Delete'
@@ -214,6 +221,21 @@ export default {
                 this.totalTransact = rec.length
                 for(var i = 0; i <= this.totalTransact; i++){
                     this.transactionVolume += parseInt(rec[i].amount);
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+        loadPaid(){
+            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
+                status: 'paid'
+            }).then( res => {
+                let rec = []
+                console.log('loaded received tips')
+                rec = res.data
+                var transaction = rec.length
+                for(var i = 0; i <= transaction; i++){
+                    this.paidVolume += parseInt(rec[i].amount);
                 }
             }).catch(err => {
                 console.log(err)
@@ -279,6 +301,7 @@ export default {
         this.loadTransactions()
         this.loadReceived()
         this.getFeedback()
+        this.loadPaid()
     }, 
     computed: {
         filteresults: function (params) {

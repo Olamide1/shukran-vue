@@ -118,7 +118,7 @@
 
     <li>
       <p>
-        Have exclusive content you want too share to only those that tip you? Fill in your link here.
+        Have exclusive content you want to share to only those that tip you? Fill in your link here.
         This link let's people access a certain content only after they have tipped you. 
         That means you don't have to sell anything completely free anymore.
       </p>

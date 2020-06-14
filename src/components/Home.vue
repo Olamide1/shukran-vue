@@ -24,11 +24,10 @@
     <div>
         <div class="uk-card uk-card-default uk-card-hover uk-card-body">
             <h3 class="uk-card-title">Creators</h3>
-            <p>Get support for your creative endeavors regardless of your audience.
-                Send a DM to get access to the Beta.
+            <p>Signup and get a unique link in your "Get tipped" menu 
+                that you can use to get support.
             </p>
-           <!-- <router-link class="uk-button" to="/accounts">Get started</router-link> -->
-           <a href="https://twitter.com/theakomolafe" target="blank" class="uk-button">Send a DM</a>
+           <router-link class="uk-button" to="/accounts">Get started</router-link> 
         </div>
     </div>
     <div>
