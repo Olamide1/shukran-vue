@@ -7,9 +7,9 @@
 
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-           <!-- <li>
+            <li>
                 <router-link to="/accounts" class="lead">Creators</router-link>
-            </li> -->
+            </li> 
             <li>
                 <a class="lead" href="#modal-sections" uk-toggle>Tip a creator</a>
             </li>
