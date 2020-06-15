@@ -106,7 +106,7 @@
           <input type="text" class="uk-input" placeholder="Approximate Audience Size(listeners, subs etc)" v-model="profile.audience_size">
        </div>
       
-  <div class="uk-margin"> 
+  <div class="uk-margin">
           <input type="text" class="uk-input" placeholder="Primary Content Link(https://youtube.com/username)" v-model="profile.primary_link">
        </div>
       <div class="uk-margin"> 
@@ -187,14 +187,14 @@ export default {
       var craft_type = this.profiles[0].craft_type
       var audience_size = this.profiles[0].audience_size
       var primary_link = this.profiles[0].primary_link
-      var redirect = this.profiles[0].redirect
+      if (primary_link.substring(0, 7) !== 'https://')
+        primary_link = 'http://' + primary_link;
       this.savebtnThree = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         summary: summary,
         craft_type: craft_type,
         audience_size: audience_size,
         primary_link: primary_link,
-        redirect: redirect,
         id: id
       }).then(res => {
         console.log('updated')
@@ -206,6 +206,8 @@ export default {
     updateRef(){
        var id = this.id
        var redirect = this.profiles[0].redirect
+       if (redirect.substring(0, 7) !== 'https://')
+        redirect = 'https://' + redirect;
        this.savebtnFour = 'saving...'
        axios.post('https://shukran-api.herokuapp.com/api/update/', {
         redirect: redirect,
