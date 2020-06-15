@@ -24,7 +24,7 @@
     <div>
         <div class="uk-card uk-card-default uk-card-hover uk-card-body">
             <h3 class="uk-card-title">Creators</h3>
-            <p>Signup and get a unique link in your "Get tipped" menu 
+            <p>Sign up and get a unique link in your "Get tipped" menu 
                 that you can use to get support.
             </p>
            <router-link class="uk-button" to="/accounts">Get started</router-link> 
