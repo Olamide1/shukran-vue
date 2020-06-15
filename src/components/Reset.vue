@@ -24,7 +24,7 @@
                      <div class="uk-margin">
                             <input class="uk-input" v-model="email" type="email" placeholder="Email">
                      </div>
-                     <div class="uk-margin">
+        <div class="uk-margin">
         <div class="uk-inline">
           <a class="uk-form-icon uk-form-icon-flip" href="#" uk-icon="icon: unlock" @click="switchVisibility"></a>
          <input class="uk-input uk-form uk-width-1-1" :type="passwordFieldType" v-model="password" placeholder="New Password">

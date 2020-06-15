@@ -60,8 +60,9 @@
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
+          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="signupPasswordIcon" @click="switchSignupVisibility"></a>
          <input class="uk-input uk-form uk-width-1-1" :type="signupPasswordFieldType" v-model="password" placeholder="Password">
-         <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="signupPasswordIcon" @click="switchSignupVisibility"></a>
+         
         </div>
       </div>
 
