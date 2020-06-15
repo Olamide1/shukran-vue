@@ -107,7 +107,7 @@
        </div>
       
   <div class="uk-margin">
-          <input type="text" class="uk-input" placeholder="Primary Content Link(https://youtube.com/username)" v-model="profile.primary_link">
+          <input type="text" class="uk-input" placeholder="Link to your content(https://youtube.com/username)" v-model="profile.primary_link">
        </div>
       <div class="uk-margin"> 
           <textarea class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
