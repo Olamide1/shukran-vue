@@ -188,7 +188,7 @@ export default {
       var audience_size = this.profiles[0].audience_size
       var primary_link = this.profiles[0].primary_link
       if (primary_link.substring(0, 7) !== 'https://')
-        primary_link = 'http://' + primary_link;
+        primary_link = 'https://' + primary_link;
       this.savebtnThree = 'saving...'
       axios.post('https://shukran-api.herokuapp.com/api/update/', {
         summary: summary,
