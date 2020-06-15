@@ -49,7 +49,7 @@
     </div>
 </div>
 <!--Feebdack area end -->
-    <li  @click="logout">Logout</li>
+    <li id="logout" @click="logout">Logout</li>
 </ul>    
     </div>
 </div>
@@ -296,7 +296,10 @@ color: #fceedd;
   background-color: #c63968 !important;
   color: #fceedd;
 }
-li#give-feedback, li#get-tipped {
+li#give-feedback, li#get-tipped, li#logout {
   cursor: pointer;
+}
+li#give-feedback:hover, li#get-tipped:hover, li#logout:hover {
+  text-decoration: underline;
 }
 </style>

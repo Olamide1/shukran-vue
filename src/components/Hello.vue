@@ -20,8 +20,8 @@
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-          <a class="uk-form-icon uk-form-icon-flip" href="#" uk-icon="icon: unlock" @click="switchVisibility"></a>
-         <input class="uk-input uk-form uk-width-1-1" v-model="password" :type="passwordFieldType" placeholder="Password">
+         <input class="uk-input uk-form uk-width-1-1" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
+         <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
         </div>
       </div>
 
@@ -32,7 +32,7 @@
      
     </div>
     <div class="uk-card-footer"  align="center">
-        <a @click="loginbutton = false" class="uk-button-text">Sign up</a>| 
+        <a @click="loginbutton = false" class="uk-button-text">Sign up</a> | 
         <router-link to="/resetpassword">Reset Password</router-link>
     </div>
   </div>
@@ -60,8 +60,8 @@
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-          <a class="uk-form-icon uk-form-icon-flip" href="#" uk-icon="icon: unlock" @click="switchVisibility"></a>
-         <input class="uk-input uk-form uk-width-1-1" :type="passwordFieldType" v-model="password" placeholder="Password">
+         <input class="uk-input uk-form uk-width-1-1" :type="signupPasswordFieldType" v-model="password" placeholder="Password">
+         <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="signupPasswordIcon" @click="switchSignupVisibility"></a>
         </div>
       </div>
 
@@ -96,7 +96,10 @@ export default {
       issue: '',
       email: '',
       reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-      passwordFieldType: 'password'
+      loginPasswordFieldType: 'password',
+      signupPasswordFieldType: 'password',
+      loginPasswordIcon: "icon: unlock",
+      signupPasswordIcon: "icon: unlock",
     }
   },
   methods: {
@@ -123,8 +126,13 @@ export default {
       })
       }
     },
-    switchVisibility() {
-      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
+    switchSignupVisibility() {
+      this.signupPasswordIcon = this.signupPasswordIcon === "icon: lock" ? "icon: unlock" : "icon: lock";
+      this.signupPasswordFieldType = this.signupPasswordFieldType === 'password' ? 'text' : 'password';
+    },
+    switchLoginVisibility() {
+      this.loginPasswordIcon = this.loginPasswordIcon === "icon: lock" ? "icon: unlock" : "icon: lock";
+      this.loginPasswordFieldType = this.loginPasswordFieldType === 'password' ? 'text' : 'password';
     },
     signup(){
       if (this.username == '' || this.fullname == '' || this.email == '' || this.password == '') {
