@@ -16,7 +16,7 @@
         </ul>
     </div>
 </nav>
-<img src="../assets/image.gif" height="150px" alt="Home" uk-img>
+<img src="../assets/image.gif" height="150px" alt="Home" uk-img>    
 
 <div class="uk-section uk-section-default">
     <div class="uk-container uk-container-small">
