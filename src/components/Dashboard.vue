@@ -20,7 +20,7 @@
         <h3>Shukran</h3>
 <ul class="uk-list uk-list-divider">
   <li><router-link to="/dash">Home</router-link></li>
-    <li href="#modal-center" uk-toggle>Get tipped</li>
+    <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
     <div id="modal-center" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto" uk-overflow-auto>
 
@@ -34,7 +34,7 @@
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
 <!--Feedback area start -->
-    <li uk-toggle="target: #my-id">Give feedback <a uk-icon="heart"></a></li>
+    <li id="give-feedback" uk-toggle="target: #my-id">Give feedback <a uk-icon="heart"></a></li>
     <div id="my-id" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <h2 class="uk-modal-title">{{username}}</h2>
@@ -295,5 +295,8 @@ color: #fceedd;
 .uk-button{
   background-color: #c63968 !important;
   color: #fceedd;
+}
+li#give-feedback, li#get-tipped {
+  cursor: pointer;
 }
 </style>
