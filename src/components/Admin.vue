@@ -30,17 +30,18 @@
     </div>
     <div>
         <div class="uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">{{requested}}</h3>
+            <p>Payout requests.</p>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
             <h3 class="uk-card-title">&#x20a6;{{paidVolume}}</h3>
             <p>Tips Paid Out.</p>
         </div>
     </div>
 
-    <div>
-        <div class="uk-card uk-card-default uk-card-body">
-            <h3 class="uk-card-title">&#x20a6;{{requested}}</h3>
-            <p>Payout requests.</p>
-        </div>
-    </div>
+    
    </div> <br>
 
  <input type="text" v-model="search" placeholder="Search for a creator" class="uk-input">

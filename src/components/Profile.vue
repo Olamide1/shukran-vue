@@ -100,12 +100,11 @@
     </li>
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
-        <p>Please fill all & remember to tap save as soon as you're done filling a section.</p>
        <div class="uk-margin"> 
           <input type="text" data-uk-tooltip title="What do your content consumers know you for? You can fill as many as possible and seperate them with a comma." class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)" v-model="profile.craft_type">
        </div>
        <div class="uk-margin"> 
-          <input type="text" data-uk-tooltip title="The approximate number of followers + listeners + subscribers (It does not have to be 100% accurate, we'll take 80%)?" class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)" v-model="profile.audience_size">
+          <input type="text" data-uk-tooltip title="The approximate number of followers + listeners + subscribers (It does not have to be 100% accurate, we'll take 80%)" class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)" v-model="profile.audience_size">
        </div>
       
   <div class="uk-margin">
