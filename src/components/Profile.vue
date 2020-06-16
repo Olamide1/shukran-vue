@@ -84,7 +84,6 @@
     </li>
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
-        <p>Please fill all & remember to tap save as soon as you're done filling a section.</p>
        <div class="uk-margin"> 
           <input type="text" data-uk-tooltip title="What Nigerian bank do you wanna receive your payouts?" class="uk-input" placeholder="Bank (e.g GTBank etc)" v-model="profile.bank">
        </div>
