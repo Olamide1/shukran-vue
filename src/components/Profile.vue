@@ -84,6 +84,7 @@
     </li>
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
+        <p>Please fill all & remember to tap save as soon as you're done filling a section.</p>
        <div class="uk-margin"> 
           <input type="text" data-uk-tooltip title="What Nigerian bank do you wanna receive your payouts?" class="uk-input" placeholder="Bank (e.g GTBank etc)" v-model="profile.bank">
        </div>
@@ -99,6 +100,7 @@
     </li>
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
+        <p>Please fill all & remember to tap save as soon as you're done filling a section.</p>
        <div class="uk-margin"> 
           <input type="text" data-uk-tooltip title="What do your content consumers know you for? You can fill as many as possible and seperate them with a comma." class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)" v-model="profile.craft_type">
        </div>
@@ -111,7 +113,7 @@
           class="uk-input" placeholder="Link to your content e.g. (https://youtube.com/username)" v-model="profile.primary_link">
        </div>
       <div class="uk-margin"> 
-          <textarea data-uk-tooltip title="Say something nice, witty, sweet etc, to your supporters." class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
+          <textarea data-uk-tooltip title="Say something nice, witty, sweet etc, to get people to relate and tip you." class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
        </div>
         <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
     </div>
