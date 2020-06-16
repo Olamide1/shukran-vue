@@ -85,14 +85,14 @@
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Bank (e.g GTBank etc)" v-model="profile.bank">
+          <input type="text" data-uk-tooltip title="What Nigerian bank do you wanna receive your payouts?" class="uk-input" placeholder="Bank (e.g GTBank etc)" v-model="profile.bank">
        </div>
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Account Name" v-model="profile.account_name">
+          <input type="text" class="uk-input" data-uk-tooltip title="For confirmation of your account number" placeholder="Account Name" v-model="profile.account_name">
        </div>
 
       <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Account Number" v-model="profile.account_number">
+          <input type="text" data-uk-tooltip title="Your actual account number so we can pay you" class="uk-input" placeholder="Account Number" v-model="profile.account_number">
        </div>
         <button class="uk-button uk-button-default" @click="bankUpdate">{{savebtnTwo}}</button>
     </div>
@@ -100,17 +100,17 @@
     <li>
       <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)" v-model="profile.craft_type">
+          <input type="text" data-uk-tooltip title="What do your content consumers know you for? Anything else you'll love them to know you for?" class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)" v-model="profile.craft_type">
        </div>
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" placeholder="Approximate Audience Size(listeners, subs etc)" v-model="profile.audience_size">
+          <input type="text" data-uk-tooltip title="Your number of followers + listeners + subscribers?" class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)" v-model="profile.audience_size">
        </div>
       
   <div class="uk-margin">
-          <input type="text" class="uk-input" placeholder="Link to your content(https://youtube.com/username)" v-model="profile.primary_link">
+          <input type="text" data-uk-tooltip title="What platforms do you publish your content in?" class="uk-input" placeholder="Link to your content e.g. (https://youtube.com/username)" v-model="profile.primary_link">
        </div>
       <div class="uk-margin"> 
-          <textarea class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
+          <textarea data-uk-tooltip title="So someone tips you, what do you wanna say?" class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
        </div>
         <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
     </div>
@@ -123,7 +123,7 @@
         That means you don't have to sell anything completely free anymore.
       </p>
        <div class="uk-margin" v-for="(profile, index) in profiles" :key="index"> 
-          <input type="text" class="uk-input" placeholder="Redirect link(https://downloadmybook.com)" v-model="profile.redirect">
+          <input type="text" class="uk-input" placeholder="Redirect link (https://downloadmybook.com)" v-model="profile.redirect">
        </div>
        <button class="uk-button uk-button-default" @click="updateRef">{{savebtnFour}}</button>
       <div class="uk-margin">
