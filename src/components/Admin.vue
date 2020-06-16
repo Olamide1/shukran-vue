@@ -34,6 +34,13 @@
             <p>Tips Paid Out.</p>
         </div>
     </div>
+
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">&#x20a6;{{requested}}</h3>
+            <p>Payout requests.</p>
+        </div>
+    </div>
    </div> <br>
 
  <input type="text" v-model="search" placeholder="Search for a creator" class="uk-input">
@@ -188,6 +195,7 @@ export default {
             transactionVolume: 0,
             paid: 'Pay',
             paidVolume: 0,
+            requested: 0,
             search: '',
             allfeedback: [],
             deleted: 'Delete'
@@ -247,6 +255,7 @@ export default {
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
                 this.requests = resp.data
+                this.requested = resp.data.length
             }).catch( err => {
                 console.log(err)
             })
