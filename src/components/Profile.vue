@@ -103,7 +103,7 @@
           <input type="text" data-uk-tooltip title="What do your content consumers know you for? Anything else you'll love them to know you for?" class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)" v-model="profile.craft_type">
        </div>
        <div class="uk-margin"> 
-          <input type="text" data-uk-tooltip title="The approximate number of followers + listeners + subscribers(It does not have to be perfect)?" class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)" v-model="profile.audience_size">
+          <input type="text" data-uk-tooltip title="The approximate number of followers + listeners + subscribers (It does not have to be 100% accurate, we'll take 80%)?" class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)" v-model="profile.audience_size">
        </div>
       
   <div class="uk-margin">
