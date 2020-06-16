@@ -77,9 +77,12 @@
             <span v-if="amount > (tipTotal - tipWithdrawn)">
               Available balance insufficient.
             </span>
+            <span v-if="amount < 500">
+                Withdrawal requests cannot be less than &#x20a6;500
+            </span>
           </div>
           <div class="uk-margin">
-            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) & amount != 0" @click="withdrawRequest()">{{request}}</button>
+            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) & amount != 0 & amount > 500" @click="withdrawRequest()">{{request}}</button>
           </div>
     </div>
 </div>
