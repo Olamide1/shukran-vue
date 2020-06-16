@@ -88,7 +88,7 @@
           <input type="text" data-uk-tooltip title="What Nigerian bank do you wanna receive your payouts?" class="uk-input" placeholder="Bank (e.g GTBank etc)" v-model="profile.bank">
        </div>
        <div class="uk-margin"> 
-          <input type="text" class="uk-input" data-uk-tooltip title="For confirmation of your account number" placeholder="Account Name" v-model="profile.account_name">
+          <input type="text" class="uk-input" data-uk-tooltip title="This is for us to vet that we are paying out the correct person." placeholder="Account Name" v-model="profile.account_name">
        </div>
 
       <div class="uk-margin"> 
@@ -103,14 +103,15 @@
           <input type="text" data-uk-tooltip title="What do your content consumers know you for? Anything else you'll love them to know you for?" class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)" v-model="profile.craft_type">
        </div>
        <div class="uk-margin"> 
-          <input type="text" data-uk-tooltip title="Your number of followers + listeners + subscribers?" class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)" v-model="profile.audience_size">
+          <input type="text" data-uk-tooltip title="The approximate number of followers + listeners + subscribers(It does not have to be perfect)?" class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)" v-model="profile.audience_size">
        </div>
       
   <div class="uk-margin">
-          <input type="text" data-uk-tooltip title="What platforms do you publish your content in?" class="uk-input" placeholder="Link to your content e.g. (https://youtube.com/username)" v-model="profile.primary_link">
+          <input type="text" data-uk-tooltip title="This link can be your disha, website or podcast link, It is for outsiders to find your content and learn about you" 
+          class="uk-input" placeholder="Link to your content e.g. (https://youtube.com/username)" v-model="profile.primary_link">
        </div>
       <div class="uk-margin"> 
-          <textarea data-uk-tooltip title="So someone tips you, what do you wanna say?" class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
+          <textarea data-uk-tooltip title="Say something nice, witty, sweet etc, to your supporters." class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"></textarea>
        </div>
         <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
     </div>
