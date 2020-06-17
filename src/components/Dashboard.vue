@@ -28,7 +28,7 @@
   <h2 class="uk-modal-title">Hey <span class="capitalize">{{username}}</span>,</h2>
   <div class="uk-modal-body">
     <p class="show">Share this link to get tipped.</p>
-    <router-link :to="'/cr/' + username" class="uk-modal-close">https://useshukran.com/{{url}}</router-link>
+    <router-link :to="'/cr/' + encodeURIComponent(sessionStorage.getItem(username).trim())" class="uk-modal-close">https://useshukran.com/{{url}}</router-link>
     </div> 
     </div> 
 </div>
@@ -148,7 +148,7 @@ export default {
     return {
      username: sessionStorage.getItem('username'),
      transactions: [], 
-     url: 'cr/' + sessionStorage.getItem('username'),
+     url: 'cr/' + encodeURIComponent(sessionStorage.getItem("username").trim()),
      copied: '',
      amount: 0,
      tipTotal: 0,

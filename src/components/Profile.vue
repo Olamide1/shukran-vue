@@ -29,7 +29,7 @@
               <h2 class="uk-modal-title">Hey {{username}},</h2>
               <p class="show">Share this link to get tipped.</p>
               <router-link
-                :to="'/cr/' + username"
+                :to="'/cr/' + encodeURIComponent(username.trim())"
                 class="uk-modal-close"
               >https://useshukran.com/{{url}}</router-link>
             </div>
@@ -217,9 +217,8 @@
                     name="pic"
                     v-on:change="handlePictureUpload()"
                     data-uk-tooltip
-                    title="Could be your logo or anything you want" />
+                    title="Profile picture upload" />
                   <span uk-icon="icon: cloud-upload"></span>
-    <span class="uk-text-middle">Upload profile picture</span>
                 </div>
               </div>
 
@@ -270,7 +269,7 @@ export default {
       savebtnTwo: "Save",
       savebtnThree: "Save",
       savebtnFour: "Save",
-      url: "cr/" + sessionStorage.getItem("username"),
+      url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       comment: "",
       feed: "Submit",
       profile_picture: ''
