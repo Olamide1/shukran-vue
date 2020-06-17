@@ -18,7 +18,7 @@
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
        <h3>Support <br> {{username}}</h3>
        <div>
-          a (an) <i>{{field}}</i>. <br> 
+          a(n) <i>{{field}}</i>. <br> 
           <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
           <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
       </div>
