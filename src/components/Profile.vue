@@ -15,6 +15,14 @@
       <div class="uk-offcanvas-bar">
         <button class="uk-offcanvas-close" type="button" uk-close></button>
         <h3>Shukran</h3>
+         <div class="uk-width-auto" v-for="(profile, index) in profiles" :key="index" >
+                <img class="uk-border-circle" v-if="profile.picture_id != ''" :src="profile.picture_id" 
+                width="40" height="40">
+
+                <div v-else>
+                    Add upload image front end here.
+                </div>
+          </div>
         <ul class="uk-list uk-list-divider">
           <li>
             <router-link to="/dash">Home</router-link>

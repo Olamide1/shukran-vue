@@ -18,6 +18,10 @@
         <button class="uk-offcanvas-close" type="button" uk-close></button>
 
         <h3>Shukran</h3>
+         <div class="uk-width-auto" v-for="(profile, index) in profiles" :key="index">
+                <img class="uk-border-circle" :src="profile.picture_id" 
+                width="40" height="40">
+          </div>
 <ul class="uk-list uk-list-divider">
   <li><router-link to="/dash">Home</router-link></li>
     <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
@@ -153,6 +157,7 @@ export default {
      tipTotal: 0,
      tipWithdrawn: 0,
      withdrawals: [],
+     profiles: [],
      balance: 0,
      comment: '',
      feed: 'Submit',
@@ -235,13 +240,29 @@ export default {
       if (this.username == null) {
       this.$router.push('/accounts')
     }
-    }
+    },
+    getId() {
+      var username = this.username;
+      axios
+        .post("https://shukran-api.herokuapp.com/api/myprofile/", {
+          username: username
+        })
+        .then(res => {
+          this.id = res.data[0]._id
+          console.log("id");
+          this.profiles = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   },
   mounted() {
     this.loadTransactions();
     this.checkUser()
     this.loadWithdrawn()
     this.getBalance()
+    this.getId()
   }
 }
 </script>
