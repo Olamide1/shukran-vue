@@ -302,10 +302,10 @@ export default {
       var craft_type = this.profiles[0].craft_type;
       var audience_size = this.profiles[0].audience_size;
       var primary_link = this.profiles[0].primary_link;
-      if (primary_link.substring(0, 7) !== "https://")
+      if (primary_link.slice(0, 7) !== "https://"){
         primary_link = "https://" + primary_link;
-      else {
-        primary_link = this.profiles[0].primary_link
+      } else {
+        primary_link = primary_link
       }
       axios.post("https://shukran-api.herokuapp.com/api/update/", 
        {
@@ -315,7 +315,7 @@ export default {
           primary_link: primary_link,
           id: id
         }).then(res => {
-          console.log("updated");
+          console.log("updated");                             
           this.savebtnThree = "Saved!";
           setTimeout(() => { this.savebtnThree = "Save"; }, 3000)
         })
