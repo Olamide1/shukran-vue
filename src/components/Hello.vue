@@ -50,7 +50,7 @@
 
     <div class="uk-card-body uk-box-shadow-large uk-padding">
       <div class="uk-margin">
-        <input v-on:keyup.enter="signup" class="uk-input uk-form" data-uk-tooltip title="Basically your brand name. What name do name do your content consumers recognise you with?" v-model="username" type="text" placeholder="Username">
+        <input v-on:keyup.enter="signup" class="uk-input uk-form" data-uk-tooltip title="Basically your brand name. What name do name do your content consumers recognise you with, please no spaces" v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
          <input v-on:keyup.enter="signup" class="uk-input uk-form" data-uk-tooltip title="NG laws require us to have this so we can verify and pay to your account. No one else sees it so..." v-model="fullname" type="text" placeholder="Fullname">

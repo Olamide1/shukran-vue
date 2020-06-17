@@ -22,14 +22,13 @@
   <li><router-link to="/dash">Home</router-link></li>
     <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
     <div id="modal-center" class="uk-flex-top" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto" uk-overflow-auto>
-
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto"
+              uk-overflow-auto>
     <button class="uk-modal-close-default" type="button" uk-close></button>
   <h2 class="uk-modal-title">Hey <span class="capitalize">{{username}}</span>,</h2>
-  <div class="uk-modal-body">
     <p class="show">Share this link to get tipped.</p>
-    <router-link :to="'/cr/' + encodeURIComponent(sessionStorage.getItem(username).trim())" class="uk-modal-close">https://useshukran.com/{{url}}</router-link>
-    </div> 
+    <router-link :to="'/cr/' + username" class="uk-modal-close">https://useshukran.com/{{url}}</router-link>
+    
     </div> 
 </div>
     <li><router-link to="/profile">Profile</router-link></li>
@@ -55,7 +54,7 @@
 </div>
 <!-- Sidebar end -->
     <div class="uk-container">
-        <h3 class="h3">Hello, {{username}}</h3>
+        <h3 class="h3">Hello, <span class="capitalize">{{username}}</span></h3>
 
    <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
     <div>

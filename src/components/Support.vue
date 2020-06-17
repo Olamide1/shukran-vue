@@ -7,9 +7,9 @@
 
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-           <!-- <li>
+            <li>
                 <router-link to="/accounts" class="lead">Creators</router-link>
-            </li> -->
+            </li> 
             
         </ul>
     </div>
@@ -28,7 +28,7 @@
          <div class="uk-container-expand" align="center" >
       <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
     <div class="uk-card-body">
-        <h3 class="uk-card-title">Let {{username}} know you</h3>
+        <h3 class="uk-card-title">Let <span class="capitalize">{{username}}</span> know you</h3>
         <p>You'll not have to fill your nickname, 
            email address & phone number again for a faster tipping experience.</p>
        <div>
@@ -119,7 +119,7 @@ export default {
                email: email,
                amount: parseInt(amount) * 100,
                currency: "NGN",
-               channels: ['card', 'bank', 'ussd'],
+               channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
                metadata: {
                   custom_fields: [
                      {
@@ -186,6 +186,9 @@ export default {
    background-color: #fceedd;
    color: #ff6870;
 }
+.capitalize {
+    text-transform: capitalize;   
+  }
 .uk-button{
   background-color: #c63968 !important;
   color: #fceedd;

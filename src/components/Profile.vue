@@ -21,15 +21,13 @@
           </li>
           <li href="#modal-center" uk-toggle>Get tipped</li>
           <div id="modal-center" class="uk-flex-top" uk-modal>
-            <div
-              class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto"
-              uk-overflow-auto
-            >
+            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto"
+              uk-overflow-auto>
               <button class="uk-modal-close-default" type="button" uk-close></button>
               <h2 class="uk-modal-title">Hey {{username}},</h2>
               <p class="show">Share this link to get tipped.</p>
               <router-link
-                :to="'/cr/' + encodeURIComponent(username.trim())"
+                :to="'/cr/' + username"
                 class="uk-modal-close"
               >https://useshukran.com/{{url}}</router-link>
             </div>
@@ -44,7 +42,7 @@
           </li>
           <div id="my-id" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-              <h2 class="uk-modal-title">Hey, {{username}}</h2>
+              <h2 class="uk-modal-title">Hey, <span class="capitalize">{{username}}</span>,</h2>
               <p class="show">Show some love or raise an issue</p>
               <div class="uk-margin">
                 <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
@@ -166,8 +164,7 @@
               class="uk-card-body"
               v-for="(profile, index) in profiles"
               :key="index"
-              align="center"
-            >
+              align="center">
               <div class="uk-margin">
                 <input
                   type="text"
@@ -208,20 +205,6 @@
                   v-model="profile.summary"
                 ></textarea>
               </div>
-
-              <div class="uk-margin" uk-margin>
-                <div uk-form-custom="target: true" class="uk-placeholder uk-text-center">
-                  <input id="profile-picture"
-                    type="file"
-                    ref="file"
-                    name="pic"
-                    v-on:change="handlePictureUpload()"
-                    data-uk-tooltip
-                    title="Profile picture upload" />
-                  <span uk-icon="icon: cloud-upload"></span>
-                </div>
-              </div>
-
               <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
             </div>
           </li>
@@ -287,10 +270,9 @@ export default {
           username: username
         })
         .then(res => {
-          // this.id = res.data[0]._id
+          this.id = res.data[0]._id
           console.log("id");
           this.profiles = res.data;
-          console.log("res.data", res.data)
         })
         .catch(err => {
           console.log(err);
@@ -314,17 +296,18 @@ export default {
       var primary_link = this.profiles[0].primary_link;
       if (primary_link.substring(0, 7) !== "https://")
         primary_link = "https://" + primary_link;
-      axios
-        .post("https://shukran-api.herokuapp.com/api/update/", 
+      else {
+        primary_link = this.profiles[0].primary_link
+      }
+      axios.post("https://shukran-api.herokuapp.com/api/update/", 
        {
           summary: summary,
           craft_type: craft_type,
           audience_size: audience_size,
           primary_link: primary_link,
-          id: id,
-          picture_id:  this.$refs.file[0].files[0]
+          id: id
         }).then(res => {
-          console.log("updated", res);
+          console.log("updated");
           this.savebtnThree = "Saved!";
           setTimeout(() => { this.savebtnThree = "Save"; }, 3000)
         })
@@ -346,7 +329,7 @@ export default {
           id: id
         })
         .then(res => {
-          console.log("updated", res);
+          console.log("updated");
           this.savebtnFour = "Saved!";
           setTimeout(() => { this.savebtnFour = "Save"; }, 3000)
         })
@@ -387,7 +370,7 @@ export default {
           account_number: account_number
         })
         .then(res => {
-          console.log("updated", res);
+          console.log("updated");
           this.savebtnTwo = "Saved!";
           setTimeout(() => { this.savebtnTwo = "Save"; }, 3000)
         })
@@ -413,7 +396,7 @@ export default {
           phone: phone
         })
         .then(res => {
-          console.log("updated", res);
+          console.log("updated");
           this.savebtnOne = "Saved!";
           setTimeout(() => { this.savebtnOne = "Save"; }, 3000)
         })
@@ -445,6 +428,9 @@ export default {
 .show {
   color: #c63968;
 }
+.capitalize {
+    text-transform: capitalize;   
+  }
 .uk-container-expand {
   background-color: transparent;
   color: #ebebe7 !important;
