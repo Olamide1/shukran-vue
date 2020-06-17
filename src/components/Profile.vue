@@ -142,7 +142,7 @@
                   type="text"
                   class="uk-input"
                   data-uk-tooltip
-                  title="For confirmation of your account number"
+                  title="This is for us to vet that we are paying out the correct person."
                   placeholder="Account Name"
                   v-model="profile.account_name"
                 />
@@ -172,7 +172,7 @@
                 <input
                   type="text"
                   data-uk-tooltip
-                  title="What do your content consumers know you for? Anything else you'll love them to know you for?"
+                  title="What do your content consumers know you for? You can fill as many as possible and seperate them with a comma."
                   class="uk-input"
                   placeholder="What Do You Do? (Podcaster, Videographer)"
                   v-model="profile.craft_type"
@@ -182,7 +182,7 @@
                 <input
                   type="text"
                   data-uk-tooltip
-                  title="Your number of followers + listeners + subscribers?"
+                  title="The approximate number of followers + listeners + subscribers (It does not have to be 100% accurate, we'll take 80%)"
                   class="uk-input"
                   placeholder="Approximate Audience Size (listeners, subs etc)"
                   v-model="profile.audience_size"
@@ -193,7 +193,7 @@
                 <input
                   type="text"
                   data-uk-tooltip
-                  title="What platforms do you publish your content in?"
+                  title="This link can be your disha, website or podcast link, It is for outsiders to find your content and learn about you"
                   class="uk-input"
                   placeholder="Link to your content e.g. (https://youtube.com/username)"
                   v-model="profile.primary_link"
@@ -202,7 +202,7 @@
               <div class="uk-margin">
                 <textarea
                   data-uk-tooltip
-                  title="So someone tips you, what do you wanna say?"
+                  title="Say something nice, witty, sweet etc., to get people to relate and tip you."
                   class="uk-textarea"
                   placeholder="Heartfelt Message To Audience"
                   v-model="profile.summary"

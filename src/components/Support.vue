@@ -114,9 +114,6 @@ export default {
              this.issue = "Please Enter Correct Email";
              this.tipbtn = "Tip"
           } else {
-             localStorage.setItem('shukran_email', email)
-             localStorage.setItem('shukran_nickname', supporter_nickname)
-             localStorage.setItem('shukran_phone', phone)
             var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
@@ -132,6 +129,9 @@ export default {
                      }
                      ]},
                callback: function(response){
+                  localStorage.setItem('shukran_email', email)
+                  localStorage.setItem('shukran_nickname', supporter_nickname)
+                  localStorage.setItem('shukran_phone', phone)
                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
