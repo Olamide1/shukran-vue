@@ -210,7 +210,7 @@
               </div>
 
               <div class="uk-margin" uk-margin>
-                <div uk-form-custom="target: true">
+                <div uk-form-custom="target: true" class="uk-placeholder uk-text-center">
                   <input id="profile-picture"
                     type="file"
                     ref="file"
@@ -218,12 +218,8 @@
                     v-on:change="handlePictureUpload()"
                     data-uk-tooltip
                     title="Could be your logo or anything you want" />
-                  <input
-                    class="uk-input uk-form-width-large"
-                    type="text"
-                    placeholder="Select profile picture"
-                    disabled
-                  />
+                  <span uk-icon="icon: cloud-upload"></span>
+    <span class="uk-text-middle">Upload profile picture</span>
                 </div>
               </div>
 
@@ -311,42 +307,24 @@ export default {
       this.file = this.$refs.file[0].files[0];
     },
     messageUpdate() {
-      /* var id = this.id;
+      this.savebtnThree = "saving...";
+      var id = this.id;
       var summary = this.profiles[0].summary;
       var craft_type = this.profiles[0].craft_type;
       var audience_size = this.profiles[0].audience_size;
       var primary_link = this.profiles[0].primary_link;
       if (primary_link.substring(0, 7) !== "https://")
-        primary_link = "https://" + primary_link; */
-      this.savebtnThree = "saving...";
-      let formData = new FormData()
-      formData.append('id', this.id)
-      formData.append('summary', this.profiles[0].summary)
-      formData.append('craft_type', this.profiles[0].craft_type)
-      formData.append('audience_size', this.profiles[0].audience_size)
-
-      let primary_link = this.profiles[0].primary_link;
-      if (primary_link.substring(0, 7) !== "https://") // needs optimization
         primary_link = "https://" + primary_link;
-      formData.append('primary_link', primary_link)
-      formData.append('pic', this.$refs.file[0].files[0])
       axios
         .post("https://shukran-api.herokuapp.com/api/update/", 
-        formData
-        /* {
+       {
           summary: summary,
           craft_type: craft_type,
           audience_size: audience_size,
           primary_link: primary_link,
           id: id,
-          profile_picture: new FormData().append('pic', this.$refs.file[0].files[0])
-        } */,
-        {
-          headers: {
-              'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then(res => {
+          picture_id:  this.$refs.file[0].files[0]
+        }).then(res => {
           console.log("updated", res);
           this.savebtnThree = "Saved!";
           setTimeout(() => { this.savebtnThree = "Save"; }, 3000)
