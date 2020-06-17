@@ -168,14 +168,14 @@ export default {
         username: username,
         status: 'received'
       }).then( res => {
-        this.transactions = res.data
-        for(var i = 0; i <= this.transactions.length; i++){
+        this.transactions = res.data;
+        for(var i = 0; i < this.transactions.length; i++) {
           this.tipTotal += parseInt(this.transactions[i].amount);
         }
       }).catch(err => {
-        console.log(err)
+        console.error(err)
       })
-      console.log(username)
+      // console.log(`hey ${username}`)
     },
     loadWithdrawn(){
       var username = this.username
@@ -183,8 +183,8 @@ export default {
         username: username,
         status: 'paid'
       }).then(res => {
-        this.withdrawals = res.data
-        for(var i = 0; i <= this.withdrawals.length; i++){
+        this.withdrawals = res.data;
+        for(var i = 0; i < this.withdrawals.length; i++) {
           this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
         }
       }).catch(err => {

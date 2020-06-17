@@ -115,7 +115,7 @@ export default {
         }).then( res => {
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
-            this.issue = 'Username or password incorrect..'
+            this.issue = 'Username or password incorrect...'
           } else {
             sessionStorage.setItem('username', this.username.toLowerCase().trim())
             sessionStorage.setItem('id', res.data[0]._id)
@@ -123,6 +123,8 @@ export default {
           }
         }).catch( err => {
           console.log(err)
+          this.loginbtn = 'Login'
+          this.issue = 'An error occured. Please try again.'
       })
       }
     },
