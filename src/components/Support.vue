@@ -142,7 +142,8 @@ export default {
                      }).then(res => {
                         console.log('tipped')
                         if (redirect == '') {
-                           this.$router.push('/thanks')
+                           var url = 'cr/' + this.username 
+                           this.$router.push(url);
                         } else {
                            window.location = redirect
                         }

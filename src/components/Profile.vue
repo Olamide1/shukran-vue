@@ -301,11 +301,10 @@ export default {
       var summary = this.profiles[0].summary;
       var craft_type = this.profiles[0].craft_type;
       var audience_size = this.profiles[0].audience_size;
-      var primary_link = this.profiles[0].primary_link;
-      if (primary_link.slice(0, 7) !== "https://"){
-        primary_link = "https://" + primary_link;
+      if (this.profiles[0].primary_link.slice(0, 7) !== "https://"){
+        var primary_link = "https://" + this.profiles[0].primary_link;
       } else {
-        primary_link = primary_link
+        var primary_link = this.profiles[0].primary_link
       }
       axios.post("https://shukran-api.herokuapp.com/api/update/", 
        {
@@ -327,9 +326,8 @@ export default {
     },
     updateRef() {
       var id = this.id;
-      var redirect = this.profiles[0].redirect;
-      if (redirect.substring(0, 7) !== "https://")
-        redirect = "https://" + redirect;
+      if (this.profiles[0].redirect.slice(0, 7) !== "https://")
+        var redirect = "https://" + this.profiles[0].redirect;
       this.savebtnFour = "saving...";
       axios
         .post("https://shukran-api.herokuapp.com/api/update/", {
