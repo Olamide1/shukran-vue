@@ -158,7 +158,7 @@
                 <input
                   type="text"
                   data-uk-tooltip
-                  title="Your actual account number so we can pay you"
+                  title="Your account number so we can pay you"
                   class="uk-input"
                   placeholder="Account Number"
                   v-model="profile.account_number"
@@ -211,7 +211,7 @@
                   class="uk-textarea"
                   placeholder="Heartfelt Message To Audience"
                   v-model="profile.summary"
-                ></textarea>
+                maxlength="150"></textarea>
               </div>
               <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
             </div>
