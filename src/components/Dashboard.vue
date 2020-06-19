@@ -20,8 +20,9 @@
         <h3>Shukran</h3>
           <!-- -->
             <div ref="file" id="image-background" class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            :data-src="`https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`" uk-img="target: #offcanvas-usage"> <!-- `https://drive.google.com/uc?id=${profile.picture_id}` -->
-        <div id="add-image" uk-form-custom="target: true">
+            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }"
+            uk-img="target: #offcanvas-usage">
+        <div uk-tooltip="Click to change your profile picture" id="add-image" uk-form-custom="target: true">
             <input type="file" @change="onFileChanged">
             <span uk-icon="icon: plus; ratio: 2"></span>
         </div>
@@ -236,9 +237,7 @@ export default {
           }
         })
         .then(res => {
-          console.log("updated", res.data);
           this.profiles[0].picture_id = res.data;
-          // console.log('this.$refs', this.$refs.file.attributes['data-src'])
         })
         .catch(error => {
           console.log("error occured", error);

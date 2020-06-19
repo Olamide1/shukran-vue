@@ -17,7 +17,7 @@
         <h3>Shukran</h3>
         <!-- -->
             <div ref="file" id="image-background" class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            :data-src="`https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`" uk-img> <!-- `https://drive.google.com/uc?id=${profile.picture_id}` -->
+            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }" uk-img>
         <div id="add-image" uk-form-custom="target: true">
             <input type="file" @change="onFileChanged">
             <span uk-icon="icon: plus; ratio: 2"></span>
@@ -389,7 +389,6 @@ export default {
         });
     },
     onFileChanged (event) {
-      // this.selectedFile = event.target.files[0]
       let formData = new FormData();
       formData.append('id', this.id)
       formData.append('pic', event.target.files[0])
@@ -401,9 +400,7 @@ export default {
           }
         })
         .then(res => {
-          console.log("updated", res.data);
           this.profiles[0].picture_id = res.data;
-          // console.log('this.$refs', this.$refs.file.attributes['data-src'])
         })
         .catch(error => {
           console.log("error occured", error);
