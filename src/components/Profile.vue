@@ -281,6 +281,9 @@ export default {
           this.id = res.data[0]._id
           console.log("id", res.data);
           this.profiles = res.data;
+          if (this.profiles[0].primary_link.slice(0,7) == 'https://'){
+            this.profiles[0].primary_link = this.profiles[0].primary_link
+          }
         })
         .catch(err => {
           console.log(err);
@@ -301,10 +304,13 @@ export default {
       var summary = this.profiles[0].summary;
       var craft_type = this.profiles[0].craft_type;
       var audience_size = this.profiles[0].audience_size;
-      if (this.profiles[0].primary_link.slice(0, 7) !== "https://"){
-        var primary_link = "https://" + this.profiles[0].primary_link;
+      var primary_link = this.profiles[0].primary_link
+      if (primary_link == '' || primary_link == undefined){
+        primary_link = ''
+      } else if(primary_link.slice(0, 7) !== "https://") {
+        primary_link = "https://" + this.profiles[0].primary_link;
       } else {
-        var primary_link = this.profiles[0].primary_link
+        console.log('issue')
       }
       axios.post("https://shukran-api.herokuapp.com/api/update/", 
        {
@@ -326,11 +332,11 @@ export default {
     },
     updateRef() {
       var id = this.id;
-      if (this.profiles[0].redirect.slice(0, 7) !== "https://")
-        var redirect = "https://" + this.profiles[0].redirect;
+      var redirect = this.profiles[0].redirect
+      if (redirect.slice(0, 7) !== "https://")
+          redirect = "https://" + this.profiles[0].redirect;
       this.savebtnFour = "saving...";
-      axios
-        .post("https://shukran-api.herokuapp.com/api/update/", {
+      axios.post("https://shukran-api.herokuapp.com/api/update/", {
           redirect: redirect,
           id: id
         })
