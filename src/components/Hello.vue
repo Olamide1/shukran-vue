@@ -119,6 +119,7 @@ export default {
           } else {
             sessionStorage.setItem('username', this.username.toLowerCase().trim())
             sessionStorage.setItem('id', res.data[0]._id)
+            sessionStorage.setItem('profile', JSON.stringify(res.data[0]))
             this.$router.push('/dash')
           }
         }).catch( err => {
@@ -165,6 +166,7 @@ export default {
                 console.log('registered')
                 sessionStorage.setItem('username', res.data.username)
                 sessionStorage.setItem('id', res.data._id)
+                sessionStorage.setItem('profile', JSON.stringify(res.data))
                 this.$router.push('/profile')
               }
             }).catch( error => {

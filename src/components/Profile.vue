@@ -15,19 +15,19 @@
       <div class="uk-offcanvas-bar">
         <button class="uk-offcanvas-close" type="button" uk-close></button>
         <h3>Shukran</h3>
-         <div class="uk-width-auto" v-for="(profile, index) in profiles" :key="index" >
-                <img class="uk-border-circle" v-if="profile.picture_id != ''" :src="profile.picture_id" 
-                width="40" height="40">
-
-                <div v-else>
-                    Add upload image front end here.
-                </div>
-          </div>
+        <!-- -->
+            <div ref="file" id="image-background" class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }" uk-img>
+        <div id="add-image" uk-form-custom="target: true">
+            <input type="file" @change="onFileChanged">
+            <span uk-icon="icon: plus; ratio: 2"></span>
+        </div>
+    </div>
         <ul class="uk-list uk-list-divider">
           <li>
             <router-link to="/dash">Home</router-link>
           </li>
-          <li href="#modal-center" uk-toggle>Get tipped</li>
+          <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
           <div id="modal-center" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto"
               uk-overflow-auto>
@@ -44,7 +44,7 @@
             <router-link to="/profile">Profile</router-link>
           </li>
           <!--Feedback area start -->
-          <li uk-toggle="target: #my-id">
+          <li id="give-feedback" uk-toggle="target: #my-id">
             Give feedback
             <a uk-icon="heart"></a>
           </li>
@@ -62,7 +62,7 @@
             </div>
           </div>
           <!--Feebdack area end -->
-          <li @click="logout">Logout</li>
+          <li id="logout" @click="logout">Logout</li>
         </ul>
       </div>
     </div>
@@ -255,7 +255,7 @@ export default {
     return {
       username: sessionStorage.getItem("username"),
       id: sessionStorage.getItem("id"),
-      profiles: [],
+      profiles: [JSON.parse(sessionStorage.getItem('profile'))],
       savebtnOne: "Save",
       savebtnTwo: "Save",
       savebtnThree: "Save",
@@ -279,7 +279,7 @@ export default {
         })
         .then(res => {
           this.id = res.data[0]._id
-          console.log("id");
+          console.log("id", res.data);
           this.profiles = res.data;
         })
         .catch(err => {
@@ -378,13 +378,31 @@ export default {
         .then(res => {
           console.log("updated");
           this.savebtnTwo = "Saved!";
-          setTimeout(() => { this.savebtnTwo = "Save"; }, 3000)
+          setTimeout(() => { this.savebtnTwo = "Save"; }, 5000)
         })
         .catch(error => {
           console.log("error occured", error);
           this.savebtnTwo = "Please try again!";
-          setTimeout(() => { this.savebtnTwo = "Save"; }, 3000)
+          setTimeout(() => { this.savebtnTwo = "Save"; }, 5000)
         });
+    },
+    onFileChanged (event) {
+      let formData = new FormData();
+      formData.append('id', this.id)
+      formData.append('pic', event.target.files[0])
+  console.log(event.target.files)
+      axios
+        .post("https://shukran-api.herokuapp.com/api/update/", formData, {
+          onUploadProgress: progressEvent => {
+            console.log(progressEvent.loaded / progressEvent.total)
+          }
+        })
+        .then(res => {
+          this.profiles[0].picture_id = res.data;
+        })
+        .catch(error => {
+          console.log("error occured", error);
+        })
     },
     personalInfo() {
       var id = this.id;
@@ -404,17 +422,17 @@ export default {
         .then(res => {
           console.log("updated");
           this.savebtnOne = "Saved!";
-          setTimeout(() => { this.savebtnOne = "Save"; }, 3000)
+          setTimeout(() => { this.savebtnOne = "Save"; }, 5000)
         })
         .catch(error => {
           console.log("error occured", error);
           this.savebtnOne = "Try again!";
-          setTimeout(() => { this.savebtnOne = "Save"; }, 3000)
+          setTimeout(() => { this.savebtnOne = "Save"; }, 5000)
         });
     }
   },
   mounted() {
-    this.getId();
+    this.getId(); /// shouldn't be...
     this.checkUser();
   }
 };
@@ -459,4 +477,24 @@ export default {
   background-color: #fceedd;
   color: #ff6870 !important;
 }
+li#give-feedback, li#get-tipped, li#logout {
+  cursor: pointer;
+}
+li#give-feedback:hover, li#get-tipped:hover, li#logout:hover {
+  text-decoration: underline;
+}
+#image-background {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+}
+#add-image {
+  opacity: 0;
+}
+
+#add-image:hover {
+  opacity: 1;
+}
+
+div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
 </style>

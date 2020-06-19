@@ -18,10 +18,16 @@
         <button class="uk-offcanvas-close" type="button" uk-close></button>
 
         <h3>Shukran</h3>
-         <div class="uk-width-auto" v-for="(profile, index) in profiles" :key="index">
-                <img class="uk-border-circle" :src="profile.picture_id" 
-                width="40" height="40">
-          </div>
+          <!-- -->
+            <div ref="file" id="image-background" class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }"
+            uk-img="target: #offcanvas-usage">
+        <div uk-tooltip="Click to change your profile picture" id="add-image" uk-form-custom="target: true">
+            <input type="file" @change="onFileChanged">
+            <span uk-icon="icon: plus; ratio: 2"></span>
+        </div>
+    </div>
+    <!-- -->
 <ul class="uk-list uk-list-divider">
   <li><router-link to="/dash">Home</router-link></li>
     <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
@@ -157,7 +163,7 @@ export default {
      tipTotal: 0,
      tipWithdrawn: 0,
      withdrawals: [],
-     profiles: [],
+     profiles: [JSON.parse(sessionStorage.getItem('profile'))],
      balance: 0,
      comment: '',
      feed: 'Submit',
@@ -218,6 +224,25 @@ export default {
         console.log(err)
       })
     },
+    onFileChanged (event) {
+      // this.selectedFile = event.target.files[0]
+      let formData = new FormData();
+      formData.append('id', this.id)
+      formData.append('pic', event.target.files[0])
+  console.log(event.target.files)
+      axios
+        .post("https://shukran-api.herokuapp.com/api/update/", formData, {
+          onUploadProgress: progressEvent => {
+            console.log(progressEvent.loaded / progressEvent.total)
+          }
+        })
+        .then(res => {
+          this.profiles[0].picture_id = res.data;
+        })
+        .catch(error => {
+          console.log("error occured", error);
+        })
+    },
     submitFeedback(){
       var username = this.username
       var comment = this.comment
@@ -258,11 +283,11 @@ export default {
     },
   },
   mounted() {
+    this.getId(); // shouldn't be
     this.loadTransactions();
-    this.checkUser()
-    this.loadWithdrawn()
-    this.getBalance()
-    this.getId()
+    this.checkUser();
+    this.loadWithdrawn();
+    this.getBalance();
   }
 }
 </script>
@@ -325,4 +350,18 @@ li#give-feedback, li#get-tipped, li#logout {
 li#give-feedback:hover, li#get-tipped:hover, li#logout:hover {
   text-decoration: underline;
 }
+#image-background {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+}
+#add-image {
+  opacity: 0;
+}
+
+#add-image:hover {
+  opacity: 1;
+}
+
+div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
 </style>
