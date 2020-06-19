@@ -39,8 +39,8 @@
        </div>
        </div>
        <div>
-          <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
-          <p style="color: #c63968;" v-if="parseInt(amount) < 100"> Please support this creator with at least &#x20a6;100 </p>
+          <input type="number" class="uk-input" placeholder="Amount" v-model="amount" @change="showTipNudge">
+          <p style="color: #c63968;"> {{tipNudge}} </p>
        </div>
        <div class="uk-margin">
           <textarea placeholder="Drop an encouraging message" class="uk-textarea" v-model="message"></textarea>
@@ -69,6 +69,7 @@ export default {
     data(){
        return {
           username: this.$route.params.username,
+          tipNudge: '',
           summary: '',
           message: '',
           nickname: '',
@@ -97,6 +98,12 @@ export default {
             }).catch( err => {
                console.log(err)
                })
+            },
+            showTipNudge() {
+               if (this.amount < 100) {
+                  this.tipNudge = 'Please support this creator with at least &#x20a6;100';
+               }
+               
             },
        save() {
           var email = this.email
