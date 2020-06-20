@@ -225,7 +225,7 @@
             </p>
             <div class="uk-margin" v-for="(profile, index) in profiles" :key="index">
               <input
-                type="text"
+                type="url"
                 class="uk-input"
                 placeholder="Redirect link (https://downloadmybook.com)"
                 v-model="profile.redirect"
