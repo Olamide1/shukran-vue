@@ -158,7 +158,7 @@
                 <input
                   type="text"
                   data-uk-tooltip
-                  title="Your actual account number so we can pay you"
+                  title="Your account number so we can pay you"
                   class="uk-input"
                   placeholder="Account Number"
                   v-model="profile.account_number"
@@ -211,7 +211,7 @@
                   class="uk-textarea"
                   placeholder="Heartfelt Message To Audience"
                   v-model="profile.summary"
-                ></textarea>
+                maxlength="150"></textarea>
               </div>
               <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
             </div>
@@ -281,6 +281,9 @@ export default {
           this.id = res.data[0]._id
           console.log("id", res.data);
           this.profiles = res.data;
+          if (this.profiles[0].primary_link.slice(0,7) == 'https://'){
+            this.profiles[0].primary_link = this.profiles[0].primary_link
+          }
         })
         .catch(err => {
           console.log(err);
@@ -301,11 +304,13 @@ export default {
       var summary = this.profiles[0].summary;
       var craft_type = this.profiles[0].craft_type;
       var audience_size = this.profiles[0].audience_size;
-      var primary_link = this.profiles[0].primary_link;
-      if (primary_link.slice(0, 7) !== "https://"){
-        primary_link = "https://" + primary_link;
+      var primary_link = this.profiles[0].primary_link
+      if (primary_link == '' || primary_link == undefined){
+        primary_link = ''
+      } else if(primary_link.slice(0, 7) !== "https://") {
+        primary_link = "https://" + this.profiles[0].primary_link;
       } else {
-        primary_link = primary_link
+        console.log('issue')
       }
       axios.post("https://shukran-api.herokuapp.com/api/update/", 
        {
@@ -327,12 +332,11 @@ export default {
     },
     updateRef() {
       var id = this.id;
-      var redirect = this.profiles[0].redirect;
-      if (redirect.substring(0, 7) !== "https://")
-        redirect = "https://" + redirect;
+      var redirect = this.profiles[0].redirect
+      if (redirect.slice(0, 7) !== "https://")
+          redirect = "https://" + this.profiles[0].redirect;
       this.savebtnFour = "saving...";
-      axios
-        .post("https://shukran-api.herokuapp.com/api/update/", {
+      axios.post("https://shukran-api.herokuapp.com/api/update/", {
           redirect: redirect,
           id: id
         })

@@ -14,8 +14,9 @@
         </ul>
     </div>
 </nav>
-   <div class="uk-flex uk-height-medium uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
-    <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default uk-card-body">
+   <div class="uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
+    <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@m uk-card uk-card-default uk-card-body">
+       <img :src="'https://drive.google.com/uc?export=view&id=' + image" class="uk-height-small uk-flex uk-flex-center" style="width: inherit; height: 250px;" alt="profile" uk-img>
        <h3>Support <br> {{username}}</h3>
        <div>
           a(n) <i>{{field}}</i>. <br> 
@@ -23,7 +24,7 @@
           <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
       </div>
     </div>        
-   </div> <br>
+   </div>
       <div class="uk-container">
          <div class="uk-container-expand" align="center" >
       <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
@@ -79,6 +80,7 @@ export default {
           tipbtn: 'Tip',
           field: '',
           content: '',
+          image: '',
           redirect: '',
           userinfos: [],
           reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
@@ -94,6 +96,7 @@ export default {
                 this.summary = res.data[0].summary
                 this.field = res.data[0].craft_type
                 this.content = res.data[0].primary_link
+                this.image = res.data[0].picture_id
                 this.userinfos = res.data
             }).catch( err => {
                console.log(err)
@@ -149,7 +152,8 @@ export default {
                      }).then(res => {
                         console.log('tipped')
                         if (redirect == '') {
-                           this.$router.push('/thanks')
+                           var url = 'cr/' + this.username 
+                           this.$router.push(url);
                         } else {
                            window.location = redirect
                         }
@@ -181,10 +185,7 @@ export default {
   background: transparent !important;
   color: #c63968 !important;
 }
-.uk-flex {
-   background-color: #fceedd;
-   color: #fceedd !important;
-}
+
 .uk-margin-auto{
   background-color: #fceedd !important;
   color: #ff6870;
