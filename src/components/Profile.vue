@@ -226,12 +226,14 @@
             <div class="uk-margin" v-for="(profile, index) in profiles" :key="index">
               <input
                 type="url"
+                data-uk-tooltip
+                title="Input a valid URL. https://downloadmystuff.com/link"
                 class="uk-input"
                 placeholder="Redirect link (https://downloadmybook.com)"
                 v-model="profile.redirect"
               />
             </div>
-            <button class="uk-button uk-button-default" @click="updateRef">{{savebtnFour}}</button>
+            <button id="link-btn" v-bind:disabled="checkURL" class="uk-button uk-button-default show-warning" @click="updateRef">{{savebtnFour}}</button>
             <div class="uk-margin">
               <a
                 href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:&hashtags=saythanks,shukran"
@@ -265,6 +267,11 @@ export default {
       feed: "Submit",
       profile_picture: ''
     };
+  },
+  computed: {
+    checkURL() { // modified regEx from https://regexr.com/39nr7
+      return !/(http(s)?):\/\/[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(this.profiles[0].redirect);
+    },
   },
   methods: {
     logout() {
@@ -333,8 +340,9 @@ export default {
     updateRef() {
       var id = this.id;
       var redirect = this.profiles[0].redirect
-      if (redirect.slice(0, 7) !== "https://")
-          redirect = "https://" + this.profiles[0].redirect;
+      /* if (redirect.slice(0, 7) !== "https://"){
+        redirect = "https://" + this.profiles[0].redirect;
+      } */
       this.savebtnFour = "saving...";
       axios.post("https://shukran-api.herokuapp.com/api/update/", {
           redirect: redirect,
@@ -503,4 +511,8 @@ li#give-feedback:hover, li#get-tipped:hover, li#logout:hover {
 }
 
 div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
+
+#link-btn:disabled {
+  cursor: not-allowed;
+}
 </style>
