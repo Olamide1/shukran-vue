@@ -20,7 +20,7 @@
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-         <input v-on:keyup.enter="login" data-uk-tooltip title="***** or NOT" class="uk-input uk-form uk-width-1-1" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
+         <input v-on:keyup.enter="login" data-uk-tooltip title="***** or NOT" class="uk-input uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
         </div>
       </div>
@@ -39,16 +39,16 @@
 
 
   <div v-else>
-    <div class="uk-card uk-card-default uk-width-1-2@m">
-       <div class="uk-card-header">
+    <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
+     <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-expand"  align="center">
-                <h3 class="uk-card-title uk-margin-remove-bottom">Signup</h3>
+                <h3 class="uk-card-title uk-margin-remove-bottom">Sign up</h3>
             </div>
         </div>
     </div>
 
-    <div class="uk-card-body uk-box-shadow-large uk-padding">
+    <div class="uk-card-body">
       <div class="uk-margin">
         <input v-on:keyup.enter="signup" class="uk-input uk-form" data-uk-tooltip title="Basically your brand name. What name do name do your content consumers recognise you with, please no spaces" v-model="username" type="text" placeholder="Username">
       </div>
@@ -60,7 +60,7 @@
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-         <input v-on:keyup.enter="signup" data-uk-tooltip title="Enter a memorable secure password" class="uk-input uk-form uk-width-1-1" :type="signupPasswordFieldType" v-model="password" placeholder="Password">
+         <input v-on:keyup.enter="signup" data-uk-tooltip title="Enter a memorable secure password" class="uk-input uk-form-width-large" :type="signupPasswordFieldType" v-model="password" placeholder="Password">
          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="signupPasswordIcon" @click="switchSignupVisibility"></a>
         </div>
       </div>
@@ -190,15 +190,14 @@ export default {
 }
 .uk-container{
   background-color: #ffffff !important;
-  color: #ee7155 !important;
+  color: #2f1a35 !important;
   height: 40rem !important;
 }
 .uk-card, .uk-card-title {
-  background-color: #fceedd !important;
-  color: #ff6870 !important;
+  color: #2f1a35 !important;
 }
 .uk-button{
-  background-color: #c63968 !important;
-  color: #fceedd;
+  background-color: #ff5976 !important;
+  color: #fff6fa;
 }
 </style>

@@ -17,27 +17,42 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        title: 'Homepage - Shukran'
+      }
     },
     {
       path: '/accounts',
       name: 'Hello',
-      component: Hello
+      component: Hello,
+      meta: {
+        title: 'Register - Shukran'
+      }
     },
     {
       path: '/dash',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        title: 'Dashboard - Shukran'
+      }
     },
     {
       path: '/boss',
       name: 'Admin',
-      component: Admin
+      component: Admin,
+      meta: {
+        title: 'Admin - Shukran'
+      }
     },
     {
       path: '/profile',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      meta: {
+        title: 'Profile - Shukran'
+      }
     },
     {
       path: '/cr/:username',
@@ -45,6 +60,7 @@ export default new Router({
       component: Support,
       meta: {
         reload: false,
+        title: 'User -'
       }
     },
     {
@@ -55,7 +71,10 @@ export default new Router({
     {
       path: '/resetpassword',
       name: 'Reset',
-      component: Reset
+      component: Reset,
+      meta: {
+        title: 'Reset - Shukran'
+      }
     }
   ]
 })
