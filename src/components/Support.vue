@@ -16,7 +16,7 @@
 </nav>
    <div class="uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
     <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@m uk-card uk-card-default uk-card-body">
-       <img :src="'https://drive.google.com/uc?export=view&id=' + image" class="uk-height-small uk-flex uk-flex-center" style="min-width: 80%; height: 250px;margin-left: auto;
+       <img :src="'https://drive.google.com/uc?export=view&id=' + image" class="uk-height-small uk-flex uk-flex-center uk-border-circle" style="min-width: 80%; height: 250px;margin-left: auto;
   margin-right: auto;display: block;" alt="profile" uk-img>
        <h3>Support <br> {{username}}</h3>
        <div>
