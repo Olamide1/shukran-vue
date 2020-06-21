@@ -153,7 +153,7 @@ export default {
                      }).then(res => {
                         console.log('tipped')
                         if (redirect == '') {
-                           var url = 'cr/' + this.username 
+                           var url = '/cr/' + this.username 
                            this.$router.push(url);
                         } else {
                            window.location = redirect
