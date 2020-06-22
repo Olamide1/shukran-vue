@@ -249,7 +249,7 @@
 </template>
 
 <script>
-// `https://drive.google.com/uc?id=${data.post.media[i]}`
+// `https://drive.google.com/uc?id=${data.post.m edia[i]}`
 import axios from "axios";
 export default {
   name: "profile",
