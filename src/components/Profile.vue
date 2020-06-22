@@ -288,9 +288,9 @@ export default {
           this.id = res.data[0]._id
           console.log("id", res.data);
           this.profiles = res.data;
-          if (this.profiles[0].primary_link.slice(0,7) == 'https://'){
+          /*if (this.profiles[0].primary_link.slice(0,7) == 'https://'){
             this.profiles[0].primary_link = this.profiles[0].primary_link
-          }
+          }*/
         })
         .catch(err => {
           console.log(err);
