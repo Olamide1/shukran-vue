@@ -288,9 +288,9 @@ export default {
           this.id = res.data[0]._id
           console.log("id", res.data);
           this.profiles = res.data;
-          if (this.profiles[0].primary_link.slice(0,7) == 'https://'){
+          /*if (this.profiles[0].primary_link.slice(0,7) == 'https://'){
             this.profiles[0].primary_link = this.profiles[0].primary_link
-          }
+          }*/
         })
         .catch(err => {
           console.log(err);
@@ -312,13 +312,13 @@ export default {
       var craft_type = this.profiles[0].craft_type;
       var audience_size = this.profiles[0].audience_size;
       var primary_link = this.profiles[0].primary_link
-      if (primary_link == '' || primary_link == undefined){
+      /*if (primary_link == '' || primary_link == undefined){
         primary_link = ''
       } else if(primary_link.slice(0, 7) !== "https://") {
         primary_link = "https://" + this.profiles[0].primary_link;
       } else {
         console.log('issue')
-      }
+      }*/
       axios.post("https://shukran-api.herokuapp.com/api/update/", 
        {
           summary: summary,
