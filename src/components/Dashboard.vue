@@ -79,19 +79,19 @@
           </div>
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-margin">
-          <h4>Available balance: &#x20a6;{{tipTotal - tipWithdrawn}}</h4>
+          <h4>Available balance: &#x20a6;{{availableBalance}}</h4>
         </div>
           <div class="uk-margin" align="center">
             <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
-            <span v-if="amount > (tipTotal - tipWithdrawn)">
-              Available balance insufficient.
+            <span v-if="amount > (availableBalance)">
+              Insufficient available balance.
             </span>
-            <span v-if="amount < 500">
-                Withdrawal requests cannot be less than &#x20a6;500
+            <span v-if="amount < 1000">
+                Withdrawal requests cannot be less than &#x20a6;1000
             </span>
           </div>
           <div class="uk-margin">
-            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) & amount != 0 & amount > 500" @click="withdrawRequest()">{{request}}</button>
+            <button class="uk-button" v-if= "amount < (availableBalance) && amount != 0" @click="withdrawRequest()">{{request}}</button>
           </div>
     </div>
 </div>
@@ -103,7 +103,7 @@
     </div>
     <div>
       <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-           <h3 class="uk-card-title">&#x20a6;{{tipTotal - tipWithdrawn}}</h3>
+           <h3 class="uk-card-title">&#x20a6;{{availableBalance}}</h3>
             <p>Available balance.</p>
       </div>
     </div>
@@ -169,6 +169,11 @@ export default {
      feed: 'Submit',
      request: 'Request'
     }
+  },
+  computed: {
+    availableBalance() {
+      return (this.tipTotal * 0.9) - this.tipWithdrawn > 1000 ? (this.tipTotal * 0.9) - this.tipWithdrawn : 0
+    },
   },
   methods: {
     logout() {
