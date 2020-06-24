@@ -6,158 +6,164 @@
       </div>
     </nav>
     <div class="uk-container-expand" align="center">
-
-      <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid v-if="loginbutton == true">
-    <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-        <img src="../assets/logo.png" alt="" uk-cover>
-        <canvas width="600" height="400"></canvas>
-    </div>
-    <div>
-        <div class="uk-card-body">
-            <div
-        class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding"
-        >
-        <div class="uk-card-header">
-          <div class="uk-grid-small uk-flex-middle" uk-grid>
-            <div class="uk-width-expand" align="center">
-              <h3 class="uk-card-title uk-margin-remove-bottom">Login</h3>
-            </div>
-          </div>
+      <div
+        class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin"
+        uk-grid
+        v-if="loginbutton == true"
+      >
+        <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+          <img src="../assets/logo.png" alt uk-cover />
+          <canvas width="600" height="400"></canvas>
         </div>
-        <div class="uk-card-body">
-          <div class="uk-margin">
-            <input
-              class="uk-input"
-              v-on:keyup.enter="login"
-              data-uk-tooltip
-              title="Your username, NOT email."
-              v-model="username"
-              type="text"
-              placeholder="Username"
-            />
-          </div>
-          <div class="uk-margin">
-            <div class="uk-inline">
-              <input
-                v-on:keyup.enter="login"
-                data-uk-tooltip
-                title="***** or NOT"
-                class="uk-input uk-form-width-large"
-                v-model="password"
-                :type="loginPasswordFieldType"
-                placeholder="Password"
-              />
-              <a
-                class="uk-form-icon uk-form-icon-flip"
-                href="#!"
-                v-bind:uk-icon="loginPasswordIcon"
-                @click="switchLoginVisibility"
-              ></a>
-            </div>
-          </div>
-
-          <div class="uk-margin">
-            <p>{{issue}}</p>
-            <button class="uk-button uk-button-default uk-width-1-1" @click="login">{{loginbtn}}</button>
-          </div>
-        </div>
-        <div class="uk-card-footer" align="center">
-          <a @click="loginbutton = false" class="uk-button-text">Sign up</a> |
-          <router-link to="/resetpassword">Reset Password</router-link>
-        </div>
-      </div>
-        </div>
-    </div>
-</div>
-      
-
-
-
-<div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid v-else>
-    <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-        <img src="../assets/logo.png" alt="" uk-cover>
-        <canvas width="300" height="auto"></canvas>
-    </div>
-    <div>
-        <div class="uk-card-body">
-            <div >
-        <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
-          <div class="uk-card-header">
-            <div class="uk-grid-small uk-flex-middle" uk-grid>
-              <div class="uk-width-expand" align="center">
-                <h3 class="uk-card-title uk-margin-remove-bottom">Sign up</h3>
-              </div>
-            </div>
-          </div>
-
+        <div>
           <div class="uk-card-body">
-            <div class="uk-margin">
-              <input
-                v-on:keyup.enter="signup"
-                class="uk-input uk-form"
-                data-uk-tooltip
-                title="Basically your brand name. What name do name do your content consumers recognise you with, please no spaces"
-                v-model="username"
-                type="text"
-                placeholder="Username"
-              />
-            </div>
-            <div class="uk-margin">
-              <input
-                v-on:keyup.enter="signup"
-                class="uk-input uk-form"
-                data-uk-tooltip
-                title="NG laws require us to have this so we can verify and pay to your account. No one else sees it so..."
-                v-model="fullname"
-                type="text"
-                placeholder="Fullname"
-              />
-            </div>
-            <div class="uk-margin">
-              <input
-                v-on:keyup.enter="signup"
-                class="uk-input uk-form"
-                data-uk-tooltip
-                title="That main email you open often"
-                v-model="email"
-                type="email"
-                placeholder="Email"
-              />
-            </div>
-            <div class="uk-margin">
-              <div class="uk-inline">
-                <input
-                  v-on:keyup.enter="signup"
-                  data-uk-tooltip
-                  title="Enter a memorable secure password"
-                  class="uk-input uk-form-width-large"
-                  :type="signupPasswordFieldType"
-                  v-model="password"
-                  placeholder="Password"
-                />
-                <a
-                  class="uk-form-icon uk-form-icon-flip"
-                  href="#!"
-                  v-bind:uk-icon="signupPasswordIcon"
-                  @click="switchSignupVisibility"
-                ></a>
+            <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
+              <div class="uk-card-header">
+                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                  <div class="uk-width-expand" align="center">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Login</h3>
+                  </div>
+                </div>
               </div>
-            </div>
+              <div class="uk-card-body">
+                <div class="uk-margin">
+                  <input
+                    class="uk-input"
+                    v-on:keyup.enter="login"
+                    data-uk-tooltip
+                    title="Your username, NOT email."
+                    v-model="username"
+                    type="text"
+                    placeholder="Username"
+                  />
+                </div>
+                <div class="uk-margin">
+                  <div class="uk-inline">
+                    <input
+                      v-on:keyup.enter="login"
+                      data-uk-tooltip
+                      title="***** or NOT"
+                      class="uk-input uk-form-width-large"
+                      v-model="password"
+                      :type="loginPasswordFieldType"
+                      placeholder="Password"
+                    />
+                    <a
+                      class="uk-form-icon uk-form-icon-flip"
+                      href="#!"
+                      v-bind:uk-icon="loginPasswordIcon"
+                      @click="switchLoginVisibility"
+                    ></a>
+                  </div>
+                </div>
 
-            <div class="uk-margin">
-              <p>{{issue}}</p>
-              <button class="uk-button uk-button-default uk-width-1-1" @click="signup">{{signupbtn}}</button>
-              <br />
-              <a @click="loginbutton = true" class="uk-button-text">Login</a>
+                <div class="uk-margin">
+                  <p>{{issue}}</p>
+                  <button
+                    class="uk-button uk-button-default uk-width-1-1"
+                    @click="login"
+                  >{{loginbtn}}</button>
+                </div>
+              </div>
+              <div class="uk-card-footer" align="center">
+                <a @click="loginbutton = false" class="uk-button-text">Sign up</a> |
+                <router-link to="/resetpassword">Reset Password</router-link>
+              </div>
             </div>
           </div>
         </div>
       </div>
-        </div>
-    </div>
-</div>
-      
 
+      <div
+        class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin"
+        uk-grid
+        v-else
+      >
+        <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+          <img src="../assets/logo.png" alt uk-cover />
+          <canvas width="300" height="auto"></canvas>
+        </div>
+        <div>
+          <div class="uk-card-body">
+            <div>
+              <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
+                <div class="uk-card-header">
+                  <div class="uk-grid-small uk-flex-middle" uk-grid>
+                    <div class="uk-width-expand" align="center">
+                      <h3 class="uk-card-title uk-margin-remove-bottom">Sign up</h3>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="uk-card-body">
+                  <div class="uk-margin">
+                    <input
+                      v-on:keyup.enter="signup"
+                      class="uk-input uk-form"
+                      data-uk-tooltip
+                      title="Basically your brand name. What name do name do your content consumers recognise you with, please no spaces"
+                      v-model="username"
+                      type="text"
+                      placeholder="Username"
+                    />
+                  </div>
+                  <div class="uk-margin">
+                    <input
+                      v-on:keyup.enter="signup"
+                      class="uk-input uk-form"
+                      data-uk-tooltip
+                      title="NG laws require us to have this so we can verify and pay to your account. No one else sees it so..."
+                      v-model="fullname"
+                      type="text"
+                      placeholder="Fullname"
+                    />
+                  </div>
+                  <div class="uk-margin">
+                    <input
+                      v-on:keyup.enter="signup"
+                      class="uk-input uk-form"
+                      data-uk-tooltip
+                      title="That main email you open often"
+                      v-model="email"
+                      type="email"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div class="uk-margin">
+                    <div class="uk-inline">
+                      <input
+                        v-on:keyup.enter="signup"
+                        data-uk-tooltip
+                        title="Enter a memorable secure password"
+                        class="uk-input uk-form-width-large"
+                        :type="signupPasswordFieldType"
+                        v-model="password"
+                        placeholder="Password"
+                      />
+                      <a
+                        class="uk-form-icon uk-form-icon-flip"
+                        href="#!"
+                        v-bind:uk-icon="signupPasswordIcon"
+                        @click="switchSignupVisibility"
+                      ></a>
+                    </div>
+                  </div>
+
+                  <div class="uk-margin">
+                    <p>{{issue}}</p>
+                    <button
+                      class="uk-button uk-button-default uk-width-1-1"
+                      @click="signup"
+                    >{{signupbtn}}</button>
+                    <br />
+                    <a @click="loginbutton = true" class="uk-button-text">Login</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
