@@ -12,7 +12,7 @@
         <div>
           <div class="uk-card uk-card-default uk-card-body">
             <h3 class="uk-card-title">Less than &#x20a6;1000</h3>
-            <p>Nah. You can't withdraw it, and we don't touch it.</p>
+            <p>Nah. You can't withdraw it. And we don't touch it.</p>
           </div>
         </div>
         <div>
@@ -55,10 +55,6 @@ body {
 .uk-card,
 .uk-card-title {
   color: #2f1a35 !important;
-}
-.uk-button {
-  background-color: #ff5976 !important;
-  color: #fff6fa;
 }
 
 .uk-grid {
