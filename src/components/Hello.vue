@@ -17,7 +17,7 @@
         </div>
         <div>
           <div class="uk-card-body">
-            <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
+            <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large">
               <div class="uk-card-header">
                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                   <div class="uk-width-expand" align="center">
@@ -86,7 +86,7 @@
         <div>
           <div class="uk-card-body">
             <div>
-              <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
+              <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large">
                 <div class="uk-card-header">
                   <div class="uk-grid-small uk-flex-middle" uk-grid>
                     <div class="uk-width-expand" align="center">
