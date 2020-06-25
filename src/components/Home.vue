@@ -97,6 +97,9 @@
                 </p>
             </div>
             <div>
+               <router-link to="/pricing">Pricing</router-link>
+            </div>
+            <div>
                 <p>© 2020 Placeholder Limited
                     <br>
                     Tips are processed by Paystack.
