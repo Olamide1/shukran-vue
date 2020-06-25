@@ -14,18 +14,43 @@
         </ul>
     </div>
 </nav>
-   <div class="uk-background-muted uk-margin uk-text-center" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">     
-    <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@m uk-card uk-card-default uk-card-body">
-       <img :src="'https://drive.google.com/uc?export=view&id=' + image" class="uk-height-small uk-flex uk-flex-center uk-border-circle" style="min-width: 80%; height: 250px;margin-left: auto;
-  margin-right: auto;display: block;" alt="profile" uk-img>
-       <h3>Support <br> {{username}}</h3>
-       <div>
-          a(n) <i>{{field}}</i>. <br> 
-          <i>Message from {{$route.params.username}}:</i> <br> {{summary}}
-          <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
-      </div>
-    </div>        
-   </div>
+
+<div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin show-desktop-only" uk-grid>
+    <div class="uk-card-media-left uk-cover-container">
+        <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="" uk-cover>
+        <canvas width="600" height="400"></canvas>
+    </div>
+    <div>
+        <div class="uk-card-body">
+            <h3 class="uk-card-title">{{username}}</h3>
+            <p>{{field}}</p>
+            <p>{{summary}}</p>
+            <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
+        </div>
+    </div>
+</div>
+
+   <!-- mobile view -->
+   <div class="uk-card uk-card-default uk-width-1-2@m show-mobile-only">
+    <div class="uk-card-header">
+        <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-auto">
+                <img class="almost-square" width="40" height="40" :src="'https://drive.google.com/uc?export=view&id=' + image">
+            </div>
+            <div class="uk-width-expand">
+                <h3 class="uk-card-title uk-margin-remove-bottom">Title</h3>
+                <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
+            </div>
+        </div>
+    </div>
+    <div class="uk-card-body">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+    </div>
+    <div class="uk-card-footer">
+       <a v-bind:href="''+content+''" target="blank" class="uk-button uk-button-text">Find my content here.</a>
+    </div>
+</div>
+   <!-- //mobile view -->
       <div class="uk-container">
          <div class="uk-container-expand" align="center" >
       <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
@@ -205,5 +230,20 @@ export default {
 h3 {
    color: #ff6870;
    font-size: 18px; 
+}
+.show-mobile-only {
+   display: none;
+}
+@media screen and (max-device-width: 415px) {
+   .show-mobile-only {
+      display: block;
+   }
+
+   .show-desktop-only {
+      display: none;
+   }
+}
+.almost-square {
+   border-radius: 10%;
 }
 </style>
