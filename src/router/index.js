@@ -8,6 +8,7 @@ import Support from '@/components/Support'
 import Thankyou from '@/components/Thankyou'
 import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
+import Pricing from '@/components/Pricing'
 
 Vue.use(Router)
 
@@ -28,6 +29,14 @@ export default new Router({
       component: Hello,
       meta: {
         title: 'Register - Shukran'
+      }
+    },
+    {
+      path: '/pricing',
+      name: 'Pricing',
+      component: Pricing,
+      meta: {
+        title: 'Pricing - Shukran'
       }
     },
     {
