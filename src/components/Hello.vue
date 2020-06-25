@@ -11,10 +11,10 @@
         uk-grid
         v-if="loginbutton == true"
       >
-        <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+       <!-- <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
           <img src="../assets/logo.png" alt uk-cover />
           <canvas width="600" height="400"></canvas>
-        </div>
+        </div> -->
         <div>
           <div class="uk-card-body">
             <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
@@ -79,10 +79,10 @@
         uk-grid
         v-else
       >
-        <div class="uk-flex-last@s uk-card-media-right uk-cover-container">
-          <img src="../assets/logo.png" alt uk-cover />
-          <canvas width="300" height="auto"></canvas>
-        </div>
+        <!--<div class="uk-flex-last@s uk-card-media-right uk-cover-container">
+        <img src="../assets/logo.png" alt uk-cover />
+        <canvas width="300" height="auto"></canvas>
+        </div>-->
         <div>
           <div class="uk-card-body">
             <div>
