@@ -6,24 +6,30 @@
       </div>
     </nav>
 
-    <section>
-        <h1 class="uk-heading-divider">How the money goes</h1>
-      <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
-        <div>
-          <div class="uk-card uk-card-default uk-card-body">
-            <h3 class="uk-card-title">Less than &#x20a6;1000</h3>
-            <p>Nah. You can't withdraw it. And we don't touch it.</p>
-          </div>
+   <div align="center">
+      <h1 class="uk-heading">Pricing</h1>
+      <div class="uk-card uk-card-default padding uk-width-1-2@m">
+    <div class="uk-card-header">
+        <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-width-expand">
+                <h3 class="uk-card-title uk-margin-remove-bottom">10% Flat fee for all payouts.</h3>
+            </div>
         </div>
-        <div>
-          <div class="uk-card uk-card-primary uk-card-body">
-            <h3 class="uk-card-title">Greater than &#x20a6;1000</h3>
-            <p>Yep. You can withdraw. But we take a 10% fee charge.</p>
-          </div>
-        </div>
-      </div>
-      <h1 class="uk-heading-line uk-text-center"><span>That's it</span></h1>
-    </section>
+    </div>
+    <div class="uk-card-body">
+        <ul>
+           This covers:
+          <li>Transaction fees for processing.</li>
+          <li>Full access to all features on Shukran.</li>
+        </ul>
+    </div>
+    <div class="uk-card-footer">
+        <router-link to="/accounts" class="uk-button uk-button-text">Continue</router-link>
+    </div>
+</div>
+   </div>
+
+  
   </div>
 </template>
 
@@ -50,13 +56,15 @@ body {
 }
 .uk-container {
   background-color: #ffffff !important;
-  color: #2f1a35 !important;
+  color: #c63968 !important;
 }
 .uk-card,
-.uk-card-title {
-  color: #2f1a35 !important;
+.uk-card-title, .uk-button-text {
+  color: #c63968 !important;
 }
-
+li {
+  display: inherit;
+}
 .uk-grid {
   flex-wrap: initial;
   justify-content: center;

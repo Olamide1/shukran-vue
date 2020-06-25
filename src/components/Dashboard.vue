@@ -70,12 +70,12 @@
     <div>
       <!-- Total tips start -->
         <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
-          <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Withdraw request</a>
+          <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Request payout</a>
 <!-- Withdraw request modal start -->
   <div id="modal-middle" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
  <div class="uk-modal-header">
-            <h4 class="uk-modal-title">Withdrawal request</h4>
+            <h4 class="uk-modal-title">Payout request</h4>
           </div>
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-margin">
@@ -87,7 +87,7 @@
               Insufficient available balance.
             </span>
             <span v-if="amount < 1000">
-                Withdrawal requests cannot be less than &#x20a6;1000
+                Payout requests cannot be less than &#x20a6;1000
             </span>
           </div>
           <div class="uk-margin">
