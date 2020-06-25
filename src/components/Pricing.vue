@@ -29,11 +29,7 @@
 
 <script>
 export default {
-  name: "pricing",
-  data() {
-    return {};
-  },
-  methods: {}
+  name: 'pricing'
 };
 </script>
 
