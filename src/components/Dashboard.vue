@@ -213,7 +213,7 @@ export default {
         username: username,
         amount: amount,
         status: status,
-        email: ''
+        email: this.profiles[0].email
       }).then( res => {
         console.log('done')
         this.request = 'Done'
