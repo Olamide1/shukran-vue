@@ -19,21 +19,21 @@
 
                 <div class="uk-card-body">
                      <div class="uk-margin">
-                            <input class="uk-input" v-model="username" type="text" placeholder="Username">
+                            <input class="uk-input uk-border-rounded uk-form" v-model="username" type="text" placeholder="Username">
                      </div>
                      <div class="uk-margin">
-                            <input class="uk-input" v-model="email" type="email" placeholder="Email">
+                            <input class="uk-input uk-border-rounded uk-form" v-model="email" type="email" placeholder="Email">
                      </div>
         <div class="uk-margin">
         <div class="uk-inline">
           <a class="uk-form-icon uk-form-icon-flip" href="#" uk-icon="icon: unlock" @click="switchVisibility"></a>
-         <input class="uk-input uk-form uk-width-1-1" :type="passwordFieldType" v-model="password" placeholder="New Password">
+         <input class="uk-input uk-border-rounded uk-form uk-form-width-large" :type="passwordFieldType" v-model="password" placeholder="New Password">
         </div>
       </div>
 
                      <div class="uk-margin">
                          <p>{{issue}}</p>
-                         <button class="uk-button uk-button-default uk-width-1-1" @click="resetMe">{{reset}}</button>
+                         <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="resetMe">{{reset}}</button>
                          <router-link to="/accounts">Login</router-link>
                      </div>
                 </div>
@@ -98,20 +98,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .uk-navbar, .uk-navbar-item, .lead {
-  background: transparent !important;
-  color: #c63968 !important;
+background: transparent !important;
+  color: #ffffff !important;
 }
 .uk-container{
-  background-color: #ffffff !important;
-  color: #ee7155 !important;
-  height: 40rem !important;
+  height: 110vh;
+  background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
 }
-.uk-card, .uk-card-title {
-  background-color: #fceedd !important;
-  color: #ff6870 !important;
+.uk-card {
+   border-radius: 5px;
+  min-width: 40% !important;
+}
+.uk-input {
+  border-width: 2px;
 }
 .uk-button{
-  background-color: #c63968 !important;
-  color: #fceedd;
+  background-color: #ff5976 !important;
+  color: #fff6fa;
 }
 </style>

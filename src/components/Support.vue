@@ -22,8 +22,8 @@
     </div>
     <div>
         <div class="uk-card-body">
-            <h3 class="uk-card-title">{{username}}</h3>
-            <p>{{field}}</p>
+            <h3 class="uk-card-title">Meet {{username}}</h3>
+            <p>a(n) {{field}}</p>
             <p>{{summary}}</p>
             <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
         </div>
@@ -38,18 +38,19 @@
                 <img class="almost-square" width="40" height="40" :src="'https://drive.google.com/uc?export=view&id=' + image">
             </div>
             <div class="uk-width-expand">
-                <h3 class="uk-card-title uk-margin-remove-bottom">Title</h3>
-                <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
+                <h3 class="uk-card-title uk-margin-remove-bottom">Meet {{username}}</h3>
+                <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">a(n) {{field}}</time></p>
             </div>
         </div>
     </div>
     <div class="uk-card-body">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        <p>{{summary}}</p>
     </div>
     <div class="uk-card-footer">
        <a v-bind:href="''+content+''" target="blank" class="uk-button uk-button-text">Find my content here.</a>
     </div>
 </div>
+<br>
    <!-- //mobile view -->
       <div class="uk-container">
          <div class="uk-container-expand" align="center" >
@@ -121,16 +122,23 @@ export default {
              }).then( res => {
                 this.summary = res.data[0].summary
                 this.field = res.data[0].craft_type
-                this.content = res.data[0].primary_link
+                this.content = this.getUrl(res.data[0].primary_link)
                 this.image = res.data[0].picture_id
                 this.userinfos = res.data
             }).catch( err => {
                console.log(err)
                })
             },
+         getUrl(link){
+          if (link == undefined) {
+             return 'localhost:8080/cr/' + this.username
+          } else {
+             return link
+          }
+         },
             showTipNudge() {
                if (this.amount < 100) {
-                  this.tipNudge = 'Please support this creator with at least &#x20a6;100';
+                  this.tipNudge = 'Please support this creator with at least 100 Naira';
                }
                
             },
@@ -177,9 +185,8 @@ export default {
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
-                        if (redirect == '') {
-                           var url = '/cr/' + this.username 
-                           this.$router.push(url);
+                        if (redirect == undefined) {
+                           this.$router.push('/thanks');
                         } else {
                            window.location = redirect
                         }

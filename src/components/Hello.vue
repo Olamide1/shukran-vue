@@ -26,10 +26,9 @@
       </div>
 
       <div class="uk-margin">
-         <p>{{issue}}</p>
+         <p style="color: #ff5976;">{{issue}}</p>
         <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="login">{{loginbtn}}</button>
       </div>
-     
     </div>
     <div class="uk-card-footer"  align="center">
         <a @click="loginbutton = false" class="uk-button-text">Sign Up</a> | 
@@ -38,8 +37,8 @@
   </div>
 
 
-  <div v-else class="">
-    <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding signup-card">
+  <div v-else>
+    <div class="uk-card uk-card-default fit uk-width-1-2@m uk-box-shadow-large uk-padding signup-card">
      <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-expand"  align="center">
@@ -66,12 +65,13 @@
       </div>
 
       <div class="uk-margin">
-          <p>{{issue}}</p>
+          <p style="color: #ff5976;">{{issue}}</p>
         <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="signup">{{signupbtn}}</button>
-        <br>
-           <a @click="loginbutton = true" class="uk-button-text">Login</a>
-         
+        <div class="uk-card-footer">
+        <a @click="loginbutton = true" class="uk-button-text">Login</a>
       </div>
+      </div>
+      
     </div>
 
     </div>
@@ -105,7 +105,7 @@ export default {
   methods: {
     login(){
       if (this.username == '' || this.password == '') {
-        this.issue = 'Please fill in the empty fields.'
+        this.issue = 'Please fill all fields.'
       } else {
         this.issue = ''
         this.loginbtn = 'loading...';
@@ -139,7 +139,7 @@ export default {
     },
     signup(){
       if (this.username == '' || this.fullname == '' || this.email == '' || this.password == '') {
-        this.issue = 'Please fill in the empty fields.'
+        this.issue = 'Please fill all fields.'
       } else if(!this.reg.test(this.email)){
         this.issue = "Enter correct email please."
       } else {
@@ -196,26 +196,38 @@ export default {
   color: #fff6fa;
 }
 
-.login-card, .signup-card {
+.login-card {
   border-radius: 5px;
+  min-width: 40% !important;
+}
+.signup-card {
+  border-radius: 5px;
+  height: 450px;
+  min-width: 40% !important;
 }
 
 @media (max-width:960px) {
   .fit {
-  width: 75%;
+  width: 70%;
 }
-
+.login-card {
+  border-radius: 5px;
+  min-width: 90% !important;
+}
 .uk-padding {
   padding: 10px;
 }
-
+.signup-card {
+  border-radius: 5px;
+  height: 450px;
+  min-width: 90% !important;
+}
 .uk-navbar-left {
   margin-left: 30px;
 }
 }
-
 .get-in {
-  height: 100vh;
+  height: 112vh;
   background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
 }
 
