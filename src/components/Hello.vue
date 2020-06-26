@@ -213,4 +213,8 @@ export default {
     width: calc(100% * 1 / 3.5001);
   }
 }
+
+.uk-input {
+  border-width: 2px;
+}
 </style>
