@@ -96,13 +96,20 @@ export default {
              }).then( res => {
                 this.summary = res.data[0].summary
                 this.field = res.data[0].craft_type
-                this.content = res.data[0].primary_link
+                this.content = this.getUrl(res.data[0].primary_link)
                 this.image = res.data[0].picture_id
                 this.userinfos = res.data
             }).catch( err => {
                console.log(err)
                })
             },
+            getUrl(link){
+          if (link == undefined) {
+             return 'localhost:8080/cr/' + this.username
+          } else {
+             return link
+          }
+         },
             showTipNudge() {
                if (this.amount < 100) {
                   this.tipNudge = 'Please support this creator with at least &#x20a6;100';
