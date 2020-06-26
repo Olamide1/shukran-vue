@@ -97,6 +97,11 @@
                 </p>
             </div>
             <div>
+                <p>Our pricing <br>
+               <router-link to="/pricing" class="pricing">Check pricing</router-link>
+               </p>
+            </div>
+            <div>
                 <p>© 2020 Placeholder Limited
                     <br>
                     Tips are processed by Paystack.
@@ -164,6 +169,9 @@ export default {
 .uk-button{
   background-color: #c63968 !important;
   color: #fceedd;
+}
+.pricing{
+    color: #fceedd !important;
 }
 img {
     max-width: 100%;

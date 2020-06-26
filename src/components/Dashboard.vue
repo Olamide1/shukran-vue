@@ -65,33 +65,40 @@
 <!-- Sidebar end -->
     <div class="uk-container">
         <h3 class="h3">Hello, <span class="capitalize">{{username}}</span></h3>
+    <div uk-alert>
+    <a class="uk-alert-close" uk-close></a>
+    <h3>Notice</h3>
+    <p>Hi {{username}}, our 10% charge will take effect on payout requests from hence forth.
+      Shukran!😊
+    </p>
+</div>
 
    <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
     <div>
       <!-- Total tips start -->
         <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
-          <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Withdraw request</a>
+          <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Request payout</a>
 <!-- Withdraw request modal start -->
   <div id="modal-middle" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
  <div class="uk-modal-header">
-            <h4 class="uk-modal-title">Withdrawal request</h4>
+            <h4 class="uk-modal-title">Payout request</h4>
           </div>
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-margin">
-          <h4>Available balance: &#x20a6;{{tipTotal - tipWithdrawn}}</h4>
+          <h4>Available balance: &#x20a6;{{availableBalance}}</h4>
         </div>
           <div class="uk-margin" align="center">
             <input type="number" class="uk-input" placeholder="Amount" v-model="amount">
-            <span v-if="amount > (tipTotal - tipWithdrawn)">
-              Available balance insufficient.
+            <span v-if="amount > (availableBalance)">
+              Insufficient available balance.
             </span>
-            <span v-if="amount < 500">
-                Withdrawal requests cannot be less than &#x20a6;500
+            <span v-if="amount < 1000">
+                Payout requests cannot be less than &#x20a6;1000
             </span>
           </div>
           <div class="uk-margin">
-            <button class="uk-button" v-if= "amount <= (tipTotal - tipWithdrawn) & amount != 0 & amount > 500" @click="withdrawRequest()">{{request}}</button>
+            <button class="uk-button" v-if= "amount < (availableBalance) && amount != 0" @click="withdrawRequest()">{{request}}</button>
           </div>
     </div>
 </div>
@@ -103,7 +110,7 @@
     </div>
     <div>
       <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-           <h3 class="uk-card-title">&#x20a6;{{tipTotal - tipWithdrawn}}</h3>
+           <h3 class="uk-card-title">&#x20a6;{{availableBalance}}</h3>
             <p>Available balance.</p>
       </div>
     </div>
@@ -170,6 +177,11 @@ export default {
      request: 'Request'
     }
   },
+  computed: {
+    availableBalance() {
+      return this.tipTotal - this.tipWithdrawn
+    },
+  },
   methods: {
     logout() {
         sessionStorage.clear()
@@ -218,7 +230,8 @@ export default {
         console.log('done')
         this.request = 'Done'
         UIkit.modal('#modal-middle').hide();
-        var thanks = 'Hi,' + this.username + ' your withdrawal request will be processed within the next 6 - 10 hours & sent to your account. Hang tight';
+        var thanks = 'Hi,' + this.username 
+        + ' your payout request will be processed within the next 6 - 10 hours & sent to your account with the 10% charge in effect. Hang tight';
         alert(thanks)
       }).catch( err => {
         console.log(err)
