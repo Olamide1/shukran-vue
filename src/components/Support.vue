@@ -152,9 +152,8 @@ export default {
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
-                        if (redirect == '') {
-                           var url = '/cr/' + this.username 
-                           this.$router.push(url);
+                         if (redirect == undefined) {
+                           this.$router.push('/thanks');
                         } else {
                            window.location = redirect
                         }
