@@ -5,7 +5,7 @@
      <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
     </div>
     </nav>
-    <div class="uk-container-expand" align="center">
+    <div class="uk-container-expand " align="center">
       <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding login-card" v-if="loginbutton == true">
     <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
@@ -38,7 +38,7 @@
   </div>
 
 
-  <div v-else>
+  <div v-else class="">
     <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding signup-card">
      <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
@@ -200,18 +200,33 @@ export default {
   border-radius: 5px;
 }
 
+@media (max-width:960px) {
+  .fit {
+  width: 75%;
+}
+
+.uk-padding {
+  padding: 10px;
+}
+
+.uk-navbar-left {
+  margin-left: 30px;
+}
+}
+
 .get-in {
   height: 100vh;
   background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
 }
-.uk-navbar-left {
-  margin-left: 50px;
-}
+
 
 @media (min-width:960px) {
   .fit {
     width: calc(100% * 1 / 3.5001);
   }
+  .uk-navbar-left {
+  margin-left: 50px;
+}
 }
 
 .uk-input {
