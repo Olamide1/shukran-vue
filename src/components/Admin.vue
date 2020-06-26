@@ -41,6 +41,13 @@
         </div>
     </div>
 
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">&#x20a6;{{netRevenue}}</h3>
+            <p>Revenue gotten.</p>
+        </div>
+    </div>
+
     
    </div> <br>
 
@@ -148,7 +155,7 @@
     <tbody>
         <tr v-for= "(request, index) in requests.slice().reverse()" :key="index">
             <td>{{request.username}}</td>
-            <td>{{request.amount}}</td>
+            <td>{{request.amount * 0.9}}</td> <!-- auto calculate how much you should pay out -->
             <td>{{request.status}}</td>
             <td>Transaction: {{request.transaction_date}}</td>
             <td><button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button></td>
@@ -195,6 +202,7 @@ export default {
             requests: [],
             transactionVolume: 0,
             paid: 'Pay',
+            netRevenue: 0,
             paidVolume: 0,
             requested: 0,
             search: '',
@@ -225,7 +233,7 @@ export default {
                 status: 'received'
             }).then( res => {
                 let rec = []
-                console.log('loaded received tips')
+                console.log('loaded received tips', res)
                 rec = res.data
                 this.totalTransact = rec.length
                 for(var i = 0; i <= this.totalTransact; i++){
@@ -244,7 +252,8 @@ export default {
                 rec = res.data
                 var transaction = rec.length
                 for(var i = 0; i <= transaction; i++){
-                    this.paidVolume += parseInt(rec[i].amount);
+                    this.paidVolume += parseInt(rec[i].amount) * 0.9;
+                    this.netRevenue += (parseInt(rec[i].amount) * 0.1) - 25; // ₦25 is transaction fee for transfer https://wallets.africa/faqs
                 }
             }).catch(err => {
                 console.log(err)
