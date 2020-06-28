@@ -16,18 +16,11 @@
 
         <ul class="uk-navbar-nav">
             <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
+            <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
             <li>
-                <a href="#">Parent</a>
-                <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="#">Active</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                    </ul>
-                </div>
+              <a><router-link to="/profile">Profile</router-link></a>
             </li>
             <li id="give-feedback" uk-toggle="target: #my-id">
-              
               <a>Give feedback</a>
             </li>
         </ul>
@@ -638,7 +631,9 @@ li.li-withdrawn:before {
 .progress .value {
   display: block;
   height: 100%;
-}/**good spot */
+}
+
+/**good spot */
 .desktop-nav {
   margin: 30px;
 border-radius: 5px;

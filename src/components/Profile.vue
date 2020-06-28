@@ -1,6 +1,6 @@
 <template>
   <div class="uk-container-expand">
-    <nav class="uk-navbar uk-navbar-container uk-margin">
+    <nav class="uk-navbar uk-navbar-container uk-margin mobile-nav">
       <div class="uk-navbar-left">
         <a class="uk-navbar-toggle" uk-toggle="target: #offcanvas-usage">
           <span uk-navbar-toggle-icon></span>
@@ -10,6 +10,39 @@
         <a class="uk-navbar-item uk-logo">Shukran</a>
       </div>
     </nav>
+
+    <nav class="uk-navbar-container desktop-nav" uk-navbar>
+    <div class="uk-navbar-left">
+
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
+            <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
+            <li>
+              <a><router-link to="/profile">Profile</router-link></a>
+            </li>
+            <li id="give-feedback" uk-toggle="target: #my-id">
+              <a>Give feedback</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="uk-navbar-right">
+
+        <ul class="uk-navbar-nav">
+            <li>
+              <a class="" href="#modal-middle" uk-toggle><button class="uk-button request-button uk-button-primary">Request payout</button></a>
+            </li>
+            <li>
+              <a href="#!">
+                <div class="uk-width-auto">
+                  <img class="uk-border-circle" width="40" height="40" :src="`https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`">
+                </div>
+              </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
     <div id="offcanvas-usage" uk-offcanvas>
       <div class="uk-offcanvas-bar">
@@ -514,5 +547,31 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
 
 #link-btn:disabled {
   cursor: not-allowed;
+}
+
+.request-button.uk-button-primary {
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
+
+.desktop-nav {
+  margin: 30px;
+border-radius: 5px;
+background: #edf4f0 !important;
+color: #111011 !important;
+}
+
+@media (min-width:960px) {
+  .mobile-nav{
+    display: none;
+  }
+  
+}
+
+@media (max-width:960px) {
+  .desktop-nav {
+    display: none;
+  }
+
 }
 </style>
