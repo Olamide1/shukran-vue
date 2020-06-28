@@ -324,7 +324,7 @@ export default {
           status: "received"
         })
         .then(res => {
-          console.log("loadTransactions done", res);
+          console.log("loadTransactions done");
           this.transactions = res.data;
           for (var i = 0; i < this.transactions.length; i++) {
             this.tipTotal += parseInt(this.transactions[i].amount);
@@ -353,7 +353,7 @@ export default {
           status: "paid"
         })
         .then(res => {
-          console.log("loadWithdrawn done", res);
+          console.log("loadWithdrawn done");
           this.withdrawals = res.data;
           for (var i = 0; i < this.withdrawals.length; i++) {
             this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
