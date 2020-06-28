@@ -68,8 +68,9 @@
     <div uk-alert>
     <a class="uk-alert-close" uk-close></a>
     <h3>Notice</h3>
-    <p>Hi {{username}}, our 10% charge will take effect on payout requests from hence forth.
-      Shukran!😊
+    <p>Hi {{username}}, our 10% charge will take effect on payout requests from hence forth, find the breakdown 
+      <router-link to="/pricing">here.</router-link> 
+      Shukran!😊 
     </p>
 </div>
 
