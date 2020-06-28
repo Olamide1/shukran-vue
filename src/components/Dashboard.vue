@@ -1,6 +1,6 @@
 <template>
   <div class="uk-container-expand">
-    <nav class="uk-navbar uk-navbar-container uk-margin">
+    <nav class="uk-navbar uk-navbar-container uk-margin mobile-nav">
       <div class="uk-navbar-left">
         <a class="uk-navbar-toggle" uk-toggle="target: #offcanvas-usage">
           <span uk-navbar-toggle-icon></span>
@@ -10,6 +10,46 @@
         <a class="uk-navbar-item uk-logo">Shukran</a>
       </div>
     </nav>
+
+    <nav class="uk-navbar-container desktop-nav" uk-navbar>
+    <div class="uk-navbar-left">
+
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
+            <li>
+                <a href="#">Parent</a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li id="give-feedback" uk-toggle="target: #my-id">
+              
+              <a>Give feedback</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="uk-navbar-right">
+
+        <ul class="uk-navbar-nav">
+            <li>
+              <a class="" href="#modal-middle" uk-toggle><button class="uk-button request-button uk-button-primary">Request payout</button></a>
+            </li>
+            <li>
+              <a href="#!">
+                <div class="uk-width-auto">
+                  <img class="uk-border-circle" width="40" height="40" :src="`https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`">
+                </div>
+              </a>
+            </li>
+        </ul>
+    </div>
+</nav>
     <div class="uk-section uk-section-muted">
       <!-- sidebar -->
       <div id="offcanvas-usage" uk-offcanvas>
@@ -489,6 +529,10 @@ export default {
   background-color: #c63968 !important;
   color: #fceedd;
 }
+.request-button.uk-button-primary {
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
 li#give-feedback,
 li#get-tipped,
 li#logout {
@@ -594,5 +638,24 @@ li.li-withdrawn:before {
 .progress .value {
   display: block;
   height: 100%;
+}/**good spot */
+.desktop-nav {
+  margin: 30px;
+border-radius: 5px;
+background: #edf4f0 !important;
+color: #111011 !important;
+}
+@media (min-width:960px) {
+  .mobile-nav, .uk-card-badge.uk-label[href] {
+    display: none;
+  }
+  
+}
+
+@media (max-width:960px) {
+  .desktop-nav, .request-button.uk-button-primary {
+    display: none;
+  }
+
 }
 </style>
