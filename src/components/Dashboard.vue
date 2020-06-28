@@ -532,7 +532,7 @@ body, html {
 .uk-card,
 .uk-card-title, .uk-heading-small {
   /* background-color: #fceedd !important; */
-  color: #f8f8f8 !important;
+  color: #666 !important;
   margin-top: 0px;
 }
 
