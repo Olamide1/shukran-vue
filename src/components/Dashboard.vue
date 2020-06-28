@@ -148,30 +148,15 @@
               class="uk-card uk-card-default uk-card-body"
               uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
             >
-              <h3 class="uk-card-title">&#x20a6;{{availableBalance}}</h3>
-              <p>Available balance.</p>
-            </div>
-          </div>
-          <div>
-            <div
-              class="uk-card uk-card-default uk-card-body"
-              uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
-            >
-              <h3 class="uk-card-title">&#x20a6;{{tipWithdrawn}}</h3>
-              <p>Withdrawn.</p>
-            </div>
-          </div>
-          <div>
-            <div
-              class="uk-card uk-card-default uk-card-body"
-              uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
-            >
-              <h3 class="uk-card-title">&#x20a6;bar measure</h3>
-              <p>Withdrawn + available.</p>
+              <h3 class="uk-card-title">Overview</h3>
+              <ul class="metrics">
+                <li class="li-available">Available</li>
+                <li class="li-withdrawn">Withdrawn</li>
+              </ul>
 
               <div class="progress">
-                <span class="value" :data-label="`₦${tipWithdrawn} withdrawn`" style="width:60%;"></span>
-                <span class="value" :data-label="`₦${availableBalance} available balance`" style="width:40%;"></span>
+                <span :uk-tooltip="`${availableBalance > 1000 ? 'You have ₦' + availableBalance + ' available to withdraw' : 'You need more that ₦1000 to make a withdrawal request'}`" class="value" :data-label="`₦${availableBalance}`" :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"></span>
+                <span :uk-tooltip="`You've withdrawn ₦${tipWithdrawn} so far`" class="value" :data-label="`₦${tipWithdrawn}`" :style="`width:${(((tipTotal - availableBalance) / tipTotal) * 100).toFixed(2)}%;`"></span>
               </div>
             </div>
           </div>
@@ -542,6 +527,34 @@ div[data-src][src*="data:image"] {
 .uk-container-expand[data-v-aae30ed8] {
     background-color: #170808;
     color: #ebebe7 !important; */
+ul.metrics {
+  margin-bottom: 25px;
+}
+ul.metrics > li {
+    list-style: none;
+}
+
+li.li-available:before {
+  content: "•";
+  font-size: 450%;
+  line-height: 0;
+  margin: 0 0.3rem 0 -2rem;
+  position: relative;
+  top: 1.2rem;
+  bottom: 0;
+  color: rgb(79, 192, 116);
+}
+
+li.li-withdrawn:before {
+  content: "•";
+  font-size: 450%;
+  line-height: 0;
+  margin: 0 0.3rem 0 -2rem;
+  position: relative;
+  top: 1.2rem;
+  bottom: 0;
+  color: #329ba6;
+}
 
     .progress {
   height: 15px;
@@ -556,8 +569,16 @@ div[data-src][src*="data:image"] {
   font-size: 0.8em;
   position: relative;
   text-align: center;
-  top: -20px;
+  top: -25px;
   left: 0;
+}
+
+.progress .value:nth-child(1) {
+  color: rgb(79, 192, 116);
+}
+
+.progress .value:nth-child(2) {
+  color: #329ba6;
 }
 
 .progress .value:nth-child(1) {
