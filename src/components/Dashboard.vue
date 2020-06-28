@@ -1,4 +1,4 @@
-<template>
+<template dashboard-body>
   <div class="uk-container-expand">
     <nav class="uk-navbar uk-navbar-container uk-margin mobile-nav">
       <div class="uk-navbar-left">
@@ -23,6 +23,7 @@
             <li id="give-feedback" uk-toggle="target: #my-id">
               <a>Give feedback</a>
             </li>
+            <li id="logout" @click="logout"><a>Logout</a></li>
         </ul>
 
     </div>
@@ -43,7 +44,7 @@
         </ul>
     </div>
 </nav>
-    <div class="uk-section uk-section-muted">
+    <div class="uk-section">
       <!-- sidebar -->
       <div id="offcanvas-usage" uk-offcanvas>
         <div class="uk-offcanvas-bar">
@@ -132,6 +133,7 @@
         </div>
 
         <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+        <div class="uk-flex uk-flex-column">
           <div>
             <!-- Total tips start -->
             <div
@@ -176,7 +178,7 @@
             </div>
             <!-- Total tips end -->
           </div>
-          <div>
+          <div class="uk-margin-top">
             <div
               class="uk-card uk-card-default uk-card-body"
               uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
@@ -195,7 +197,40 @@
           </div>
         </div>
 
-        <ul uk-accordion>
+
+        <!-- table -->
+        <div>
+            <div
+              class="uk-card uk-card-default uk-card-body"
+              uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
+            >
+              <h3 class="uk-card-title">Tip details</h3>
+
+              <div class="tippers-table">
+                <table class="uk-table uk-table-middle uk-table-divider">
+                  <thead>
+                    <tr>
+                      <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
+                      <th style="color:#516E6F;">Amount</th>
+                      <th style="color:#516E6F;">Message</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
+                      <td>{{transaction.supporter_nickname}}</td>
+                      <td>&#x20a6;{{transaction.amount}}</td>
+                      <td>{{transaction.message}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        <!-- //table -->
+        </div>
+
+        <!-- <ul uk-accordion>
           <li>
             <a class="uk-accordion-title h3" href="#">Tips details</a>
             <div class="uk-accordion-content">
@@ -221,7 +256,8 @@
               </div>
             </div>
           </li>
-        </ul>
+        </ul> -->
+
       </div>
     </div>
   </div>
@@ -462,35 +498,41 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style >
+
+body, html {
+  background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
+}
+
+
 .uk-navbar,
 .uk-navbar-item,
 .lead {
   background: transparent !important;
-  color: #c63968 !important;
+  color: #ffffff !important;
 }
 .uk-container-expand {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   color: #ebebe7 !important;
 }
 .uk-accordion-content {
-  background-color: #fceedd !important;
+  /* background-color: #fceedd !important; */
   color: #ff6870 !important;
 }
 .show {
   color: #c63968;
 }
 .h3 {
-  color: #c63968;
+  color: #000000;
 }
 .uk-offcanvas-bar {
-  background-color: #c63968 !important;
+  /* background-color: #c63968 !important; */
   color: #fceedd;
 }
 .uk-card,
 .uk-card-title, .uk-heading-small {
-  background-color: #fceedd !important;
-  color: #ff6870 !important;
+  /* background-color: #fceedd !important; */
+  color: #f8f8f8 !important;
   margin-top: 0px;
 }
 
@@ -502,7 +544,7 @@ export default {
   text-transform: capitalize;
 }
 .uk-section {
-  background-color: #fceedd !important;
+  /* background-color: #fceedd !important; */
   color: #ff6870 !important;
 }
 .uk-label {
@@ -515,7 +557,7 @@ export default {
 }
 #modal-middle,
 #my-id {
-  background-color: #fceedd;
+  /* background-color: #fceedd; */
   color: #ff6870;
 }
 .uk-button {
@@ -564,6 +606,17 @@ div[data-src][src*="data:image"] {
 .uk-container-expand[data-v-aae30ed8] {
     background-color: #170808;
     color: #ebebe7 !important; */
+.tippers-table {
+  height: 560px;
+  overflow-y: auto;
+}
+@media (max-width:960px) {
+  .tippers-table {
+  max-height: 400px;
+  height: auto;
+  overflow-y: auto;
+}
+}
 ul.metrics {
   margin-bottom: 25px;
 }
@@ -593,7 +646,7 @@ li.li-withdrawn:before {
   color: #329ba6;
 }
 
-    .progress {
+.progress {
   height: 15px;
   width: 100%;
   display: flex;
