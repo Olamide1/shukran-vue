@@ -241,7 +241,7 @@
           <div class="card is-section">
             <p class="caps has-text-white">Why</p>
             <h2>We see creators as partners and genuinely care about their work. Hence Shukran.</h2>
-            <a class="subtitle link is-underlined is-arrow preview">View Recent work</a>
+            <!-- <a class="subtitle link is-underlined is-arrow preview">View Recent work</a> --><!-- lAT3r -->
           </div>
         </div>
       </div>
@@ -252,12 +252,12 @@
       </div>
     </div>
 
-    <div class="preview-open">
+    <!-- <div class="preview-open">
       <img src="../assets/index/clickpivot-portfolio.gif" alt="Clickpivot Portfolio" />
       <div class="close hide-on-desktop">
         <img src="../assets/index/close.svg" alt="Close" />
       </div>
-    </div>
+    </div> -->
 
     <section id="contact" class="is-primary has-text-white">
       <div class="container">
@@ -300,18 +300,18 @@ picture_id: "1nGcLmFFY1XQMd5Ng9RhYl-aE2DQ5cQ9m",
 summary: "You will always find a piece of yourself in these works, I hope you love them.",
 username: "supreme"
 }, {
-    craft_type: "Podcaster, Content Curator, Writer. We move the culture 😉",
-create_date: "2020-05-25T17:21:53.109Z",
-picture_id: "1Zx7j-rypTpILcOG1N75JmSLkgJteDZbB",
-summary: "Heyyyy! I’m glad you dropped by. Your support will defo help my creative process be more seamless and consistent. Really appreciate you. Don’t forget to drop your name so I’d reach out personally to say “Shukran!”",
-username: "obakam"
-}, {
     craft_type: "Lifestyle Blogger",
 create_date: "2020-06-06T17:22:10.319Z",
 picture_id: "19uuDwXVl0QYjaDzMDbrehTAwhNHYTMQK",
 redirect: "https://www.instagram.com/nessytalks",
 summary: "Thank you so much for stopping by. Please support my ministry 😀",
 username: "nessytalks"
+}, {
+    craft_type: "Podcaster, Content Curator, Writer. We move the culture 😉",
+create_date: "2020-05-25T17:21:53.109Z",
+picture_id: "1Zx7j-rypTpILcOG1N75JmSLkgJteDZbB",
+summary: "Heyyyy! I’m glad you dropped by. Your support will defo help my creative process be more seamless and consistent. Really appreciate you. Don’t forget to drop your name so I’d reach out personally to say “Shukran!”",
+username: "obakam"
 }, {
     craft_type: "Writer/poet",
 create_date: "2020-06-14T16:09:53.647Z",
