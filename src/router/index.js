@@ -9,6 +9,7 @@ import Thankyou from '@/components/Thankyou'
 import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
 import Pricing from '@/components/Pricing'
+import Index from '@/components/Index'
 
 Vue.use(Router)
 
@@ -16,11 +17,19 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/index',
       name: 'Home',
       component: Home,
       meta: {
         title: 'Homepage - Shukran'
+      }
+    },
+    {
+      path: '/',
+      name: 'Index',
+      component: Index,
+      meta: {
+        title: 'Welcome, and Shukran'
       }
     },
     {
