@@ -24,6 +24,9 @@
               <li>
                 <a href="#contact">Contact</a>
               </li>
+              <li>
+                <a><router-link to="/pricing">Pricing</router-link></a>
+              </li>
             </ul>
           </div>
           <div class="col is-4-tablet hide-on-desktop">
@@ -48,6 +51,9 @@
         <li>
           <a href="#contact">Contact</a>
         </li>
+        <li>
+                <a><router-link to="/pricing">Pricing</router-link></a>
+              </li>
         <div class="social">
           <!-- <a class="nav-close" href data-mode="popup" target="_blank">
             <li class="email"></li>
