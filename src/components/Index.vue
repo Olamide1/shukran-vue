@@ -212,7 +212,7 @@
               </div>
               <div class="flag-full">
                 <h4 class="margin-bottom-small">Content Consumers</h4>
-                <p>Shukran means "Thank You." Say thank you to your favourite content creators by tipping them as little as you (say ₦100) can or as much as you want (think ₦100,000).</p>
+                <p>Shukran means "Thank You." Say thank you to your favourite content creators by tipping them as little as you can (say ₦100) or as much as you want (think ₦100,000).</p>
               </div>
             </div>
             <div class="flag flag-top">
@@ -226,7 +226,7 @@
               </div>
               <div class="flag-full">
                 <h4 class="margin-bottom-small">While at it</h4>
-                <p>You can drop a message to your content creators. Tell them how they've impacted you or made you feel. Trust us, that goes a long way.</p>
+                <p>You can drop a message for your content creators. Tell them how they have impacted you or made you feel. Trust us, that goes a long way too.</p>
               </div>
             </div>
           </div>
@@ -352,8 +352,8 @@ username: "blairsyn"
 }, {
     craft_type: "Creative Director, Video Editor, Food Explorer, Photo Editor, Apps Guru and Social Media Savvy",
 create_date: "2020-06-19T05:16:21.641Z",
-email: "chitothelagoshustler@gmail.com",
-summary: "Thank You, i appreciate you. You are the best vibe squad. Your Tip means you enjoy my content.❤️",
+picture_id: "1AsUj1bfvXosbepKC4Qy87xfDGlWVgqed",
+summary: "Thank You, I appreciate you. You are the best vibe squad. Your Tip means you enjoy my content.❤️",
 username: "chitothelagoshustler"
 }],
       search: '',
@@ -366,7 +366,7 @@ username: "chitothelagoshustler"
         .get("https://shukran-api.herokuapp.com/api/allusers/")
         .then(res => {
           // this.creators = res.data.slice(0, 10); // just 10 for now
-          console.log("loaded creators", res.data);
+          // console.log("loaded creators", res.data);
         })
         .catch(err => {
           console.log(err);

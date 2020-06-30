@@ -498,10 +498,17 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style >
+<style scoped>
 
-body, html {
+.uk-container-expand {
   background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  left: 0;
+  overflow: auto;
 }
 
 
