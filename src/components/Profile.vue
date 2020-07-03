@@ -100,12 +100,12 @@
       </div>
     </div>
     <div class="uk-section uk-section-muted uk-padding" align="center">
-      <div class="uk-card uk-width-1-2@m">
+      <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
         </div>
 
-        <ul uk-tab align="center">
+        <ul uk-tab align="center" class="uk-child-width-expand">
           <li>
             <a href="#" style="color: #208cb7">Personal Info</a>
           </li>
@@ -129,7 +129,11 @@
               align="center"
             >
               <div class="uk-margin">
+                <label for="fn" class="to-the-left">
+                  Full name
+                </label>
                 <input
+                  name="fn"
                   type="text"
                   class="uk-input"
                   placeholder="Fullname"
@@ -137,11 +141,18 @@
                 />
               </div>
               <div class="uk-margin">
-                <input type="text" class="uk-input" v-model="profile.email" placeholder="Email" />
+                <label for="e" class="to-the-left">
+                  Email
+                </label>
+                <input name="e" type="text" class="uk-input" v-model="profile.email" placeholder="Email" />
               </div>
 
               <div class="uk-margin">
+                <label for="un" class="to-the-left">
+                  Username
+                </label>
                 <input
+                  name="un"
                   type="text"
                   class="uk-input"
                   v-model="profile.username"
@@ -149,7 +160,11 @@
                 />
               </div>
               <div class="uk-margin">
+                <label for="pn" class="to-the-left">
+                  Phone number
+                </label>
                 <input
+                  name="pn"
                   type="text"
                   class="uk-input"
                   v-model="profile.phone"
@@ -167,7 +182,11 @@
               align="center"
             >
               <div class="uk-margin">
+                <label for="bn" class="to-the-left">
+                  Bank name
+                </label>
                 <input
+                  name="bn"
                   type="text"
                   data-uk-tooltip
                   title="What Nigerian bank do you wanna receive your payouts?"
@@ -177,7 +196,11 @@
                 />
               </div>
               <div class="uk-margin">
+                <label for="an" class="to-the-left">
+                  Account name
+                </label>
                 <input
+                  name="an"
                   type="text"
                   class="uk-input"
                   data-uk-tooltip
@@ -188,7 +211,11 @@
               </div>
 
               <div class="uk-margin">
+                <label for="anub" class="to-the-left">
+                  Account number
+                </label>
                 <input
+                  name="anub"
                   type="text"
                   data-uk-tooltip
                   title="Your account number so we can pay you"
@@ -207,7 +234,11 @@
               :key="index"
               align="center">
               <div class="uk-margin">
+                <label for="c" class="to-the-left">
+                  Craft
+                </label>
                 <input
+                  name="c"
                   type="text"
                   data-uk-tooltip
                   title="What do your content consumers know you for? You can fill as many as possible and seperate them with a comma."
@@ -217,7 +248,11 @@
                 />
               </div>
               <div class="uk-margin">
+                <label for="f" class="to-the-left">
+                  Following
+                </label>
                 <input
+                  name="f"
                   type="text"
                   data-uk-tooltip
                   title="The approximate number of followers + listeners + subscribers (It does not have to be 100% accurate, we'll take 80%)"
@@ -228,7 +263,11 @@
               </div>
 
               <div class="uk-margin">
+                <label for="pl" class="to-the-left">
+                  Primary link
+                </label>
                 <input
+                  name="pl"
                   type="text"
                   data-uk-tooltip
                   title="This link can be your disha, website or podcast link, It is for outsiders to find your content and learn about you"
@@ -238,7 +277,11 @@
                 />
               </div>
               <div class="uk-margin">
+                <label for="tm" class="to-the-left">
+                  Thank you message
+                </label>
                 <textarea
+                  name="tm"
                   data-uk-tooltip
                   title="Say something nice, witty, sweet etc., to get people to relate and tip you."
                   class="uk-textarea"
@@ -257,7 +300,11 @@
               That means you don't have to sell anything completely free anymore.
             </p>
             <div class="uk-margin" v-for="(profile, index) in profiles" :key="index">
+              <label for="dpl" class="to-the-left">
+                  Digital product link
+                </label>
               <input
+                name="dpl"
                 type="url"
                 data-uk-tooltip
                 title="Input a valid URL. https://downloadmystuff.com/link"
@@ -511,9 +558,9 @@ export default {
   color: #fceedd;
 }
 .uk-section {
-  background-color: #fceedd !important;
+  /* background-color: #fceedd !important;
   height: 33.7rem !important;
-  color: #ffffff !important;
+  color: #ffffff !important; */
 }
 .uk-button {
   background-color: #c63968 !important;
@@ -561,6 +608,25 @@ background: #edf4f0 !important;
 color: #111011 !important;
 }
 
+.to-the-left {
+  float: inline-start;
+}
+
+.uk-margin input {
+  border-radius: 3px;
+}
+
+.uk-container-expand {
+  background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
 @media (min-width:960px) {
   .mobile-nav{
     display: none;
@@ -572,6 +638,13 @@ color: #111011 !important;
   .desktop-nav {
     display: none;
   }
+  .uk-tab{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
 
+  .uk-tab li a {
+    width: max-content;
+  }
 }
 </style>

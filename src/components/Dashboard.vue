@@ -197,7 +197,6 @@
           </div>
         </div>
 
-
         <!-- table -->
         <div>
             <div
@@ -511,7 +510,6 @@ export default {
   overflow: auto;
 }
 
-
 .uk-navbar,
 .uk-navbar-item,
 .lead {
@@ -529,8 +527,8 @@ export default {
 .show {
   color: #c63968;
 }
-.h3 {
-  color: #000000;
+.h3, .uk-navbar-toggle {
+  color: #ffffff;
 }
 .uk-offcanvas-bar {
   /* background-color: #c63968 !important; */
@@ -600,6 +598,11 @@ li#logout:hover {
 
 div[data-src][src*="data:image"] {
   background: rgba(0, 0, 0, 0.1);
+}
+
+.uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical.uk-width-auto {
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(4, 4, 4, 0.45);
 }
 /**https://stackoverflow.com/a/32186894 */
 

@@ -19,13 +19,13 @@
                 <a href="#services">Services</a>
               </li>
               <li>
-                <a href="#about">About</a>
-              </li>
-              <li>
                 <a href="#contact">Contact</a>
               </li>
               <li>
                 <a><router-link to="/pricing">Pricing</router-link></a>
+              </li>
+              <li>
+                <a><router-link to="/accounts">Login/Signup</router-link></a>
               </li>
             </ul>
           </div>
@@ -45,19 +45,16 @@
         <li class="nav-close">
           <a href="#services">Services</a>
         </li>
-        <li class="nav-close">
-          <a href="#about">About</a>
-        </li>
         <li>
           <a href="#contact">Contact</a>
         </li>
         <li>
                 <a><router-link to="/pricing">Pricing</router-link></a>
               </li>
+              <li>
+                <a><router-link to="/accounts">Login/Signup</router-link></a>
+              </li>
         <div class="social">
-          <!-- <a class="nav-close" href data-mode="popup" target="_blank">
-            <li class="email"></li>
-          </a> -->
           <a href="https://instagram.com/useshukran">
             <li class="instagram nav-close"></li>
           </a>
