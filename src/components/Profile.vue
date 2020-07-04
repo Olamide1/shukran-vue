@@ -1,6 +1,6 @@
 <template>
   <div class="uk-container-expand">
-    <nav class="uk-navbar uk-navbar-container uk-margin mobile-nav">
+    <nav class="uk-navbar  uk-margin mobile-nav">
       <div class="uk-navbar-left">
         <a class="uk-navbar-toggle" uk-toggle="target: #offcanvas-usage">
           <span uk-navbar-toggle-icon></span>
@@ -11,7 +11,7 @@
       </div>
     </nav>
 
-    <nav class="uk-navbar-container desktop-nav" uk-navbar>
+    <nav class=" desktop-nav" uk-navbar>
     <div class="uk-navbar-left">
 
         <ul class="uk-navbar-nav">
@@ -84,13 +84,13 @@
           </li>
           <div id="my-id" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-              <h2 class="uk-modal-title">Hey, <span class="capitalize">{{username}}</span>,</h2>
+              <h2 class="uk-modal-title">Hey <span class="capitalize">{{username}}</span>,</h2>
               <p class="show">Show some love or raise an issue</p>
               <div class="uk-margin">
                 <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
               </div>
               <div class="uk-margin">
-                <button class="uk-button uk-button-default" @click="submitFeedback">{{feed}}</button>
+                <button class="uk-button" @click="submitFeedback">{{feed}}</button>
               </div>
               <button class="uk-modal-close-default" type="button" uk-close></button>
             </div>
@@ -100,7 +100,7 @@
         </ul>
       </div>
     </div>
-    <div class="uk-section uk-section-muted uk-padding" align="center">
+    <div class="uk-section uk-padding" align="center">
       <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
@@ -172,7 +172,7 @@
                   placeholder="Phone number"
                 />
               </div>
-              <button class="uk-button uk-button-default" @click="personalInfo">{{savebtnOne}}</button>
+              <button class="uk-button" @click="personalInfo">{{savebtnOne}}</button>
             </div>
           </li>
           <li>
@@ -225,7 +225,7 @@
                   v-model="profile.account_number"
                 />
               </div>
-              <button class="uk-button uk-button-default" @click="bankUpdate">{{savebtnTwo}}</button>
+              <button class="uk-button" @click="bankUpdate">{{savebtnTwo}}</button>
             </div>
           </li>
           <li>
@@ -295,12 +295,18 @@
           </li>
 
           <li>
-            <p>
+
+            <div
+              class="uk-card-body"
+              align="center">
+              <div class="uk-margin">
+                <p class="digital-link-text">
               Have exclusive content you want to share to only those that tip you? Fill in your link here.
               This link let's people access a certain content only after they have tipped you.
               That means you don't have to sell anything completely free anymore.
             </p>
-            <div class="uk-margin" v-for="(profile, index) in profiles" :key="index">
+              </div>
+              <div class="uk-margin" v-for="(profile, index) in profiles" :key="index">
               <label for="dpl" class="to-the-left">
                   Digital product link
                 </label>
@@ -314,14 +320,17 @@
                 v-model="profile.redirect"
               />
             </div>
-            <button id="link-btn" v-bind:disabled="checkURL" class="uk-button uk-button-default show-warning" @click="updateRef">{{savebtnFour}}</button>
-            <div class="uk-margin">
+            <button id="link-btn" v-bind:disabled="checkURL" class="uk-button show-warning" @click="updateRef">{{savebtnFour}}</button>
+            
               <a
                 href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:&hashtags=saythanks,shukran"
-                class="uk-button"
+                class="uk-button tweet-it"
                 target="blank"
               >Tell others</a>
+            
             </div>
+            
+            
           </li>
         </ul>
       </div>
@@ -537,8 +546,7 @@ export default {
 <style scoped>
 .uk-navbar,
 .uk-navbar-item {
-  background: #ffffff !important;
-  color: #c63968 !important;
+  color: #ffffff;
 }
 .uk-modal {
   background-color: #ff6870 !important;
@@ -555,23 +563,26 @@ export default {
   color: #ebebe7 !important;
 }
 .uk-offcanvas-bar {
-  background-color: #c63968 !important;
+  /* background-color: #c63968 !important; */
   color: #fceedd;
-}
-.uk-section {
-  /* background-color: #fceedd !important;
-  height: 33.7rem !important;
-  color: #ffffff !important; */
 }
 .uk-button {
   background-color: #c63968 !important;
   color: #fceedd;
 }
-.uk-card,
-.uk-card-title {
-  background-color: #fceedd;
-  color: #ff6870 !important;
+.uk-card, .uk-card-title{
+  background-color: #fff;
+  color: #ff6870;
+  border-radius: 5px;
 }
+.uk-card-title{
+  color: #ff6870;
+}
+
+.uk-tab::before{
+  left: 0px;
+}
+
 li#give-feedback, li#get-tipped, li#logout {
   cursor: pointer;
 }
@@ -611,19 +622,35 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
 
 .desktop-nav {
   margin: 30px;
-border-radius: 5px;
-background: #edf4f0 !important;
-color: #111011 !important;
+  border-radius: 5px;
+  background: #edf4f0 !important;
+  color: #111011 !important;
 }
 
 .to-the-left {
   float: inline-start;
 }
 
-.uk-margin input {
+.digital-link-text {
+  text-align: left;
+}
+.uk-navbar-toggle {
+    color: #ffffff;
+}
+.uk-margin input, .uk-card-body button, .tweet-it {
   border-radius: 3px;
 }
+.uk-tab > *:nth-child(1) {
+  padding-left: 0px;
+}
 
+#my-id > .uk-modal-body {
+  border-radius: 5px;
+}
+
+.uk-textarea, .uk-modal-dialog.uk-modal-body div.uk-margin > button  {
+  border-radius: 3px;
+}
 .uk-container-expand {
   background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
 
@@ -649,10 +676,16 @@ color: #111011 !important;
   .uk-tab{
     flex-wrap: nowrap;
     overflow-x: auto;
+    flex-direction: row;
+    margin-left: 0px;
   }
 
   .uk-tab li a {
     width: max-content;
+  }
+
+  .uk-child-width-expand > :not([class*="uk-width"]) {
+    min-width: auto;
   }
 }
 </style>
