@@ -431,6 +431,10 @@ body {
   color: #000;
 }
 
+#creators { /**put a limit on the number of words about creators? or we ellipsis after a while */
+  height: 100%;
+}
+
 p,
 ol,
 ul {
