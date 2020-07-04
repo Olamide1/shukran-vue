@@ -31,38 +31,35 @@
           </div>
           <div class="col is-4-tablet hide-on-desktop">
             <div class="hamburger2">
-              <div class="hamburger hamburger-htx menu-toggle">
+              <div @click="swapClass()" class="hamburger hamburger-htx" id="menu-toggle">
                 <span></span>
               </div>
+
+              <div uk-drop="mode: click">
+                <div class="nav-mobile">
+                  <li class="nav-close">
+                    <a href="#creators">Creators</a>
+                  </li>
+                  <li class="nav-close">
+                    <a href="#services">Services</a>
+                  </li>
+                  <li>
+                    <a href="#contact">Contact</a>
+                  </li>
+                  <li>
+                    <a><router-link to="/pricing">Pricing</router-link></a>
+                  </li>
+                  <li>
+                    <a><router-link to="/accounts">Login/Signup</router-link></a>
+                  </li>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
-      <div class="nav-mobile">
-        <li class="nav-close">
-          <a href="#creators">Creators</a>
-        </li>
-        <li class="nav-close">
-          <a href="#services">Services</a>
-        </li>
-        <li>
-          <a href="#contact">Contact</a>
-        </li>
-        <li>
-                <a><router-link to="/pricing">Pricing</router-link></a>
-              </li>
-              <li>
-                <a><router-link to="/accounts">Login/Signup</router-link></a>
-              </li>
-        <div class="social">
-          <a href="https://instagram.com/useshukran">
-            <li class="instagram nav-close"></li>
-          </a>
-          <a href="https://twitter.com/useshukran">
-            <li class="twitter nav-close"></li>
-          </a>
-        </div>
-      </div>
+      
     </div>
 
     <section class="hero">
@@ -364,6 +361,9 @@ username: "chitothelagoshustler"
     };
   },
   methods: {
+    swapClass() {
+      document.getElementById("menu-toggle").classList.toggle("is-active");
+    },
     getCreators() {
       axios
         .get("https://shukran-api.herokuapp.com/api/allusers/")
@@ -874,6 +874,7 @@ hr.is-centered:after {
 
 .row.is-bottomless .col {
   padding-bottom: 0;
+  align-self: baseline; /**aligns hamberger to Shukran logo */
 }
 
 .row.is-centered {
@@ -1322,11 +1323,11 @@ body.fixed {
 
 .nav-mobile {
   position: absolute;
-  top: 120px;
+  top: 30px;
   left: 0;
   font-family: "DM Sans", sans-serif;
   font-size: 2rem;
-  display: none;
+  /* display: none; */
   width: 100%;
   z-index: 2;
   list-style: none;
