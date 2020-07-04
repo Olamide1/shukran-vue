@@ -34,10 +34,11 @@
               <a class="" href="#modal-middle" uk-toggle><button class="uk-button request-button uk-button-primary">Request payout</button></a>
             </li>
             <li>
-              <a href="#!">
-                <div class="uk-width-auto">
-                  <img class="uk-border-circle" width="40" height="40" :src="`https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`">
-                </div>
+              <a>
+                  <div class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }" uk-img>
+        
+    </div>
               </a>
             </li>
         </ul>
@@ -49,7 +50,7 @@
         <button class="uk-offcanvas-close" type="button" uk-close></button>
         <h3>Shukran</h3>
         <!-- -->
-            <div ref="file" id="image-background" class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            <div ref="file" class="image-background uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
             v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }" uk-img>
         <div id="add-image" uk-form-custom="target: true">
             <input type="file" @change="onFileChanged">
@@ -577,10 +578,17 @@ li#give-feedback, li#get-tipped, li#logout {
 li#give-feedback:hover, li#get-tipped:hover, li#logout:hover {
   text-decoration: underline;
 }
-#image-background {
+.image-background {
   width: 80px;
   height: 80px;
   border-radius: 5px;
+}
+
+ .us {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: -10px;
 }
 #add-image {
   opacity: 0;
