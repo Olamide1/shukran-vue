@@ -313,7 +313,6 @@ username: "josh2funny"
     craft_type: "Lifestyle Blogger",
 create_date: "2020-06-06T17:22:10.319Z",
 picture_id: "19uuDwXVl0QYjaDzMDbrehTAwhNHYTMQK",
-redirect: "https://www.instagram.com/nessytalks",
 summary: "Thank you so much for stopping by. Please support my ministry 😀",
 username: "nessytalks"
 }, {
@@ -323,12 +322,11 @@ picture_id: "1Zx7j-rypTpILcOG1N75JmSLkgJteDZbB",
 summary: "Heyyyy! I’m glad you dropped by. Your support will defo help my creative process be more seamless and consistent. Really appreciate you. Don’t forget to drop your name so I’d reach out personally to say “Shukran!”",
 username: "obakam"
 }, {
-    craft_type: "Writer/poet",
-create_date: "2020-06-14T16:09:53.647Z",
-picture_id: "1xxTFl95z5jgjOGUEI9kgqFUPfghfJvqz",
-primary_link: "https://inifolu.disha.page",
-summary: "Hi, I'm Inifolu, a writer, and writing for you makes me happy and making you happy is my goal.",
-username: "inifolu"
+    craft_type: "Podcaster, Blogger, Poet, Photographer",
+create_date: "2020-05-30T15:43:35.175Z",
+picture_id: "1nGcLmFFY1XQMd5Ng9RhYl-aE2DQ5cQ9m",
+summary: "You will always find a piece of yourself in these works, I hope you love them.",
+username: "supreme"
 }, {
     craft_type: "DIYs, Spoken Words and Short films",
 create_date: "2020-06-13T17:28:03.090Z",
