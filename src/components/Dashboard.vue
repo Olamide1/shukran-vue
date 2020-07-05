@@ -161,7 +161,7 @@
                   </div>
                   <div class="uk-margin" align="center">
                     <input type="number" class="uk-input" placeholder="Amount" v-model="amount" />
-                    <span v-if="amount > (availableBalance)">Insufficient available balance.</span>
+                    <span v-if="amount > (availableBalance)">Insufficient available balance.</span> <br>
                     <span v-if="amount < 1000">Payout requests cannot be less than &#x20a6;1000</span>
                   </div>
                   <div class="uk-margin">
