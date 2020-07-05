@@ -67,6 +67,7 @@
     <li>Account name: {{result.account_name}}</li>
     <li>Account Number: {{result.account_number}}</li>
     <li>Craft type: {{result.craft_type}}</li>
+    <li>Phone: {{result.phone}}</li>
     </ul>
        </div>
             </div>
