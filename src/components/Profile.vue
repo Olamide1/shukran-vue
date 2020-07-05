@@ -104,14 +104,15 @@
       <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
+          <p><b style="font-size: 12px !important;">Tap next to fill other important fields.</b></p>
         </div>
-
-        <ul uk-tab align="center" class="uk-child-width-expand">
+        <ul align="center" class="uk-tab uk-child-width-expand" uk-switcher>  
           <li>
             <a href="#" style="color: #208cb7">Personal Info</a>
+            
           </li>
           <li>
-            <a href="#" style="color: #208cb7">Banking info</a>
+            <a href="#" style="color: #208cb7">Banking info</a> 
           </li>
           <li>
             <a href="#" style="color: #208cb7">Brand Info</a>
@@ -121,7 +122,7 @@
           </li>
         </ul>
 
-        <ul class="uk-switcher">
+        <ul class="uk-switcher uk-margin">
           <li>
             <div
               class="uk-card-body"
@@ -173,7 +174,10 @@
                 />
               </div>
               <button class="uk-button" @click="personalInfo">{{savebtnOne}}</button>
+              <br>
+              <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
             </div>
+
           </li>
           <li>
             <div
@@ -226,7 +230,11 @@
                 />
               </div>
               <button class="uk-button" @click="bankUpdate">{{savebtnTwo}}</button>
-            </div>
+              <br>
+              <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a> |
+            <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
+            </div> 
+            
           </li>
           <li>
             <div
@@ -291,6 +299,9 @@
                 maxlength="150"></textarea>
               </div>
               <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
+              <br>
+               <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a> |
+            <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
             </div>
           </li>
 
@@ -321,12 +332,14 @@
               />
             </div>
             <button id="link-btn" v-bind:disabled="checkURL" class="uk-button show-warning" @click="updateRef">{{savebtnFour}}</button>
-            
+            <br> <br>
               <a
                 href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:&hashtags=saythanks,shukran"
                 class="uk-button tweet-it"
                 target="blank"
               >Tell others</a>
+              <br>
+               <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a>
             
             </div>
             
@@ -367,6 +380,9 @@ export default {
     logout() {
       sessionStorage.clear();
       this.$router.push("/");
+    },
+    scroll(){
+      window.scrollBy(100, 0);
     },
     getId() {
       var username = this.username;
@@ -466,6 +482,7 @@ export default {
           console.log(err);
         });
     },
+    
     bankUpdate() {
       var id = this.id;
       var bank = this.profiles[0].bank;
