@@ -103,8 +103,8 @@
     <div class="uk-section uk-padding" align="center">
       <div uk-alert>
           <a class="uk-alert-close" uk-close></a>
-          <h3>Notice</h3>
-          <p>Hi {{username}}, Please fill your profile completely as they are all important, 
+          <h3>Hey {{username}},</h3>
+          <p> Please fill your profile completely as they are all important, 
             tap on "next" to find other fields.
           </p>
         </div>
@@ -386,7 +386,7 @@ export default {
   methods: {
     logout() {
       sessionStorage.clear();
-      this.$router.push("/");
+      this.$router.push("/accounts");
     },
     scroll(){
       window.scrollBy(100, 0);
