@@ -104,8 +104,8 @@
       <div uk-alert>
           <a class="uk-alert-close" uk-close></a>
           <h3>Hey {{username}},</h3>
-          <p> Please fill your profile completely as they are all important, 
-            tap on "next" to find other fields.
+          <p> Please fill your profile completely. There are 4 steps, 
+            tap on "next" to find other other steps.
           </p>
         </div>
       <div class="uk-card uk-width-2-3@m">
