@@ -101,6 +101,13 @@
       </div>
     </div>
     <div class="uk-section uk-padding" align="center">
+      <div uk-alert>
+          <a class="uk-alert-close" uk-close></a>
+          <h3>Notice</h3>
+          <p>Hi {{username}}, Please fill your profile completely as they are all important, 
+            tap on "next" to find other fields.
+          </p>
+        </div>
       <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
