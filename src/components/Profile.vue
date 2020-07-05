@@ -628,7 +628,7 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
 }
 
 .to-the-left {
-  float: inline-start;
+  float: left;
 }
 
 .digital-link-text {
@@ -639,9 +639,6 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
 }
 .uk-margin input, .uk-card-body button, .tweet-it {
   border-radius: 3px;
-}
-.uk-tab > *:nth-child(1) {
-  padding-left: 0px;
 }
 
 #my-id > .uk-modal-body {

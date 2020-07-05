@@ -378,8 +378,7 @@ username: "chitothelagoshustler"
       axios
         .get("https://shukran-api.herokuapp.com/api/allusers/")
         .then(res => {
-          // this.creators = res.data.slice(0, 10); // just 10 for now
-          // console.log("loaded creators", res.data);
+          this.creators = res.data; // loaded creators
         })
         .catch(err => {
           console.log(err);
@@ -444,6 +443,10 @@ body {
 .search-box {
   padding: 5px;
   border-radius: 3px;
+}
+
+.uk-modal-dialog {
+  margin-top: 30px !important;
 }
 
 #creators { /**put a limit on the number of words about creators? or we ellipsis after a while */
