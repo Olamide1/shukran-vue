@@ -36,9 +36,13 @@
             </li>
             <li>
               <a href="#!">
-                <div class="uk-width-auto">
-                  <img class="uk-border-circle" width="40" height="40" :src="`https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`">
-                </div>
+                  <div
+            ref="file"
+            class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }"
+            uk-img
+          >
+          </div>
               </a>
             </li>
         </ul>
@@ -603,6 +607,13 @@ div[data-src][src*="data:image"] {
 .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical.uk-width-auto {
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(4, 4, 4, 0.45);
+}
+
+.us {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: -10px;
 }
 /**https://stackoverflow.com/a/32186894 */
 

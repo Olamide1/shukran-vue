@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="support-div">
        <nav class="uk-navbar uk-navbar-container uk-margin" uk-navbar="boundary-align: true; align: center;">
         <div class="uk-navbar-left">
      <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
@@ -35,7 +35,7 @@
     <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-auto">
-                <img class="almost-square" width="40" height="40" :src="'https://drive.google.com/uc?export=view&id=' + image">
+                <img class="almost-square" width="40" height="40" v-lazy="'https://drive.google.com/uc?export=view&id=' + image">
             </div>
             <div class="uk-width-expand">
                 <h3 class="uk-card-title uk-margin-remove-bottom">Meet {{username}}</h3>
@@ -54,7 +54,7 @@
    <!-- //mobile view -->
       <div class="uk-container">
          <div class="uk-container-expand" align="center" >
-      <div class="uk-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
+      <div class="uk-card tip-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
     <div class="uk-card-body">
         <h3 class="uk-card-title">Let <span class="capitalize">{{username}}</span> know you</h3>
         <p>You'll not have to fill your nickname, 
@@ -214,25 +214,32 @@ export default {
 }
 </script>
 <style scoped>
-.uk-navbar, .uk-navbar-item, .lead {
-  background: transparent !important;
-  color: #c63968 !important;
+.support-div {
+   background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
 }
-
-.uk-margin-auto{
-  background-color: #fceedd !important;
-  color: #ff6870;
+.uk-navbar, .uk-navbar-item, .lead {
+  background: transparent;
+  color: #ffffff;
+}
+.tip-card {
+   border-radius: 5px;
+   margin-bottom: 30px;
 }
 .uk-card, .uk-card-title {
-   background-color: #fceedd;
+   /* background-color: #fceedd; */
    color: #ff6870;
 }
 .capitalize {
     text-transform: capitalize;   
   }
 .uk-button{
-  background-color: #c63968 !important;
+  background-color: #c63968;
   color: #fceedd;
+  border-radius: 3px
+}
+.uk-input {
+   margin-bottom: 5px;
+   border-radius: 3px
 }
 h3 {
    color: #ff6870;

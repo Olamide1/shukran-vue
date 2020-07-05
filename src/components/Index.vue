@@ -31,38 +31,35 @@
           </div>
           <div class="col is-4-tablet hide-on-desktop">
             <div class="hamburger2">
-              <div class="hamburger hamburger-htx menu-toggle">
+              <div @click="swapClass()" class="hamburger hamburger-htx" id="menu-toggle">
                 <span></span>
               </div>
+
+              <div uk-drop="mode: click">
+                <div class="nav-mobile">
+                  <li class="nav-close">
+                    <a href="#creators">Creators</a>
+                  </li>
+                  <li class="nav-close">
+                    <a href="#services">Services</a>
+                  </li>
+                  <li>
+                    <a href="#contact">Contact</a>
+                  </li>
+                  <li>
+                    <a><router-link to="/pricing">Pricing</router-link></a>
+                  </li>
+                  <li>
+                    <a><router-link to="/accounts">Login/Signup</router-link></a>
+                  </li>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
-      <div class="nav-mobile">
-        <li class="nav-close">
-          <a href="#creators">Creators</a>
-        </li>
-        <li class="nav-close">
-          <a href="#services">Services</a>
-        </li>
-        <li>
-          <a href="#contact">Contact</a>
-        </li>
-        <li>
-                <a><router-link to="/pricing">Pricing</router-link></a>
-              </li>
-              <li>
-                <a><router-link to="/accounts">Login/Signup</router-link></a>
-              </li>
-        <div class="social">
-          <a href="https://instagram.com/useshukran">
-            <li class="instagram nav-close"></li>
-          </a>
-          <a href="https://twitter.com/useshukran">
-            <li class="twitter nav-close"></li>
-          </a>
-        </div>
-      </div>
+      
     </div>
 
     <section class="hero">
@@ -96,17 +93,27 @@
                           {{ new Date(creator.create_date).toLocaleDateString() }}
                         </p>
                       </div>
-                      <!-- ../assets/index/johnanthony-clickpivot.png `https://drive.google.com/uc?export=view&id=${creator.picture_id}` -->
+                      
                       <!-- <img
                           :src="`https://drive.google.com/uc?export=view&id=${creator.picture_id}`" 
                           :alt="`Image of ${creator.username}`"
-                        /> -->
-
+                        /> 
+                        
                         <div
-            ref="file"
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
             v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${creator.picture_id})` }"
+            uk-img="target: #offcanvas-usage"
+            style="height: 414px; width: 414px; margin-left: auto;"
+          >
+          </div>
+          -->
+                        
+                        <div
+            id="image-background"
+            class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`, loading: '../assets/loading.gif' }"
+            
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: auto;"
           >
@@ -145,11 +152,11 @@
 
     <!-- search modal -->
 <div class="" id="modal-sections" uk-modal>
-    <div class="uk-card-body uk-modal-dialog" uk-overflow-auto style="border-radius: 5px; margin-top: 15px; margin: 0 auto; max-height: 640px; padding: 30px;">
+    <div class="uk-card-body uk-modal-dialog" uk-overflow-auto style="border-radius: 5px; margin-top: 15px; margin: 0 auto; max-height: 80%; padding: 30px; margin-top: 20px;">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
             <h4 class="uk-modal-title">Search for a creator</h4>
-            <input type="text" v-model="search" placeholder="Search for your favourite creator" class="uk-input">
+            <input type="text" v-model="search" placeholder="Search for your favourite creator" class="uk-input search-box">
         </div>
             <div class="uk-modal-body" v-if="search == ''">
             <div v-for="(creator, index) in creators" :key="index">
@@ -364,12 +371,14 @@ username: "chitothelagoshustler"
     };
   },
   methods: {
+    swapClass() {
+      document.getElementById("menu-toggle").classList.toggle("is-active");
+    },
     getCreators() {
       axios
         .get("https://shukran-api.herokuapp.com/api/allusers/")
         .then(res => {
-          // this.creators = res.data.slice(0, 10); // just 10 for now
-          // console.log("loaded creators", res.data);
+          this.creators = res.data; // loaded creators
         })
         .catch(err => {
           console.log(err);
@@ -429,6 +438,19 @@ html {
 body {
   line-height: 1.5;
   color: #000;
+}
+
+.search-box {
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.uk-modal-dialog {
+  margin-top: 30px !important;
+}
+
+#creators { /**put a limit on the number of words about creators? or we ellipsis after a while */
+  height: 100%;
 }
 
 p,
@@ -874,6 +896,7 @@ hr.is-centered:after {
 
 .row.is-bottomless .col {
   padding-bottom: 0;
+  align-self: baseline; /**aligns hamberger to Shukran logo */
 }
 
 .row.is-centered {
@@ -1322,11 +1345,11 @@ body.fixed {
 
 .nav-mobile {
   position: absolute;
-  top: 120px;
+  top: 30px;
   left: 0;
   font-family: "DM Sans", sans-serif;
   font-size: 2rem;
-  display: none;
+  /* display: none; */
   width: 100%;
   z-index: 2;
   list-style: none;
