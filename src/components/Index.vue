@@ -93,17 +93,27 @@
                           {{ new Date(creator.create_date).toLocaleDateString() }}
                         </p>
                       </div>
-                      <!-- ../assets/index/johnanthony-clickpivot.png `https://drive.google.com/uc?export=view&id=${creator.picture_id}` -->
+                      
                       <!-- <img
                           :src="`https://drive.google.com/uc?export=view&id=${creator.picture_id}`" 
                           :alt="`Image of ${creator.username}`"
-                        /> -->
-
+                        /> 
+                        
                         <div
-            ref="file"
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
             v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${creator.picture_id})` }"
+            uk-img="target: #offcanvas-usage"
+            style="height: 414px; width: 414px; margin-left: auto;"
+          >
+          </div>
+          -->
+                        
+                        <div
+            id="image-background"
+            class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            v-lazy:background-image="`https://drive.google.com/uc?export=view&id=${creator.picture_id}`"
+            
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: auto;"
           >
@@ -142,11 +152,11 @@
 
     <!-- search modal -->
 <div class="" id="modal-sections" uk-modal>
-    <div class="uk-card-body uk-modal-dialog" uk-overflow-auto style="border-radius: 5px; margin-top: 15px; margin: 0 auto; max-height: 640px; padding: 30px;">
+    <div class="uk-card-body uk-modal-dialog" uk-overflow-auto style="border-radius: 5px; margin-top: 15px; margin: 0 auto; max-height: 80%; padding: 30px; margin-top: 20px;">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
             <h4 class="uk-modal-title">Search for a creator</h4>
-            <input type="text" v-model="search" placeholder="Search for your favourite creator" class="uk-input">
+            <input type="text" v-model="search" placeholder="Search for your favourite creator" class="uk-input search-box">
         </div>
             <div class="uk-modal-body" v-if="search == ''">
             <div v-for="(creator, index) in creators" :key="index">
@@ -429,6 +439,11 @@ html {
 body {
   line-height: 1.5;
   color: #000;
+}
+
+.search-box {
+  padding: 5px;
+  border-radius: 3px;
 }
 
 #creators { /**put a limit on the number of words about creators? or we ellipsis after a while */
