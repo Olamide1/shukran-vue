@@ -104,7 +104,7 @@
       <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
-          <p><b style="font-size: 12px !important;">Tap next to fill other important fields.</b></p>
+          <p><b style="font-size: 12px !important;">Tap "Next" to fill other important fields.</b></p>
         </div>
         <ul align="center" class="uk-tab uk-child-width-expand" uk-switcher>  
           <li>

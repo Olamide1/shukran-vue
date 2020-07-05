@@ -171,7 +171,7 @@
                         <div v-for="result in filteresults" :key="result.id">
                             <router-link :to="'/cr/' + result.username" class="uk-modal-close">{{result.username}}</router-link>
                             <p>{{result.summary}}</p>
-                            <router-link :to="'/cr/' + result.username" class="uk-button uk-modal-close" >Tip</router-link>
+                            <router-link :to="'/cr/' + result.username" class="uk-button uk-modal-close"  style="color: ">Tip</router-link>
                 <hr class="uk-divider-icon">
                         </div>
                     </div>
@@ -304,11 +304,11 @@ export default {
     return {
         creators: [],
       top_creators: [ {
-    craft_type: "Podcaster, Blogger, Poet, Photographer",
-create_date: "2020-05-30T15:43:35.175Z",
-picture_id: "1nGcLmFFY1XQMd5Ng9RhYl-aE2DQ5cQ9m",
-summary: "You will always find a piece of yourself in these works, I hope you love them.",
-username: "supreme"
+    craft_type: "Comedian",
+create_date: "2020-07-05T09:13:28.496Z",
+picture_id: "1wj0BCAi5hGN9USx6NKrMUgZ1lSuvhlX0",
+summary: "Thanks for always supporting the brand and having my back. Drop your name and I will reach out to you. Bless",
+username: "josh2funny"
 }, {
     craft_type: "Lifestyle Blogger",
 create_date: "2020-06-06T17:22:10.319Z",
