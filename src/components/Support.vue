@@ -131,7 +131,7 @@ export default {
             },
          getUrl(link){
           if (link == undefined) {
-             return 'localhost:8080/cr/' + this.username
+             return 'useshukran.com/cr/' + this.username
           } else {
              return link
           }
