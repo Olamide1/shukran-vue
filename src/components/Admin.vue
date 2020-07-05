@@ -106,6 +106,7 @@
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
     <li>Craft type: {{user.craft_type}}</li>
+    <li>Phone number: {{user.phone}}</li>
     <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
     </ul>
        </div>
