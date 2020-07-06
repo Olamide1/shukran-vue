@@ -101,6 +101,13 @@
       </div>
     </div>
     <div class="uk-section uk-padding" align="center">
+      <div uk-alert>
+          <a class="uk-alert-close" uk-close></a>
+          <h3>Hey {{username}},</h3>
+          <p> Please fill your profile completely. There are <b>4 steps</b>, 
+            tap on "next" to find other other steps.
+          </p>
+        </div>
       <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
@@ -374,7 +381,7 @@ export default {
   methods: {
     logout() {
       sessionStorage.clear();
-      this.$router.push("/");
+      this.$router.push("/accounts");
     },
     scroll(){
       window.scrollBy(100, 0);

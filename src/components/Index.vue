@@ -109,24 +109,24 @@
           </div>
           -->
                         
-                        <div
+                        <router-link
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
             v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`, loading: '../assets/loading.gif' }"
             
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: auto;"
-          >
-          </div>
+          :to="'/cr/' + creator.username" tag="div">
+                        </router-link>
                     </div>
                   </div>
                 </div>
                 <div class="col is-6">
                   <p class="has-text-white caps" uk-slider-parallax="x: 100,-100">{{creator.craft_type}}</p>
                   
-                  <h2 uk-slider-parallax="x: 200,-200">{{creator.username}}</h2>
+                  <router-link :to="'/cr/' + creator.username" tag="h2" uk-slider-parallax="x: 200,-200">{{creator.username}}</router-link>
                   
-                  <p uk-slider-parallax="x: 300,-300">{{creator.summary}}</p>
+                  <router-link :to="'/cr/' + creator.username" tag="p" uk-slider-parallax="x: 300,-300">{{creator.summary}}</router-link>
                   <a class="link is-underlined caps" href="#modal-sections" uk-toggle>Find others</a>
                 </div>
               </div>
@@ -162,7 +162,7 @@
             <div v-for="(creator, index) in creators" :key="index">
                 <router-link :to="'/cr/' + creator.username" class="uk-modal-close">{{creator.username}}</router-link>
                 <p>{{creator.summary}}</p>
-                <router-link :to="'/cr/' + creator.username" class="uk-button uk-modal-close" type="button">Tip</router-link>
+                <router-link :to="'/cr/' + creator.username" class="uk-button uk-modal-close" style="color: #ffffff; background:#c63968; height: 27px;" type="button">Tip</router-link>
                 <hr class="uk-divider-icon">
             </div>
             </div>
@@ -171,7 +171,7 @@
                         <div v-for="result in filteresults" :key="result.id">
                             <router-link :to="'/cr/' + result.username" class="uk-modal-close">{{result.username}}</router-link>
                             <p>{{result.summary}}</p>
-                            <router-link :to="'/cr/' + result.username" class="uk-button uk-modal-close"  style="color: ">Tip</router-link>
+                            <router-link :to="'/cr/' + result.username" class="uk-button uk-modal-close"  style="color: #c63968;">Tip</router-link>
                 <hr class="uk-divider-icon">
                         </div>
                     </div>
