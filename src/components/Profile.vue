@@ -106,10 +106,10 @@
           <h3 class="uk-card-title">User Profile</h3>
           <p><b style="font-size: 12px !important;">Tap "Next" to fill other important fields.</b></p>
         </div>
-        <ul align="center" class="uk-tab uk-child-width-expand" uk-switcher>  
+
+        <ul class="uk-tab uk-child-width-expand" uk-switcher="connect: .switch-class">  
           <li>
-            <a href="#" style="color: #208cb7">Personal Info</a>
-            
+            <a href="#" style="color: #208cb7">Personal Info</a>   
           </li>
           <li>
             <a href="#" style="color: #208cb7">Banking info</a> 
@@ -122,7 +122,7 @@
           </li>
         </ul>
 
-        <ul class="uk-switcher uk-margin">
+        <ul class="uk-switcher uk-margin switch-class">
           <li>
             <div
               class="uk-card-body"
