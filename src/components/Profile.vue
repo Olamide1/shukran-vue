@@ -104,11 +104,10 @@
       <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
-          <p><b style="font-size: 12px !important;">Tap "Next" to fill other important fields.</b></p>
         </div>
 
-        <div>
-          <ul class="uk-tab uk-child-width-expand" uk-switcher="connect: .switch-class">  
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+          <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid " uk-switcher="connect: .switch-class">  
           <li>
             <a href="#" style="color: #208cb7">Personal Info</a>   
           </li>
@@ -122,6 +121,9 @@
             <a href="#" style="color: #208cb7">Add redirect link</a>
           </li>
         </ul>
+          <a style="background-color: #12496961;" class="uk-position-center-left uk-position-small " uk-switcher-item="previous" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+        <a style="background-color: #12496961;" class="uk-position-center-right uk-position-small" uk-switcher-item="next" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
         </div>
 
         <ul class="uk-switcher uk-margin switch-class">
@@ -176,8 +178,6 @@
                 />
               </div>
               <button class="uk-button" @click="personalInfo">{{savebtnOne}}</button>
-              <br>
-              <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
             </div>
 
           </li>
@@ -232,9 +232,6 @@
                 />
               </div>
               <button class="uk-button" @click="bankUpdate">{{savebtnTwo}}</button>
-              <br>
-              <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a> |
-            <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
             </div> 
             
           </li>
@@ -301,9 +298,7 @@
                 maxlength="150"></textarea>
               </div>
               <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
-              <br>
-               <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a> |
-            <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
+              
             </div>
           </li>
 
@@ -340,8 +335,6 @@
                 class="uk-button tweet-it"
                 target="blank"
               >Tell others</a>
-              <br>
-               <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a>
             
             </div>
             
