@@ -107,7 +107,8 @@
           <p><b style="font-size: 12px !important;">Tap "Next" to fill other important fields.</b></p>
         </div>
 
-        <ul class="uk-tab uk-child-width-expand" uk-switcher="connect: .switch-class">  
+        <div>
+          <ul class="uk-tab uk-child-width-expand" uk-switcher="connect: .switch-class">  
           <li>
             <a href="#" style="color: #208cb7">Personal Info</a>   
           </li>
@@ -121,6 +122,7 @@
             <a href="#" style="color: #208cb7">Add redirect link</a>
           </li>
         </ul>
+        </div>
 
         <ul class="uk-switcher uk-margin switch-class">
           <li>
