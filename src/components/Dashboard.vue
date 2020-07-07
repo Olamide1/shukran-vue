@@ -633,19 +633,6 @@ div[data-src][src*="data:image"] {
   height: 560px;
   overflow-y: auto;
 }
-@media (max-width:960px) {
-  .tippers-table {
-    max-height: 400px;
-    height: auto;
-    overflow-y: auto;
-  }
-
-  .chart-container {
-    position: relative;
-    height:40vh;
-    width:80vw
-  }
-}
 ul.metrics {
   margin-bottom: 25px;
 }
@@ -726,12 +713,30 @@ color: #111011 !important;
   .mobile-nav, .uk-card-badge.uk-label[href] {
     display: none;
   }
+
+  .chart-container {
+    position: relative;
+    height:70vh;
+    width:37vw
+  }
   
 }
 
 @media (max-width:960px) {
   .desktop-nav, .request-button.uk-button-primary {
     display: none;
+  }
+
+  .tippers-table {
+    max-height: 400px;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .chart-container {
+    position: relative;
+    height:40vh;
+    width:80vw
   }
 
 }
