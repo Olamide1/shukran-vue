@@ -105,8 +105,7 @@
           <a class="uk-alert-close" uk-close></a>
           <h3>Hey {{username}},</h3>
           <p> Please fill your profile completely. There are <b>4 steps</b>, 
-            tap on "next" to find other other steps. Then tap the section and fill.
-            tap on arrows to get to the other steps.
+            tap on "arrows" to find other other steps. Then tap the section and fill.
           </p>
         </div>
       <div class="uk-card uk-width-2-3@m">
