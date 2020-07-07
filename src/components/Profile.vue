@@ -104,8 +104,8 @@
       <div class="uk-width-2-3@m" uk-alert>
           <a class="uk-alert-close" uk-close></a>
           <h3>Hey {{username}},</h3>
-          <p> Please fill your profile completely. There are <b>4 steps</b>, 
-            tap on arrows to get to the other steps.
+          <p> Please fill your profile completely. There are <b>4 tabs</b>, 
+            tap on the <span class="mobile-profile-tab">icon</span> headers to get to the other tabs.
           </p>
         </div>
       <div class="uk-card uk-width-2-3@m">
