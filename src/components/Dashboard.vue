@@ -174,7 +174,7 @@
                 </div>
               </div>
               <!-- Withdraw request modal end -->
-              <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+              <div class="chart-container">
                 <canvas id="total-tips-chart" aria-label="Total Tips Chart" role="Total tips chart image">
                   <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
                 </canvas>
@@ -635,10 +635,16 @@ div[data-src][src*="data:image"] {
 }
 @media (max-width:960px) {
   .tippers-table {
-  max-height: 400px;
-  height: auto;
-  overflow-y: auto;
-}
+    max-height: 400px;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .chart-container {
+    position: relative;
+    height:40vh;
+    width:80vw
+  }
 }
 ul.metrics {
   margin-bottom: 25px;
