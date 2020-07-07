@@ -61,9 +61,9 @@
            email address & phone number again for a faster tipping experience.</p>
        <div>
           <div class="uk-margin">
-          <input type="text" class="uk-input" placeholder="Nickname" v-model="nickname">
-          <input type="email" class="uk-input" placeholder="Email" v-model="email">
-          <input type="text" class="uk-input" placeholder="Phone" v-model="phone">
+          <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
+          <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="email">
+          <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone">
        </div>
        </div>
        <div>
@@ -77,7 +77,11 @@
           <p style="color: #c63968;">{{issue}}</p>
        </div>
        <div class="uk-margin" v-if="parseInt(amount) >= 100">
-          <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
+          <!-- <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button> -->
+
+            
+            <button class="uk-button uk-button-default" type="button" @click="save()">{{tipbtn}}</button>
+         
        </div>
     </div>
     <div>
@@ -158,7 +162,7 @@ export default {
              this.issue = "Please Enter Correct Email";
              this.tipbtn = "Tip"
           } else {
-            var handler = PaystackPop.setup({
+            /* var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
                amount: parseInt(amount) * 100,
@@ -201,7 +205,59 @@ export default {
                   alert('Payment action cancelled'); 
                   } 
                   });
-                  handler.openIframe();
+                  // handler.openIframe(); // nahhh, paystack
+ */
+                  // flutterwave
+
+                  FlutterwaveCheckout({
+      public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
+      tx_ref: `${supporter_nickname}-shukran-${username} @ ${Date.now()}`,
+      amount: parseInt(amount),
+      country: !localStorage.getItem('shukran-country-code') ? "NG" : localStorage.getItem('shukran-country-code'),
+      currency: !localStorage.getItem('shukran-country-currency') ? "NGN" : localStorage.getItem('shukran-country-currency'), // "NGN" is default
+      payment_options: "card,mobilemoney,ussd",
+      // redirect_url: redirect == undefined ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
+      meta: {
+        // consumer_id: 23,
+        // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
+        
+      },
+      customer: {
+        email: email,
+        supporter_phone_number: phone,
+        supporter_nickname: supporter_nickname,
+      },
+      callback: function(response){
+                  localStorage.setItem('shukran_email', email)
+                  localStorage.setItem('shukran_nickname', supporter_nickname)
+                  localStorage.setItem('shukran_phone', phone)
+                  axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+                     username: username,
+                     supporter_nickname: supporter_nickname,
+                     amount: amount,
+                     message: message,
+                     status: 'received',
+                     email: user_email
+                     }).then(res => {
+                        console.log('tipped')
+                        if (redirect == undefined) {
+                           this.$router.push('/thanks');
+                        } else {
+                           window.location = redirect
+                        }
+                        }).catch(err => {
+                           this.tipbtn = 'Tip'
+                           this.issue = err
+                           console.log(err)
+                        })
+                     console.log('success. transaction ref is ', response);
+                     },
+      customizations: {
+        title: "Support " + username,
+        description: "Shukran to " + username,
+        logo: 'https://drive.google.com/uc?export=view&id=' + this.image,
+      },
+    });
                   }
        },
     },

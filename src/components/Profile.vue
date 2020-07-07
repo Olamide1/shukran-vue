@@ -18,7 +18,7 @@
             <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
             <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
             <li>
-              <a><router-link to="/profile">Profile</router-link></a>
+              <router-link to="/profile">Profile</router-link>
             </li>
             <li id="give-feedback" uk-toggle="target: #my-id">
               <a>Give feedback</a>
@@ -106,17 +106,18 @@
           <h3>Hey {{username}},</h3>
           <p> Please fill your profile completely. There are <b>4 steps</b>, 
             tap on "next" to find other other steps. Then tap the section and fill.
+            tap on arrows to get to the other steps.
           </p>
         </div>
       <div class="uk-card uk-width-2-3@m">
         <div class="uk-card-header">
           <h3 class="uk-card-title">User Profile</h3>
-          <p><b style="font-size: 12px !important;">Tap "Next" to fill other important fields.</b></p>
         </div>
-        <ul align="center" class="uk-tab uk-child-width-expand" uk-switcher>  
+
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
+          <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid " uk-switcher="connect: .switch-class">  
           <li>
-            <a href="#" style="color: #208cb7">Personal Info</a>
-            
+            <a href="#" style="color: #208cb7">Personal Info</a>   
           </li>
           <li>
             <a href="#" style="color: #208cb7">Banking info</a> 
@@ -128,8 +129,12 @@
             <a href="#" style="color: #208cb7">Add redirect link</a>
           </li>
         </ul>
+          <a style="background-color: #12496961;" class="uk-position-center-left uk-position-small " uk-switcher-item="previous" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+        <a style="background-color: #12496961;" class="uk-position-center-right uk-position-small" uk-switcher-item="next" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
-        <ul class="uk-switcher uk-margin">
+        </div>
+
+        <ul class="uk-switcher uk-margin switch-class">
           <li>
             <div
               class="uk-card-body"
@@ -181,8 +186,6 @@
                 />
               </div>
               <button class="uk-button" @click="personalInfo">{{savebtnOne}}</button>
-              <br>
-              <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
             </div>
 
           </li>
@@ -237,9 +240,6 @@
                 />
               </div>
               <button class="uk-button" @click="bankUpdate">{{savebtnTwo}}</button>
-              <br>
-              <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a> |
-            <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
             </div> 
             
           </li>
@@ -306,9 +306,7 @@
                 maxlength="150"></textarea>
               </div>
               <button class="uk-button uk-button-default" @click="messageUpdate">{{savebtnThree}}</button>
-              <br>
-               <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a> |
-            <a href="#" uk-switcher-item="next" style="color: #c63968;">Next</a>
+              
             </div>
           </li>
 
@@ -345,8 +343,6 @@
                 class="uk-button tweet-it"
                 target="blank"
               >Tell others</a>
-              <br>
-               <a href="#" uk-switcher-item="previous" style="color: #c63968;">Previous</a>
             
             </div>
             
@@ -665,7 +661,7 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
   border-radius: 3px;
 }
 
-#my-id > .uk-modal-body {
+#my-id > .uk-modal-body, .uk-alert {
   border-radius: 5px;
 }
 
