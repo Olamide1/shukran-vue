@@ -18,7 +18,7 @@
             <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
             <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
             <li>
-              <a><router-link to="/profile">Profile</router-link></a>
+              <router-link to="/profile">Profile</router-link>
             </li>
             <li id="give-feedback" uk-toggle="target: #my-id">
               <a>Give feedback</a>
@@ -174,11 +174,12 @@
                 </div>
               </div>
               <!-- Withdraw request modal end -->
+              <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+                <canvas id="total-tips-chart" aria-label="Total Tips Chart" role="Total tips chart image">
+                  <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
+                </canvas>
+              </div>
               
-              
-              <canvas id="total-tips-chart" aria-label="Total Tips Chart" role="Total tips chart image">
-                <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
-              </canvas>
             </div>
             <!-- Total tips end -->
           </div>
@@ -324,6 +325,7 @@ export default {
             display: false,
             text: 'Chart'
           },
+          maintainAspectRatio: false,
           responsive: true,
           lineTension: 1,
           scales: {
@@ -380,9 +382,9 @@ export default {
 
         })
         .catch(err => {
-          console.error(err);
+          console.error(err, err.code);
         });
-      // console.log(`hey ${username}`)
+      // console.log(`hey ${username} what you doing looking on here? caret to tell us? all@useshukran.com`)
     },
     loadWithdrawn() {
       var username = this.username;
