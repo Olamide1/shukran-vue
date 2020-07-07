@@ -18,7 +18,7 @@
             <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
             <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
             <li>
-              <a><router-link to="/profile">Profile</router-link></a>
+              <router-link to="/profile">Profile</router-link>
             </li>
             <li id="give-feedback" uk-toggle="target: #my-id">
               <a>Give feedback</a>
@@ -660,7 +660,7 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
   border-radius: 3px;
 }
 
-#my-id > .uk-modal-body {
+#my-id > .uk-modal-body, .uk-alert {
   border-radius: 5px;
 }
 
