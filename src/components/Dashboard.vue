@@ -39,7 +39,7 @@
                   <div
             ref="file"
             class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }"
             uk-img
           >
           </div>
@@ -60,8 +60,8 @@
             ref="file"
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }"
-            uk-img="target: #offcanvas-usage"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }"
+            uk-img
           >
             <div
               uk-tooltip="Click to change your profile picture"

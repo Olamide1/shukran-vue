@@ -36,7 +36,7 @@
             <li>
               <a>
                   <div class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }" uk-img>
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }" uk-img>
         
     </div>
               </a>
@@ -51,7 +51,7 @@
         <h3>Shukran</h3>
         <!-- -->
             <div ref="file" class="image-background uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${profiles[0].picture_id})` }" uk-img>
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }" uk-img>
         <div id="add-image" uk-form-custom="target: true">
             <input type="file" @change="onFileChanged">
             <span uk-icon="icon: plus; ratio: 2"></span>
