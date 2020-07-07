@@ -349,7 +349,17 @@ export default {
                 }
               }
             ]
-          }
+          },
+          tooltips: {
+            callbacks: { // https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-callback
+                label: function(tooltipItem, data) {
+                    return `You were tipped ₦${tooltipItem.value} on ${tooltipItem.label}`
+                },
+                title: function(tooltipItem, data) {
+                    return `${tooltipItem[0].label} cash`
+                }
+            }
+        }
         }
       });
     },
