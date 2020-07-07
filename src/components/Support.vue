@@ -77,10 +77,10 @@
           <p style="color: #c63968;">{{issue}}</p>
        </div>
        <div class="uk-margin" v-if="parseInt(amount) >= 100">
-          <!-- <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button> -->
+          <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
 
             
-            <button class="uk-button uk-button-default" type="button" @click="save()">{{tipbtn}}</button>
+            <!-- <button class="uk-button uk-button-default" type="button" @click="save()">{{tipbtn}}</button> -->
          
        </div>
     </div>
@@ -162,7 +162,7 @@ export default {
              this.issue = "Please Enter Correct Email";
              this.tipbtn = "Tip"
           } else {
-            /* var handler = PaystackPop.setup({
+            var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
                amount: parseInt(amount) * 100,
@@ -205,11 +205,11 @@ export default {
                   alert('Payment action cancelled'); 
                   } 
                   });
-                  // handler.openIframe(); // nahhh, paystack
- */
+                  handler.openIframe(); // oh well, paystack
+
                   // flutterwave
 
-                  FlutterwaveCheckout({
+               /*    FlutterwaveCheckout({
       public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
       tx_ref: `${supporter_nickname}-shukran-${username} @ ${Date.now()}`,
       amount: parseInt(amount),
@@ -257,7 +257,7 @@ export default {
         description: "Shukran to " + username,
         logo: 'https://drive.google.com/uc?export=view&id=' + this.image,
       },
-    });
+    }); */
                   }
        },
     },

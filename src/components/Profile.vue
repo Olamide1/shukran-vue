@@ -101,7 +101,7 @@
       </div>
     </div>
     <div class="uk-section uk-padding" align="center">
-      <div uk-alert>
+      <div class="uk-width-2-3@m" uk-alert>
           <a class="uk-alert-close" uk-close></a>
           <h3>Hey {{username}},</h3>
           <p> Please fill your profile completely. There are <b>4 steps</b>, 
@@ -113,8 +113,8 @@
           <h3 class="uk-card-title">User Profile</h3>
         </div>
 
-        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
-          <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid " uk-switcher="connect: .switch-class">  
+        <div class="desktop-profile-tab">
+          <ul class="uk-child-width-expand" uk-switcher="connect: .switch-class" uk-tab>  
           <li>
             <a href="#" style="color: #208cb7">Personal Info</a>   
           </li>
@@ -128,9 +128,16 @@
             <a href="#" style="color: #208cb7">Add redirect link</a>
           </li>
         </ul>
-          <a style="background-color: #12496961;" class="uk-position-center-left uk-position-small " uk-switcher-item="previous" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-        <a style="background-color: #12496961;" class="uk-position-center-right uk-position-small" uk-switcher-item="next" href="#" uk-slidenav-next uk-slider-item="next"></a>
+          
+        </div>
 
+        <div class="mobile-profile-tab">
+          <ul class="uk-child-width-expand uk-subnav uk-iconnav uk-subnav-pill" uk-switcher="connect: .switch-class">
+            <li><a href="#" uk-icon="icon: user"></a></li>
+            <li><a href="#" uk-icon="icon: credit-card"></a></li>
+            <li><a href="#" uk-icon="icon: info"></a></li>
+            <li><a href="#" uk-icon="icon: link"></a></li>
+          </ul>
         </div>
 
         <ul class="uk-switcher uk-margin switch-class">
@@ -238,7 +245,8 @@
                   v-model="profile.account_number"
                 />
               </div>
-              <button class="uk-button" @click="bankUpdate">{{savebtnTwo}}</button>
+                <button class="uk-button" @click="bankUpdate">{{savebtnTwo}}</button>
+
             </div> 
             
           </li>
@@ -598,10 +606,6 @@ export default {
   color: #ff6870;
 }
 
-.uk-tab::before{
-  left: 0px;
-}
-
 li#give-feedback, li#get-tipped, li#logout {
   cursor: pointer;
 }
@@ -679,14 +683,14 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
 }
 
 @media (min-width:960px) {
-  .mobile-nav{
+  .mobile-nav, .mobile-profile-tab {
     display: none;
   }
   
 }
 
 @media (max-width:960px) {
-  .desktop-nav {
+  .desktop-nav, .desktop-profile-tab {
     display: none;
   }
   .uk-tab{

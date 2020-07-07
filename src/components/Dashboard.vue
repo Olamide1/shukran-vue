@@ -301,6 +301,7 @@ export default {
   methods: {
     createChart(chartId /* , chartData */) {
 
+      // https://codepen.io/grayghostvisuals/pen/gpROOz
       let chart = document.getElementById('total-tips-chart').getContext('2d'),
       gradient = chart.createLinearGradient(0, 0, 0, 450);
 
