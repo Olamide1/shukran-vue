@@ -300,19 +300,26 @@ export default {
   },
   methods: {
     createChart(chartId /* , chartData */) {
+
+      let chart = document.getElementById('total-tips-chart').getContext('2d'),
+      gradient = chart.createLinearGradient(0, 0, 0, 450);
+
+      gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+      gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+      gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
       const ctx = document.getElementById(chartId);
-      const myChart = new Chart(ctx, {
+      const tipsChart = new Chart(ctx, {
         type: "line",
         data: {
           labels: this.tipsDates,
           datasets: [
-            {
-              // another line graph
+            { // a(nother) line graph
               label: "Tips",
               data: this.allTips,
-              backgroundColor: [
+              backgroundColor: gradient/* [
                 "rgba(71, 183,132,.5)" // Green
-              ],
+              ] */,
               borderColor: ["#47b784"],
               borderWidth: 3,
               fill: "start",
@@ -321,9 +328,9 @@ export default {
           ]
         },
         options: {
-          title: { // ??
+          title: {
             display: false,
-            text: 'Chart'
+            text: 'You were tipped WHAT WHEN'
           },
           maintainAspectRatio: false,
           responsive: true,
@@ -362,6 +369,7 @@ export default {
         }
         }
       });
+
     },
     logout() {
       sessionStorage.clear();
