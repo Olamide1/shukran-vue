@@ -10,8 +10,8 @@
 
         <div class="uk-container">
             <h1 class="uk-heading">Terms and Conditions</h1>
-            
-            <div class=" uk-margin-medium-bottom uk-card uk-card-default uk-card-body">
+
+            <div class="uk-margin-medium-bottom uk-card uk-card-default uk-card-body">
     <article class="uk-article">
 
     <p class="uk-article-meta">Last updated on 8 July 2020.</p>
