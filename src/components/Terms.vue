@@ -14,6 +14,15 @@
             <div class="uk-margin-medium-bottom uk-card uk-card-default uk-card-body">
     <article class="uk-article">
 
+        <p class="uk-text-lead">
+            Shukran TERMS OF USE.
+        </p>
+        <p class="uk-text-lead">
+PLEASE NOTE THAT YOUR USE OF AND ACCESS TO THE SERVICES (AS DEFINED BELOW) ARE SUBJECT TO THE FOLLOWING TERMS; IF YOU DO NOT AGREE TO ALL OF THESE TERMS, YOU MAY NOT USE OR ACCESS THE SERVICES IN ANY MANNER.
+
+        </p>
+
+
     <p class="uk-article-meta">Last updated on 8 July 2020.</p>
 
     <h1 class="uk-article-title"><a class="uk-link-reset" href="">ABOUT THIS AGREEMENT</a></h1>
