@@ -152,9 +152,9 @@
           <a class="uk-alert-close" uk-close></a>
           <h3>Notice</h3>
           <p>Hi {{username}}, our 10% charge will take effect on payout requests from hence forth, find the breakdown 
-      <router-link to="/pricing">here.</router-link> 
-      Shukran!😊 
-    </p>
+            <router-link to="/pricing">here.</router-link> 
+            Shukran!😊 
+          </p>
         </div>
 
         <div class="uk-child-width-1-2@m uk-grid-match" uk-grid uk-height-match="target: > .info-card; row: true">
@@ -292,6 +292,7 @@
 // inspiration https://uidesigndaily.com/posts/sketch-dashboard-ui-components-upgrade-stats-statistics-admin-panel-day-1076
 import axios from "axios";
 import Chart from "chart.js";
+import fx from 'money'
 export default {
   name: "dashboard",
   data() {
@@ -604,11 +605,12 @@ export default {
     }
   },
   mounted() {
-    this.getId(); // shouldn't be
+    // this.getId(); // shouldn't be
     this.loadTransactions();
     this.checkUser();
     this.loadWithdrawn();
     this.getBalance();
+    this.rates(); // so we don't do it on currency change
   }
 };
 
