@@ -67,7 +67,16 @@
        </div>
        </div>
        <div>
+          <div style="display: flex">
+             <div class="uk-form-controls" style="margin-right: 1px">
+                  <select @change="payingCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
+                     <option value="NGN">₦</option>
+                     <option value="KES">K</option>
+                     <option value="USD">$</option>
+                  </select>
+            </div>
           <input type="number" class="uk-input" placeholder="Amount" v-model="amount" @change="showTipNudge">
+          </div>
           <p style="color: #c63968;"> {{tipNudge}} </p>
        </div>
        <div class="uk-margin">
@@ -77,11 +86,9 @@
           <p style="color: #c63968;">{{issue}}</p>
        </div>
        <div class="uk-margin" v-if="parseInt(amount) >= 100">
-          <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
+         <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
 
-            
-            <!-- <button class="uk-button uk-button-default" type="button" @click="save()">{{tipbtn}}</button> -->
-         
+         <!-- <button class="uk-button uk-button-default" type="button" @click="save()">rates</button> -->
        </div>
     </div>
     <div>
@@ -103,11 +110,12 @@ export default {
           username: this.$route.params.username,
           tipNudge: '',
           summary: '',
+          currency: !localStorage.getItem('shukran-country-currency') ? "NGN" : localStorage.getItem('shukran-country-currency'),
           message: '',
-          nickname: '',
-          email: localStorage.getItem('shukran_email'),
+          nickname: !localStorage.getItem('shukran-supporter-nickname') ? '' : localStorage.getItem('shukran-supporter-nickname'),
+          email: !localStorage.getItem('shukran-supporter-email') ? '' : localStorage.getItem('shukran-supporter-email'),
           amount: '',
-          phone: localStorage.getItem('shukran_phone'),
+          phone: !localStorage.getItem('shukran-supporter-phone') ? '' : localStorage.getItem('shukran-supporter-phone'),
           tipbtn: 'Tip',
           field: '',
           content: '',
@@ -124,13 +132,14 @@ export default {
           axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
              username: this.username.toLowerCase().trim()
              }).then( res => {
+                console.log('why this?', res)
                 this.summary = res.data[0].summary
                 this.field = res.data[0].craft_type
                 this.content = this.getUrl(res.data[0].primary_link)
                 this.image = res.data[0].picture_id
                 this.userinfos = res.data
             }).catch( err => {
-               console.log(err)
+               console.log('??', err)
                })
             },
          getUrl(link){
@@ -146,7 +155,30 @@ export default {
                }
                
             },
+         payingCurrency() {
+            // console.log('curr', this.currency, this.currency == "KES", 'here')
+         },
        save() {
+          // [optimize] save their email & nickname & phone number for later autofilling
+
+         /* if(!localStorage.getItem('shukran-supporter-nickname')) {
+            localStorage.setItem('shukran-supporter-nickname', this.nickname);
+         } else {
+            console.log('1')
+         }
+         if(!localStorage.getItem('shukran-supporter-email')) {
+            localStorage.setItem('shukran-supporter-email', this.email);
+         } else {
+            console.log('2')
+         }
+         if(!localStorage.getItem('shukran-supporter-phone')) {
+            localStorage.setItem('shukran-supporter-phone', this.phone);
+         } else {
+            console.log('3')
+         } */
+
+          // ---optimize re-assignments//
+
           var email = this.email
           var username = this.username
           var supporter_nickname = this.nickname
@@ -162,7 +194,7 @@ export default {
              this.issue = "Please Enter Correct Email";
              this.tipbtn = "Tip"
           } else {
-            var handler = PaystackPop.setup({
+            /* var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
                amount: parseInt(amount) * 100,
@@ -206,16 +238,18 @@ export default {
                   } 
                   });
                   handler.openIframe(); // oh well, paystack
-
+ */
                   // flutterwave
 
-               /*    FlutterwaveCheckout({
+                  FlutterwaveCheckout({
       public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
       tx_ref: `${supporter_nickname}-shukran-${username} @ ${Date.now()}`,
       amount: parseInt(amount),
-      country: !localStorage.getItem('shukran-country-code') ? "NG" : localStorage.getItem('shukran-country-code'),
-      currency: !localStorage.getItem('shukran-country-currency') ? "NGN" : localStorage.getItem('shukran-country-currency'), // "NGN" is default
-      payment_options: "card,mobilemoney,ussd",
+      // https://stackoverflow.com/a/40560953
+      // make country based on currency? how about ?
+      ...(this.currency == "KES") && {country: "KE"}, // !localStorage.getItem('shukran-country-code') ? "NG" : localStorage.getItem('shukran-country-code')
+      ...(this.currency == "KES") && {currency: this.currency},
+      payment_options: "card,mobilemoney,ussd,mpesa",
       // redirect_url: redirect == undefined ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
       meta: {
         // consumer_id: 23,
@@ -228,9 +262,13 @@ export default {
         supporter_nickname: supporter_nickname,
       },
       callback: function(response){
-                  localStorage.setItem('shukran_email', email)
-                  localStorage.setItem('shukran_nickname', supporter_nickname)
-                  localStorage.setItem('shukran_phone', phone)
+         console.log('success. transaction ref is ', response);
+         console.warn('success. transaction ref is ', response); // optimize
+
+                  localStorage.setItem('shukran-supporter-nickname', this.nickname);
+                  localStorage.setItem('shukran-supporter-email', this.email);
+                  localStorage.setItem('shukran-supporter-phone', this.phone);
+
                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
@@ -240,6 +278,7 @@ export default {
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
+                        console.info('tipped')
                         if (redirect == undefined) {
                            this.$router.push('/thanks');
                         } else {
@@ -249,15 +288,16 @@ export default {
                            this.tipbtn = 'Tip'
                            this.issue = err
                            console.log(err)
+                           console.error(err)
                         })
-                     console.log('success. transaction ref is ', response);
+                     
                      },
       customizations: {
         title: "Support " + username,
         description: "Shukran to " + username,
         logo: 'https://drive.google.com/uc?export=view&id=' + this.image,
       },
-    }); */
+    });
                   }
        },
     },
@@ -265,7 +305,7 @@ export default {
        this.showUserWelcome()
     },
     mounted(){
-       this.showUserWelcome()
+      // this.showUserWelcome() // no need calling twice
     }
 }
 </script>

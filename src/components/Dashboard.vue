@@ -7,7 +7,17 @@
           <span class="uk-margin-small-left"></span>
         </a>
 
-        <a class="uk-navbar-item uk-logo">Shukran</a>
+        <a class="uk-navbar-item uk-logo uk-padding-remove-left">Shukran</a>
+      </div>
+
+      <div class="uk-navbar-right">
+        <div class="uk-form-controls uk-margin-small-right" style="width: 50px;">
+          <select @change="changeCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
+              <option value="NGN">₦</option>
+              <option value="KES">K</option>
+              <option value="USD">$</option>
+          </select>
+      </div>
       </div>
     </nav>
 
@@ -31,6 +41,17 @@
     <div class="uk-navbar-right">
 
         <ul class="uk-navbar-nav">
+          <li>
+            <a>
+              <div class="uk-form-controls" style="width: 50px;">
+                  <select @change="changeCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
+                     <option value="NGN">₦</option>
+                     <option value="KES">K</option>
+                     <option value="USD">$</option>
+                  </select>
+            </div>
+            </a>
+          </li>
             <li>
               <a class="" href="#modal-middle" uk-toggle><button class="uk-button request-button uk-button-primary">Request payout</button></a>
             </li>
@@ -136,8 +157,8 @@
     </p>
         </div>
 
-        <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
-        <div class="uk-flex uk-flex-column">
+        <div class="uk-child-width-1-2@m uk-grid-match" uk-grid uk-height-match="target: > .info-card; row: true">
+        <div class="uk-flex uk-flex-column info-card">
           <div>
             <!-- Total tips start -->
             <div
@@ -147,7 +168,7 @@
               
               <span>Total tips. <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Request payout</a></span>
               <!-- <h3 class="uk-card-title">&#x20a6;{{tipTotal}}</h3> -->
-              <h1 class="uk-heading-small">&#x20a6;{{tipTotal}}</h1>
+              <h1 class="uk-heading-small">{{currencySymbol}}{{tipTotal.toFixed(2)}}</h1>
               
               <!-- Withdraw request modal start -->
               <div id="modal-middle" class="uk-flex-top" uk-modal>
@@ -203,7 +224,7 @@
         </div>
 
         <!-- table -->
-        <div>
+        <div class="info-card">
             <div
               class="uk-card uk-card-default uk-card-body"
               uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
@@ -279,6 +300,8 @@ export default {
       transactions: [],
       allTips: [], // optimise this later
       tipsDates: [],
+      currency: 'NGN',
+      tempCurr: '',
       url:
         "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
@@ -296,9 +319,79 @@ export default {
   computed: {
     availableBalance() {
       return this.tipTotal - this.tipWithdrawn;
+    },
+    currencySymbol() {
+      switch (this.currency) {
+        case "NGN":
+          return '₦'
+          break;
+        case "USD":
+            return '$'
+            break;
+        case "KES":
+              return 'K'
+              break;
+        default:
+          break;
+      }
     }
   },
   methods: {
+    changeCurrency() {
+            this.rates();
+         },
+         fetchConversionDataAndUpdate() {
+            const ex = () => {
+              this.tipTotal = fx(this.tipTotal).from( this.tempCurr ? this.tempCurr : localStorage.getItem('shukran-country-currency')).to(this.currency)
+              this.tempCurr = this.currency;
+
+              // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
+              // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
+            }
+                  
+            fetch(`https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`)
+            .then((resp) => resp.json())
+            .then((data) => {
+              fx.base = 'USD'; // which it was localStorage.getItem('shukran-country-currency')
+              fx.rates = data.rates;
+              // console.log(data);
+              localStorage.setItem('shukran-currency-converter-data', JSON.stringify(data))
+            })
+            .then(ex)
+            .catch(err => console.error('fetch ex rates err', err))
+
+         },
+         // https://github.com/exchangeratesapi/exchangeratesapi
+         // https://docs.openexchangerates.org/
+         rates() {
+                  
+            if (!localStorage.getItem('shukran-currency-converter-data')) {
+                this.fetchConversionDataAndUpdate();
+              } else {
+                // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
+                const savedCurrConvData = JSON.parse(localStorage.getItem('shukran-currency-converter-data'));
+                // check if it's more than a week old
+                // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
+                // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+                const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000)
+
+                // calculate the no. of days between two dates 
+                const diffInDays = (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24); 
+                if ( diffInDays > 7 ) { // more than 7 days
+                  // fetch again
+                  this.fetchConversionDataAndUpdate();
+                } else { // less than a week old? then just convert
+                  fx.base = 'USD';
+                  fx.rates = savedCurrConvData.rates;
+
+                  this.tipTotal = fx(this.tipTotal).from( this.tempCurr ? this.tempCurr : localStorage.getItem('shukran-country-currency')).to(this.currency)
+                  this.tempCurr = this.currency;
+                  // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
+                  // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
+
+                }
+              }
+         },
     createChart(chartId /* , chartData */) {
 
       // https://codepen.io/grayghostvisuals/pen/gpROOz
@@ -570,6 +663,10 @@ export default {
 .uk-alert {
   border-radius: 5px;
 }
+
+.uk-alert {
+  text-align: left;
+}
 .capitalize {
   text-transform: capitalize;
 }
@@ -649,7 +746,7 @@ div[data-src][src*="data:image"] {
     background-color: #170808;
     color: #ebebe7 !important; */
 .tippers-table {
-  height: 560px;
+  /* height: 560px; */
   overflow-y: auto;
 }
 ul.metrics {

@@ -668,6 +668,10 @@ div[data-src][src*='data:image'] { background: rgba(0,0,0,0.1); }
   border-radius: 5px;
 }
 
+.uk-alert {
+  text-align: left;
+}
+
 .uk-textarea, .uk-modal-dialog.uk-modal-body div.uk-margin > button  {
   border-radius: 3px;
 }
