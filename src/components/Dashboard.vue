@@ -11,10 +11,10 @@
       </div>
 
       <div class="uk-navbar-right">
-        <div class="uk-form-controls uk-margin-small-right" style="width: 50px;">
+        <div class="uk-form-controls uk-margin-small-right" style="width: 60px;">
           <select @change="changeCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
               <option value="NGN">₦</option>
-              <option value="KES">K</option>
+              <option value="KES">Ksh</option>
               <option value="USD">$</option>
           </select>
       </div>
@@ -43,10 +43,10 @@
         <ul class="uk-navbar-nav">
           <li>
             <a>
-              <div class="uk-form-controls" style="width: 50px;">
+              <div class="uk-form-controls" style="width: 60px;">
                   <select @change="changeCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
                      <option value="NGN">₦</option>
-                     <option value="KES">K</option>
+                     <option value="KES">Ksh</option>
                      <option value="USD">$</option>
                   </select>
             </div>
@@ -300,7 +300,7 @@ export default {
       transactions: [],
       allTips: [], // optimise this later
       tipsDates: [],
-      currency: 'NGN',
+      currency: 'NGN', // optimse later, use country's currency
       tempCurr: '',
       url:
         "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
@@ -329,7 +329,7 @@ export default {
             return '$'
             break;
         case "KES":
-              return 'K'
+              return 'Ksh'
               break;
         default:
           break;
