@@ -10,12 +10,21 @@ import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
 import Pricing from '@/components/Pricing'
 import Index from '@/components/Index'
+import Terms from '@/components/Terms'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/terms',
+      name: 'Terms and Conditions',
+      component: Terms,
+      meta: {
+        title: 'Terms and Conditions - Shukran'
+      }
+    },
     {
       path: '/index',
       name: 'Home',

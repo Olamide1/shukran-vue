@@ -340,7 +340,7 @@ export default {
     changeCurrency() {
             this.rates();
          },
-         fetchConversionDataAndUpdate() {
+         fetchConversionDataAndUpdate() { // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
             const ex = () => {
               this.tipTotal = fx(this.tipTotal).from( this.tempCurr ? this.tempCurr : localStorage.getItem('shukran-country-currency')).to(this.currency)
               this.tempCurr = this.currency;
@@ -348,11 +348,11 @@ export default {
               // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
               // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
             }
-                  
+            // hide app_id
             fetch(`https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`)
             .then((resp) => resp.json())
             .then((data) => {
-              fx.base = 'USD'; // which it was localStorage.getItem('shukran-country-currency')
+              fx.base = 'USD'; // wish it was localStorage.getItem('shukran-country-currency')
               fx.rates = data.rates;
               // console.log(data);
               localStorage.setItem('shukran-currency-converter-data', JSON.stringify(data))
