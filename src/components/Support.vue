@@ -9,8 +9,7 @@
         <ul class="uk-navbar-nav">
             <li>
                 <router-link to="/accounts" class="lead">Creators</router-link>
-            </li> 
-            
+            </li>
         </ul>
     </div>
 </nav>
@@ -60,11 +59,11 @@
         <p>You'll not have to fill your nickname, 
            email address & phone number again for a faster tipping experience.</p>
        <div>
-          <div class="uk-margin">
-          <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
-          <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="email">
-          <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone">
-       </div>
+         <div class="uk-margin">
+            <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
+            <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="email">
+            <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone">
+         </div>
        </div>
        <div>
           <div style="display: flex">
@@ -77,7 +76,7 @@
             </div>
           <input type="number" class="uk-input" placeholder="Amount" v-model="amount" @change="showTipNudge">
           </div>
-          <p style="color: #c63968;"> {{tipNudge}} </p>
+          <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
        <div class="uk-margin">
           <textarea placeholder="Drop an encouraging message" class="uk-textarea" v-model="message"></textarea>
@@ -166,7 +165,6 @@ export default {
          }
       },
       showTipNudge() {
-         console.log('amt', !this.amount, typeof parseInt(this.amount) == 'number' )
          if (this.currency == "USD") {
             this.tipGuard = 2;
          } else {

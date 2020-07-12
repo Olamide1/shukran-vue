@@ -12,63 +12,79 @@
 
       <div class="uk-navbar-right">
         <div class="uk-form-controls uk-margin-small-right" style="width: 60px;">
-          <select @change="changeCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
-              <option value="NGN">₦</option>
-              <option value="KES">Ksh</option>
-              <option value="USD">$</option>
+          <select
+            @change="changeCurrency()"
+            v-model="currency"
+            style="border-radius: 3px"
+            class="uk-select uk-form-width-xsmall"
+            id="form-stacked-select"
+          >
+            <option value="NGN">₦</option>
+            <option value="KES">Ksh</option>
+            <option value="USD">$</option>
           </select>
-      </div>
+        </div>
       </div>
     </nav>
 
     <nav class="uk-navbar-container desktop-nav" uk-navbar>
-    <div class="uk-navbar-left">
-
+      <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
-            <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
-            <li>
-              <router-link to="/profile">Profile</router-link>
-            </li>
-            <li id="give-feedback" uk-toggle="target: #my-id">
-              <a>Give feedback</a>
-            </li>
-            <li id="logout" @click="logout"><a>Logout</a></li>
+          <li class="uk-active">
+            <router-link to="/dash">Dashboard</router-link>
+          </li>
+          <li id="get-tipped" href="#modal-center" uk-toggle>
+            <a>Get tipped</a>
+          </li>
+          <li>
+            <router-link to="/profile">Profile</router-link>
+          </li>
+          <li id="give-feedback" uk-toggle="target: #my-id">
+            <a>Give feedback</a>
+          </li>
+          <li id="logout" @click="logout">
+            <a>Logout</a>
+          </li>
         </ul>
+      </div>
 
-    </div>
-
-    <div class="uk-navbar-right">
-
+      <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
           <li>
             <a>
               <div class="uk-form-controls" style="width: 60px;">
-                  <select @change="changeCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
-                     <option value="NGN">₦</option>
-                     <option value="KES">Ksh</option>
-                     <option value="USD">$</option>
-                  </select>
-            </div>
+                <select
+                  @change="changeCurrency()"
+                  v-model="currency"
+                  style="border-radius: 3px"
+                  class="uk-select uk-form-width-xsmall"
+                  id="form-stacked-select"
+                >
+                  <option value="NGN">₦</option>
+                  <option value="KES">Ksh</option>
+                  <option value="USD">$</option>
+                </select>
+              </div>
             </a>
           </li>
-            <li>
-              <a class="" href="#modal-middle" uk-toggle><button class="uk-button request-button uk-button-primary">Request payout</button></a>
-            </li>
-            <li>
-              <a href="#!">
-                  <div
-            ref="file"
-            class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }"
-            uk-img
-          >
-          </div>
-              </a>
-            </li>
+          <li>
+            <a class href="#modal-middle" uk-toggle>
+              <button class="uk-button request-button uk-button-primary">Request payout</button>
+            </a>
+          </li>
+          <li>
+            <a href="#!">
+              <div
+                ref="file"
+                class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }"
+                uk-img
+              ></div>
+            </a>
+          </li>
         </ul>
-    </div>
-</nav>
+      </div>
+    </nav>
     <div class="uk-section">
       <!-- sidebar -->
       <div id="offcanvas-usage" uk-offcanvas>
@@ -151,108 +167,124 @@
         <div uk-alert>
           <a class="uk-alert-close" uk-close></a>
           <h3>Notice</h3>
-          <p>Hi {{username}}, our 10% charge will take effect on payout requests from hence forth, find the breakdown 
-            <router-link to="/pricing">here.</router-link> 
-            Shukran!😊 
+          <p>
+            Hi {{username}}, our 10% charge will take effect on payout requests from hence forth, find the breakdown
+            <router-link to="/pricing">here.</router-link>Shukran!😊
           </p>
         </div>
 
-        <div class="uk-child-width-1-2@m uk-grid-match" uk-grid uk-height-match="target: > .info-card; row: true">
-        <div class="uk-flex uk-flex-column info-card">
+        <div class="uk-grid-column-medium uk-grid-row-medium uk-child-width-1-2@m uk-grid-match" uk-grid uk-height-match="row: false">
+          
           <div>
-            <!-- Total tips start -->
-            <div
-              class="uk-card uk-card-default uk-card-body"
-              uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true"
-            >
-              
-              <span>Total tips. <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Request payout</a></span>
-              <!-- <h3 class="uk-card-title">&#x20a6;{{tipTotal}}</h3> -->
-              <h1 class="uk-heading-small">{{currencySymbol}}{{tipTotal.toFixed(2)}}</h1>
-              
-              <!-- Withdraw request modal start -->
-              <div id="modal-middle" class="uk-flex-top" uk-modal>
-                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-                  <div class="uk-modal-header">
-                    <h4 class="uk-modal-title">Payout request</h4>
+            <div class="uk-grid-row-medium uk-flex-column info-card" uk-grid>
+            <div>
+              <!-- Total tips start -->
+              <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
+                <span>
+                  Total tips.
+                  <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Request payout</a>
+                </span>
+                <h1 class="uk-heading-small">{{currencySymbol}}{{tipTotal.toFixed(2)}}</h1>
+
+                <!-- Withdraw request modal start -->
+                <div id="modal-middle" class="uk-flex-top" uk-modal>
+                  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+                    <div class="uk-modal-header">
+                      <h4 class="uk-modal-title">Payout request</h4>
+                    </div>
+                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                    <div class="uk-margin">
+                      <h4>Available balance: &#x20a6;{{availableBalance}}</h4>
+                    </div>
+                    <div class="uk-margin" align="center">
+                      <input type="number" class="uk-input" placeholder="Amount" v-model="amount" />
+                      <span v-if="amount > (availableBalance)">Insufficient available balance.</span>
+                      <br />
+                      <span v-if="amount < 1000">Payout requests cannot be less than &#x20a6;1000</span>
+                    </div>
+                    <div class="uk-margin">
+                      <button
+                        class="uk-button"
+                        v-if="amount < (availableBalance) && amount != 0"
+                        @click="withdrawRequest()"
+                      >{{request}}</button>
+                    </div>
                   </div>
-                  <button class="uk-modal-close-default" type="button" uk-close></button>
-                  <div class="uk-margin">
-                    <h4>Available balance: &#x20a6;{{availableBalance}}</h4>
-                  </div>
-                  <div class="uk-margin" align="center">
-                    <input type="number" class="uk-input" placeholder="Amount" v-model="amount" />
-                    <span v-if="amount > (availableBalance)">Insufficient available balance.</span> <br>
-                    <span v-if="amount < 1000">Payout requests cannot be less than &#x20a6;1000</span>
-                  </div>
-                  <div class="uk-margin">
-                    <button
-                      class="uk-button"
-                      v-if="amount < (availableBalance) && amount != 0"
-                      @click="withdrawRequest()"
-                    >{{request}}</button>
+                </div>
+                <!-- Withdraw request modal end -->
+                <div class="chart-container">
+                  <canvas
+                    id="total-tips-chart"
+                    aria-label="Total Tips Chart"
+                    role="Total tips chart image"
+                  >
+                    <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
+                  </canvas>
+                </div>
+              </div>
+              <!-- Total tips end -->
+
+            </div>
+
+            <div>
+                <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
+                  <h3 class="uk-card-title">Overview</h3>
+                  <ul class="metrics">
+                    <li class="li-available">Available</li>
+                    <li class="li-withdrawn">Withdrawn</li>
+                  </ul>
+
+                  <div class="progress">
+                    <span
+                      :uk-tooltip="`${availableBalance > 1000 ? 'You have ₦' + availableBalance + ' available to withdraw' : 'You need more that ₦1000 to make a withdrawal request'}`"
+                      class="value"
+                      :data-label="`₦${availableBalance}`"
+                      :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"
+                    ></span>
+                    <span
+                      :uk-tooltip="`You've withdrawn ₦${tipWithdrawn} so far`"
+                      class="value"
+                      :data-label="`₦${tipWithdrawn}`"
+                      :style="`width:${(((tipTotal - availableBalance) / tipTotal) * 100).toFixed(2)}%;`"
+                    ></span>
                   </div>
                 </div>
               </div>
-              <!-- Withdraw request modal end -->
-              <div class="chart-container">
-                <canvas id="total-tips-chart" aria-label="Total Tips Chart" role="Total tips chart image">
-                  <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
-                </canvas>
-              </div>
-              
-            </div>
-            <!-- Total tips end -->
+
           </div>
-          <div class="uk-margin-top">
-            <div
-              class="uk-card uk-card-default uk-card-body"
-              uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
-            >
-              <h3 class="uk-card-title">Overview</h3>
-              <ul class="metrics">
-                <li class="li-available">Available</li>
-                <li class="li-withdrawn">Withdrawn</li>
-              </ul>
 
-              <div class="progress">
-                <span :uk-tooltip="`${availableBalance > 1000 ? 'You have ₦' + availableBalance + ' available to withdraw' : 'You need more that ₦1000 to make a withdrawal request'}`" class="value" :data-label="`₦${availableBalance}`" :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"></span>
-                <span :uk-tooltip="`You've withdrawn ₦${tipWithdrawn} so far`" class="value" :data-label="`₦${tipWithdrawn}`" :style="`width:${(((tipTotal - availableBalance) / tipTotal) * 100).toFixed(2)}%;`"></span>
+          </div>
+          
+            <!-- table -->
+            <div>
+              <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
+                <h3 class="uk-card-title">Tip details</h3>
+
+                <div class="tippers-table">
+                  <table class="uk-table uk-table-middle uk-table-divider">
+                    <thead>
+                      <tr>
+                        <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
+                        <th style="color:#516E6F;">Amount</th>
+                        <th style="color:#516E6F;">Message</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(transaction, index) in transactions.slice().reverse()"
+                        :key="index"
+                      >
+                        <td>{{transaction.supporter_nickname}}</td>
+                        <td>&#x20a6;{{transaction.amount}}</td>
+                        <td>{{transaction.message}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- table -->
-        <div class="info-card">
-            <div
-              class="uk-card uk-card-default uk-card-body"
-              uk-scrollspy="cls: uk-animation-slide-top; repeat: true"
-            >
-              <h3 class="uk-card-title">Tip details</h3>
-
-              <div class="tippers-table">
-                <table class="uk-table uk-table-middle uk-table-divider">
-                  <thead>
-                    <tr>
-                      <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
-                      <th style="color:#516E6F;">Amount</th>
-                      <th style="color:#516E6F;">Message</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
-                      <td>{{transaction.supporter_nickname}}</td>
-                      <td>&#x20a6;{{transaction.amount}}</td>
-                      <td>{{transaction.message}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-            </div>
-          </div>
-        <!-- //table -->
+            <!-- //table -->
+          
         </div>
 
         <!-- <ul uk-accordion>
@@ -281,8 +313,7 @@
               </div>
             </div>
           </li>
-        </ul> -->
-
+        </ul>-->
       </div>
     </div>
   </div>
@@ -292,7 +323,7 @@
 // inspiration https://uidesigndaily.com/posts/sketch-dashboard-ui-components-upgrade-stats-statistics-admin-panel-day-1076
 import axios from "axios";
 import Chart from "chart.js";
-import fx from 'money'
+import fx from "money";
 export default {
   name: "dashboard",
   data() {
@@ -301,8 +332,8 @@ export default {
       transactions: [],
       allTips: [], // optimise this later
       tipsDates: [],
-      currency: 'NGN', // optimse later, use country's currency
-      tempCurr: '',
+      currency: "NGN", // optimse later, use country's currency
+      tempCurr: "",
       url:
         "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
@@ -324,14 +355,14 @@ export default {
     currencySymbol() {
       switch (this.currency) {
         case "NGN":
-          return '₦'
+          return "₦";
           break;
         case "USD":
-            return '$'
-            break;
+          return "$";
+          break;
         case "KES":
-              return 'Ksh'
-              break;
+          return "Ksh";
+          break;
         default:
           break;
       }
@@ -339,69 +370,88 @@ export default {
   },
   methods: {
     changeCurrency() {
-            this.rates();
-         },
-         fetchConversionDataAndUpdate() { // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
-            const ex = () => {
-              this.tipTotal = fx(this.tipTotal).from( this.tempCurr ? this.tempCurr : localStorage.getItem('shukran-country-currency')).to(this.currency)
-              this.tempCurr = this.currency;
+      this.rates();
+    },
+    fetchConversionDataAndUpdate() {
+      // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
+      const ex = () => {
+        this.tipTotal = fx(this.tipTotal)
+          .from(
+            this.tempCurr
+              ? this.tempCurr
+              : localStorage.getItem("shukran-country-currency")
+          )
+          .to(this.currency);
+        this.tempCurr = this.currency;
 
-              // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
-              // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
-            }
-            // hide app_id
-            fetch(`https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`)
-            .then((resp) => resp.json())
-            .then((data) => {
-              fx.base = 'USD'; // wish it was localStorage.getItem('shukran-country-currency')
-              fx.rates = data.rates;
-              // console.log(data);
-              localStorage.setItem('shukran-currency-converter-data', JSON.stringify(data))
-            })
-            .then(ex)
-            .catch(err => console.error('fetch ex rates err', err))
+        // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
+        // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
+      };
+      // hide app_id
+      fetch(
+        `https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`
+      )
+        .then(resp => resp.json())
+        .then(data => {
+          fx.base = "USD"; // wish it was localStorage.getItem('shukran-country-currency')
+          fx.rates = data.rates;
+          // console.log(data);
+          localStorage.setItem(
+            "shukran-currency-converter-data",
+            JSON.stringify(data)
+          );
+        })
+        .then(ex)
+        .catch(err => console.error("fetch ex rates err", err));
+    },
+    // https://github.com/exchangeratesapi/exchangeratesapi
+    // https://docs.openexchangerates.org/
+    rates() {
+      if (!localStorage.getItem("shukran-currency-converter-data")) {
+        this.fetchConversionDataAndUpdate();
+      } else {
+        // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
+        const savedCurrConvData = JSON.parse(
+          localStorage.getItem("shukran-currency-converter-data")
+        );
+        // check if it's more than a week old
+        // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
+        // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+        const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000);
 
-         },
-         // https://github.com/exchangeratesapi/exchangeratesapi
-         // https://docs.openexchangerates.org/
-         rates() {
-                  
-            if (!localStorage.getItem('shukran-currency-converter-data')) {
-                this.fetchConversionDataAndUpdate();
-              } else {
-                // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
-                const savedCurrConvData = JSON.parse(localStorage.getItem('shukran-currency-converter-data'));
-                // check if it's more than a week old
-                // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
-                // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
-                const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000)
+        // calculate the no. of days between two dates
+        const diffInDays =
+          (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24);
+        if (diffInDays > 7) {
+          // more than 7 days
+          // fetch again
+          this.fetchConversionDataAndUpdate();
+        } else {
+          // less than a week old? then just convert
+          fx.base = "USD";
+          fx.rates = savedCurrConvData.rates;
 
-                // calculate the no. of days between two dates 
-                const diffInDays = (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24); 
-                if ( diffInDays > 7 ) { // more than 7 days
-                  // fetch again
-                  this.fetchConversionDataAndUpdate();
-                } else { // less than a week old? then just convert
-                  fx.base = 'USD';
-                  fx.rates = savedCurrConvData.rates;
-
-                  this.tipTotal = fx(this.tipTotal).from( this.tempCurr ? this.tempCurr : localStorage.getItem('shukran-country-currency')).to(this.currency)
-                  this.tempCurr = this.currency;
-                  // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
-                  // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
-
-                }
-              }
-         },
+          this.tipTotal = fx(this.tipTotal)
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            )
+            .to(this.currency);
+          this.tempCurr = this.currency;
+          // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
+          // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
+        }
+      }
+    },
     createChart(chartId /* , chartData */) {
-
       // https://codepen.io/grayghostvisuals/pen/gpROOz
-      let chart = document.getElementById('total-tips-chart').getContext('2d'),
-      gradient = chart.createLinearGradient(0, 0, 0, 450);
+      let chart = document.getElementById("total-tips-chart").getContext("2d"),
+        gradient = chart.createLinearGradient(0, 0, 0, 450);
 
-      gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
-      gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
-      gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+      gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
+      gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
+      gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
 
       const ctx = document.getElementById(chartId);
       const tipsChart = new Chart(ctx, {
@@ -409,10 +459,11 @@ export default {
         data: {
           labels: this.tipsDates,
           datasets: [
-            { // a(nother) line graph
+            {
+              // a(nother) line graph
               label: "Tips",
               data: this.allTips,
-              backgroundColor: gradient/* [
+              backgroundColor: gradient /* [
                 "rgba(71, 183,132,.5)" // Green
               ] */,
               borderColor: ["#47b784"],
@@ -425,18 +476,19 @@ export default {
         options: {
           title: {
             display: false,
-            text: 'You were tipped WHAT WHEN'
+            text: "You were tipped WHAT WHEN"
           },
           maintainAspectRatio: false,
           responsive: true,
           lineTension: 1,
           scales: {
-            
-            xAxes: [{
+            xAxes: [
+              {
                 pointLabels: {
                   display: false
-                },
-            }],
+                }
+              }
+            ],
             yAxes: [
               {
                 pointLabels: {
@@ -445,26 +497,27 @@ export default {
                 ticks: {
                   // beginAtZero: false,
                   padding: 25,
-                  callback: function(value, index, values) { // return null to hide
-                      return '₦' + value; // Include a naira sign in the ticks
+                  callback: function(value, index, values) {
+                    // return null to hide
+                    return "₦" + value; // Include a naira sign in the ticks
                   }
                 }
               }
             ]
           },
           tooltips: {
-            callbacks: { // https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-callback
-                label: function(tooltipItem, data) {
-                    return `You were tipped ₦${tooltipItem.value} on ${tooltipItem.label}`
-                },
-                title: function(tooltipItem, data) {
-                    return `${tooltipItem[0].label} cash`
-                }
+            callbacks: {
+              // https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-callback
+              label: function(tooltipItem, data) {
+                return `You were tipped ₦${tooltipItem.value} on ${tooltipItem.label}`;
+              },
+              title: function(tooltipItem, data) {
+                return `${tooltipItem[0].label} cash`;
+              }
             }
-        }
+          }
         }
       });
-
     },
     logout() {
       sessionStorage.clear();
@@ -482,17 +535,20 @@ export default {
           this.transactions = res.data;
           for (var i = 0; i < this.transactions.length; i++) {
             this.tipTotal += parseInt(this.transactions[i].amount);
-            this.allTips.push(this.transactions[i].amount) // optimise how this is gotten
+            this.allTips.push(this.transactions[i].amount); // optimise how this is gotten
             // https://stackoverflow.com/a/34015511
-            this.tipsDates.push( new Date(this.transactions[i].transaction_date).toLocaleDateString('en-GB', {
-                year: '2-digit',
-                month: 'short',
-                day: '2-digit'
-            })) // .toDateString() .toLocaleDateString("en-US")
+            this.tipsDates.push(
+              new Date(
+                this.transactions[i].transaction_date
+              ).toLocaleDateString("en-GB", {
+                year: "2-digit",
+                month: "short",
+                day: "2-digit"
+              })
+            ); // .toDateString() .toLocaleDateString("en-US")
           }
 
-        this.createChart("total-tips-chart");
-
+          this.createChart("total-tips-chart");
         })
         .catch(err => {
           console.error(err, err.code);
@@ -613,12 +669,10 @@ export default {
     this.rates(); // so we don't do it on currency change
   }
 };
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .uk-container-expand {
   background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
 
@@ -647,7 +701,8 @@ export default {
 .show {
   color: #c63968;
 }
-.h3, .uk-navbar-toggle {
+.h3,
+.uk-navbar-toggle {
   color: #ffffff;
 }
 .uk-offcanvas-bar {
@@ -655,7 +710,8 @@ export default {
   color: #fceedd;
 }
 .uk-card,
-.uk-card-title, .uk-heading-small {
+.uk-card-title,
+.uk-heading-small {
   /* background-color: #fceedd !important; */
   color: #666 !important;
   margin-top: 0px;
@@ -695,7 +751,7 @@ export default {
 }
 .request-button.uk-button-primary {
   border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 li#give-feedback,
 li#get-tipped,
@@ -755,7 +811,7 @@ ul.metrics {
   margin-bottom: 25px;
 }
 ul.metrics > li {
-    list-style: none;
+  list-style: none;
 }
 
 li.li-available:before {
@@ -823,25 +879,26 @@ li.li-withdrawn:before {
 /**good spot */
 .desktop-nav {
   margin: 30px;
-border-radius: 5px;
-background: #edf4f0 !important;
-color: #111011 !important;
+  border-radius: 5px;
+  background: #edf4f0 !important;
+  color: #111011 !important;
 }
-@media (min-width:960px) {
-  .mobile-nav, .uk-card-badge.uk-label[href] {
+@media (min-width: 960px) {
+  .mobile-nav,
+  .uk-card-badge.uk-label[href] {
     display: none;
   }
 
   .chart-container {
     position: relative;
-    height:70vh;
-    width:37vw
+    height: 70vh;
+    width: 37vw;
   }
-  
 }
 
-@media (max-width:960px) {
-  .desktop-nav, .request-button.uk-button-primary {
+@media (max-width: 960px) {
+  .desktop-nav,
+  .request-button.uk-button-primary {
     display: none;
   }
 
@@ -853,9 +910,8 @@ color: #111011 !important;
 
   .chart-container {
     position: relative;
-    height:40vh;
-    width:80vw
+    height: 40vh;
+    width: 80vw;
   }
-
 }
 </style>

@@ -2,7 +2,7 @@
 <div class="terms ">
     <nav class="uk-container uk-navbar uk-margin">
     <div class="uk-navbar-left">
-     <router-link class="uk-navbar-item logo" to="/">Shukran</router-link>
+     <router-link class="uk-navbar-item logo uk-padding-remove-left" to="/">Shukran</router-link>
     </div>
     </nav>
 
