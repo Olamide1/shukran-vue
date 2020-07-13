@@ -84,8 +84,8 @@
        <div class="uk-margin">
           <p style="color: #c63968;">{{issue}}</p>
        </div>
-       <div class="uk-margin" v-if="parseInt(amount) >= tipGuard">
-         <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
+       <div class="uk-margin">
+         <button :disabled="parseInt(amount) < tipGuard || amount == ''" class="uk-button tip-button uk-button-default" @click="save()">{{tipbtn}}</button>
 
          <!-- <button class="uk-button uk-button-default" type="button" @click="save()">rates</button> -->
        </div>
@@ -100,7 +100,11 @@
    </div> 
 </template>
 <script>
-
+/*if we come to support page and the name of the creator doens't exist
+put up a nice message or redirect... not show a creator that doens't exist... to-do...abn
+I opened /cr/chukd and it opened, asking to tip 'chukd' whoever that is... even if the payment
+goes through... it'll probably crash our server... given how we won't have an email for the
+unknown user */
 import axios from 'axios'
 export default {
     name: 'support',
@@ -154,7 +158,7 @@ export default {
             this.image = res.data[0].picture_id
             this.userinfos = res.data
          }).catch( err => {
-            console.log('??', err)
+            console.log('!!', err)
          })
       },
       getUrl(link){
@@ -257,7 +261,7 @@ export default {
       // make country based on currency? how about ?
       ...(this.currency == "KES") && {country: "KE"}, // !localStorage.getItem('shukran-country-code') ? "NG" : localStorage.getItem('shukran-country-code')
       currency: this.currency,
-      payment_options: "card,mobilemoney,ussd",
+      payment_options: "card,mobilemoney,ussd,account,banktransfer,mpesa,qr,payattitude,paga,barter,1voucher,credit",
       // redirect_url: redirect == undefined ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
       meta: {
         // consumer_id: 23,
@@ -269,7 +273,7 @@ export default {
         supporter_phone_number: phone,
         supporter_nickname: supporter_nickname,
       },
-      callback: function(response){
+      callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
          console.log('success. transaction ref is ', response);
          console.warn('success. transaction ref is ', response); // optimize
 
@@ -277,12 +281,14 @@ export default {
                   console.log('shukran-supporter-email', this.email);
                   console.log('shukran-supporter-phone', this.phone);
 
-                  axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+                  if (response.status == "successful") {
+                     axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
                      message: message,
                      status: 'received',
+                     currency: response.currency,
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
@@ -298,6 +304,9 @@ export default {
                            console.log(err)
                            console.error(err)
                         })
+                  } else {
+                     
+                  }
                      
                      },
       customizations: {
@@ -323,6 +332,9 @@ export default {
 <style scoped>
 .support-div {
    background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
+}
+.tip-button[disabled="disabled"] {
+  cursor: not-allowed;
 }
 .uk-navbar, .uk-navbar-item, .lead {
   background: transparent;

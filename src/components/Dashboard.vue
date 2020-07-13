@@ -570,7 +570,7 @@ export default {
       this.$router.push("/accounts");
     },
     loadTransactions() {
-      var username = this.username;
+      let username = this.username;
       axios
         .post("https://shukran-api.herokuapp.com/api/findall/", {
           username: username,
@@ -579,7 +579,7 @@ export default {
         .then(res => {
           console.log("loadTransactions done");
           this.transactions = res.data;
-          for (var i = 0; i < this.transactions.length; i++) {
+          for (let i = 0; i < this.transactions.length; i++) {
             this.tipTotal += parseInt(this.transactions[i].amount);
             this.allTips.push(this.transactions[i].amount); // optimise how this is gotten
             // https://stackoverflow.com/a/34015511
@@ -603,7 +603,7 @@ export default {
       // console.log(`hey ${username} what you doing looking on here? caret to tell us? all@useshukran.com`)
     },
     loadWithdrawn() {
-      var username = this.username;
+      let username = this.username;
       axios
         .post("https://shukran-api.herokuapp.com/api/findall/", {
           username: username,
@@ -612,7 +612,7 @@ export default {
         .then(res => {
           console.log("loadWithdrawn done");
           this.withdrawals = res.data;
-          for (var i = 0; i < this.withdrawals.length; i++) {
+          for (let i = 0; i < this.withdrawals.length; i++) {
             this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
           }
         })
@@ -622,13 +622,13 @@ export default {
     },
     withdrawRequest() { // convert amount to naira, we payout in naira
 
-      var amount = fx(this.amount)
+      let amount = fx(this.amount)
             .from(this.currency)
             .to("NGN");
 
-      var username = this.username;
-      // var amount = this.amount;
-      var status = "requested";
+      let username = this.username;
+      // let amount = this.amount;
+      let status = "requested";
       this.request = "loading...";
       axios
         .post("https://shukran-api.herokuapp.com/api/createtransaction/", {
@@ -641,7 +641,7 @@ export default {
           console.log("withdrawRequest done", res);
           this.request = "Done";
           UIkit.modal("#modal-middle").hide();
-          var thanks =
+          let thanks =
             `Hi ${this.username}, your payout request will be processed within the next 6-10 hours & sent to your account with the 10% charge in effect. Hang tight`;
           alert(thanks);
         })
@@ -669,8 +669,8 @@ export default {
         });
     },
     submitFeedback() {
-      var username = this.username;
-      var comment = this.comment;
+      let username = this.username;
+      let comment = this.comment;
       this.feed = "loading...";
       axios
         .post("https://shukran-api.herokuapp.com/api/givefeedback/", {
@@ -695,7 +695,7 @@ export default {
       }
     },
     getId() {
-      var username = this.username;
+      let username = this.username;
       axios
         .post("https://shukran-api.herokuapp.com/api/myprofile/", {
           username: username
@@ -720,7 +720,7 @@ export default {
 
     this.payoutGuard = fx(1000) // initialize payout guard!!
               .from("NGN")
-              .to(this.currency);
+              .to(this.currency); // I hope this.currency is always with value, so no error occurs
   }
 };
 </script>
