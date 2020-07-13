@@ -17,7 +17,7 @@
 <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin show-desktop-only" uk-grid>
     <div class="uk-card-media-left uk-cover-container">
         <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="" uk-cover>
-        <canvas width="600" height="400"></canvas>
+        <!-- <canvas width="600" height="400"></canvas> -->
     </div>
     <div>
         <div class="uk-card-body">
@@ -336,6 +336,10 @@ export default {
 }
 .tip-button[disabled="disabled"] {
   cursor: not-allowed;
+}
+.show-desktop-only {
+   height: -webkit-fill-available;
+   height: -moz-available;
 }
 .uk-navbar, .uk-navbar-item, .lead {
   background: transparent;
