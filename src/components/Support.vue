@@ -184,58 +184,6 @@ export default {
             this.tipNudge = ''
          }
       },
-      fetchConversionDataAndUpdate() {
-         // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
-         
-         // hide app_id
-         fetch(
-         `https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`
-         )
-         .then(resp => resp.json())
-         .then(data => {
-            fx.base = "USD"; // wish it was localStorage.getItem('shukran-country-currency')
-            fx.rates = data.rates;
-            // console.log(data);
-            localStorage.setItem(
-               "shukran-currency-converter-data",
-               JSON.stringify(data)
-            );
-         })
-         // .then(ex)
-         .catch(err => console.error("fetch ex rates err", err));
-      },
-      // https://github.com/exchangeratesapi/exchangeratesapi
-    // https://docs.openexchangerates.org/
-    rates() {
-      if (!localStorage.getItem("shukran-currency-converter-data")) {
-        this.fetchConversionDataAndUpdate();
-      } else {
-        // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
-        const savedCurrConvData = JSON.parse(
-          localStorage.getItem("shukran-currency-converter-data")
-        );
-        // check if it's more than a week old
-        // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
-        // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
-        const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000);
-
-        // calculate the no. of days between two dates
-        const diffInDays =
-          (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24);
-        if (diffInDays > 7) {
-          // more than 7 days
-          // fetch again
-          this.fetchConversionDataAndUpdate();
-        } else {
-          // less than a week old? then just convert
-          fx.base = "USD";
-          fx.rates = savedCurrConvData.rates;
-
-          // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
-          // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
-        }
-      }
-    },
       save() {
           // [optimize] save their email & nickname & phone number for later autofilling
    
@@ -244,15 +192,15 @@ export default {
          localStorage.setItem('shukran-supporter-phone', this.phone);
          
          // ---optimize re-assignments//
-          var email = this.email
-          var username = this.username
-          var supporter_nickname = this.nickname
-          var message = this.message
-          var amount = this.amount
-          var phone = this.phone
+          let email = this.email
+          let username = this.username
+          let supporter_nickname = this.nickname
+          let message = this.message
+          let amount = this.amount
+          let phone = this.phone
           let currency = this.currency
-          var user_email = this.userinfos[0].email
-          var redirect = this.userinfos[0].redirect
+          let user_email = this.userinfos[0].email
+          let redirect = this.userinfos[0].redirect
           if(email == '' || amount == '') {
              this.issue = 'Enter Email & Amount Please'
              this.tipbtn = "Tip"
@@ -336,9 +284,182 @@ export default {
                   console.log('shukran-supporter-email', this.email);
                   console.log('shukran-supporter-phone', this.phone);
 
-
                   if (response.status == "successful") {
                      if (response.currency !== "NGN") {
+                        fx.base = "USD";
+                        fx.rates = {
+                           "AED": 3.673,
+                           "AFN": 77.199999,
+                           "ALL": 109.2,
+                           "AMD": 481.616228,
+                           "ANG": 1.79489,
+                           "AOA": 573.21,
+                           "ARS": 71.227156,
+                           "AUD": 1.436062,
+                           "AWG": 1.8,
+                           "AZN": 1.7025,
+                           "BAM": 1.72637,
+                           "BBD": 2,
+                           "BDT": 84.789383,
+                           "BGN": 1.7224,
+                           "BHD": 0.377116,
+                           "BIF": 1925,
+                           "BMD": 1,
+                           "BND": 1.389259,
+                           "BOB": 6.914523,
+                           "BRL": 5.3596,
+                           "BSD": 1,
+                           "BTC": 0.00010768506,
+                           "BTN": 75.176552,
+                           "BWP": 11.586691,
+                           "BYN": 2.417481,
+                           "BZD": 2.015533,
+                           "CAD": 1.358895,
+                           "CDF": 1940,
+                           "CHF": 0.941651,
+                           "CLF": 0.02881,
+                           "CLP": 787.7,
+                           "CNH": 7.001014,
+                           "CNY": 6.9973,
+                           "COP": 3602.453332,
+                           "CRC": 583.107553,
+                           "CUC": 1,
+                           "CUP": 25.75,
+                           "CVE": 97.575,
+                           "CZK": 23.4787,
+                           "DJF": 178.0375,
+                           "DKK": 6.5572,
+                           "DOP": 58.5,
+                           "DZD": 128.535566,
+                           "EGP": 15.9748,
+                           "ERN": 15.002857,
+                           "ETB": 35.21,
+                           "EUR": 0.880844,
+                           "FJD": 2.1595,
+                           "FKP": 0.795438,
+                           "GBP": 0.795438,
+                           "GEL": 3.07,
+                           "GGP": 0.795438,
+                           "GHS": 5.7725,
+                           "GIP": 0.795438,
+                           "GMD": 51.785,
+                           "GNF": 9615,
+                           "GTQ": 7.699484,
+                           "GYD": 209.09049,
+                           "HKD": 7.750935,
+                           "HNL": 24.89,
+                           "HRK": 6.6348,
+                           "HTG": 110.018088,
+                           "HUF": 312.513939,
+                           "IDR": 14382.292257,
+                           "ILS": 3.4375,
+                           "IMP": 0.795438,
+                           "INR": 75.19005,
+                           "IQD": 1190,
+                           "IRR": 42105,
+                           "ISK": 140.57,
+                           "JEP": 0.795438,
+                           "JMD": 141.991109,
+                           "JOD": 0.7095,
+                           "JPY": 107.27775,
+                           "KES": 107.11,
+                           "KGS": 77.461841,
+                           "KHR": 4103,
+                           "KMF": 434,
+                           "KPW": 900,
+                           "KRW": 1201.1,
+                           "KWD": 0.307798,
+                           "KYD": 0.833326,
+                           "KZT": 412.374787,
+                           "LAK": 9050,
+                           "LBP": 1513.764964,
+                           "LKR": 185.887683,
+                           "LRD": 199.274948,
+                           "LSL": 16.75,
+                           "LYD": 1.395,
+                           "MAD": 9.60275,
+                           "MDL": 16.932029,
+                           "MGA": 3846,
+                           "MKD": 54.386251,
+                           "MMK": 1363.905145,
+                           "MNT": 2832.863178,
+                           "MOP": 7.98226,
+                           "MRO": 357,
+                           "MRU": 37.72,
+                           "MUR": 39.960001,
+                           "MVR": 15.41,
+                           "MWK": 737.5,
+                           "MXN": 22.546612,
+                           "MYR": 4.265,
+                           "MZN": 70.349995,
+                           "NAD": 16.76,
+                           "NGN": 387.5,
+                           "NIO": 34.55,
+                           "NOK": 9.406223,
+                           "NPR": 120.282427,
+                           "NZD": 1.524692,
+                           "OMR": 0.385056,
+                           "PAB": 1,
+                           "PEN": 3.499,
+                           "PGK": 3.465,
+                           "PHP": 49.420129,
+                           "PKR": 166.6,
+                           "PLN": 3.95705,
+                           "PYG": 6866.056134,
+                           "QAR": 3.641,
+                           "RON": 4.2652,
+                           "RSD": 103.6,
+                           "RUB": 70.7896,
+                           "RWF": 951,
+                           "SAR": 3.75076,
+                           "SBD": 8.349572,
+                           "SCR": 17.949885,
+                           "SDG": 55.3,
+                           "SEK": 9.163752,
+                           "SGD": 1.38923,
+                           "SHP": 0.795438,
+                           "SLL": 9773.862932,
+                           "SOS": 582,
+                           "SRD": 7.458,
+                           "SSP": 130.26,
+                           "STD": 21817.577244,
+                           "STN": 21.8,
+                           "SVC": 8.749834,
+                           "SYP": 513.242772,
+                           "SZL": 16.76,
+                           "THB": 31.37,
+                           "TJS": 10.30792,
+                           "TMT": 3.5,
+                           "TND": 2.8385,
+                           "TOP": 2.281881,
+                           "TRY": 6.8605,
+                           "TTD": 6.76122,
+                           "TWD": 29.434998,
+                           "TZS": 2319,
+                           "UAH": 27.098703,
+                           "UGX": 3705.22339,
+                           "USD": 1,
+                           "UYU": 43.673752,
+                           "UZS": 10205,
+                           "VEF": 248487.642241,
+                           "VES": 215736.74069,
+                           "VND": 23125.897349,
+                           "VUV": 115.721987,
+                           "WST": 2.652186,
+                           "XAF": 577.795694,
+                           "XAG": 0.05167564,
+                           "XAU": 0.00055297,
+                           "XCD": 2.70255,
+                           "XDR": 0.721981,
+                           "XOF": 577.795694,
+                           "XPD": 0.00049927,
+                           "XPF": 105.112632,
+                           "XPT": 0.00118696,
+                           "YER": 250.349922,
+                           "ZAR": 16.734386,
+                           "ZMW": 18.078814,
+                           "ZWL": 322
+                        };
                         amount = fx(response.amount).from(response.currency).to("NGN")
                      }
                      axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
@@ -382,7 +503,6 @@ export default {
   },
     beforeMount(){
       this.showUserWelcome();
-      this.rates();
     },
     mounted(){
       // this.showUserWelcome() // no need calling twice
