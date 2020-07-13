@@ -9,8 +9,7 @@
         <ul class="uk-navbar-nav">
             <li>
                 <router-link to="/accounts" class="lead">Creators</router-link>
-            </li> 
-            
+            </li>
         </ul>
     </div>
 </nav>
@@ -18,7 +17,7 @@
 <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin show-desktop-only" uk-grid>
     <div class="uk-card-media-left uk-cover-container">
         <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="" uk-cover>
-        <canvas width="600" height="400"></canvas>
+        <!-- <canvas width="600" height="400"></canvas> -->
     </div>
     <div>
         <div class="uk-card-body">
@@ -47,7 +46,7 @@
         <p>{{summary}}</p>
     </div>
     <div class="uk-card-footer">
-       <a v-bind:href="''+content+''" target="blank" class="uk-button uk-button-text">Find my content here.</a>
+       <a v-bind:href="''+content+''" target="blank" class="uk-label ">Find my content here.</a>
     </div>
 </div>
 <br>
@@ -60,24 +59,24 @@
         <p>You'll not have to fill your nickname, 
            email address & phone number again for a faster tipping experience.</p>
        <div>
-          <div class="uk-margin">
-          <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
-          <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="email">
-          <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone">
-       </div>
+         <div class="uk-margin">
+            <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
+            <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="email">
+            <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone">
+         </div>
        </div>
        <div>
           <div style="display: flex">
              <div class="uk-form-controls" style="margin-right: 1px">
-                  <select @change="payingCurrency()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
+                  <select @change="showTipNudge()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
                      <option value="NGN">₦</option>
-                     <option value="KES">K</option>
+                     <option value="KES">Ksh</option>
                      <option value="USD">$</option>
                   </select>
             </div>
           <input type="number" class="uk-input" placeholder="Amount" v-model="amount" @change="showTipNudge">
           </div>
-          <p style="color: #c63968;"> {{tipNudge}} </p>
+          <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
        <div class="uk-margin">
           <textarea placeholder="Drop an encouraging message" class="uk-textarea" v-model="message"></textarea>
@@ -85,8 +84,8 @@
        <div class="uk-margin">
           <p style="color: #c63968;">{{issue}}</p>
        </div>
-       <div class="uk-margin" v-if="parseInt(amount) >= 100">
-         <button class="uk-button uk-button-default" @click="save()">{{tipbtn}}</button>
+       <div class="uk-margin">
+         <button :disabled="parseInt(amount) < tipGuard || amount == ''" class="uk-button tip-button uk-button-default" @click="save()">{{tipbtn}}</button>
 
          <!-- <button class="uk-button uk-button-default" type="button" @click="save()">rates</button> -->
        </div>
@@ -101,13 +100,18 @@
    </div> 
 </template>
 <script>
-
+/*if we come to support page and the name of the creator doens't exist
+put up a nice message or redirect... not show a creator that doens't exist... to-do...abn
+I opened /cr/chukd and it opened, asking to tip 'chukd' whoever that is... even if the payment
+goes through... it'll probably crash our server... given how we won't have an email for the
+unknown user */
 import axios from 'axios'
 export default {
     name: 'support',
     data(){
        return {
           username: this.$route.params.username,
+          tipGuard: 100,
           tipNudge: '',
           summary: '',
           currency: !localStorage.getItem('shukran-country-currency') ? "NGN" : localStorage.getItem('shukran-country-currency'),
@@ -128,57 +132,65 @@ export default {
        }
     },
     methods:{
-       showUserWelcome(){
-          axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
-             username: this.username.toLowerCase().trim()
-             }).then( res => {
-                console.log('why this?', res)
-                this.summary = res.data[0].summary
-                this.field = res.data[0].craft_type
-                this.content = this.getUrl(res.data[0].primary_link)
-                this.image = res.data[0].picture_id
-                this.userinfos = res.data
-            }).catch( err => {
-               console.log('??', err)
-               })
-            },
-         getUrl(link){
-          if (link == undefined) {
-             return 'useshukran.com/cr/' + this.username
-          } else {
-             return link
-          }
-         },
-            showTipNudge() {
-               if (this.amount < 100) {
-                  this.tipNudge = 'Please support this creator with at least 100 Naira';
-               }
-               
-            },
-         payingCurrency() {
-            // console.log('curr', this.currency, this.currency == "KES", 'here')
-         },
-       save() {
+       currencySymbol() {
+      switch (this.currency) {
+        case "NGN":
+          return '₦'
+          break;
+        case "USD":
+            return '$'
+            break;
+        case "KES":
+              return 'Ksh'
+              break;
+        default:
+          break;
+      }
+    },
+      showUserWelcome(){
+         axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
+            username: this.username.toLowerCase().trim()
+         }).then( res => {
+            console.log('why this?', res)
+            this.summary = res.data[0].summary
+            this.field = res.data[0].craft_type
+            this.content = this.getUrl(res.data[0].primary_link)
+            this.image = res.data[0].picture_id
+            this.userinfos = res.data
+         }).catch( err => {
+            console.log('!!', err)
+         })
+      },
+      getUrl(link){
+         if (link == undefined) {
+            return 'useshukran.com/cr/' + this.username
+         } else {
+            return link
+         }
+      },
+      showTipNudge() {
+         if (this.currency == "USD") {
+            this.tipGuard = 2;
+         } else {
+            this.tipGuard = 100;
+         }
+
+         if (isNaN(this.amount)) {
+            this.tipNudge = `Please input a valid number as amount`;
+         } else if (this.amount < this.tipGuard && this.amount !== '') {
+            this.tipNudge = `Please support ${this.username} with at least ${this.currencySymbol()}${this.tipGuard}`;
+         } else {
+            this.tipNudge = ''
+         }
+      },
+      save() {
           // [optimize] save their email & nickname & phone number for later autofilling
-
-         /* if(!localStorage.getItem('shukran-supporter-nickname')) {
-            localStorage.setItem('shukran-supporter-nickname', this.nickname);
-         } else {
-            console.log('1')
-         }
-         if(!localStorage.getItem('shukran-supporter-email')) {
-            localStorage.setItem('shukran-supporter-email', this.email);
-         } else {
-            console.log('2')
-         }
-         if(!localStorage.getItem('shukran-supporter-phone')) {
-            localStorage.setItem('shukran-supporter-phone', this.phone);
-         } else {
-            console.log('3')
-         } */
-
-          // ---optimize re-assignments//
-
+   
+         localStorage.setItem('shukran-supporter-nickname', this.nickname);
+         localStorage.setItem('shukran-supporter-email', this.email);
+         localStorage.setItem('shukran-supporter-phone', this.phone);
+         
+         // ---optimize re-assignments//
           var email = this.email
           var username = this.username
           var supporter_nickname = this.nickname
@@ -248,8 +260,9 @@ export default {
       // https://stackoverflow.com/a/40560953
       // make country based on currency? how about ?
       ...(this.currency == "KES") && {country: "KE"}, // !localStorage.getItem('shukran-country-code') ? "NG" : localStorage.getItem('shukran-country-code')
-      ...(this.currency == "KES") && {currency: this.currency},
-      payment_options: "card,ussd,mpesa, banktransfer,account, barter",
+      currency: this.currency,
+      ...(this.currency == "GBP") && {type: "debit_uk_account"}, // to accept uk payments
+      payment_options: "card, mobilemoney, ussd, account, banktransfer, mpesa, qr, payattitude, credit",
       // redirect_url: redirect == undefined ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
       meta: {
         // consumer_id: 23,
@@ -261,20 +274,22 @@ export default {
         supporter_phone_number: phone,
         supporter_nickname: supporter_nickname,
       },
-      callback: function(response){
+      callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
          console.log('success. transaction ref is ', response);
          console.warn('success. transaction ref is ', response); // optimize
 
-                  localStorage.setItem('shukran-supporter-nickname', this.nickname);
-                  localStorage.setItem('shukran-supporter-email', this.email);
-                  localStorage.setItem('shukran-supporter-phone', this.phone);
+                  console.log('shukran-supporter-nickname', this.nickname);
+                  console.log('shukran-supporter-email', this.email);
+                  console.log('shukran-supporter-phone', this.phone);
 
-                  axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+                  if (response.status == "successful") {
+                     axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
                      message: message,
                      status: 'received',
+                     currency: response.currency,
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
@@ -290,6 +305,9 @@ export default {
                            console.log(err)
                            console.error(err)
                         })
+                  } else {
+                     
+                  }
                      
                      },
       customizations: {
@@ -301,6 +319,9 @@ export default {
                   }
        },
     },
+    computed: {
+    
+  },
     beforeMount(){
        this.showUserWelcome()
     },
@@ -312,6 +333,13 @@ export default {
 <style scoped>
 .support-div {
    background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
+}
+.tip-button[disabled="disabled"] {
+  cursor: not-allowed;
+}
+.show-desktop-only {
+   height: -webkit-fill-available;
+   height: -moz-available;
 }
 .uk-navbar, .uk-navbar-item, .lead {
   background: transparent;
@@ -332,6 +360,11 @@ export default {
   background-color: #c63968;
   color: #fceedd;
   border-radius: 3px
+}
+
+.uk-label{
+  background-color: #c63968;
+  color: #fceedd;
 }
 .uk-input {
    margin-bottom: 5px;
