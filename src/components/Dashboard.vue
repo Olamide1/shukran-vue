@@ -239,7 +239,7 @@
                     <span
                       :uk-tooltip="`${availableBalance > 1000 ? 'You have ~' + currencySymbol + availableBalance.toFixed(0) + ' available to withdraw' : 'You need more that ₦1000 to make a withdrawal request'}`"
                       class="value"
-                      :data-label="`~${currencySymbol}${availableBalance.toFixed(2)}`"
+                      :data-label="`~${currencySymbol}${availableBalance.toFixed(0)}`"
                       :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"
                     ></span>
                     <span
@@ -272,11 +272,11 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(transaction, index) in transactions.slice().reverse()"
+                        v-for="(transaction, index) in transactions"
                         :key="index"
                       >
                         <td>{{transaction.supporter_nickname}}</td>
-                        <td>&#x20a6;{{transaction.amount}}</td>
+                        <td>{{currencySymbol}}{{allTips[index].toFixed(0)}}<!-- {{transaction.amount}} --></td>
                         <td>{{transaction.message}}</td>
                       </tr>
                     </tbody>
@@ -393,6 +393,14 @@ export default {
             )
             .to(this.currency);
         
+        this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            )
+            .to(this.currency));
+        
         this.tempCurr = this.currency;
 
         // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
@@ -457,6 +465,14 @@ export default {
                 : localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency);
+          
+          this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            )
+            .to(this.currency));
 
           this.tempCurr = this.currency;
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
@@ -464,7 +480,7 @@ export default {
         }
       }
     },
-    createChart(chartId /* , chartData */) {
+    createChart(chartId , chartData) {
       // https://codepen.io/grayghostvisuals/pen/gpROOz
       let chart = document.getElementById("total-tips-chart").getContext("2d"),
         gradient = chart.createLinearGradient(0, 0, 0, 450);
@@ -477,12 +493,12 @@ export default {
       const tipsChart = new Chart(ctx, {
         type: "line",
         data: {
-          labels: this.tipsDates,
+          labels: chartData.tipsDates,
           datasets: [
             {
               // a(nother) line graph
               label: "Tips",
-              data: this.allTips,
+              data: chartData.allTips,
               backgroundColor: gradient /* [
                 "rgba(71, 183,132,.5)" // Green
               ] */,
@@ -519,7 +535,7 @@ export default {
                   padding: 25,
                   callback: function(value, index, values) {
                     // return null to hide
-                    return "₦" + value; // Include a naira sign in the ticks
+                    return chartData.currencySymbol + value; // Include a naira/ksh sign in the ticks
                   }
                 }
               }
@@ -529,7 +545,7 @@ export default {
             callbacks: {
               // https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-callback
               label: function(tooltipItem, data) {
-                return `You were tipped ₦${tooltipItem.value} on ${tooltipItem.label}`;
+                return `You were tipped ${chartData.currencySymbol}${parseInt(tooltipItem.value).toFixed(2)} on ${tooltipItem.label}`;
               },
               title: function(tooltipItem, data) {
                 return `${tooltipItem[0].label} cash`;
@@ -568,8 +584,9 @@ export default {
             ); // .toDateString() .toLocaleDateString("en-US")
           }
 
-          this.createChart("total-tips-chart");
-        })
+          this.rates(); // get the conversion first...
+
+        }).then(() => this.createChart("total-tips-chart", {allTips: this.allTips, tipsDates: this.tipsDates, currencySymbol: this.currencySymbol})/* then create chart */)
         .catch(err => {
           console.error(err, err.code);
         });
