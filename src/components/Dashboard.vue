@@ -804,7 +804,7 @@ div[data-src][src*="data:image"] {
     background-color: #170808;
     color: #ebebe7 !important; */
 .tippers-table {
-  /* height: 560px; */
+  height: 725px;
   overflow-y: auto;
 }
 ul.metrics {
@@ -903,7 +903,7 @@ li.li-withdrawn:before {
   }
 
   .tippers-table {
-    max-height: 400px;
+    max-height: 520px;
     height: auto;
     overflow-y: auto;
   }
