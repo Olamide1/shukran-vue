@@ -335,12 +335,8 @@ export default {
                   console.log('shukran-supporter-email', this.email);
                   console.log('shukran-supporter-phone', this.phone);
 
-                  const ex = () => {
-                     amount = fx(response.amount).from(response.currency).to("NGN")
-                  };
-
                   if (response.currency !== "NGN") {
-                     ex();
+                     amount = fx(response.amount).from(response.currency).to("NGN")
                   }
 
                   if (response.status == "successful") {
