@@ -200,12 +200,12 @@
                       <input type="number" class="uk-input payout-input" placeholder="Amount" v-model="amount" />
                       <span v-if="amount > (availableBalance)">Insufficient available balance.</span>
                       <br />
-                      <span v-if="amount < 1000">Payout requests cannot be less than &#x20a6;1000</span>
+                      <span v-if="amount < payoutGuard">Payout requests cannot be less than {{currencySymbol}}{{payoutGuard.toFixed(2)}}</span>
                     </div>
                     <div class="uk-margin">
                       <button
                         class="uk-button payout-button"
-                        :disabled="amount > availableBalance || amount < 1000"
+                        :disabled="amount > availableBalance || amount < payoutGuard"
                         @click="withdrawRequest()"
                       >{{request}}</button>
                     </div>
@@ -235,9 +235,9 @@
                   </ul>
 
                   <div class="progress">
-                    <!-- 1000 should be payoutGuard -->
+                    <!-- 1000 naira should be payoutGuard -->
                     <span
-                      :uk-tooltip="`${availableBalance > 1000 ? 'You have ~' + currencySymbol + availableBalance.toFixed(0) + ' available to withdraw' : 'You need more that ₦1000 to make a withdrawal request'}`"
+                      :uk-tooltip="`${availableBalance > 1000 ? 'You have ~' + currencySymbol + availableBalance.toFixed(0) + ' available to withdraw' : 'You need more that ' + currencySymbol + payoutGuard.toFixed(2) + ' to make a withdrawal request'}`"
                       class="value"
                       :data-label="`~${currencySymbol}${availableBalance.toFixed(0)}`"
                       :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"
@@ -335,7 +335,7 @@ export default {
       tipsDates: [],
       currency: "NGN", // optimse later, use country's currency
       tempCurr: "",
-      payoutGuard: 1000,
+      payoutGuard: 1000, // 1000 naira
       url:
         "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
@@ -372,6 +372,8 @@ export default {
   },
   methods: {
     changeCurrency() {
+      console.log('currecy', this.currency)
+      
       this.rates();
     },
     fetchConversionDataAndUpdate() {
@@ -400,6 +402,10 @@ export default {
                 : localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency));
+        
+        this.payoutGuard = fx(1000) // convert payout guard ...important!
+              .from("NGN")
+              .to(this.currency);
         
         this.tempCurr = this.currency;
 
@@ -473,6 +479,10 @@ export default {
                 : localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency));
+        
+          this.payoutGuard = fx(1000) // convert payout guard ...important!
+              .from("NGN")
+              .to(this.currency);
 
           this.tempCurr = this.currency;
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
@@ -707,6 +717,10 @@ export default {
     this.loadWithdrawn();
     this.getBalance();
     this.rates(); // so we don't do it on currency change
+
+    this.payoutGuard = fx(1000) // initialize payout guard!!
+              .from("NGN")
+              .to(this.currency);
   }
 };
 </script>
