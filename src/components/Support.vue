@@ -341,7 +341,7 @@ export default {
                      if (response.currency !== "NGN") {
                         amount = fx(response.amount).from(response.currency).to("NGN")
                      }
-                     axios.post('http://localhost:3000/api/createtransaction/', {
+                     axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
