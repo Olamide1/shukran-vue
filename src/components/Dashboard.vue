@@ -73,13 +73,24 @@
             </a>
           </li>
           <li>
-            <a href="#!">
+            <a>
               <div
                 ref="file"
                 class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
                 v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }"
                 uk-img
-              ></div>
+              >
+
+              <div
+              uk-tooltip="Click to change your profile picture"
+              id="add-image"
+              uk-form-custom="target: true"
+            >
+              <input type="file" @change="onFileChanged" />
+              <span uk-icon="icon: plus;"></span>
+            </div>
+              
+              </div>
             </a>
           </li>
         </ul>

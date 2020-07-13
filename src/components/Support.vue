@@ -261,7 +261,8 @@ export default {
       // make country based on currency? how about ?
       ...(this.currency == "KES") && {country: "KE"}, // !localStorage.getItem('shukran-country-code') ? "NG" : localStorage.getItem('shukran-country-code')
       currency: this.currency,
-      payment_options: "card,mobilemoney,ussd,account,banktransfer,mpesa,qr,payattitude,paga,barter,1voucher,credit",
+      ...(this.currency == "GBP") && {type: "debit_uk_account"}, // to accept uk payments
+      payment_options: "card, mobilemoney, ussd, account, banktransfer, mpesa, qr, payattitude, credit",
       // redirect_url: redirect == undefined ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
       meta: {
         // consumer_id: 23,
