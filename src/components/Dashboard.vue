@@ -169,7 +169,7 @@
           <h3>Notice</h3>
           <p>
             Hi {{username}}, our 10% charge will take effect on payout requests from hence forth, find the breakdown
-            <router-link to="/pricing">here.</router-link>Shukran!😊
+            <router-link to="/pricing">here.</router-link> Shukran!😊
           </p>
         </div>
 
@@ -188,24 +188,24 @@
 
                 <!-- Withdraw request modal start -->
                 <div id="modal-middle" class="uk-flex-top" uk-modal>
-                  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
-                    <div class="uk-modal-header">
+                  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical payout-modal">
+                    <div>
                       <h4 class="uk-modal-title">Payout request</h4>
                     </div>
                     <button class="uk-modal-close-default" type="button" uk-close></button>
                     <div class="uk-margin">
-                      <h4>Available balance: &#x20a6;{{availableBalance}}</h4>
+                      <h4>Available balance: {{currencySymbol}}{{availableBalance.toFixed(2)}}</h4>
                     </div>
                     <div class="uk-margin" align="center">
-                      <input type="number" class="uk-input" placeholder="Amount" v-model="amount" />
+                      <input type="number" class="uk-input payout-input" placeholder="Amount" v-model="amount" />
                       <span v-if="amount > (availableBalance)">Insufficient available balance.</span>
                       <br />
                       <span v-if="amount < 1000">Payout requests cannot be less than &#x20a6;1000</span>
                     </div>
                     <div class="uk-margin">
                       <button
-                        class="uk-button"
-                        v-if="amount < (availableBalance) && amount != 0"
+                        class="uk-button payout-button"
+                        :disabled="amount > availableBalance || amount < 1000"
                         @click="withdrawRequest()"
                       >{{request}}</button>
                     </div>
@@ -235,16 +235,17 @@
                   </ul>
 
                   <div class="progress">
+                    <!-- 1000 should be payoutGuard -->
                     <span
-                      :uk-tooltip="`${availableBalance > 1000 ? 'You have ₦' + availableBalance + ' available to withdraw' : 'You need more that ₦1000 to make a withdrawal request'}`"
+                      :uk-tooltip="`${availableBalance > 1000 ? 'You have ~' + currencySymbol + availableBalance.toFixed(0) + ' available to withdraw' : 'You need more that ₦1000 to make a withdrawal request'}`"
                       class="value"
-                      :data-label="`₦${availableBalance}`"
+                      :data-label="`~${currencySymbol}${availableBalance.toFixed(2)}`"
                       :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"
                     ></span>
                     <span
-                      :uk-tooltip="`You've withdrawn ₦${tipWithdrawn} so far`"
+                      :uk-tooltip="`You've withdrawn ${currencySymbol}${tipWithdrawn.toFixed(2)} so far`"
                       class="value"
-                      :data-label="`₦${tipWithdrawn}`"
+                      :data-label="`~${currencySymbol}${tipWithdrawn.toFixed(0)}`"
                       :style="`width:${(((tipTotal - availableBalance) / tipTotal) * 100).toFixed(2)}%;`"
                     ></span>
                   </div>
@@ -334,6 +335,7 @@ export default {
       tipsDates: [],
       currency: "NGN", // optimse later, use country's currency
       tempCurr: "",
+      payoutGuard: 1000,
       url:
         "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
@@ -382,6 +384,15 @@ export default {
               : localStorage.getItem("shukran-country-currency")
           )
           .to(this.currency);
+        
+        this.tipWithdrawn = fx(this.tipWithdrawn)
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            )
+            .to(this.currency);
+        
         this.tempCurr = this.currency;
 
         // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
@@ -431,13 +442,22 @@ export default {
           fx.base = "USD";
           fx.rates = savedCurrConvData.rates;
 
-          this.tipTotal = fx(this.tipTotal)
+          this.tipTotal = fx(this.tipTotal) // convert tip total
             .from(
               this.tempCurr
                 ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency);
+
+          this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            )
+            .to(this.currency);
+
           this.tempCurr = this.currency;
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
           // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
@@ -573,15 +593,20 @@ export default {
           console.log(err);
         });
     },
-    withdrawRequest() {
+    withdrawRequest() { // convert amount to naira, we payout in naira
+
+      var amount = fx(this.amount)
+            .from(this.currency)
+            .to("NGN");
+
       var username = this.username;
-      var amount = this.amount;
+      // var amount = this.amount;
       var status = "requested";
       this.request = "loading...";
       axios
         .post("https://shukran-api.herokuapp.com/api/createtransaction/", {
           username: username,
-          amount: amount,
+          amount: amount, // in naira
           status: status,
           email: this.profiles[0].email
         })
@@ -590,9 +615,7 @@ export default {
           this.request = "Done";
           UIkit.modal("#modal-middle").hide();
           var thanks =
-            "Hi," +
-            this.username +
-            " your payout request will be processed within the next 6 - 10 hours & sent to your account with the 10% charge in effect. Hang tight";
+            `Hi ${this.username}, your payout request will be processed within the next 6-10 hours & sent to your account with the 10% charge in effect. Hang tight`;
           alert(thanks);
         })
         .catch(err => {
@@ -717,9 +740,16 @@ export default {
   margin-top: 0px;
 }
 
-.uk-card,
-.uk-alert {
+.uk-card, .uk-alert, .payout-modal {
   border-radius: 5px;
+}
+
+.payout-input, .payout-button {
+  border-radius: 3px;
+}
+
+.payout-button[disabled="disabled"] {
+  cursor: not-allowed;
 }
 
 .uk-alert {
