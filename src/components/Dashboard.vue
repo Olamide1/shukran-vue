@@ -248,7 +248,7 @@
                   <div class="progress">
                     <!-- 1000 naira should be payoutGuard -->
                     <span
-                      :uk-tooltip="`${availableBalance > 1000 ? 'You have ~' + currencySymbol + availableBalance.toFixed(0) + ' available to withdraw' : 'You need more that ' + currencySymbol + payoutGuard.toFixed(2) + ' to make a withdrawal request'}`"
+                      :uk-tooltip="`${availableBalance > payoutGuard ? 'You have ~' + currencySymbol + availableBalance.toFixed(0) + ' available to withdraw' : 'You need more then ' + currencySymbol + payoutGuard.toFixed(2) + ' to make a withdrawal request'}`"
                       class="value"
                       :data-label="`~${currencySymbol}${availableBalance.toFixed(0)}`"
                       :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"

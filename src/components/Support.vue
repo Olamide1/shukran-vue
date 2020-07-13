@@ -133,25 +133,25 @@ export default {
     },
     methods:{
        currencySymbol() {
-      switch (this.currency) {
-        case "NGN":
-          return '₦'
-          break;
-        case "USD":
-            return '$'
+         switch (this.currency) {
+         case "NGN":
+            return '₦'
             break;
-        case "KES":
-              return 'Ksh'
-              break;
-        default:
-          break;
-      }
+         case "USD":
+               return '$'
+               break;
+         case "KES":
+               return 'Ksh'
+               break;
+         default:
+            break;
+         }
     },
       showUserWelcome(){
          axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
             username: this.username.toLowerCase().trim()
          }).then( res => {
-            console.log('why this?', res)
+            // console.log('why this?', res)
             this.summary = res.data[0].summary
             this.field = res.data[0].craft_type
             this.content = this.getUrl(res.data[0].primary_link)
@@ -183,6 +183,58 @@ export default {
             this.tipNudge = ''
          }
       },
+      fetchConversionDataAndUpdate() {
+         // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
+         
+         // hide app_id
+         fetch(
+         `https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`
+         )
+         .then(resp => resp.json())
+         .then(data => {
+            fx.base = "USD"; // wish it was localStorage.getItem('shukran-country-currency')
+            fx.rates = data.rates;
+            // console.log(data);
+            localStorage.setItem(
+               "shukran-currency-converter-data",
+               JSON.stringify(data)
+            );
+         })
+         // .then(ex)
+         .catch(err => console.error("fetch ex rates err", err));
+      },
+      // https://github.com/exchangeratesapi/exchangeratesapi
+    // https://docs.openexchangerates.org/
+    rates() {
+      if (!localStorage.getItem("shukran-currency-converter-data")) {
+        this.fetchConversionDataAndUpdate();
+      } else {
+        // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
+        const savedCurrConvData = JSON.parse(
+          localStorage.getItem("shukran-currency-converter-data")
+        );
+        // check if it's more than a week old
+        // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
+        // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+        const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000);
+
+        // calculate the no. of days between two dates
+        const diffInDays =
+          (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24);
+        if (diffInDays > 7) {
+          // more than 7 days
+          // fetch again
+          this.fetchConversionDataAndUpdate();
+        } else {
+          // less than a week old? then just convert
+          fx.base = "USD";
+          fx.rates = savedCurrConvData.rates;
+
+          // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
+          // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
+        }
+      }
+    },
       save() {
           // [optimize] save their email & nickname & phone number for later autofilling
    
@@ -197,6 +249,7 @@ export default {
           var message = this.message
           var amount = this.amount
           var phone = this.phone
+          let currency = this.currency
           var user_email = this.userinfos[0].email
           var redirect = this.userinfos[0].redirect
           if(email == '' || amount == '') {
@@ -282,14 +335,22 @@ export default {
                   console.log('shukran-supporter-email', this.email);
                   console.log('shukran-supporter-phone', this.phone);
 
+                  const ex = () => {
+                     amount = fx(response.amount).from(response.currency).to("NGN")
+                  };
+
+                  if (response.currency !== "NGN") {
+                     ex();
+                  }
+
                   if (response.status == "successful") {
-                     axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
+                     axios.post('http://localhost:3000/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
                      message: message,
                      status: 'received',
-                     currency: response.currency,
+                     currency: "NGN",
                      email: user_email
                      }).then(res => {
                         console.log('tipped')
@@ -323,7 +384,8 @@ export default {
     
   },
     beforeMount(){
-       this.showUserWelcome()
+      this.showUserWelcome();
+      this.rates();
     },
     mounted(){
       // this.showUserWelcome() // no need calling twice
