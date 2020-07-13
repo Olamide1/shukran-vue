@@ -106,6 +106,7 @@ I opened /cr/chukd and it opened, asking to tip 'chukd' whoever that is... even 
 goes through... it'll probably crash our server... given how we won't have an email for the
 unknown user */
 import axios from 'axios'
+import fx from "money";
 export default {
     name: 'support',
     data(){
@@ -335,11 +336,11 @@ export default {
                   console.log('shukran-supporter-email', this.email);
                   console.log('shukran-supporter-phone', this.phone);
 
-                  if (response.currency !== "NGN") {
-                     amount = fx(response.amount).from(response.currency).to("NGN")
-                  }
 
                   if (response.status == "successful") {
+                     if (response.currency !== "NGN") {
+                        amount = fx(response.amount).from(response.currency).to("NGN")
+                     }
                      axios.post('http://localhost:3000/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
