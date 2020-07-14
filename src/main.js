@@ -8,7 +8,7 @@ import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload, {
   observer: true,
-  // loading: './../assets/loading.gif',
+  loading: 'dist/img/twitter.e660da8.jpg',
 })
 Vue.config.productionTip = false;
 

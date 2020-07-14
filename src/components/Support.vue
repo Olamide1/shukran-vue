@@ -171,7 +171,7 @@ export default {
       },
       showTipNudge() {
          if (this.currency == "USD") {
-            this.tipGuard = 2;
+            this.tipGuard = 1;
          } else {
             this.tipGuard = 100;
          }

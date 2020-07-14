@@ -22,9 +22,6 @@
                 <a href="#contact">Contact</a>
               </li>
               <li>
-                <a><router-link to="/pricing">Pricing</router-link></a>
-              </li>
-              <li>
                 <a><router-link to="/accounts">Login/Signup</router-link></a>
               </li>
             </ul>
@@ -93,31 +90,31 @@
                           {{ new Date(creator.create_date).toLocaleDateString() }}
                         </p>
                       </div>
-                      
-                      <!-- <img
-                          :src="`https://drive.google.com/uc?export=view&id=${creator.picture_id}`" 
+                      <!-- 
+                      <img
+                          :v-lazy="`https://drive.google.com/uc?export=view&id=${creator.picture_id}`" 
                           :alt="`Image of ${creator.username}`"
-                        /> 
+                        />  -->
                         
                         <div
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-bind:style="{ 'background-image': `url(https://drive.google.com/uc?export=view&id=${creator.picture_id})` }"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`}"
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: auto;"
           >
           </div>
-          -->
+         
                         
-                        <router-link
+                        <!-- <router-link
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`, loading: '../assets/loading.gif' }"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`, loading: '../assets/loading.gif'}"
             
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: auto;"
           :to="'/cr/' + creator.username" tag="div">
-                        </router-link>
+                        </router-link> -->
                     </div>
                   </div>
                 </div>
@@ -224,7 +221,8 @@
               </div>
               <div class="flag-full">
                 <h4 class="margin-bottom-small">Content Consumers</h4>
-                <p>Shukran means "Thank You." Say thank you to your favourite content creators by tipping them as little as you can (say ₦100) or as much as you want (think ₦100,000).</p>
+                <p>Shukran means "Thank You."</p>
+                <p>Say thank you to your favourite content creators by supporting them with as little as ₦100/$1 or as much as you want. #FinancialSupport</p>
               </div>
             </div>
             <div class="flag flag-top">
@@ -238,7 +236,8 @@
               </div>
               <div class="flag-full">
                 <h4 class="margin-bottom-small">While at it</h4>
-                <p>You can drop a message for your content creators. Tell them how they have impacted you or made you feel. Trust us, that goes a long way too.</p>
+                <p>You can drop an encouraging message for the content creators you support. Tell them how they have impacted you or made you feel.</p>
+                <p>Trust us, that goes a long way too. #MoralSupport</p>
               </div>
             </div>
           </div>
@@ -292,6 +291,21 @@
           <a href="https://twitter.com/useshukran">
             <li class="twitter"></li>
           </a>
+          <a href="https://www.facebook.com/Use-Shukran-106749854404001/">
+            <li class="facebook"></li>
+          </a>
+          <a href="mailto:support@usehukran.com">
+            <li class="email"></li>
+          </a>
+        </div>
+
+        <div class="social">
+          <a>
+            <li class=""><router-link to="/pricing">Pricing</router-link></li>
+          </a>
+          <a>
+            <li class=""><router-link to="/terms">T&C</router-link></li>
+          </a>
         </div>
       </div>
     </section>
@@ -304,70 +318,70 @@ export default {
   name: "Index",
   data() {
     return {
-        creators: [],
+      creators: [],
       top_creators: [ {
-    craft_type: "Comedian",
-create_date: "2020-07-05T09:13:28.496Z",
-picture_id: "1wj0BCAi5hGN9USx6NKrMUgZ1lSuvhlX0",
-summary: "Thanks for always supporting the brand and having my back. Drop your name and I will reach out to you. Bless",
-username: "josh2funny"
-}, {
-    craft_type: "Lifestyle Blogger",
-create_date: "2020-06-06T17:22:10.319Z",
-picture_id: "19uuDwXVl0QYjaDzMDbrehTAwhNHYTMQK",
-summary: "Thank you so much for stopping by. Please support my ministry 😀",
-username: "nessytalks"
-}, {
-    craft_type: "Podcaster, Content Curator, Writer. We move the culture 😉",
-create_date: "2020-05-25T17:21:53.109Z",
-picture_id: "1Zx7j-rypTpILcOG1N75JmSLkgJteDZbB",
-summary: "Heyyyy! I’m glad you dropped by. Your support will defo help my creative process be more seamless and consistent. Really appreciate you. Don’t forget to drop your name so I’d reach out personally to say “Shukran!”",
-username: "obakam"
-}, {
-    craft_type: "Podcaster, Blogger, Poet, Photographer",
-create_date: "2020-05-30T15:43:35.175Z",
-picture_id: "1nGcLmFFY1XQMd5Ng9RhYl-aE2DQ5cQ9m",
-summary: "You will always find a piece of yourself in these works, I hope you love them.",
-username: "supreme"
-}, {
-    craft_type: "DIYs, Spoken Words and Short films",
-create_date: "2020-06-13T17:28:03.090Z",
-picture_id: "1xN-lRpk1ajNkx6mymMD11R88o8s5xTO4",
-summary: "I'm passionate about creating art and reaching out. Some encouragement will really help me in creating more as I grow in my craft. ♥️♥️",
-username: "phavie o.o"
-}, {
-    craft_type: "Bohemian visual content creator",
-create_date: "2020-06-13T16:29:09.349Z",
-picture_id: "1HlW4ri5rk8bh_uYAzgtHL0dxVzVG_s4o",
-summary: "Thank you for appealing to my definition of aesthetics, your consistent interaction with the content i put out fuels my creativity. Please help foster my artistry by tipping me :) .",
-username: "chistorm"
-}, {
-    craft_type: "Beauty and Lifestyle",
-create_date: "2020-06-17T14:21:41.786Z",
-picture_id: "18pr7b0DNE9u_9vaMPUwdeWJoIo43mXQO",
-summary: "Be your own kind of beautiful....be-you-ti-full",
-username: "sindyakpolo"
-}, {
-    craft_type: "Visual Artist (Photographer)",
-create_date: "2020-05-30T15:43:49.191Z",
-    picture_id: "1gvtNcm6VXHAQeKV17CayUwOmrmrSm7u0",
-summary: "You made it here! Thank you for the love and support, your tip would go a long in ensuring I keep doing what I love.",
-username: "sonayon thomas"
-}, {
-    craft_type: "Lifestyle/Fashion Blogger",
-create_date: "2020-06-18T12:05:24.501Z",
-picture_id: "1Szav7YluoD3SwmYoDfoZdWJ8jwRpcMXr",
-summary: "Hey Lovelies, content creators put in so much work! But we are so underrated 😔 if you love what I do, then you should totally tip me💜",
-username: "blairsyn"
-}, {
-    craft_type: "Creative Director, Video Editor, Food Explorer, Photo Editor, Apps Guru and Social Media Savvy",
-create_date: "2020-06-19T05:16:21.641Z",
-picture_id: "1AsUj1bfvXosbepKC4Qy87xfDGlWVgqed",
-summary: "Thank You, I appreciate you. You are the best vibe squad. Your Tip means you enjoy my content.❤️",
-username: "chitothelagoshustler"
-}],
+        craft_type: "Comedian",
+        create_date: "2020-07-05T09:13:28.496Z",
+        picture_id: "1wj0BCAi5hGN9USx6NKrMUgZ1lSuvhlX0",
+        summary: "Thanks for always supporting the brand and having my back. Drop your name and I will reach out to you. Bless",
+        username: "josh2funny"
+        }, {
+            craft_type: "Lifestyle Blogger",
+        create_date: "2020-06-06T17:22:10.319Z",
+        picture_id: "19uuDwXVl0QYjaDzMDbrehTAwhNHYTMQK",
+        summary: "Thank you so much for stopping by. Please support my ministry 😀",
+        username: "nessytalks"
+        }, {
+            craft_type: "Podcaster, Content Curator, Writer. We move the culture 😉",
+        create_date: "2020-05-25T17:21:53.109Z",
+        picture_id: "1EYikwPy9yk_-5H4QVxTHT50aCbCDxXPN",
+        summary: "Heyyyy! I’m glad you dropped by. Your support will defo help my creative process be more seamless and consistent. Really appreciate you. Don’t forget to drop your name so I’d reach out personally to say “Shukran!”",
+        username: "obakam"
+        }, {
+            craft_type: "Podcaster, Blogger, Poet, Photographer",
+        create_date: "2020-05-30T15:43:35.175Z",
+        picture_id: "1nGcLmFFY1XQMd5Ng9RhYl-aE2DQ5cQ9m",
+        summary: "You will always find a piece of yourself in these works, I hope you love them.",
+        username: "supreme"
+        }, {
+            craft_type: "DIYs, Spoken Words and Short films",
+        create_date: "2020-06-13T17:28:03.090Z",
+        picture_id: "1xN-lRpk1ajNkx6mymMD11R88o8s5xTO4",
+        summary: "I'm passionate about creating art and reaching out. Some encouragement will really help me in creating more as I grow in my craft. ♥️♥️",
+        username: "phavie o.o"
+        }, {
+            craft_type: "Bohemian visual content creator",
+        create_date: "2020-06-13T16:29:09.349Z",
+        picture_id: "1HlW4ri5rk8bh_uYAzgtHL0dxVzVG_s4o",
+        summary: "Thank you for appealing to my definition of aesthetics, your consistent interaction with the content i put out fuels my creativity. Please help foster my artistry by tipping me :) .",
+        username: "chistorm"
+        }, {
+            craft_type: "Beauty and Lifestyle",
+        create_date: "2020-06-17T14:21:41.786Z",
+        picture_id: "18pr7b0DNE9u_9vaMPUwdeWJoIo43mXQO",
+        summary: "Be your own kind of beautiful....be-you-ti-full",
+        username: "sindyakpolo"
+        }, {
+            craft_type: "Visual Artist (Photographer)",
+        create_date: "2020-05-30T15:43:49.191Z",
+            picture_id: "1gvtNcm6VXHAQeKV17CayUwOmrmrSm7u0",
+        summary: "You made it here! Thank you for the love and support, your tip would go a long in ensuring I keep doing what I love.",
+        username: "sonayon thomas"
+        }, {
+            craft_type: "Lifestyle/Fashion Blogger",
+        create_date: "2020-06-18T12:05:24.501Z",
+        picture_id: "1Szav7YluoD3SwmYoDfoZdWJ8jwRpcMXr",
+        summary: "Hey Lovelies, content creators put in so much work! But we are so underrated 😔 if you love what I do, then you should totally tip me💜",
+        username: "blairsyn"
+        }, {
+            craft_type: "Creative Director, Video Editor, Food Explorer, Photo Editor, Apps Guru and Social Media Savvy",
+        create_date: "2020-06-19T05:16:21.641Z",
+        picture_id: "1AsUj1bfvXosbepKC4Qy87xfDGlWVgqed",
+        summary: "Thank You, I appreciate you. You are the best vibe squad. Your Tip means you enjoy my content.❤️",
+        username: "chitothelagoshustler"
+        }],
       search: '',
-    results: []
+      results: []
     };
   },
   methods: {
@@ -375,19 +389,25 @@ username: "chitothelagoshustler"
       document.getElementById("menu-toggle").classList.toggle("is-active");
     },
     getCreators() {
-      axios
-        .get("https://shukran-api.herokuapp.com/api/allusers/")
-        .then(res => {
-          this.creators = res.data; // loaded creators
-        })
-        .catch(err => {
-          console.log(err);
-          console.log("error");
-        });
+
+      if(!localStorage.getItem('shukran-amazing-creators')) {
+          axios
+            .get("https://shukran-api.herokuapp.com/api/allusers/")
+            .then(res => {
+              this.creators = res.data; // loaded creators
+              localStorage.setItem('shukran-amazing-creators', JSON.stringify(res.data));
+            })
+            .catch(err => {
+              console.log("error", err);
+            });
+      } else { // do nothing..?
+        this.creators = JSON.parse(localStorage.getItem('shukran-amazing-creators'));
+      }
+
     },
-        close(){
-            UIkit.modal('#modal-sections').hide()
-        }
+    close(){
+        UIkit.modal('#modal-sections').hide()
+    }
   },
   mounted() {
     this.getCreators(); // later...
@@ -1729,6 +1749,13 @@ button.hamburger-htx {
   background-image: url("../assets/index/twitter.jpg");
 }
 
+.social li.email {
+  background-image: url("../assets/index/email.svg");
+}
+
+.social li.facebook {
+  background-image: url("../assets/index/facebook.png");
+}
 /* Form
 -------------------------------------------------- */
 .btn {

@@ -6,7 +6,7 @@
     </div>
     </nav>
 
-   <div align="center">
+   <div align="center" class="uk-margin-medium-bottom">
       <h1 class="uk-heading">Pricing</h1>
       <div class="uk-card fit uk-box-shadow-large uk-padding login-card" >
     <h3 class="uk-card-title uk-margin-remove-bottom"><p class="percent uk-margin-remove-bottom">10%</p> Flat fee for all payouts.</h3>
