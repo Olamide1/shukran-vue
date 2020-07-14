@@ -208,7 +208,7 @@ export default {
              this.issue = "Please Enter Correct Email";
              this.tipbtn = "Tip"
           } else {
-            /* var handler = PaystackPop.setup({
+            var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
                amount: parseInt(amount) * 100,
@@ -230,6 +230,7 @@ export default {
                      username: username,
                      supporter_nickname: supporter_nickname,
                      amount: amount,
+                     currency: currency,
                      message: message,
                      status: 'received',
                      email: user_email
@@ -252,9 +253,9 @@ export default {
                   } 
                   });
                   handler.openIframe(); // oh well, paystack
- */
-                  // flutterwave
 
+                  // flutterwave
+/* 
                   FlutterwaveCheckout({
       public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
       tx_ref: `${supporter_nickname}-shukran-${username} @ ${Date.now()}`,
@@ -277,7 +278,11 @@ export default {
         supporter_nickname: supporter_nickname,
       },
       callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
-         console.log('success. transaction ref is ', response);
+         
+
+                  if (response.status == "successful") {
+
+                     console.log('success. transaction ref is ', response);
          console.warn('success. transaction ref is ', response); // optimize
 
                   console.log('shukran-supporter-nickname', this.nickname);
@@ -289,8 +294,6 @@ export default {
                   } else if (response.currency === "USD") {
                      amount = amount * 370
                   }
-
-                  if (response.status == "successful") {
                      
                      axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
@@ -324,7 +327,9 @@ export default {
         description: "Shukran to " + username,
         logo: 'https://drive.google.com/uc?export=view&id=' + this.image,
       },
-    });
+    }); // flutterwave ends here
+ */
+
                   }
        },
     },

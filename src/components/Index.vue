@@ -173,7 +173,7 @@
                         <div v-for="result in filteresults" :key="result.id">
                             <router-link :to="'/cr/' + result.username" class="uk-modal-close">{{result.username}}</router-link>
                             <p>{{result.summary}}</p>
-                            <router-link :to="'/cr/' + result.username" class="uk-button uk-modal-close"  style="color: #c63968;">Tip</router-link>
+                            <router-link :to="'/cr/' + result.username" class="uk-button uk-modal-close" style="color: #c63968;" >Tip {{creator.username}}</router-link>
                 <hr class="uk-divider-icon">
                         </div>
                     </div>
