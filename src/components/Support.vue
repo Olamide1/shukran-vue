@@ -285,7 +285,7 @@ export default {
                   console.log('shukran-supporter-phone', this.phone);
 
                   if (response.currency === "KES") {
-                     amount = amount * 3.7
+                     amount = amount * 3.55
                   } else if (response.currency === "USD") {
                      amount = amount * 370
                   }

@@ -287,7 +287,7 @@
                         :key="index"
                       >
                         <td>{{transaction.supporter_nickname}}</td>
-                        <td>{{currencySymbol}}{{allTips[index].toFixed(0)}}<!-- {{transaction.amount}} --></td>
+                        <td>{{currencySymbol}}{{allTips[index].toFixed(3)}}<!-- {{transaction.amount}} --></td>
                         <td>{{transaction.message}}</td>
                       </tr>
                     </tbody>
