@@ -285,10 +285,6 @@ export default {
                      console.log('success. transaction ref is ', response);
                      console.warn('success. transaction ref is ', response); // optimize
 
-                     console.log('shukran-supporter-nickname', this.nickname);
-                     console.log('shukran-supporter-email', this.email);
-                     console.log('shukran-supporter-phone', this.phone);
-
                      if (response.currency === "KES") {
                         amount = parseFloat(amount) * 3.55
                      } else if (response.currency === "USD") {
