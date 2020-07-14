@@ -208,10 +208,11 @@ export default {
              this.issue = "Please Enter Correct Email";
              this.tipbtn = "Tip"
           } else {
-            var handler = PaystackPop.setup({
+             // paystack
+            /* var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
-               amount: parseInt(amount) * 100,
+               amount: parseFloat(amount) * 100,
                currency: "NGN",
                channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
                metadata: {
@@ -253,9 +254,9 @@ export default {
                   } 
                   });
                   handler.openIframe(); // oh well, paystack
-
+ */
                   // flutterwave
-/* 
+
                   FlutterwaveCheckout({
       public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
       tx_ref: `${supporter_nickname}-shukran-${username} @ ${Date.now()}`,
@@ -278,22 +279,21 @@ export default {
         supporter_nickname: supporter_nickname,
       },
       callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
-         
 
                   if (response.status == "successful") {
 
                      console.log('success. transaction ref is ', response);
-         console.warn('success. transaction ref is ', response); // optimize
+                     console.warn('success. transaction ref is ', response); // optimize
 
-                  console.log('shukran-supporter-nickname', this.nickname);
-                  console.log('shukran-supporter-email', this.email);
-                  console.log('shukran-supporter-phone', this.phone);
+                     console.log('shukran-supporter-nickname', this.nickname);
+                     console.log('shukran-supporter-email', this.email);
+                     console.log('shukran-supporter-phone', this.phone);
 
-                  if (response.currency === "KES") {
-                     amount = amount * 3.55
-                  } else if (response.currency === "USD") {
-                     amount = amount * 370
-                  }
+                     if (response.currency === "KES") {
+                        amount = parseFloat(amount) * 3.55
+                     } else if (response.currency === "USD") {
+                        amount = parseFloat(amount) * 370
+                     }
                      
                      axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
@@ -328,7 +328,7 @@ export default {
         logo: 'https://drive.google.com/uc?export=view&id=' + this.image,
       },
     }); // flutterwave ends here
- */
+
 
                   }
        },
