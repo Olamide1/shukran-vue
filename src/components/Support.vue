@@ -285,9 +285,9 @@ export default {
                   console.log('shukran-supporter-phone', this.phone);
 
                   if (response.currency === "KES") {
-                     amount = amount * 107.13
+                     amount = amount * 3.7
                   } else if (response.currency === "USD") {
-                     amount = amount * 360
+                     amount = amount * 370
                   }
 
                   if (response.status == "successful") {
