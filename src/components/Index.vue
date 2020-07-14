@@ -163,7 +163,7 @@
                 <router-link style="font-size: x-large;" :to="'/cr/' + creator.username" class="uk-modal-close">{{creator.username}}</router-link>
                 <p>{{creator.summary}}</p>
                 <router-link :to="'/cr/' + creator.username" class="uk-button">
-                  <button style="border-radius: 3px;background-color: #c63968; color: #fceedd; padding: 0 20px 0 20px;" class="uk-button uk-button-default">Tip {{creator.username}}</button>
+                  <button @click="close()" style="border-radius: 3px;background-color: #c63968; color: #fceedd; padding: 0 20px 0 20px;" class="uk-button uk-button-default">Tip {{creator.username}}</button>
                 </router-link>
                 <hr class="uk-divider-icon">
             </div>
