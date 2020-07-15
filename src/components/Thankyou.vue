@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-    name: 'thank you',
+    name: 'Thankyou',
     data () {
         return {
             nickname: localStorage.getItem('shukran_nickname')
