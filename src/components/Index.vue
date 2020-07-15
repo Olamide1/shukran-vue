@@ -90,31 +90,25 @@
                           {{ new Date(creator.create_date).toLocaleDateString() }}
                         </p>
                       </div>
-                      <!-- 
-                      <img
-                          :v-lazy="`https://drive.google.com/uc?export=view&id=${creator.picture_id}`" 
-                          :alt="`Image of ${creator.username}`"
-                        />  -->
-                        
-                        <div
+                      
+                        <!-- <div
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
             v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`}"
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: auto;"
           >
-          </div>
+          </div> -->
          
-                        
-                        <!-- <router-link
+                        <router-link
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`, loading: '../assets/loading.gif'}"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`}"
             
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: auto;"
           :to="'/cr/' + creator.username" tag="div">
-                        </router-link> -->
+                        </router-link>
                     </div>
                   </div>
                 </div>
@@ -301,10 +295,10 @@
 
         <div class="social">
           <a>
-            <li class=""><router-link to="/pricing">Pricing</router-link></li>
+            <li><router-link to="/pricing">Pricing</router-link></li>
           </a>
           <a>
-            <li class=""><router-link to="/terms">T&C</router-link></li>
+            <li><router-link to="/terms">T&C</router-link></li>
           </a>
         </div>
       </div>
@@ -534,7 +528,7 @@ h4,
   }
 }
 
-a {
+a, #image-background {
   cursor: pointer !important;
 }
 

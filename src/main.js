@@ -8,7 +8,8 @@ import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload, {
   observer: true,
-  loading: 'dist/img/twitter.e660da8.jpg',
+  loading: '/static/img/blank-profile-picture.png',
+  error: '/static/img/placeholder-image.png', // https://stackoverflow.com/a/47677814
 })
 Vue.config.productionTip = false;
 
