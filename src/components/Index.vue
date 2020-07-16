@@ -320,29 +320,29 @@ export default {
         summary: "Thanks for always supporting the brand and having my back. Drop your name and I will reach out to you. Bless",
         username: "josh2funny"
         }, {
-            craft_type: "Lifestyle Blogger",
-        create_date: "2020-06-06T17:22:10.319Z",
-        picture_id: "19uuDwXVl0QYjaDzMDbrehTAwhNHYTMQK",
-        summary: "Thank you so much for stopping by. Please support my ministry 😀",
-        username: "nessytalks"
+            craft_type: "Art/Documentary photographer",
+        create_date: "2020-06-14T20:46:45.220Z",
+        picture_id: "1BbqzZYHhtZygSWyBg2qKJsEMrCL71Qpv",
+        summary: "Everything has its beauty.",
+        username: "tblack"
         }, {
-            craft_type: "Podcaster, Content Curator, Writer. We move the culture 😉",
-        create_date: "2020-05-25T17:21:53.109Z",
-        picture_id: "1EYikwPy9yk_-5H4QVxTHT50aCbCDxXPN",
-        summary: "Heyyyy! I’m glad you dropped by. Your support will defo help my creative process be more seamless and consistent. Really appreciate you. Don’t forget to drop your name so I’d reach out personally to say “Shukran!”",
-        username: "obakam"
+            craft_type: "Lifestyle blogger, women development facilitator and webinar host",
+        create_date: "2020-06-19T20:34:47.340Z",
+        picture_id: "1aOVjWQ8ZLGs0LMwAyQgz3NLubVbEnJFY",
+        summary: "Thank you so much for supporting my brand thus far, if you’d like to go a step further. Please give me a tip, it’s a small gesture that means a lot.",
+        username: "growingwomanblog"
         }, {
-            craft_type: "Podcaster, Blogger, Poet, Photographer",
-        create_date: "2020-05-30T15:43:35.175Z",
-        picture_id: "1nGcLmFFY1XQMd5Ng9RhYl-aE2DQ5cQ9m",
-        summary: "You will always find a piece of yourself in these works, I hope you love them.",
-        username: "supreme"
+            craft_type: "Content Creator, Podcaster and YouTuber",
+        create_date: "2020-07-05T20:00:25.655Z",
+        picture_id: "1JGnnQtXnxuyMyxRI-DUFfRxixVELN91Z",
+        summary: "Thanks for this support. I appreciate this tip a lot. It's like a huge pat on the shoulder you know!! Cheers to more awesome content. Kisses!",
+        username: "viola ekene"
         }, {
-            craft_type: "DIYs, Spoken Words and Short films",
-        create_date: "2020-06-13T17:28:03.090Z",
-        picture_id: "1xN-lRpk1ajNkx6mymMD11R88o8s5xTO4",
-        summary: "I'm passionate about creating art and reaching out. Some encouragement will really help me in creating more as I grow in my craft. ♥️♥️",
-        username: "phavie o.o"
+            craft_type: "Youtuber, head-dresser",
+        create_date: "2020-06-26T10:39:57.980Z",
+        picture_id: "1Rc0bP5pA0YfdnQUoCUKRP0WMo9zkmQMJ",
+        summary: "I am a youtuber who creates headwear tutorials on youtube. Thank you for supporting me",
+        username: "olufemi"
         }, {
             craft_type: "Bohemian visual content creator",
         create_date: "2020-06-13T16:29:09.349Z",
