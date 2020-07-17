@@ -344,7 +344,7 @@ export default {
       transactions: [],
       allTips: [], // optimise this later
       tipsDates: [],
-      currency: "NGN", // optimse later, use country's currency
+      currency: !localStorage.getItem("shukran-country-currency") ? "NGN" : localStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
       tempCurr: "",
       payoutGuard: 1000, // 1000 naira
       url:
@@ -719,6 +719,32 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    getCountryData(){
+        if(!localStorage.getItem('shukran-country-currency')) {
+      fetch('https://ipapi.co/json/', { // http://ipinfo.io
+          headers: {
+          'Accept': 'application/json',
+          "Content-Type": "application/json"
+        }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json()
+        })
+        .then(data => {
+          console.log(data.country_name, "using", data.currency_name, data.currency)
+          localStorage.setItem('shukran-country-currency', data.currency);
+          this.currency = data.currency;
+          localStorage.setItem('shukran-country-code', data.country_code);
+        })
+        .catch(error => { // why did this error happen. let's know... save and send to backend later?
+          // console.error('There has been a problem with our fetch operation:', error);
+        });
+    } else { // use their currency
+    }
     }
   },
   mounted() {
@@ -732,6 +758,9 @@ export default {
     this.payoutGuard = fx(1000) // initialize payout guard!!
               .from("NGN")
               .to(this.currency); // I hope this.currency is always with value, so no error occurs
+  },
+  beforeMount() {
+    this.getCountryData();
   }
 };
 </script>

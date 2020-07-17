@@ -63,30 +63,29 @@
   <!--End of Tawk.to Script-->
   <!-- get country code and currency -->
   <script type="text/javascript"> // https://stackoverflow.com/a/35123097
-  if(!localStorage.getItem('shukran-country-currency')) {
-    fetch('https://ipapi.co/json/', { // http://ipinfo.io
-        headers: {
-        'Accept': 'application/json',
-        "Content-Type": "application/json"
-      }
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+    if(!localStorage.getItem('shukran-country-currency')) {
+      fetch('https://ipapi.co/json/', { // http://ipinfo.io
+          headers: {
+          'Accept': 'application/json',
+          "Content-Type": "application/json"
         }
-        return response.json()
-      })
-      .then(data => {
-        console.log(data.country_name, "using", data.currency_name, data.currency)
-        localStorage.setItem('shukran-country-currency', data.currency);
-        localStorage.setItem('shukran-country-code', data.country_code);
-      })
-      .catch(error => { // why did this error happen. let's know... save and send to backend later?
-        // console.error('There has been a problem with our fetch operation:', error);
-      });
-  } else { // use their currency
-  }
-      
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json()
+        })
+        .then(data => {
+          console.log(data.country_name, "using", data.currency_name, data.currency)
+          localStorage.setItem('shukran-country-currency', data.currency);
+          localStorage.setItem('shukran-country-code', data.country_code);
+        })
+        .catch(error => { // why did this error happen. let's know... save and send to backend later?
+          // console.error('There has been a problem with our fetch operation:', error);
+        });
+    } else { // use their currency
+    }
   </script>
   </head>
   <body>
