@@ -384,7 +384,6 @@ export default {
   methods: {
     changeCurrency() {
       console.log('currecy', this.currency)
-      
       this.rates();
     },
     fetchConversionDataAndUpdate() {
@@ -604,9 +603,8 @@ export default {
               })
             ); // .toDateString() .toLocaleDateString("en-US")
           }
-
+        }).then(() => {
           this.rates(); // get the conversion first...
-
         }).then(() => this.createChart("total-tips-chart", {allTips: this.allTips, tipsDates: this.tipsDates, currencySymbol: this.currencySymbol})/* then create chart */)
         .catch(err => {
           console.error(err, err.code);
@@ -753,7 +751,7 @@ export default {
     this.checkUser();
     this.loadWithdrawn();
     this.getBalance();
-    this.rates(); // so we don't do it on currency change
+    // this.rates(); // so we don't do it on currency change
 
     this.payoutGuard = fx(1000) // initialize payout guard!!
               .from("NGN")
@@ -1001,6 +999,10 @@ li.li-withdrawn:before {
   .desktop-nav,
   .request-button.uk-button-primary {
     display: none;
+  }
+
+  .uk-card-body {
+    padding: 20px 20px;
   }
 
   .tippers-table {
