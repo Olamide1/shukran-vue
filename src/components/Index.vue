@@ -384,7 +384,17 @@ export default {
     },
     getCreators() {
 
-      if(!localStorage.getItem('shukran-amazing-creators')) {
+      axios
+        .get("https://shukran-api.herokuapp.com/api/allusers/")
+        .then(res => {
+          this.creators = res.data; // loaded creators
+          localStorage.setItem('shukran-amazing-creators', JSON.stringify(res.data));
+        })
+        .catch(err => {
+          console.log("error", err);
+        });
+
+      /* if(!localStorage.getItem('shukran-amazing-creators')) {
           axios
             .get("https://shukran-api.herokuapp.com/api/allusers/")
             .then(res => {
@@ -396,7 +406,7 @@ export default {
             });
       } else { // do nothing..?
         this.creators = JSON.parse(localStorage.getItem('shukran-amazing-creators'));
-      }
+      } */
 
     },
     close(){
