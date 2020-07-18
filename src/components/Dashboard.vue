@@ -515,6 +515,8 @@ export default {
               // a(nother) line graph
               label: "Tips",
               data: chartData.allTips,
+              pointBorderWidth: 3,
+              pointHitRadius: 15,
               backgroundColor: gradient /* [
                 "rgba(71, 183,132,.5)" // Green
               ] */,
