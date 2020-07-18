@@ -324,10 +324,13 @@
               align="center">
               <div class="uk-margin">
                 <p class="digital-link-text">
-              Have exclusive content you want to share to only those that tip you? Fill in your link here.
-              This link let's people access a certain content only after they have tipped you.
-              That means you don't have to sell anything completely free anymore.
-            </p>
+                  Have exclusive content you want to share to only those that tip you? Fill in your link here.
+                  This link let's people access a certain content only after they have tipped you.
+                  That means you don't have to sell anything completely free anymore.
+                </p>
+                <p class="digital-link-text">
+                  This could be music, preset, e-books, etc.
+                </p>
               </div>
               <div class="uk-margin" v-for="(profile, index) in profiles" :key="index">
               <label for="dpl" class="to-the-left">
