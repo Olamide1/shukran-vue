@@ -77,7 +77,7 @@
               <div
                 ref="file"
                 class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }"
+                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '/static/img/loading.gif' }"
                 uk-img
               >
 
@@ -108,7 +108,7 @@
             ref="file"
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '../assets/loading.gif' }"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '/static/img/loading.gif' }"
             uk-img
           >
             <div
