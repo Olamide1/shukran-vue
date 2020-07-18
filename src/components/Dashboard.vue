@@ -13,7 +13,7 @@
       <div class="uk-navbar-right">
         <div class="uk-form-controls uk-margin-small-right" style="width: 60px;">
           <select
-            @change="changeCurrency()"
+            @change="rates()"
             v-model="currency"
             style="border-radius: 3px"
             class="uk-select uk-form-width-xsmall"
@@ -54,7 +54,7 @@
             <a>
               <div class="uk-form-controls" style="width: 60px;">
                 <select
-                  @change="changeCurrency()"
+                  @change="rates()"
                   v-model="currency"
                   style="border-radius: 3px"
                   class="uk-select uk-form-width-xsmall"
@@ -287,7 +287,7 @@
                         :key="index"
                       >
                         <td>{{transaction.supporter_nickname}}</td>
-                        <td>{{currencySymbol}}{{allTips[index].toFixed(3)}}<!-- {{transaction.amount}} --></td>
+                        <td>{{currencySymbol}}{{parseInt(allTips[index]).toFixed(3)}}<!-- {{transaction.amount}} --></td>
                         <td>{{transaction.message}}</td>
                       </tr>
                     </tbody>
@@ -382,10 +382,6 @@ export default {
     }
   },
   methods: {
-    changeCurrency() {
-      console.log('currecy', this.currency)
-      this.rates();
-    },
     fetchConversionDataAndUpdate() {
       // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
       const ex = () => {
@@ -720,29 +716,29 @@ export default {
     },
     getCountryData(){
         if(!localStorage.getItem('shukran-country-currency')) {
-      fetch('https://ipapi.co/json/', { // http://ipinfo.io
-          headers: {
-          'Accept': 'application/json',
-          "Content-Type": "application/json"
+          fetch('https://ipapi.co/json/', { // http://ipinfo.io
+              headers: {
+              'Accept': 'application/json',
+              "Content-Type": "application/json"
+            }
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json()
+            })
+            .then(data => {
+              console.log(data.country_name, "using", data.currency_name, data.currency)
+              localStorage.setItem('shukran-country-currency', data.currency);
+              this.currency = data.currency;
+              localStorage.setItem('shukran-country-code', data.country_code);
+            })
+            .catch(error => { // why did this error happen. let's know... save and send to backend later?
+              // console.error('There has been a problem with our fetch operation:', error);
+            });
+        } else { // use their currency
         }
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json()
-        })
-        .then(data => {
-          console.log(data.country_name, "using", data.currency_name, data.currency)
-          localStorage.setItem('shukran-country-currency', data.currency);
-          this.currency = data.currency;
-          localStorage.setItem('shukran-country-code', data.country_code);
-        })
-        .catch(error => { // why did this error happen. let's know... save and send to backend later?
-          // console.error('There has been a problem with our fetch operation:', error);
-        });
-    } else { // use their currency
-    }
     }
   },
   mounted() {
@@ -752,10 +748,6 @@ export default {
     this.loadWithdrawn();
     this.getBalance();
     // this.rates(); // so we don't do it on currency change
-
-    this.payoutGuard = fx(1000) // initialize payout guard!!
-              .from("NGN")
-              .to(this.currency); // I hope this.currency is always with value, so no error occurs
   },
   beforeMount() {
     this.getCountryData();
