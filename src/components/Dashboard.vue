@@ -287,7 +287,7 @@
                         :key="index"
                       >
                         <td>{{transaction.supporter_nickname}}</td>
-                        <td>{{currencySymbol}}{{parseInt(allTips[index]).toFixed(3)}}<!-- {{transaction.amount}} --></td>
+                        <td>{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(3)}}<!-- {{transaction.amount}} --></td>
                         <td>{{transaction.message}}</td>
                       </tr>
                     </tbody>
@@ -494,6 +494,7 @@ export default {
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
           // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
         }
+        console.log('all tips', this.allTips)
       }
     },
     createChart(chartId , chartData) {
