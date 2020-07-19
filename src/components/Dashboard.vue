@@ -389,7 +389,7 @@ export default {
           .from(
             this.tempCurr
               ? this.tempCurr
-              : localStorage.getItem("shukran-country-currency")
+              : "NGN" // localStorage.getItem("shukran-country-currency")
           )
           .to(this.currency);
         
@@ -397,7 +397,7 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : "NGN" // localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency);
         
@@ -405,7 +405,7 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : "NGN" // localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency));
         
@@ -466,7 +466,7 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : "NGN" // localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency);
 
@@ -474,7 +474,7 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : "NGN" // localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency);
           
@@ -482,7 +482,7 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : "NGN" // localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency));
         
@@ -515,7 +515,7 @@ export default {
               // a(nother) line graph
               label: "Tips",
               data: chartData.allTips,
-              pointBorderWidth: 3,
+              pointBorderWidth: 7,
               pointHitRadius: 15,
               backgroundColor: gradient /* [
                 "rgba(71, 183,132,.5)" // Green
@@ -585,7 +585,7 @@ export default {
           status: "received"
         })
         .then(res => {
-          console.log("loadTransactions done");
+          // console.log("loadTransactions done"); // do the currency conversion here.
           this.transactions = res.data;
           for (let i = 0; i < this.transactions.length; i++) {
             this.tipTotal += parseInt(this.transactions[i].amount);
@@ -617,14 +617,14 @@ export default {
           status: "paid"
         })
         .then(res => {
-          console.log("loadWithdrawn done");
+          // console.log("loadWithdrawn done");
           this.withdrawals = res.data;
           for (let i = 0; i < this.withdrawals.length; i++) {
             this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
           }
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     withdrawRequest() { // convert amount to naira, we payout in naira
@@ -645,7 +645,7 @@ export default {
           email: this.profiles[0].email
         })
         .then(res => {
-          console.log("withdrawRequest done", res);
+          // console.log("withdrawRequest done", res);
           this.request = "Done";
           UIkit.modal("#modal-middle").hide();
           let thanks =
@@ -653,7 +653,7 @@ export default {
           alert(thanks);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     onFileChanged(event) {
@@ -661,18 +661,18 @@ export default {
       let formData = new FormData();
       formData.append("id", this.id);
       formData.append("pic", event.target.files[0]);
-      console.log(event.target.files);
+      // console.log(event.target.files);
       axios
         .post("https://shukran-api.herokuapp.com/api/update/", formData, {
           onUploadProgress: progressEvent => {
-            console.log(progressEvent.loaded / progressEvent.total);
+            // console.log(progressEvent.loaded / progressEvent.total);
           }
         })
         .then(res => {
           this.profiles[0].picture_id = res.data;
         })
         .catch(error => {
-          console.log("error occured", error);
+          // console.log("error occured", error);
         });
     },
     submitFeedback() {
@@ -685,12 +685,12 @@ export default {
           comment: comment
         })
         .then(res => {
-          console.log("feedback submitted");
+          // console.log("feedback submitted");
           UIkit.modal("#my-id").hide();
           alert("Thank you for your feedback!");
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     getBalance() {
@@ -709,11 +709,11 @@ export default {
         })
         .then(res => {
           this.id = res.data[0]._id;
-          console.log("id");
+          // console.log("id");
           this.profiles = res.data;
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     getCountryData(){
@@ -731,7 +731,7 @@ export default {
               return response.json()
             })
             .then(data => {
-              console.log(data.country_name, "using", data.currency_name, data.currency)
+              // console.log(data.country_name, "using", data.currency_name, data.currency)
               localStorage.setItem('shukran-country-currency', data.currency);
               this.currency = data.currency;
               localStorage.setItem('shukran-country-code', data.country_code);
