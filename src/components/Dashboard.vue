@@ -358,7 +358,8 @@ export default {
       balance: 0,
       comment: "",
       feed: "Submit",
-      request: "Request"
+      request: "Request",
+      tipsChart: new Chart("total-tips-chart")
     };
   },
   computed: {
@@ -414,6 +415,8 @@ export default {
               .to(this.currency);
         
         this.tempCurr = this.currency;
+
+        // this.tipsChart.update(); // updates the chart...
 
         // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
         // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
@@ -491,6 +494,9 @@ export default {
               .to(this.currency);
 
           this.tempCurr = this.currency;
+
+          // this.tipsChart.update(); // updates the chart
+          
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
           // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
         }
@@ -507,7 +513,7 @@ export default {
       gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
 
       const ctx = document.getElementById(chartId);
-      const tipsChart = new Chart(ctx, {
+      this.tipsChart = new Chart(ctx, {
         type: "line",
         data: {
           labels: chartData.tipsDates,

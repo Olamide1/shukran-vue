@@ -288,7 +288,7 @@
           <a href="https://www.facebook.com/Use-Shukran-106749854404001/">
             <li class="facebook"></li>
           </a>
-          <a href="mailto:support@usehukran.com">
+          <a href="mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I ...">
             <li class="email"></li>
           </a>
         </div>
@@ -319,6 +319,12 @@ export default {
         picture_id: "1wj0BCAi5hGN9USx6NKrMUgZ1lSuvhlX0",
         summary: "Thanks for always supporting the brand and having my back. Drop your name and I will reach out to you. Bless",
         username: "josh2funny"
+        }, {
+            craft_type: "Digital media, Podcast on Digital skills and innovation",
+        create_date: "2020-07-17T15:31:52.417Z",
+        picture_id: "1jbhZ6Iu69hDlYquXNCeAJZXUbgFWDwvi",
+        summary: "Tips, they're like hugs, just without the awkward body contact. Thanks for your support!",
+        username: "edigitalafrica"
         }, {
             craft_type: "Art/Documentary photographer",
         create_date: "2020-06-14T20:46:45.220Z",
@@ -416,17 +422,24 @@ export default {
   mounted() {
     this.getCreators(); // later...
   },
-    computed: {
-        filteresults: function (params) {
-        let filtered = this.creators;
-      if (this.search) {
-        filtered = this.creators.filter(
-          m => m.username.toLowerCase().indexOf(this.search.toLowerCase()) > -1
-        );
-      }
-      return filtered;
-        }
+  computed: {
+      filteresults: function (params) {
+      let filtered = this.creators;
+    if (this.search) {
+      filtered = this.creators.filter(
+        m => m.username.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+      );
     }
+    return filtered;
+      }
+  },
+  created() {
+    const script = document.createElement("script");
+    script.async = true;
+    script['data-ad-client'] = "ca-pub-5489258226391683";
+    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  },
 };
 </script>
 
