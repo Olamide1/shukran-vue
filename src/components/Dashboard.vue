@@ -82,15 +82,16 @@
               >
 
               <div
-              uk-tooltip="Click to change your profile picture"
-              id="add-image"
-              uk-form-custom="target: true"
-            >
-              <input type="file" @change="onFileChanged" />
-              <span uk-icon="icon: plus;"></span>
-            </div>
-              
+                uk-tooltip="Click to change your profile picture"
+                id="add-image"
+                uk-form-custom="target: true"
+              >
+                <input type="file" @change="onFileChanged" />
+                <span uk-icon="icon: plus;"></span>
               </div>
+              </div>
+              <progress id="js-progressbar" class="top-nav-progress-bar" value="50" max="100"></progress>
+              <div uk-spinner id="chill"></div>
             </a>
           </li>
         </ul>
@@ -119,7 +120,10 @@
               <input type="file" @change="onFileChanged" />
               <span uk-icon="icon: plus; ratio: 2"></span>
             </div>
+
           </div>
+          <progress class="side-nav-progress-bar" id="snpb" value="80" max="100"></progress>
+          <div uk-spinner="ratio: 2" id="wait"></div>
           <!-- -->
           <ul class="uk-list uk-list-divider">
             <li>
@@ -666,17 +670,33 @@ export default {
     onFileChanged(event) {
       // this.selectedFile = event.target.files[0]
       let formData = new FormData();
-      formData.append("id", this.id);
+      formData.append("id", this.profiles[0]._id);
       formData.append("pic", event.target.files[0]);
       // console.log(event.target.files);
+      
+      let bar1 = document.getElementById('snpb');
+      let bar2 = document.getElementById('js-progressbar');
+
+      let loader1 = document.getElementById('wait');
+      let loader2 = document.getElementById('chill');
+      bar1.style.display = 'block';
+      bar2.style.display = 'flex';
       axios
         .post("https://shukran-api.herokuapp.com/api/update/", formData, {
           onUploadProgress: progressEvent => {
-            // console.log(progressEvent.loaded / progressEvent.total);
+            console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
+            bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
+            if (progressEvent.loaded / progressEvent.total == 1) {
+              bar1.style.display = bar2.style.display = 'none';
+
+              loader1.style.display = loader2.style.display = 'block';
+            }
           }
         })
         .then(res => {
+          loader1.style.display = loader2.style.display = 'none';
           this.profiles[0].picture_id = res.data;
+          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // update session too
         })
         .catch(error => {
           // console.log("error occured", error);
@@ -766,6 +786,63 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
+.top-nav-progress-bar {
+  display: none;
+  z-index: 1;
+  margin-left: -5px;
+
+ position: absolute;
+ height: 46px;
+ width: 46px;
+ /* display: flex; */
+ align-items: center;
+ justify-content: center;
+ color: blue;
+ /* margin:30px 30px; */
+ float:left;
+}
+.top-nav-progress-bar:before {
+ content: "";
+ background: white;
+ position:absolute;
+ z-index:100;
+ width:40px;
+ height:40px;
+ border-radius:50%;
+ margin:auto auto;
+}
+progress.top-nav-progress-bar::-moz-progress-bar { background: transparent; }
+progress.top-nav-progress-bar::-webkit-progress-bar {background: transparent;}
+progress.top-nav-progress-bar::-moz-progress-value { background: blue; }
+progress.top-nav-progress-bar::-webkit-progress-value { background: blue; }
+.top-nav-progress-bar {
+ border-radius: 100%;
+ overflow: hidden;
+ padding:0;
+}
+
+.side-nav-progress-bar {
+  width: 29.5%;
+  position: absolute;
+  margin-top: -7.5px;
+  height: 10px;
+  display: none;
+}
+
+#wait {
+  display: none;
+  margin-top: -70px;
+  margin-left: 10px;
+  position: absolute;
+}
+
+#chill {
+  display: none;
+  margin-left: -35px;
+  z-index: 20;
+}
+
 .uk-container-expand {
   background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
 
@@ -886,6 +963,7 @@ div[data-src][src*="data:image"] {
 }
 
 .us {
+  z-index: 10;
   width: 40px;
   height: 40px;
   border-radius: 50%;
