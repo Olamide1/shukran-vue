@@ -434,11 +434,11 @@ export default {
       }
   },
   created() {
-    const script = document.createElement("script");
+    /* const script = document.createElement("script");
     script.async = true;
     script['data-ad-client'] = "ca-pub-5489258226391683";
     script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-    document.getElementsByTagName("head")[0].appendChild(script);
+    document.getElementsByTagName("head")[0].appendChild(script); */
   },
 };
 </script>
