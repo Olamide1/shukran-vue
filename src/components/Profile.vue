@@ -207,15 +207,17 @@
                 <label for="bn" class="to-the-left">
                   Bank name
                 </label>
-                <select 
-                    name="bn"
+                <input
+                  name="bn"
                   type="text"
                   data-uk-tooltip
                   title="What Nigerian bank do you wanna receive your payouts?"
                   class="uk-input"
+                  list="bank-options"
                   placeholder="Bank (e.g GTBank etc)"
                   v-model="profile.bank"
-                  ><!-- update from https://api.payant.ng/banks -->
+                />
+                <datalist id="bank-options"><!-- update from https://api.payant.ng/banks and find other countries' banks -->
                     <option value="MPESA">MPESA</option>
                     <option value="ACCESS BANK NIGERIA">ACCESS BANK NIGERIA</option>
                     <option value="ECOBANK NIGERIA LIMITED">ECOBANK NIGERIA LIMITED</option>
@@ -243,16 +245,8 @@
                     <option value="JAIZ BANK">JAIZ BANK</option>
                     <option value="STANDARD CHARTERED BANK">STANDARD CHARTERED BANK</option>
                     <option value="VFD Microfinance Bank">VFD Microfinance Bank</option>
-                </select>
-                <!-- <input
-                  name="bn"
-                  type="text"
-                  data-uk-tooltip
-                  title="What Nigerian bank do you wanna receive your payouts?"
-                  class="uk-input"
-                  placeholder="Bank (e.g GTBank etc)"
-                  v-model="profile.bank"
-                /> -->
+                </datalist>
+                
               </div>
               <div class="uk-margin">
                 <label for="an" class="to-the-left">
