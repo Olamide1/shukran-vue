@@ -211,7 +211,7 @@
                   name="bn"
                   type="text"
                   data-uk-tooltip
-                  title="What Nigerian bank do you wanna receive your payouts?"
+                  title="What bank do you wanna receive your payouts?"
                   class="uk-input"
                   list="bank-options"
                   placeholder="Bank (e.g GTBank etc)"
