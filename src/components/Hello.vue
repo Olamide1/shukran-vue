@@ -49,10 +49,10 @@
 
     <div class="uk-card-body">
       <div class="uk-margin">
-        <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="Basically your brand name. What name do name do your content consumers recognise you with, please no spaces" v-model="username" type="text" placeholder="Username">
+        <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="Basically your brand name. What name do your content consumers recognise you with, please no spaces" v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
-         <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="NG laws require us to have this so we can verify and pay to your account. No one else sees it so..." v-model="fullname" type="text" placeholder="Fullname">
+         <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="KYC requires us to know this. No one else sees it so..." v-model="fullname" type="text" placeholder="Fullname">
       </div>
       <div class="uk-margin">
          <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="That main email you open often" v-model="email" type="email" placeholder="Email">

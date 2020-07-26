@@ -127,7 +127,7 @@
           <!-- -->
           <ul class="uk-list uk-list-divider">
             <li>
-              <router-link to="/dash">Home</router-link>
+              <router-link to="/dash">Dashboard</router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
             <div id="modal-center" class="uk-flex-top" uk-modal>
@@ -363,7 +363,6 @@ export default {
       comment: "",
       feed: "Submit",
       request: "Request",
-      tipsChart: new Chart("total-tips-chart")
     };
   },
   computed: {
@@ -420,7 +419,7 @@ export default {
         
         this.tempCurr = this.currency;
 
-        // this.tipsChart.update(); // updates the chart...
+        // this.tipsChart.update(); // updates the chart... if this.tipsChart was an instance of new Chart(ctx, ...)
 
         // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
         // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
@@ -517,7 +516,7 @@ export default {
       gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
 
       const ctx = document.getElementById(chartId);
-      this.tipsChart = new Chart(ctx, {
+      new Chart(ctx, {
         type: "line",
         data: {
           labels: chartData.tipsDates,

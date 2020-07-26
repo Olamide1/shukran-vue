@@ -424,7 +424,7 @@ export default {
   },
   computed: {
       filteresults: function (params) {
-      let filtered = this.creators;
+      let filtered;
     if (this.search) {
       filtered = this.creators.filter(
         m => m.username.toLowerCase().indexOf(this.search.toLowerCase()) > -1

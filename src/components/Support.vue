@@ -202,10 +202,10 @@ export default {
           let user_email = this.userinfos[0].email
           let redirect = this.userinfos[0].redirect
           if(email == '' || amount == '') {
-             this.issue = 'Enter Email & Amount Please'
+             this.issue = 'Enter email & amount please'
              this.tipbtn = "Tip"
           } else if(!this.reg.test(this.email)){
-             this.issue = "Please Enter Correct Email";
+             this.issue = "Please enter a correct email";
              this.tipbtn = "Tip"
           } else {
              // paystack

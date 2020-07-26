@@ -23,6 +23,7 @@
             <li id="give-feedback" uk-toggle="target: #my-id">
               <a>Give feedback</a>
             </li>
+            <li id="logout" @click="logout"><a>Logout</a></li>
         </ul>
 
     </div>
@@ -59,7 +60,7 @@
     </div>
         <ul class="uk-list uk-list-divider">
           <li>
-            <router-link to="/dash">Home</router-link>
+            <router-link to="/dash">Dashboard</router-link>
           </li>
           <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
           <div id="modal-center" class="uk-flex-top" uk-modal>
@@ -206,7 +207,44 @@
                 <label for="bn" class="to-the-left">
                   Bank name
                 </label>
-                <input
+                <select 
+                    name="bn"
+                  type="text"
+                  data-uk-tooltip
+                  title="What Nigerian bank do you wanna receive your payouts?"
+                  class="uk-input"
+                  placeholder="Bank (e.g GTBank etc)"
+                  v-model="profile.bank"
+                  ><!-- update from https://api.payant.ng/banks -->
+                    <option value="MPESA">MPESA</option>
+                    <option value="ACCESS BANK NIGERIA">ACCESS BANK NIGERIA</option>
+                    <option value="ECOBANK NIGERIA LIMITED">ECOBANK NIGERIA LIMITED</option>
+                    <option value="UNITED BANK FOR AFRICA PLC">UNITED BANK FOR AFRICA PLC</option>
+                    <option value="FIRST BANK PLC">FIRST BANK PLC</option>
+                    <option value="GTBANK PLC">GTBANK PLC</option>
+                    <option value="STERLING BANK PLC">STERLING BANK PLC</option>
+                    <option value="FCMB">FCMB</option>
+                    <option value="ZENITH BANK PLC">ZENITH BANK PLC</option>
+                    <option value="FIRST CITY MONUMENT BANK PLC">FIRST CITY MONUMENT BANK PLC</option>
+                    <option value="POLARIS BANK">POLARIS BANK</option>
+                    <option value="FSDH Merchant Bank Limited">FSDH Merchant Bank Limited</option>
+                    <option value="UNITY BANK PLC">UNITY BANK PLC</option>
+                    <option value="PROVIDUS BANK">PROVIDUS BANK</option>
+                    <option value="UNION BANK">UNION BANK</option>
+                    <option value="FIDELITY BANK">FIDELITY BANK</option>
+                    <option value="HERITAGE BANK">HERITAGE BANK</option>
+                    <option value="ENTERPRISE BANK">ENTERPRISE BANK</option>
+                    <option value="KEYSTONE BANK">KEYSTONE BANK</option>
+                    <option value="NIRSAL MICROFINANCE BANK">NIRSAL MICROFINANCE BANK</option>
+                    <option value="PECANTRUST MICROFINANCE BANK">PECANTRUST MICROFINANCE BANK</option>
+                    <option value="M KUDI">M KUDI</option>
+                    <option value="STANBIC IBTC BANK">STANBIC IBTC BANK</option>
+                    <option value="WEMA BANK">WEMA BANK</option>
+                    <option value="JAIZ BANK">JAIZ BANK</option>
+                    <option value="STANDARD CHARTERED BANK">STANDARD CHARTERED BANK</option>
+                    <option value="VFD Microfinance Bank">VFD Microfinance Bank</option>
+                </select>
+                <!-- <input
                   name="bn"
                   type="text"
                   data-uk-tooltip
@@ -214,7 +252,7 @@
                   class="uk-input"
                   placeholder="Bank (e.g GTBank etc)"
                   v-model="profile.bank"
-                />
+                /> -->
               </div>
               <div class="uk-margin">
                 <label for="an" class="to-the-left">
@@ -440,10 +478,10 @@ export default {
       }*/
       axios.post("https://shukran-api.herokuapp.com/api/update/", 
        {
-          summary: summary,
-          craft_type: craft_type,
+          summary: summary.trim(),
+          craft_type: craft_type.trim(),
           audience_size: audience_size,
-          primary_link: primary_link,
+          primary_link: primary_link.trim(),
           id: id
         }).then(res => {
           console.log("updated");                             
@@ -464,7 +502,7 @@ export default {
       } */
       this.savebtnFour = "saving...";
       axios.post("https://shukran-api.herokuapp.com/api/update/", {
-          redirect: redirect,
+          redirect: redirect.trim(),
           id: id
         })
         .then(res => {
@@ -505,9 +543,9 @@ export default {
       axios
         .post("https://shukran-api.herokuapp.com/api/update/", {
           id: id,
-          bank: bank,
-          account_name: account_name,
-          account_number: account_number
+          bank: bank.trim(),
+          account_name: account_name.trim(),
+          account_number: account_number.trim()
         })
         .then(res => {
           console.log("updated");
@@ -542,16 +580,16 @@ export default {
       var id = this.id;
       var fullname = this.profiles[0].fullname;
       var email = this.profiles[0].email;
-      var username = this.profiles[0].username.toLowerCase().trim();
+      var username = this.profiles[0].username.toLowerCase();
       var phone = this.profiles[0].phone;
       this.savebtnOne = "saving...";
       axios
         .post("https://shukran-api.herokuapp.com/api/update/", {
           id: id,
-          fullname: fullname,
-          email: email,
-          username: username,
-          phone: phone
+          fullname: fullname.trim(),
+          email: email.trim(),
+          username: username.trim(),
+          phone: phone.trim()
         })
         .then(res => {
           console.log("updated");
