@@ -180,7 +180,7 @@
                   placeholder="Username"
                 />
               </div>
-              <div class="uk-margin">
+              <!-- <div class="uk-margin">
                 <label for="pn" class="to-the-left">
                   Phone number
                 </label>
@@ -191,7 +191,7 @@
                   v-model="profile.phone"
                   placeholder="Phone number"
                 />
-              </div>
+              </div> -->
               <button class="uk-button" @click="personalInfo">{{savebtnOne}}</button>
             </div>
 
@@ -575,7 +575,7 @@ export default {
       var fullname = this.profiles[0].fullname;
       var email = this.profiles[0].email;
       var username = this.profiles[0].username.toLowerCase();
-      var phone = this.profiles[0].phone;
+      // var phone = this.profiles[0].phone;
       this.savebtnOne = "saving...";
       axios
         .post("https://shukran-api.herokuapp.com/api/update/", {
@@ -583,7 +583,7 @@ export default {
           fullname: fullname.trim(),
           email: email.trim(),
           username: username.trim(),
-          phone: phone.trim()
+          // phone: phone.trim()
         })
         .then(res => {
           console.log("updated");
