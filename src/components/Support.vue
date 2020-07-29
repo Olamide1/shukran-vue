@@ -56,13 +56,12 @@
       <div class="uk-card tip-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
     <div class="uk-card-body">
         <h3 class="uk-card-title">Let <span class="capitalize">{{username}}</span> know you</h3>
-        <p>You'll not have to fill your nickname, 
-           email address & phone number again for a faster tipping experience.</p>
+        <p>You'll not have to fill your nickname & email address again for a faster tipping experience.</p>
        <div>
          <div class="uk-margin">
             <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
             <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="email">
-            <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone">
+            <!-- <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone"> -->
          </div>
        </div>
        <div>
@@ -120,7 +119,7 @@ export default {
           nickname: !localStorage.getItem('shukran-supporter-nickname') ? '' : localStorage.getItem('shukran-supporter-nickname'),
           email: !localStorage.getItem('shukran-supporter-email') ? '' : localStorage.getItem('shukran-supporter-email'),
           amount: '',
-          phone: !localStorage.getItem('shukran-supporter-phone') ? '' : localStorage.getItem('shukran-supporter-phone'),
+          // phone: !localStorage.getItem('shukran-supporter-phone') ? '' : localStorage.getItem('shukran-supporter-phone'),
           tipbtn: 'Tip',
           field: '',
           content: '',
@@ -189,7 +188,7 @@ export default {
    
          localStorage.setItem('shukran-supporter-nickname', this.nickname);
          localStorage.setItem('shukran-supporter-email', this.email);
-         localStorage.setItem('shukran-supporter-phone', this.phone);
+         // localStorage.setItem('shukran-supporter-phone', this.phone);
          
          // ---optimize re-assignments//
           let email = this.email
@@ -197,7 +196,7 @@ export default {
           let supporter_nickname = this.nickname
           let message = this.message
           let amount = this.amount
-          let phone = this.phone
+          // let phone = this.phone
           let currency = this.currency
           let user_email = this.userinfos[0].email
           let redirect = this.userinfos[0].redirect
@@ -220,13 +219,13 @@ export default {
                      {
                         display_name: "Mobile Number",
                         variable_name: "mobile_number",
-                        value: phone
+                        // value: phone
                      }
                      ]},
                callback: function(response){
                   localStorage.setItem('shukran_email', email)
                   localStorage.setItem('shukran_nickname', supporter_nickname)
-                  localStorage.setItem('shukran_phone', phone)
+                  // localStorage.setItem('shukran_phone', phone)
                   axios.post('https://shukran-api.herokuapp.com/api/createtransaction/', {
                      username: username,
                      supporter_nickname: supporter_nickname,
@@ -275,7 +274,7 @@ export default {
       },
       customer: {
         email: email,
-        supporter_phone_number: phone,
+        // supporter_phone_number: phone,
         supporter_nickname: supporter_nickname,
       },
       callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
