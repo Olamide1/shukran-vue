@@ -7,7 +7,7 @@
           <span class="uk-margin-small-left"></span>
         </a>
 
-        <a class="uk-navbar-item uk-logo">Shukran</a>
+        <a class="uk-navbar-item uk-logo uk-padding-remove-left">Shukran</a>
       </div>
     </nav>
 
