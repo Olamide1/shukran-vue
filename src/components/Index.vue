@@ -294,12 +294,13 @@
         </div>
 
         <div class="social">
-          <a>
-            <li><router-link to="/pricing">Pricing</router-link></li>
-          </a>
-          <a>
-            <li><router-link to="/terms">T&C</router-link></li>
-          </a>
+          
+            <router-link to="/pricing">Pricing</router-link>
+          
+            <router-link to="/terms">T&C</router-link>
+          
+            <router-link to="/how-it-works">How Shukran works</router-link>
+          
         </div>
       </div>
     </section>
@@ -1748,6 +1749,10 @@ button.hamburger-htx {
 .social {
   text-align: center;
   display: block;
+}
+
+.social a {
+  margin: 0 10px 0 10px;
 }
 
 .social li {

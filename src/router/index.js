@@ -11,6 +11,8 @@ import Reset from '@/components/Reset'
 import Pricing from '@/components/Pricing'
 import Index from '@/components/Index'
 import Terms from '@/components/Terms'
+import Blog from '@/components/Blog'
+import HowItWorks from '@/components/HowItWorks'
 
 Vue.use(Router)
 
@@ -23,6 +25,22 @@ export default new Router({
       component: Terms,
       meta: {
         title: 'Terms and Conditions - Shukran'
+      }
+    },
+    {
+      path: '/how-it-works',
+      name: 'HowItWorks',
+      component: HowItWorks,
+      meta: {
+        title: 'Shukran, how it works'
+      }
+    },
+    {
+      path: '/blog',
+      name: 'Blog',
+      component: Blog,
+      meta: {
+        title: 'Shukran Blog'
       }
     },
     {

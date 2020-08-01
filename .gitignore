@@ -16,3 +16,5 @@ selenium-debug.log
 *.sln
 
 # https://shukran-api.herokuapp.com http://localhost:3000
+
+*.log
