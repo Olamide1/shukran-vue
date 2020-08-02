@@ -2,13 +2,13 @@
     <div class="get-in">
        <nav class="uk-navbar uk-navbar-container uk-margin">
     <div class="uk-navbar-left">
-     <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
+     <router-link class="uk-navbar-item uk-padding-remove-left uk-logo" to="/">Shukran</router-link>
     </div>
     </nav>
     <div align="center">
       <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding login-card" v-if="loginbutton == true">
     <div class="uk-card-header">
-        <div class=" uk-flex-middle">
+        <div class="uk-flex-middle">
             <div class="uk-width-expand"  align="center">
                 <h3 class="uk-card-title uk-margin-remove-bottom">Login</h3>
             </div>
@@ -30,7 +30,7 @@
         <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="login">{{loginbtn}}</button>
       </div>
     </div>
-    <div class="uk-card-footer"  align="center">
+    <div class="uk-card-footer" align="center">
         <a @click="loginbutton = false" class="uk-button-text">Sign Up</a> | 
         <router-link to="/resetpassword">Reset Password</router-link>
     </div>

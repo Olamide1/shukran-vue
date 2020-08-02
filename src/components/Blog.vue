@@ -15,7 +15,7 @@
     <article class="uk-article">
 
         <p class="uk-text-lead">
-            The Shukran blog is coming soon.
+            Our blog is coming soon. Wanna know <router-link to="/how-it-works">how Shukran works</router-link>?
         </p>
         
 
