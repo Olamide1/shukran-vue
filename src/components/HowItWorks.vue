@@ -101,6 +101,8 @@
 
             <p class="uk-text-lead">Okay, so I've been getting tipped, what next?</p>
 
+            <img data-loading="/static/img/placeholder-image.png" data-src="/static/img/how to request payout shukran.jpeg" width="630px" height="486px" alt="How to edit your craft and profile on shukran" uk-img>
+
             <p>
               <ul>
                 <li>

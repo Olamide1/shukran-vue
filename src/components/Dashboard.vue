@@ -648,7 +648,7 @@ export default {
       let status = "requested";
       this.request = "loading...";
       axios
-        .post("https://shukran-api.herokuapp.com/api/createtransaction/", {
+        .post("https://shukran-api.herokuapp.com/api/requestpayout/", {
           username: username,
           amount: amount, // in naira
           status: status,
