@@ -20,7 +20,7 @@
 
             <h1 class="uk-article-title"><a class="uk-link-reset" href="">How Shukran works for you</a></h1>
 
-            <p class="uk-article-meta">Written by <a href="#">Chuks</a> on 01 August 2020.</p>
+            <p class="uk-article-meta">Written by <a href="#">Nwachukwu</a> on 01 August 2020.</p>
 
             <p class="uk-text-lead">Shurkran provides you with means to get the support you need.</p>
 
