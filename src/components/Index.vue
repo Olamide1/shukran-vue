@@ -339,11 +339,11 @@ export default {
         summary: "Thank you so much for supporting my brand thus far, if you’d like to go a step further. Please give me a tip, it’s a small gesture that means a lot.",
         username: "growingwomanblog"
         }, {
-            craft_type: "Content Creator, Podcaster and YouTuber",
-        create_date: "2020-07-05T20:00:25.655Z",
-        picture_id: "1JGnnQtXnxuyMyxRI-DUFfRxixVELN91Z",
-        summary: "Thanks for this support. I appreciate this tip a lot. It's like a huge pat on the shoulder you know!! Cheers to more awesome content. Kisses!",
-        username: "viola ekene"
+            craft_type: "Food photographer",
+        create_date: "2020-07-25T18:37:48.410Z",
+        picture_id: "1jOx4fUJekDSpdGVpkF3RXSnlb8FsOmHg",
+        summary: "I believe in the power of pictures. I also love to write and support other creators like myself. Shukran Me.",
+        username: "andanje"
         }, {
             craft_type: "Youtuber, head-dresser",
         create_date: "2020-06-26T10:39:57.980Z",
@@ -369,11 +369,11 @@ export default {
         summary: "You made it here! Thank you for the love and support, your tip would go a long in ensuring I keep doing what I love.",
         username: "sonayon thomas"
         }, {
-            craft_type: "Lifestyle/Fashion Blogger",
-        create_date: "2020-06-18T12:05:24.501Z",
-        picture_id: "1Szav7YluoD3SwmYoDfoZdWJ8jwRpcMXr",
-        summary: "Hey Lovelies, content creators put in so much work! But we are so underrated 😔 if you love what I do, then you should totally tip me💜",
-        username: "blairsyn"
+            craft_type: "Videographer, Photographer, VoiceOverArtist, Podcaster, TV presenter.",
+        create_date: "2020-05-29T20:54:48.479Z",
+        picture_id: "1sSOq3j_lJZy6oeUXGUkX5NhfsWDBrGW5",
+        summary: "Thank you so much for coming here to support my hustle 🤗🤗 God bless you as you bless my pocket.",
+        username: "yeashamedia"
         }, {
             craft_type: "Creative Director, Video Editor, Food Explorer, Photo Editor, Apps Guru and Social Media Savvy",
         create_date: "2020-06-19T05:16:21.641Z",
