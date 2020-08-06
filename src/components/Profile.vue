@@ -205,7 +205,7 @@
             >
               <div class="uk-margin">
                 <label for="bn" class="to-the-left">
-                  Bank name
+                  Bank
                 </label>
                 <input
                   name="bn"
@@ -219,7 +219,7 @@
                 />
                 <!-- update from https://api.payant.ng/banks and find other countries' banks -->
                 <datalist v-if="country_code == 'KE'" id="bank-options">
-                    <option value="MPESA">MPESA</option>
+                    <option value="MPESA" selected>MPESA</option>
                 </datalist>
                 <datalist v-if="country_code == 'NG'" id="bank-options">
                   <option value="ACCESS BANK NIGERIA">ACCESS BANK NIGERIA</option>
