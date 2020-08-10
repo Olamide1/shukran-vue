@@ -390,6 +390,7 @@ export default {
       document.getElementById("menu-toggle").classList.toggle("is-active");
     },
     getCreators() {
+      console.log('env', process.env.BASE_URL, process.env.NODE_ENV)
 
       axios
         .get("https://shukran-api.herokuapp.com/api/allusers/")

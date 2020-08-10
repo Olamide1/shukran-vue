@@ -1,8 +1,8 @@
 {
-  "name": "frontend",
+  "name": "shukran",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Olamide Akomolafe <olamideakomolafe1234@gmail.com>",
+  "description": "Shukran frontend web app",
+  "author": "Olamide Akomolafe <olamideakomolafe1234@gmail.com>, Nwachukwu Ossai <nwachukwuossai@gmail.com>",
   "scripts": {
     "build": "node build/build.js",
     "dev": "node build/dev-server.js",

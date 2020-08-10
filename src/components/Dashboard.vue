@@ -412,10 +412,21 @@ export default {
                 : "NGN" // localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency));
-        
-        this.payoutGuard = fx(1000) // convert payout guard ...important!
+            
+        switch (this.currency) {
+            case "NGN":
+              this.payoutGuard = 1000
+              break;
+            case "KES":
+              this.payoutGuard = 500
+              break
+            default:
+              this.payoutGuard = 1000
+              break;
+          }
+        /* this.payoutGuard = fx(1000) // convert payout guard ...important!
               .from("NGN")
-              .to(this.currency);
+              .to(this.currency); */
         
         this.tempCurr = this.currency;
 
@@ -491,10 +502,23 @@ export default {
                 : "NGN" // localStorage.getItem("shukran-country-currency")
             )
             .to(this.currency));
+
+          
+          switch (this.currency) {
+            case "NGN":
+              this.payoutGuard = 1000
+              break;
+            case "KES":
+              this.payoutGuard = 500
+              break
+            default:
+              this.payoutGuard = 1000
+              break;
+          }
         
-          this.payoutGuard = fx(1000) // convert payout guard ...important!
+          /* this.payoutGuard = fx(1000) // convert payout guard ...important!
               .from("NGN")
-              .to(this.currency);
+              .to(this.currency); */
 
           this.tempCurr = this.currency;
 

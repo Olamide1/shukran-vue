@@ -77,16 +77,19 @@
           </div>
           <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
+       <div v-show="parseInt(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
+          <label><input v-model="isSubscribing" @change="love" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}} every 6th of the month? <span class="cancel-sub" data-uk-tooltip title="An email with instructions would be sent to your email">Email us to cancel anytime</span> <!-- Starts from next month. --></label>
+           <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
+       </div>
        <div class="uk-margin">
-          <textarea placeholder="Drop an encouraging message" class="uk-textarea" v-model="message"></textarea>
+          <textarea @input="subbed" placeholder="Drop an encouraging message" class="uk-textarea" v-model="message"></textarea>
        </div>
        <div class="uk-margin">
           <p style="color: #c63968;">{{issue}}</p>
        </div>
        <div class="uk-margin">
          <button :disabled="parseInt(amount) < tipGuard || amount == ''" class="uk-button tip-button uk-button-default" @click="save()">{{tipbtn}}</button>
-
-         <!-- <button class="uk-button uk-button-default" type="button" @click="save()">rates</button> -->
+         <!-- <button class="uk-button uk-button-default" type="button" @click="save()">tip recurringly?</button> -->
        </div>
     </div>
     <div>
@@ -122,7 +125,10 @@ export default {
           // phone: !localStorage.getItem('shukran-supporter-phone') ? '' : localStorage.getItem('shukran-supporter-phone'),
           tipbtn: 'Tip',
           field: '',
+          isSubscribing: false,
+          paymentID: null,
           content: '',
+          once: false,
           image: '',
           redirect: '',
           userinfos: [],
@@ -147,19 +153,37 @@ export default {
             break;
          }
     },
-      showUserWelcome(){
-         axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
-            username: this.username.toLowerCase().trim()
-         }).then( res => {
-            // console.log('why this?', res)
-            this.summary = res.data[0].summary
-            this.field = res.data[0].craft_type
-            this.content = this.getUrl(res.data[0].primary_link)
-            this.image = res.data[0].picture_id
-            this.userinfos = res.data
-         }).catch( err => {
-            console.log('!!', err)
+    subbed() {
+       if (this.isSubscribing && this.once == false) { // check if it hasn't ran
+          this.once = true // make sure we don't run again
+         // get plan ID
+         console.log('we\'re getting the id')
+         axios.post('http://localhost:3000/api/createsubscription/', {
+            "amount": parseInt(this.amount),
+            supporter_email: this.email,
+            creator: this.username,
+            "name": `${this.email}-shukraning-${this.username}`, // using email is surety
+         }).then(res => { // set the subscription/payment plan ID
+            console.log('good subscription', res)
+               this.paymentID = res.data
+         }).catch(err => {
+            console.log('bad subscription', err)
          })
+       }
+    },
+   showUserWelcome(){
+      axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
+         username: this.username.toLowerCase().trim()
+      }).then( res => {
+         // console.log('why this?', res) // if res.data is empty, say we don't have any such creators
+         this.summary = res.data[0].summary
+         this.field = res.data[0].craft_type
+         this.content = this.getUrl(res.data[0].primary_link)
+         this.image = res.data[0].picture_id
+         this.userinfos = res.data
+      }).catch( err => {
+         console.log('!!', err)
+      })
       },
       getUrl(link){
          if (link == undefined) {
@@ -183,8 +207,11 @@ export default {
             this.tipNudge = ''
          }
       },
+      love() {
+         console.log(this.isSubscribing)
+      },
       save() {
-          // [optimize] save their email & nickname & phone number for later autofilling
+         // [optimize] save their email & nickname & phone number for later autofilling
    
          localStorage.setItem('shukran-supporter-nickname', this.nickname);
          localStorage.setItem('shukran-supporter-email', this.email);
@@ -211,7 +238,7 @@ export default {
             /* var handler = PaystackPop.setup({
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
-               amount: parseFloat(amount) * 100,
+               amount: parseInt(amount) * 100,
                currency: "NGN",
                channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
                metadata: {
@@ -258,7 +285,7 @@ export default {
 
                   FlutterwaveCheckout({
       public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
-      tx_ref: `${supporter_nickname}-shukran-${username} @ ${Date.now()}`,
+      tx_ref: `${email}-shukran-${username} @ ${Date.now()}`,
       amount: parseInt(amount),
       // https://stackoverflow.com/a/40560953
       // make country based on currency? how about ?
@@ -267,6 +294,8 @@ export default {
       ...(this.currency == "GBP") && {type: "debit_uk_account"}, // to accept uk payments
       payment_options: "card, mobilemoney, ussd, account, banktransfer, mpesa, qr, payattitude, credit",
       // redirect_url: redirect == undefined ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
+      // creating subscriptions
+      ...(this.isSubscribing && this.paymentID != null) && {payment_plan: 8574},
       meta: {
         // consumer_id: 23,
         // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
@@ -274,8 +303,10 @@ export default {
       },
       customer: {
         email: email,
-        // supporter_phone_number: phone,
+        supporter_message: message,
         supporter_nickname: supporter_nickname,
+        creator_username: username
+
       },
       callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
 
@@ -340,6 +371,12 @@ export default {
 }
 </script>
 <style scoped>
+.subscription-nudge {
+   text-align: left;
+}
+.cancel-sub {
+   text-decoration: underline;
+}
 .support-div {
    background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
 }

@@ -15,6 +15,6 @@ selenium-debug.log
 *.njsproj
 *.sln
 
-# https://shukran-api.herokuapp.com http://localhost:3000
+# https://shukran-api.herokuapp.com http://localhost:3000 https://stark-stream-82260.herokuapp.com
 
 *.log
