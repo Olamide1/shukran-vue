@@ -109,7 +109,7 @@ export default {
       } else {
         this.issue = ''
         this.loginbtn = 'loading...';
-        axios.post('https://shukran-api.herokuapp.com/api/login/', {
+        axios.post(process.env.BASE_URL + '/api/login/', {
             username: this.username.toLowerCase().trim(),
             password: md5(this.password)
         }).then( res => {
@@ -144,7 +144,7 @@ export default {
         this.issue = "Enter correct email please."
       } else {
         this.signupbtn = 'loading...'
-        axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
+        axios.post(process.env.BASE_URL + '/api/myprofile/', {
            username: this.username.toLowerCase().trim()
         }).then(res => {
           if (res.data.length >= 1) {
@@ -152,7 +152,7 @@ export default {
               this.issue = 'Username already taken...'
               this.signupbtn = 'Signup'
           } else {
-            axios.post('https://shukran-api.herokuapp.com/api/createaccount/', {
+            axios.post(process.env.BASE_URL + '/api/createaccount/', {
               username: this.username.toLowerCase().trim(),
               fullname: this.fullname,
               email: this.email,

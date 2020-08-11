@@ -87,7 +87,7 @@ export default {
       var email = this.email;
       this.reset = "Resetting...";
       axios
-        .post("https://shukran-api.herokuapp.com/api/resetpassword/", {
+        .post(process.env.BASE_URL + "/api/resetpassword/", {
           username: username.toLowerCase().trim(),
           email: email,
         })
@@ -99,7 +99,7 @@ export default {
             var id = res.data[0]._id;
             console.log(id);
             axios
-              .post("https://shukran-api.herokuapp.com/api/update/", {
+              .post(process.env.BASE_URL + "/api/update/", {
                 id: id,
                 password: md5(password),
               })

@@ -393,7 +393,7 @@ export default {
       console.log('env', process.env.BASE_URL, process.env.NODE_ENV)
 
       axios
-        .get("https://shukran-api.herokuapp.com/api/allusers/")
+        .get(process.env.BASE_URL + "/api/allusers/")
         .then(res => {
           this.creators = res.data; // loaded creators
           localStorage.setItem('shukran-amazing-creators', JSON.stringify(res.data));
@@ -404,7 +404,7 @@ export default {
 
       /* if(!localStorage.getItem('shukran-amazing-creators')) {
           axios
-            .get("https://shukran-api.herokuapp.com/api/allusers/")
+            .get(process.env.BASE_URL + "/api/allusers/")
             .then(res => {
               this.creators = res.data; // loaded creators
               localStorage.setItem('shukran-amazing-creators', JSON.stringify(res.data));

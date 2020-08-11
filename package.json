@@ -1,7 +1,7 @@
 {
   "name": "shukran",
   "version": "1.0.0",
-  "description": "Shukran frontend web app",
+  "description": "Shukran web app. It let's creators get support through tips",
   "author": "Olamide Akomolafe <olamideakomolafe1234@gmail.com>, Nwachukwu Ossai <nwachukwuossai@gmail.com>",
   "scripts": {
     "build": "node build/build.js",

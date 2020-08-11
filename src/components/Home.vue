@@ -126,7 +126,7 @@ export default {
     },
     methods: {
         getCreators () {
-            axios.get('https://shukran-api.herokuapp.com/api/allusers/').then( res => {
+            axios.get(process.env.BASE_URL + '/api/allusers/').then( res => {
                 this.creators = res.data
                 console.log('loaded creators')
             }).catch(err => {

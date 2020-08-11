@@ -439,7 +439,7 @@ export default {
     getId() {
       var username = this.username;
       axios
-        .post("https://shukran-api.herokuapp.com/api/myprofile/", {
+        .post(process.env.BASE_URL + "/api/myprofile/", {
           username: username
         })
         .then(res => {
@@ -477,7 +477,7 @@ export default {
       } else {
         console.log('issue')
       }*/
-      axios.post("https://shukran-api.herokuapp.com/api/update/", 
+      axios.post(process.env.BASE_URL + "/api/update/", 
        {
           summary: summary.trim(),
           craft_type: craft_type.trim(),
@@ -502,7 +502,7 @@ export default {
         redirect = "https://" + this.profiles[0].redirect;
       } */
       this.savebtnFour = "saving...";
-      axios.post("https://shukran-api.herokuapp.com/api/update/", {
+      axios.post(process.env.BASE_URL + "/api/update/", {
           redirect: redirect.trim(),
           id: id
         })
@@ -521,7 +521,7 @@ export default {
       var username = this.username;
       var comment = this.comment;
       axios
-        .post("https://shukran-api.herokuapp.com/api/givefeedback/", {
+        .post(process.env.BASE_URL + "/api/givefeedback/", {
           username: username,
           comment: comment
         })
@@ -542,7 +542,7 @@ export default {
       var account_number = this.profiles[0].account_number;
       this.savebtnTwo = "saving...";
       axios
-        .post("https://shukran-api.herokuapp.com/api/update/", {
+        .post(process.env.BASE_URL + "/api/update/", {
           id: id,
           bank: bank.trim(),
           account_name: account_name.trim(),
@@ -565,7 +565,7 @@ export default {
       formData.append('pic', event.target.files[0])
   console.log(event.target.files)
       axios
-        .post("https://shukran-api.herokuapp.com/api/update/", formData, {
+        .post(process.env.BASE_URL + "/api/update/", formData, {
           onUploadProgress: progressEvent => {
             console.log(progressEvent.loaded / progressEvent.total)
           }
@@ -585,7 +585,7 @@ export default {
       var phone = this.profiles[0].phone;
       this.savebtnOne = "saving...";
       axios
-        .post("https://shukran-api.herokuapp.com/api/update/", {
+        .post(process.env.BASE_URL + "/api/update/", {
           id: id,
           fullname: fullname.trim(),
           email: email.trim(),

@@ -614,7 +614,7 @@ export default {
     loadTransactions() {
       let username = this.username;
       axios
-        .post("https://shukran-api.herokuapp.com/api/findall/", {
+        .post(process.env.BASE_URL + "/api/findall/", {
           username: username,
           status: "received"
         })
@@ -646,7 +646,7 @@ export default {
     loadWithdrawn() {
       let username = this.username;
       axios
-        .post("https://shukran-api.herokuapp.com/api/findall/", {
+        .post(process.env.BASE_URL + "/api/findall/", {
           username: username,
           status: "paid"
         })
@@ -672,7 +672,7 @@ export default {
       let status = "requested";
       this.request = "loading...";
       axios
-        .post("https://shukran-api.herokuapp.com/api/requestpayout/", {
+        .post(process.env.BASE_URL + "/api/requestpayout/", {
           username: username,
           amount: amount, // in naira
           status: status,
@@ -705,7 +705,7 @@ export default {
       bar1.style.display = 'block';
       bar2.style.display = 'flex';
       axios
-        .post("https://shukran-api.herokuapp.com/api/update/", formData, {
+        .post(process.env.BASE_URL + "/api/update/", formData, {
           onUploadProgress: progressEvent => {
             console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
             bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
@@ -730,7 +730,7 @@ export default {
       let comment = this.comment;
       this.feed = "loading...";
       axios
-        .post("https://shukran-api.herokuapp.com/api/givefeedback/", {
+        .post(process.env.BASE_URL + "/api/givefeedback/", {
           username: username,
           comment: comment
         })
@@ -754,7 +754,7 @@ export default {
     getId() {
       let username = this.username;
       axios
-        .post("https://shukran-api.herokuapp.com/api/myprofile/", {
+        .post(process.env.BASE_URL + "/api/myprofile/", {
           username: username
         })
         .then(res => {

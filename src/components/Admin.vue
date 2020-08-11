@@ -214,7 +214,7 @@ export default {
     }, 
     methods: {
         loadUsers() {
-            axios.get('https://shukran-api.herokuapp.com/api/allusers/').then(res => {
+            axios.get(process.env.BASE_URL + '/api/allusers/').then(res => {
                 console.log('loaded users')
                 this.users = res.data
                 this.totalUsers = this.users.length
@@ -223,7 +223,7 @@ export default {
             })
         },
         loadTransactions(){
-             axios.get('https://shukran-api.herokuapp.com/api/alltransactions/').then( res=> { 
+             axios.get(process.env.BASE_URL + '/api/alltransactions/').then( res=> { 
                 console.log('loaded transactions')
                 this.transactions = res.data
             }).catch( error => {
@@ -231,7 +231,7 @@ export default {
             })
         },
         loadReceived(){
-            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
+            axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'received'
             }).then( res => {
                 let rec = []
@@ -246,7 +246,7 @@ export default {
             })
         },
         loadPaid(){
-            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
+            axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'paid'
             }).then( res => {
                 let rec = []
@@ -262,7 +262,7 @@ export default {
             })
         },
         loadRequest() {
-            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
+            axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'requested'
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
@@ -274,7 +274,7 @@ export default {
         },
         update(id){
             this.paid = 'paying...'
-            axios.post('https://shukran-api.herokuapp.com/api/updatetransaction/', {
+            axios.post(process.env.BASE_URL + '/api/updatetransaction/', {
                 id: id,
                 status: 'paid'
             }).then( resp => {
@@ -287,7 +287,7 @@ export default {
         },
         deleteUser(id){
             this.deleted = 'deleting..'
-            axios.post('https://shukran-api.herokuapp.com/api/deleteuser/', {
+            axios.post(process.env.BASE_URL + '/api/deleteuser/', {
                 id: id,
             }).then( resp => {
                 this.deleted = 'Delete'
@@ -298,7 +298,7 @@ export default {
         },
          deleteTransaction(id){
             this.deleted = 'deleting..'
-            axios.post('https://shukran-api.herokuapp.com/api/deletetransaction/', {
+            axios.post(process.env.BASE_URL + '/api/deletetransaction/', {
                 id: id,
             }).then( resp => {
                 this.deleted = 'Delete'
@@ -308,7 +308,7 @@ export default {
             })
         },
         getFeedback(){
-            axios.get('https://shukran-api.herokuapp.com/api/allfeedback/').then( res =>{
+            axios.get(process.env.BASE_URL + '/api/allfeedback/').then( res =>{
                 this.allfeedback = res.data
                 console.log('loaded feedback')
             }).catch(err => {
