@@ -274,7 +274,7 @@
             <!-- table -->
             <div>
               <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-                <h3 class="uk-card-title">Tip details</h3>
+                <h3 class="uk-card-title">Tip details. <span v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</span></h3>
 
                 <div class="tippers-table">
                   <table class="uk-table uk-table-middle uk-table-divider">
@@ -363,6 +363,7 @@ export default {
       comment: "",
       feed: "Submit",
       request: "Request",
+      uniqueSupporters: 0
     };
   },
   computed: {
@@ -527,8 +528,28 @@ export default {
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
           // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
         }
-        console.log('all tips', this.allTips)
+        // console.log('all tips', this.allTips)
       }
+    },
+    getSupporters() {
+        // Optionally the request above could also be done as
+        axios.get(process.env.BASE_URL + "/api/yoursupporters/", {
+            params: {
+              username: this.username
+            }
+          })
+          .then(response => {
+            console.log('how many', response.data.length);
+            this.uniqueSupporters = response.data.length
+            console.log('==>', this.uniqueSupporters)
+          })
+          .catch(error => {
+            console.log('baddd', error);
+          })
+          .then(() => {
+            // always executed
+          });  
+
     },
     createChart(chartId , chartData) {
       // https://codepen.io/grayghostvisuals/pen/gpROOz
@@ -800,6 +821,8 @@ export default {
     this.loadWithdrawn();
     this.getBalance();
     // this.rates(); // so we don't do it on currency change
+
+    this.getSupporters();
   },
   beforeMount() {
     this.getCountryData();

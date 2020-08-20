@@ -517,6 +517,24 @@ export default {
           setTimeout(() => { this.savebtnFour = "Save"; }, 3000)
         });
     },
+    getSupporters() {
+        // Optionally the request above could also be done as
+        axios.get(process.env.BASE_URL + "/api/yoursupporters/", {
+            params: {
+              username: this.username
+            }
+          })
+          .then(function (response) {
+            console.log('how many', response);
+          })
+          .catch(function (error) {
+            console.log('baddd', error);
+          })
+          .then(function () {
+            // always executed
+          });  
+
+    },
     submitFeedback() {
       var username = this.username;
       var comment = this.comment;
@@ -605,8 +623,9 @@ export default {
     }
   },
   mounted() {
-    this.getId(); /// shouldn't be...
+    // this.getId(); /// shouldn't be...
     this.checkUser();
+    this.getSupporters();
   }
 };
 </script>

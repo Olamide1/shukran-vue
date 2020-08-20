@@ -183,7 +183,7 @@
             <h2>Take on that next project.</h2>
             <p
               class="subtitle"
-            >With support from your audience, you'll be able to move ahead in your space and keep churning our content.</p>
+            >With support from your audience, you'll be able to move ahead in your space and keep churning out content.</p>
           </div>
         </div>
       </div>
@@ -216,7 +216,7 @@
               <div class="flag-full">
                 <h4 class="margin-bottom-small">Content Consumers</h4>
                 <p>Shukran means "Thank You."</p>
-                <p>Say thank you to your favourite content creators by supporting them with as little as ₦100/$1 or as much as you want. #FinancialSupport</p>
+                <p>Say thank you to your favourite content creators by supporting them with as little as ₦100/$1/Ksh100 or as much as you want. #FinancialSupport</p>
               </div>
             </div>
             <div class="flag flag-top">
@@ -390,7 +390,7 @@ export default {
       document.getElementById("menu-toggle").classList.toggle("is-active");
     },
     getCreators() {
-      console.log('env', process.env.BASE_URL, process.env.NODE_ENV)
+      // console.log('env', process.env.BASE_URL, process.env.NODE_ENV)
 
       axios
         .get(process.env.BASE_URL + "/api/allusers/")

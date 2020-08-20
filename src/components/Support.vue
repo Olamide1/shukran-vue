@@ -114,7 +114,7 @@ export default {
     data(){
        return {
           username: this.$route.params.username,
-          tipGuard: 100,
+          tipGuard: 10, // was 100 naira
           tipNudge: '',
           summary: '',
           currency: !localStorage.getItem('shukran-country-currency') ? "NGN" : localStorage.getItem('shukran-country-currency'),
@@ -158,7 +158,7 @@ export default {
           this.once = true // make sure we don't run again
          // get plan ID
          console.log('we\'re getting the id')
-         axios.post('http://localhost:3000/api/createsubscription/', {
+         axios.post(process.env.BASE_URL + '/api/createsubscription/', {
             "amount": parseInt(this.amount),
             supporter_email: this.email,
             creator: this.username,
@@ -196,7 +196,7 @@ export default {
          if (this.currency == "USD") {
             this.tipGuard = 1;
          } else {
-            this.tipGuard = 100;
+            this.tipGuard = 10; // was 100
          }
 
          if (isNaN(this.amount)) {
