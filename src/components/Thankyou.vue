@@ -7,12 +7,12 @@
        <h3 class="uk-card-title">Shukran, <br> {{nickname}}</h3>
     </div>
 
-    <p>Find more creators to tip: <router-link to="/">here</router-link> </p>
+    <p>Find more creators to tip: <router-link to="/index">here</router-link> </p>
             
     </div>
 
    <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+tipped+someone+on+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:
-&hashtags=saythanks,shukran" class="uk-button">Tweet about Shukran</a>
+&hashtags=saythanks,shukran" class="uk-button">Tweet about it</a>
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     name: 'Thankyou',
     data () {
         return {
-            nickname: localStorage.getItem('shukran_nickname')
+            nickname: localStorage.getItem('shukran-supporter-nickname')
         }
     }
 }
