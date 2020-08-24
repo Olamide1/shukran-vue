@@ -9,7 +9,7 @@
       <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding login-card" v-if="loginbutton == true">
     <div class="uk-card-header">
         <div class="uk-flex-middle">
-            <div class="uk-width-expand"  align="center">
+            <div class="uk-width-expand">
                 <h3 class="uk-card-title uk-margin-remove-bottom">Login</h3>
             </div>
         </div>
@@ -36,12 +36,11 @@
     </div>
   </div>
 
-
   <div v-else>
     <div class="uk-card uk-card-default fit uk-width-1-2@m uk-box-shadow-large uk-padding signup-card">
      <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
-            <div class="uk-width-expand"  align="center">
+            <div class="uk-width-expand" align="center">
                 <h3 class="uk-card-title uk-margin-remove-bottom">Sign up</h3>
             </div>
         </div>

@@ -120,7 +120,8 @@
             <a href="#" style="color: #208cb7">Personal Info</a>   
           </li>
           <li>
-            <a href="#" style="color: #208cb7">Banking info</a> 
+            <a href="#" style="color: #208cb7" v-if="country_code == 'KE'">MPESA info</a> 
+            <a href="#" style="color: #208cb7" v-else>Banking info</a>
           </li>
           <li>
             <a href="#" style="color: #208cb7">Brand Info</a>
@@ -204,7 +205,10 @@
               align="center"
             >
               <div class="uk-margin">
-                <label for="bn" class="to-the-left">
+                <label for="bn" class="to-the-left" v-if="country_code == 'KE'">
+                  MPESA
+                </label>
+                <label for="bn" class="to-the-left" v-else>
                   Bank
                 </label>
                 <input
@@ -254,7 +258,10 @@
                 
               </div>
               <div class="uk-margin">
-                <label for="an" class="to-the-left">
+                <label for="an" class="to-the-left" v-if="country_code == 'KE'">
+                  MPESA Name
+                </label>
+                <label for="an" class="to-the-left" v-else>
                   Account name
                 </label>
                 <input
@@ -263,13 +270,16 @@
                   class="uk-input"
                   data-uk-tooltip
                   title="This is for us to vet that we are paying out the correct person."
-                  placeholder="Account Name"
+                  placeholder=""
                   v-model="profile.account_name"
                 />
               </div>
 
               <div class="uk-margin">
-                <label for="anub" class="to-the-left">
+                <label for="anub" class="to-the-left" v-if="country_code == 'KE'">
+                  MPESA number
+                </label>
+                <label for="anub" class="to-the-left" v-else>
                   Account number
                 </label>
                 <input
@@ -419,7 +429,7 @@ export default {
       comment: "",
       feed: "Submit",
       profile_picture: '',
-      country_code: localStorage.getItem('shukran-country-code'),
+      country_code: 'KE', // localStorage.getItem('shukran-country-code'),
       ngBanks: [,]
     };
   },

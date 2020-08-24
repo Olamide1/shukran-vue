@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-container">
+  <div class="reset-body">
     <nav class="uk-navbar uk-navbar-container uk-margin">
       <div class="uk-navbar-left">
         <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
@@ -7,13 +7,13 @@
     </nav>
 
     <div class="uk-container-expand" align="center">
-      <div class="uk-card fit uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
+      <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding reset-card">
         <div class="uk-card-header">
-          <div class="uk-grid-small uk-flex-middle" uk-grid>
-            <div class="uk-width-expand" align="center">
-              <h3 class="uk-card-title uk-margin-remove-bottom">Reset Password</h3>
+            <div class="uk-flex-middle">
+                <div class="uk-width-expand" align="center">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Reset Password</h3>
+                </div>
             </div>
-          </div>
         </div>
 
         <div class="uk-card-body">
@@ -37,8 +37,8 @@
             <div class="uk-inline">
               <a
                 class="uk-form-icon uk-form-icon-flip"
-                href="#"
-                uk-icon="icon: unlock"
+                href="#!"
+                v-bind:uk-icon="passwordIcon"
                 @click="switchVisibility"
               ></a>
               <input
@@ -73,6 +73,7 @@ export default {
   data() {
     return {
       username: "",
+      passwordIcon: "icon: unlock",
       email: "",
       password: "",
       issue: "",
@@ -121,6 +122,7 @@ export default {
     switchVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
+      this.passwordIcon = this.passwordIcon === "icon: lock" ? "icon: unlock" : "icon: lock";
     },
   },
 };
@@ -130,22 +132,24 @@ export default {
 .fit {
   width: 300px;
 }
-.uk-padding {
-  padding: 10px;
-}
 .uk-navbar,
 .uk-navbar-item,
 .lead {
   background: transparent !important;
   color: #ffffff !important;
 }
-.uk-container {
-  height: 110vh;
+.reset-body {
   background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  left: 0;
+  overflow: auto;
 }
-.uk-card {
-  border-radius: 5px;
-  min-width: 40% !important;
+.reset-card {
+    border-radius: 5px;
 }
 .uk-input {
   border-width: 2px;
@@ -154,4 +158,14 @@ export default {
   background-color: #ff5976 !important;
   color: #fff6fa;
 }
+
+@media (min-width:960px) {
+  .fit {
+    width: 370px;
+  }
+  .uk-navbar-left {
+  margin-left: 50px;
+}
+}
+
 </style>

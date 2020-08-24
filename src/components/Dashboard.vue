@@ -270,6 +270,7 @@
           </div>
 
           </div>
+
           
             <!-- table -->
             <div>
@@ -300,7 +301,39 @@
               </div>
             </div>
             <!-- //table -->
+          <!--subscriber's list -->
+          <div class="sub uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">Subscribers</h3>
+            <ul uk-accordion>
+              <li class="uk-open">
+                  <a class="uk-accordion-title" href="#">Item 1</a>
+                  <div class="uk-accordion-content">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  </div>
+              </li>
+              <li>
+                  <a class="uk-accordion-title" href="#">Item 2</a>
+                  <div class="uk-accordion-content">
+                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor reprehenderit.</p>
+                  </div>
+              </li>
+              <li>
+                  <a class="uk-accordion-title" href="#">Item 3</a>
+                  <div class="uk-accordion-content">
+                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat proident.</p>
+                      <div>
+                  <ul class="uk-list uk-list-large uk-list-striped">
+                      <li>List item 1</li>
+                      <li>List item 2</li>
+                      <li>List item 3</li>
+                  </ul>
+              </div>
+                  </div>
+              </li>
+          </ul>
+          </div>
           
+          <!--//subscribers's list -->
         </div>
 
         <!-- <ul uk-accordion>
@@ -907,28 +940,21 @@ progress.top-nav-progress-bar::-webkit-progress-value { background: blue; }
   color: #ffffff !important;
 }
 .uk-container-expand {
-  /* background-color: #ffffff; */
   color: #ebebe7 !important;
 }
 .uk-accordion-content {
-  /* background-color: #fceedd !important; */
   color: #ff6870 !important;
 }
 .show {
   color: #c63968;
 }
-.h3,
-.uk-navbar-toggle {
+.h3, .uk-navbar-toggle {
   color: #ffffff;
 }
 .uk-offcanvas-bar {
-  /* background-color: #c63968 !important; */
   color: #fceedd;
 }
-.uk-card,
-.uk-card-title,
-.uk-heading-small {
-  /* background-color: #fceedd !important; */
+.uk-card, .uk-card-title, .uk-heading-small {
   color: #666 !important;
   margin-top: 0px;
 }

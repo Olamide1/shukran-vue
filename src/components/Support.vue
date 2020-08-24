@@ -78,7 +78,7 @@
           <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
        <div v-show="parseInt(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
-          <label><input v-model="isSubscribing" @change="love" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}} every month? <span class="cancel-sub" data-uk-tooltip title="An email with instructions would be sent to your email">Email us to cancel anytime</span> <!-- Starts from next month. --></label>
+          <label><input v-model="isSubscribing" @change="love" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <span class="cancel-sub" data-uk-tooltip title="An email with instructions would be sent to your email">Email us to cancel anytime</span> <!-- Starts from next month. --></label>
            <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
        </div>
        <div class="uk-margin">
@@ -126,11 +126,12 @@ export default {
           tipbtn: 'Tip',
           field: '',
           isSubscribing: false,
-          paymentID: null,
+          paymentID: undefined,
           content: '',
           once: false,
           image: '',
           redirect: '',
+          subscriptions: [],
           userinfos: [],
           reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
           user_email: '',
@@ -153,25 +154,36 @@ export default {
             break;
          }
     },
+    getSubs(){
+      axios.get(process.env.BASE_URL + '/api/getsubscriptions/')
+      .then((res) => {
+         console.log('ress',res);
+         this.subscriptions = res.data.data; 
+      });
+      
+
+    },
     subbed() {
        if (this.isSubscribing && this.once == false) { // check if it hasn't ran
           this.once = true // make sure we don't run again
          // get plan ID
          console.log('we\'re getting the id')
+         // before we make this call, let's check if the subscirption amount exits in this.subscirptions
          axios.post(process.env.BASE_URL + '/api/createsubscription/', {
             "amount": parseInt(this.amount),
             supporter_email: this.email,
             creator: this.username,
-            "name": `${this.email}-shukraning-${this.username}`, // using email is surety
+            creator_id: this.userinfos[0]._id,
+            "name": `shukraning-NGN${this.amount}`, // using email is surety
          }).then(res => { // set the subscription/payment plan ID
             console.log('good subscription', res)
-               this.paymentID = res.data
+            this.paymentID = res.data
          }).catch(err => {
             console.log('bad subscription', err)
          })
        }
     },
-   showUserWelcome(){
+   showUserWelcome() {
       axios.post(process.env.BASE_URL + '/api/myprofile/', {
          username: this.username.toLowerCase().trim()
       }).then( res => {
@@ -208,7 +220,16 @@ export default {
          }
       },
       love() {
-         console.log(this.isSubscribing)
+         console.log('isSubscribing:', this.isSubscribing)
+         console.log('Subs:', this.subscriptions)
+         if (this.isSubscribing) {
+            try { // if it can't get id, it throws error, we so create a new subscirtpion plan
+               this.paymentID = this.subscriptions.find(ele => ele.status === "active" && ele.amount === this.amount).id
+               console.log('teh payament id', this.paymentID)
+            } catch(err) { // call fun to create new subscription
+
+            }
+         }
       },
       save() {
          // [optimize] save their email & nickname & phone number for later autofilling
@@ -295,9 +316,10 @@ export default {
       payment_options: "card, mobilemoney, ussd, account, banktransfer, mpesa, qr, payattitude, credit",
       // redirect_url: redirect == undefined ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
       // creating subscriptions
-      ...(this.isSubscribing && this.paymentID != null) && {payment_plan: 8574},
+      ...(this.isSubscribing && this.paymentID !== undefined) && {payment_plan: this.paymentID},
       meta: {
-        // consumer_id: 23,
+        meta_one: 23,
+        meta_two: "A string"
         // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
         
       },
@@ -305,7 +327,8 @@ export default {
         email: email,
         supporter_message: message,
         supporter_nickname: supporter_nickname,
-        creator_username: username
+        creator_username: username,
+        subscribing: this.isSubscribing
 
       },
       callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
@@ -315,7 +338,7 @@ export default {
                      console.log('success. transaction ref is ', response);
                      console.warn('success. transaction ref is ', response); // optimize
 
-                     if (response.currency === "KES") {
+                     if (response.currency === "KES") { // we can do more
                         amount = parseFloat(amount) * 3.55
                      } else if (response.currency === "USD") {
                         amount = parseFloat(amount) * 370
@@ -355,7 +378,6 @@ export default {
       },
     }); // flutterwave ends here
 
-
                   }
        },
     },
@@ -366,7 +388,7 @@ export default {
       this.showUserWelcome();
     },
     mounted(){
-      // this.showUserWelcome() // no need calling twice
+      this.getSubs();
     }
 }
 </script>
