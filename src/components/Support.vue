@@ -323,7 +323,7 @@ export default {
         // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
         
       },
-      customer: {
+      customer: { 
         email: email,
         supporter_message: message,
         supporter_nickname: supporter_nickname,

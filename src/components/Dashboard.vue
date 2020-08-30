@@ -152,7 +152,7 @@
             </li>
             <!--Feedback area start -->
             <li id="give-feedback" uk-toggle="target: #my-id">
-              Give feedback
+              Give feedbackOlamide1
               <a uk-icon="heart"></a>
             </li>
             <div id="my-id" uk-modal>
