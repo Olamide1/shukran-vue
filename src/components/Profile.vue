@@ -16,6 +16,9 @@
 
         <ul class="uk-navbar-nav">
             <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
+            <li>
+              <router-link to="/subscribers">Subscribers</router-link>
+            </li>
             <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
             <li>
               <router-link to="/profile">Profile</router-link>
@@ -61,6 +64,9 @@
         <ul class="uk-list uk-list-divider">
           <li>
             <router-link to="/dash">Dashboard</router-link>
+          </li>
+          <li>
+            <router-link to="/subscribers">Subscribers</router-link>
           </li>
           <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
           <div id="modal-center" class="uk-flex-top" uk-modal>
@@ -495,7 +501,7 @@ export default {
           primary_link: primary_link.trim(),
           id: id
         }).then(res => {
-          console.log("updated");                             
+          console.log("updated");                            
           this.savebtnThree = "Saved!";
           setTimeout(() => { this.savebtnThree = "Save"; }, 3000)
         })
