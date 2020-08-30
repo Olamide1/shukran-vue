@@ -165,19 +165,19 @@ export default {
     },
     subbed() {
        if (this.isSubscribing && this.once == false) { // check if it hasn't ran
-          this.once = true // make sure we don't run again
          // get plan ID
-         console.log('we\'re getting the id')
+         console.log('we\'re getting the payment plan id')
          // before we make this call, let's check if the subscirption amount exits in this.subscirptions
          axios.post(process.env.BASE_URL + '/api/createsubscription/', {
             "amount": parseInt(this.amount),
             supporter_email: this.email,
             creator: this.username,
             creator_id: this.userinfos[0]._id,
-            "name": `shukraning-NGN${this.amount}`, // using email is surety
+            "name": `${this.email}-shukraning-${this.userinfos[0]._id}`, // using email & _id is surety
          }).then(res => { // set the subscription/payment plan ID
             console.log('good subscription', res)
             this.paymentID = res.data
+            this.once = true // make sure we don't run again
          }).catch(err => {
             console.log('bad subscription', err)
          })
@@ -306,7 +306,7 @@ export default {
 
                   FlutterwaveCheckout({
       public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
-      tx_ref: `${email}-shukran-${username} @ ${Date.now()}`,
+      tx_ref: `${email}-shukran${this.isSubscribing ? 'ing' : ''}-${this.userinfos[0]._id} @ ${Date.now()}`,
       amount: parseInt(amount),
       // https://stackoverflow.com/a/40560953
       // make country based on currency? how about ?
@@ -341,7 +341,7 @@ export default {
                      if (response.currency === "KES") { // we can do more
                         amount = parseFloat(amount) * 3.55
                      } else if (response.currency === "USD") {
-                        amount = parseFloat(amount) * 370
+                        amount = parseFloat(amount) * 450
                      }
                      
                      axios.post(process.env.BASE_URL + '/api/createtransaction/', {

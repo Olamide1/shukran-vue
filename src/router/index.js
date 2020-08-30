@@ -13,6 +13,7 @@ import Index from '@/components/Index'
 import Terms from '@/components/Terms'
 import Blog from '@/components/Blog'
 import HowItWorks from '@/components/HowItWorks'
+import Subscribers from '@/components/Subscribers'
 
 Vue.use(Router)
 
@@ -25,6 +26,14 @@ export default new Router({
       component: Terms,
       meta: {
         title: 'Terms and Conditions - Shukran'
+      }
+    },
+    {
+      path: '/subscribers',
+      name: 'Subscribers',
+      component: Subscribers,
+      meta: {
+        title: 'Your Subscribers'
       }
     },
     {

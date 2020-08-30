@@ -1,4 +1,4 @@
-<template dashboard-body>
+<template subscribers-body>
   <div class="uk-container-expand">
     <nav class="uk-navbar uk-navbar-container uk-margin mobile-nav">
       <div class="uk-navbar-left">
@@ -194,148 +194,96 @@
           </p>
         </div>
 
-        <div class="uk-grid-column-medium uk-grid-row-medium uk-child-width-1-2@m uk-grid-match" uk-grid uk-height-match="row: false">
+        <div class=" uk-child-width-1-2@m uk-grid-match" uk-grid uk-height-match="row: false">
           
-          <div>
-            <div class="uk-grid-row-medium uk-flex-column info-card" uk-grid>
-            <div>
-              <!-- Total tips start -->
-              <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
-                <span>
-                  Total tips.
-                  <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Request payout</a>
-                </span>
-                <h1 class="uk-heading-small">{{currencySymbol}}{{tipTotal.toFixed(2)}}</h1>
+              <!-- Total revenue start -->
+              <div>
+                <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
+                  <div class="sub-list-header">
+                    <h3 class="uk-card-title">Subscribers list</h3>
+                    <!-- This is a button toggling the modal -->
+                    <a class="uk-icon-button" uk-icon="file-edit" href="#send-message" uk-toggle></a>
+                  </div>
 
-                <!-- Withdraw request modal start -->
-                <div id="modal-middle" class="uk-flex-top" uk-modal>
-                  <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical payout-modal">
-                    <div>
-                      <h4 class="uk-modal-title">Payout request</h4>
-                    </div>
-                    <button class="uk-modal-close-default" type="button" uk-close></button>
-                    <div class="uk-margin">
-                      <h4>Available balance: {{currencySymbol}}{{availableBalance.toFixed(2)}}</h4>
-                    </div>
-                    <div class="uk-margin" align="center">
-                      <input type="number" class="uk-input payout-input" placeholder="Amount" v-model="amount" />
-                      <span v-if="amount > (availableBalance)">Insufficient available balance.</span>
-                      <br />
-                      <span v-if="amount < payoutGuard">Payout requests cannot be less than {{currencySymbol}}{{payoutGuard.toFixed(2)}}</span>
-                    </div>
-                    <div class="uk-margin">
-                      <button
-                        class="uk-button payout-button"
-                        :disabled="amount > availableBalance || amount < payoutGuard"
-                        @click="withdrawRequest()"
-                      >{{request}}</button>
-                    </div>
+                  <!-- This is the modal -->
+                  <div id="send-message" uk-modal>
+                      <div class="uk-modal-dialog uk-modal-body">
+                          <h2 class="uk-modal-title">Compose message</h2>
+                          <div class="uk-margin">
+                              <input class="uk-input" type="text" v-model="message_subject" placeholder="Subject">
+                          </div>
+                          <div class="uk-margin">
+                              <textarea class="uk-textarea" v-model="message" rows="5" placeholder="Send your subscribers a message"></textarea>
+                          </div>
+                          <p class="uk-text-right">
+                              <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                              <button class="uk-button uk-button-primary" @click="sendMsg" type="button">{{message_status}}</button>
+                          </p>
+                      </div>
+                  </div>
+
+                  <!-- Calculate total revenue from subscribers and uncomment later -->
+                  <!-- <span>
+                    Total revenue from subscribers.
+                    <a class="uk-card-badge uk-label" href="#modal-middle" uk-toggle>Request payout</a>
+                  </span>
+                  <h1 class="uk-heading-small">{{currencySymbol}}{{tipTotal.toFixed(2)}}</h1> -->
+
+                  <div class="">
+                    <ul uk-accordion>
+                        <li class="uk-open" v-for="(sub_amount, index) in this.subscribing_amounts"
+                        :key="index">
+                            <a class="uk-accordion-title" href="#">{{currencySymbol}}{{sub_amount}} subscribers</a>
+                            <div class="uk-accordion-content">
+                                <ul class="uk-list uk-list-striped">
+                                    <li v-for="(sub, index) in subscribers.filter(s => s.amount == sub_amount)"
+                                      :key="index">
+                                      {{sub.name.split('-', 1)[0]}}
+                                      <p><small>Subscribed {{new Date(
+                                                  sub.created_at
+                                                ).toLocaleDateString("en-GB", {
+                                                  year: "2-digit",
+                                                  month: "short",
+                                                  day: "2-digit"
+                                                })}}</small></p>
+                                      </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- <li>
+                            <a class="uk-accordion-title" href="#">Item 3</a>
+                            <div class="uk-accordion-content">
+                                <ul class="uk-list uk-list-striped">
+                                    <li>List item 1</li>
+                                    <li>List item 2</li>
+                                    <li>List item 3</li>
+                                </ul>
+                            </div>
+                        </li> -->
+                    </ul>
                   </div>
                 </div>
-                <!-- Withdraw request modal end -->
-                <div class="chart-container">
-                  <canvas
-                    id="total-tips-chart"
-                    aria-label="Total Tips Chart"
-                    role="Total tips chart image"
-                  >
-                    <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
-                  </canvas>
-                </div>
               </div>
-              <!-- Total tips end -->
+              <!-- Total revenue end -->
 
-            </div>
 
-            <div>
+              <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-                  <h3 class="uk-card-title">Overview</h3>
-                  <ul class="metrics">
-                    <li class="li-available">Available</li>
-                    <li class="li-withdrawn">Withdrawn</li>
-                  </ul>
+                  <h3 class="uk-card-title">Content list</h3>
 
-                  <div class="progress">
-                    <!-- 1000 naira should be payoutGuard -->
-                    <span
-                      :uk-tooltip="`${availableBalance > payoutGuard ? 'You have ' + currencySymbol + parseInt(availableBalance) + ' available to withdraw' : 'You need more than ' + currencySymbol + payoutGuard + ' to make a withdrawal request'}`"
-                      class="value"
-                      :data-label="`~${currencySymbol}${availableBalance.toFixed(0)}`"
-                      :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"
-                    ></span>
-                    <span
-                      :uk-tooltip="`You've withdrawn ${currencySymbol}${tipWithdrawn.toFixed(2)} so far`"
-                      class="value"
-                      :data-label="`~${currencySymbol}${tipWithdrawn.toFixed(0)}`"
-                      :style="`width:${(((tipTotal - availableBalance) / tipTotal) * 100).toFixed(2)}%;`"
-                    ></span>
+                  <div class="">
+                    <ul class="uk-list uk-list-striped">
+                        <li>List item 1</li>
+                        <li>List item 2</li>
+                        <li>List item 3</li>
+                    </ul>
                   </div>
                 </div>
               </div>
 
-          </div>
-
-          </div>
-
-          
-            <!-- table -->
-            <div>
-              <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-                <h3 class="uk-card-title">Tip details. <span v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</span></h3>
-
-                <div class="tippers-table">
-                  <table class="uk-table uk-table-middle uk-table-divider">
-                    <thead>
-                      <tr>
-                        <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
-                        <th style="color:#516E6F;">Amount</th>
-                        <th style="color:#516E6F;">Message</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="(transaction, index) in transactions"
-                        :key="index"
-                      >
-                        <td>{{transaction.supporter_nickname}}</td>
-                        <td>{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}<!-- {{transaction.amount}} --></td>
-                        <td>{{transaction.message}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <!-- //table -->
         </div>
 
-        <!-- <ul uk-accordion>
-          <li>
-            <a class="uk-accordion-title h3" href="#">Tips details</a>
-            <div class="uk-accordion-content">
-              <p v-if="transactions.length == 0" align="center">No tips sent to you yet</p>
-
-              <div v-else>
-                <table class="uk-table uk-table-middle uk-table-divider">
-                  <thead>
-                    <tr>
-                      <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
-                      <th style="color:#516E6F;">Amount</th>
-                      <th style="color:#516E6F;">Message</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
-                      <td>{{transaction.supporter_nickname}}</td>
-                      <td>&#x20a6;{{transaction.amount}}</td>
-                      <td>{{transaction.message}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </li>
-        </ul>-->
       </div>
     </div>
   </div>
@@ -347,7 +295,7 @@ import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
 export default {
-  name: "dashboard",
+  name: "subscribers",
   data() {
     return {
       username: sessionStorage.getItem("username"),
@@ -360,6 +308,11 @@ export default {
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
       amount: 0,
+      message: '',
+      message_subject: '',
+      message_status: 'Send',
+      subscribers: [],
+      subscribing_amounts: [],
       tipTotal: 0,
       tipWithdrawn: 0,
       withdrawals: [],
@@ -387,11 +340,31 @@ export default {
           return "Ksh";
           break;
         default:
+          return "₦";
           break;
       }
     }
   },
   methods: {
+    sendMsg() {
+      this.message_status = 'Sending...';
+      axios.post(process.env.BASE_URL + "/api/sendmessage/", 
+       {
+          username: this.username,
+          subscribers: [...new Set(this.subscribers.map(s => s.name.split('-', 1)[0]))].join(';'), // get emails, seperate with ';'
+          message: this.message,
+          message_subject: this.message_subject
+        }).then(res => {
+          this.message_status = 'Sent';
+          console.log("message sent?", res);
+          this.message = '', this.message_subject = '';
+          UIkit.modal('#send-message').hide();
+        })
+        .catch(err => {
+          // tell them to try again later // later on, we'll be trying for them
+          console.log("send message err", err);
+        });
+    },
     fetchConversionDataAndUpdate() {
       // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
       const ex = () => {
@@ -493,13 +466,24 @@ export default {
                 ? this.tempCurr
                 : "NGN" // localStorage.getItem("shukran-country-currency")
             ).to(this.currency);
+
           
-          this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
+          
+          this.subscribing_amounts = this.subscribing_amounts.map(tip => fx(tip) // convert all other subscribing_amounts
             .from(
               this.tempCurr
                 ? this.tempCurr
                 : "NGN" // localStorage.getItem("shukran-country-currency")
-            ).to(this.currency));
+            ).to(this.currency).toFixed(2)); // same with
+
+            this.subscribers.forEach(s => {
+            s.amount = fx(s.amount) // convert all other amounts
+              .from(
+                this.tempCurr
+                  ? this.tempCurr
+                  : "NGN" // localStorage.getItem("shukran-country-currency")
+              ).to(this.currency).toFixed(2); // same with
+          }); // change the currency too?
 
           switch (this.currency) {
             case "NGN":
@@ -554,6 +538,8 @@ export default {
             }
           }).then(response => {
             console.log('how many subscribers', response);
+            this.subscribers = response.data;
+            this.subscribing_amounts = [...new Set(this.subscribers.map(sub => sub.amount))]
           })
           .catch(error => {
             console.log('baddd getsubscribers', error);
@@ -840,6 +826,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#send-message > .uk-modal-body {
+  border-radius: 5px;
+}
+
+#send-message button, #send-message textarea.uk-textarea, #send-message input.uk-input {
+  border-radius: 3px;
+}
+
+.sub-list-header {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+}
 /** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
 .top-nav-progress-bar {
   display: none;
