@@ -114,7 +114,7 @@ export default {
     data(){
        return {
           username: this.$route.params.username,
-          tipGuard: 5, // was 100 naira
+          tipGuard: 100, // should be 100 naira
           tipNudge: '',
           summary: '',
           currency: !localStorage.getItem('shukran-country-currency') ? "NGN" : localStorage.getItem('shukran-country-currency'),
@@ -226,9 +226,9 @@ export default {
       },
       showTipNudge() {
          if (this.currency == "USD") {
-            this.tipGuard = 1;
+            this.tipGuard = 3;
          } else {
-            this.tipGuard = 5; // was 100
+            this.tipGuard = 100; // should be 100
          }
 
          if (isNaN(this.amount)) {
