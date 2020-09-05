@@ -1,0 +1,3 @@
+Defer loading flutterwave in pages we don't do payments in, faster loading
+
+how to deceive the browser auto box to fill in their username along with their password during password reset

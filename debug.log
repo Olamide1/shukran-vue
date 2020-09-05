@@ -1,0 +1,8 @@
+[0729/194033.462:ERROR:process_reader_win.cc(127)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0729/194034.377:ERROR:exception_snapshot_win.cc(99)] thread ID 3472 not found in process
+[0823/205622.310:ERROR:file_io.cc(89)] ReadExactly: expected 56, observed 0
+[0823/205622.310:ERROR:crash_report_database_win.cc(446)] failed to read records
+[0826/192047.195:ERROR:file_io.cc(89)] ReadExactly: expected 56, observed 0
+[0826/192047.195:ERROR:crash_report_database_win.cc(446)] failed to read records
+[0828/095221.007:ERROR:file_io.cc(89)] ReadExactly: expected 56, observed 0
+[0828/095221.007:ERROR:crash_report_database_win.cc(446)] failed to read records
