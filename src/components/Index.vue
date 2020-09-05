@@ -64,9 +64,16 @@
         <div class="row is-centered">
           <div class="col is-8">
             <h1>Get the support you need from the audience you have.</h1>
-            <p
-              class="subtitle"
-            >Shukran enables content creators get financial support from those who enjoy their work.</p>
+            <!-- <p class="subtitle">
+              Shukran {Shoe-k’ran}  
+              Meaning: Thank you!
+            </p> -->
+            <p class="subtitle">
+              Shukran is a platform that gets you earnings from people who enjoy your creative work regardless of your audience size or algorithm.
+              <!-- Shukran enables creators get financial support from those who enjoy their work 
+              irrespective of the number of followers or big-daddy algorithm. -->
+            </p>
+            <p class="subtitle">Ready to turn your creative endeavour into a viable stream of income? Easy peezy! Get started on Shukran.</p>
             <a><router-link class="btn" to="/accounts">Try it</router-link></a>
           </div>
         </div>
@@ -179,11 +186,15 @@
       <div class="col">
         <div class="split-container is-left">
           <div class="card is-section">
-            <p class="caps has-text-primary">For Content Creators</p>
-            <h2>Take on that next project.</h2>
-            <p
-              class="subtitle"
-            >With support from your audience, you'll be able to move ahead in your space and keep churning out content.</p>
+            <p class="caps has-text-primary">Who uses Shukran?</p>
+            <h2>Creators of all kinds</h2>
+            <p class="subtitle">
+              From Podcasters, Musicians ,Bloggers, YouTubers, Writers, Poets, Digital Creators, Non-Profits, Communiites, Creators of all kinds.
+              </p>
+            <p class="subtitle">Take on that next project.</p>
+            <p class="subtitle">
+              
+              </p>
           </div>
         </div>
       </div>
@@ -201,7 +212,8 @@
               </div>
               <div class="flag-full">
                 <h4 class="margin-bottom-small">Content Creators</h4>
-                <p>Get support from your audience regardless of size or algorithm.</p>
+                <p>Get the support of your audience and take your creative journey a step further.
+With support from your audience, you'll be able to get ahead in your space and keep churning out content they love.<!-- Creators of all kinds use Shukran to earn. They are but not limited to;Get support from your audience regardless of size or algorithm. --></p>
               </div>
             </div>
             <div class="flag flag-top">
@@ -214,9 +226,9 @@
                 />
               </div>
               <div class="flag-full">
-                <h4 class="margin-bottom-small">Content Consumers</h4>
-                <p>Shukran means "Thank You."</p>
-                <p>Say thank you to your favourite content creators by supporting them with as little as ₦100/$1/Ksh100 or as much as you want. #FinancialSupport</p>
+                <h4 class="margin-bottom-small">Supporters</h4>
+                <p>By supporting content creators on Shukan, you become a key player in their creative process and a part of their success story.</p>
+                <p>Say thank you to your favourite creators by supporting them as often as you can with as little as ₦100/Ksh100/$1 or as much as you want. You can choose to support on a monthly recurring basis. #FinancialSupport</p>
               </div>
             </div>
             <div class="flag flag-top">
@@ -232,6 +244,7 @@
                 <h4 class="margin-bottom-small">While at it</h4>
                 <p>You can drop an encouraging message for the content creators you support. Tell them how they have impacted you or made you feel.</p>
                 <p>Trust us, that goes a long way too. #MoralSupport</p>
+                <p>By supporting content creators on Shukan, you become a key player in their creative process and a part of their success story. Get on it!</p>
               </div>
             </div>
           </div>
@@ -314,7 +327,13 @@ export default {
   data() {
     return {
       creators: [],
-      top_creators: [ {
+      top_creators: [{
+            craft_type: "STORYTELLER. WRITER WITH AN AFRICAN TWIST",
+        create_date: "2020-08-22T17:59:12.371Z",
+        picture_id: "1ZUR0ymW-jNHSjgeo-jYTOP0L0t9uQ1TY",
+        summary: "Hi there 👋👋. I have so many stories to tell. I just recently started putting them down on paper.  I am  learning as I go. And enjoying it thoroughly.",
+        username: "wangarimuchui"
+        }, {
         craft_type: "Comedian",
         create_date: "2020-07-05T09:13:28.496Z",
         picture_id: "1wj0BCAi5hGN9USx6NKrMUgZ1lSuvhlX0",
@@ -345,23 +364,17 @@ export default {
         summary: "I believe in the power of pictures. I also love to write and support other creators like myself. Shukran Me.",
         username: "andanje"
         }, {
-            craft_type: "Youtuber, head-dresser",
-        create_date: "2020-06-26T10:39:57.980Z",
-        picture_id: "1Rc0bP5pA0YfdnQUoCUKRP0WMo9zkmQMJ",
-        summary: "I am a youtuber who creates headwear tutorials on youtube. Thank you for supporting me",
-        username: "olufemi"
+            craft_type: "Podcaster & Blogger",
+        create_date: "2020-08-27T16:00:05.358Z",
+        picture_id: "17Be83LLU6py_EW2KykjoVRJ5dTNPHTKH",
+        summary: "Thank you very much for supporting my work and I hope I will be able to make more for you.",
+        username: "randy pontiff"
         }, {
             craft_type: "Bohemian visual content creator",
         create_date: "2020-06-13T16:29:09.349Z",
         picture_id: "1HlW4ri5rk8bh_uYAzgtHL0dxVzVG_s4o",
         summary: "Thank you for appealing to my definition of aesthetics, your consistent interaction with the content i put out fuels my creativity. Please help foster my artistry by tipping me :) .",
         username: "chistorm"
-        }, {
-            craft_type: "Beauty and Lifestyle",
-        create_date: "2020-06-17T14:21:41.786Z",
-        picture_id: "18pr7b0DNE9u_9vaMPUwdeWJoIo43mXQO",
-        summary: "Be your own kind of beautiful....be-you-ti-full",
-        username: "sindyakpolo"
         }, {
             craft_type: "Visual Artist (Photographer)",
         create_date: "2020-05-30T15:43:49.191Z",
@@ -1383,8 +1396,8 @@ body.fixed {
 }
 
 .nav-mobile {
-  position: absolute;
-  top: 30px;
+  position: fixed;
+  top: 65px;
   left: 0;
   font-family: "DM Sans", sans-serif;
   font-size: 2rem;

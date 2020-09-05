@@ -9,21 +9,25 @@
    <div align="center" class="uk-margin-medium-bottom">
       <h1 class="uk-heading">Pricing</h1>
       <div class="uk-card fit uk-box-shadow-large uk-padding login-card" >
-    <h3 class="uk-card-title uk-margin-remove-bottom"><p class="percent uk-margin-remove-bottom">10%</p> Flat fee for all payouts.</h3>
+    <h3 class="uk-card-title uk-margin-remove-bottom">
+      <p class="percent uk-margin-remove-bottom">10%</p> 
+      Flat fee for all payouts.</h3>
     <div class="pricing-body">
         <div>
-           This covers:
-          <p>Transaction fees for processing.</p>
-          <p>Full access to all features on Shukran.</p>
+          <p>Signing up on Shukran is completely free! We only receive a small percentage of 10% flat fee once you start earning on Shukran.</p>
+          This fee covers;
+          <ul>
+            <li>
+              Transaction fees for processing which covers the cost of all the things we do to ensure that tips gotten from supporters are processed through an efficient payment gateway.
+            </li>
+            <li>Full access to all features on Shukran.</li>
+          </ul>
         </div>
-
     <router-link to="/accounts">
     <button class="uk-button">Continue</button>
     </router-link>
   </div>
    </div>
-
-  
   </div>
   </div>
 </template>
@@ -77,11 +81,11 @@ h1 {
 }
 
 .fit {
-  width: 300px;
+  width: 400px;
   border-radius: 5px;
 
   background: #383030;
-    color: #fff;
+  color: #fff;
 }
 h3, h1 {
   color: #fff;

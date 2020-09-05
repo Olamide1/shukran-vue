@@ -78,7 +78,7 @@
           <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
        <div v-show="parseInt(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
-          <label><input v-model="isSubscribing" @change="love" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <span class="cancel-sub" data-uk-tooltip title="An email with instructions would be sent to your email">Email us to cancel anytime</span> <!-- Starts from next month. --></label>
+          <label><input v-model="isSubscribing" @change="subbed" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <span class="cancel-sub" data-uk-tooltip title="An email with instructions would be sent to your email">Email us to cancel anytime</span> <!-- Starts from next month. --></label>
            <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
        </div>
        <div class="uk-margin">
@@ -114,7 +114,7 @@ export default {
     data(){
        return {
           username: this.$route.params.username,
-          tipGuard: 10, // was 100 naira
+          tipGuard: 5, // was 100 naira
           tipNudge: '',
           summary: '',
           currency: !localStorage.getItem('shukran-country-currency') ? "NGN" : localStorage.getItem('shukran-country-currency'),
@@ -128,7 +128,7 @@ export default {
           isSubscribing: false,
           paymentID: undefined,
           content: '',
-          once: false,
+          cancel: null,
           image: '',
           redirect: '',
           subscriptions: [],
@@ -160,27 +160,47 @@ export default {
          console.log('ress',res);
          this.subscriptions = res.data.data; 
       });
-      
-
     },
     subbed() {
-       if (this.isSubscribing && this.once == false) { // check if it hasn't ran
-         // get plan ID
-         console.log('we\'re getting the payment plan id')
+       // because of the 2nd test in this if, we won't need axios.interceptors ... right now, it's just an overkill
+       if (this.isSubscribing && this.paymentID === undefined) { // check if it hasn't ran
+         const source = axios.CancelToken.source();
+         let paymentID = this.paymentID; // re-assign because we don't see it inside axios.intercptors.request.use(...)
+         axios.interceptors.request.use(function (config) {
+            // Do something before request is sent, like we're inserting a timeout for only requests with a particular baseURL
+            if (paymentID === undefined && config.url === process.env.BASE_URL + '/api/createsubscription/') { 
+               // config.timeout = 4000;
+               return config
+            } else if (paymentID !== undefined && config.url !== process.env.BASE_URL + '/api/createsubscription/') {
+               return config
+            } else {
+               source.cancel('Can\'t make more than one reqeust');
+            }
+            console.log(config)
+            return config;
+         }, function (error) {
+            // Do something with request error
+            return Promise.reject(error);
+         });
+         
          // before we make this call, let's check if the subscirption amount exits in this.subscirptions
          axios.post(process.env.BASE_URL + '/api/createsubscription/', {
-            "amount": parseInt(this.amount),
+            amount: parseInt(this.amount),
             supporter_email: this.email,
             creator: this.username,
             creator_id: this.userinfos[0]._id,
-            "name": `${this.email}-shukraning-${this.userinfos[0]._id}`, // using email & _id is surety
+            name: `${this.email}-shukraning-${this.userinfos[0]._id}`, // using email & _id is surety
+         }, {
+         cancelToken: source.token
          }).then(res => { // set the subscription/payment plan ID
             console.log('good subscription', res)
             this.paymentID = res.data
-            this.once = true // make sure we don't run again
          }).catch(err => {
             console.log('bad subscription', err)
+         }).finally(() => {
+            console.log('we\'re getting the payment plan id')
          })
+
        }
     },
    showUserWelcome() {
@@ -208,7 +228,7 @@ export default {
          if (this.currency == "USD") {
             this.tipGuard = 1;
          } else {
-            this.tipGuard = 10; // was 100
+            this.tipGuard = 5; // was 100
          }
 
          if (isNaN(this.amount)) {
@@ -319,7 +339,9 @@ export default {
       ...(this.isSubscribing && this.paymentID !== undefined) && {payment_plan: this.paymentID},
       meta: {
         meta_one: 23,
-        meta_two: "A string"
+        meta_two: "A string",
+        supporter_message: message,
+        supporter_nickname: supporter_nickname,
         // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
         
       },
@@ -345,13 +367,13 @@ export default {
                      }
                      
                      axios.post(process.env.BASE_URL + '/api/createtransaction/', {
-                     username: username,
-                     supporter_nickname: supporter_nickname,
-                     amount: amount,
-                     message: message,
-                     status: 'received',
-                     currency: "NGN",
-                     email: user_email
+                        username: username,
+                        supporter_nickname: supporter_nickname,
+                        amount: amount,
+                        message: message,
+                        status: 'received',
+                        currency: "NGN",
+                        email: user_email
                      }).then(res => {
                         console.log('tipped')
                         console.info('tipped')
@@ -369,7 +391,6 @@ export default {
                   } else {
                      
                   }
-                     
                      },
       customizations: {
         title: "Support " + username,

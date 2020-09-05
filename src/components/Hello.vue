@@ -200,7 +200,7 @@ export default {
 }
 .signup-card {
   border-radius: 5px;
-  height: 450px;
+  height: 500px;
 }
 .fit {
   width: 300px;

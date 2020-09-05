@@ -202,12 +202,13 @@
                   <div class="sub-list-header">
                     <h3 class="uk-card-title">Subscribers list</h3>
                     <!-- This is a button toggling the modal -->
-                    <a class="uk-icon-button" uk-icon="file-edit" href="#send-message" uk-toggle></a>
+                    <a class="uk-icon-button" uk-icon="file-edit" data-uk-tooltip title="Send an email message to all your subscribers. Make an announcement or send your love!" href="#send-message" uk-toggle></a>
                   </div>
 
                   <!-- This is the modal -->
                   <div id="send-message" uk-modal>
                       <div class="uk-modal-dialog uk-modal-body">
+                          <button class="uk-modal-close-default" type="button" uk-close></button>
                           <h2 class="uk-modal-title">Compose message</h2>
                           <div class="uk-margin">
                               <input class="uk-input" type="text" v-model="message_subject" placeholder="Subject">
@@ -267,10 +268,17 @@
               </div>
               <!-- Total revenue end -->
 
-
-              <div>
+              <!-- Uncomment for next feature -->
+              <!-- <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-                  <h3 class="uk-card-title">Content list</h3>
+                  
+                  <div class="sub-list-header cont-list-header">
+                    <h3 class="uk-card-title">Content list</h3>
+                    <div uk-form-custom>
+                        <input type="file" @change="addFile">
+                        <button class="uk-button uk-button-default" type="button" tabindex="1">Add file</button>
+                    </div>
+                  </div>
 
                   <div class="">
                     <ul class="uk-list uk-list-striped">
@@ -280,7 +288,7 @@
                     </ul>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
         </div>
 
@@ -307,6 +315,7 @@ export default {
       payoutGuard: 1000, // 1000 naira
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
+      files: [],
       amount: 0,
       message: '',
       message_subject: '',
@@ -346,6 +355,22 @@ export default {
     }
   },
   methods: {
+    addFile() {
+// this.selectedFile = event.target.files[0]
+      let formData = new FormData();
+      formData.append("creator_id", this.profiles[0]._id);
+      formData.append("file", event.target.files[0]);
+      // console.log(event.target.files);
+      
+      axios.post(process.env.BASE_URL + "/api/update/", formData)
+        .then(res => {
+          this.profiles[0].picture_id = res.data;
+          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // update session too
+        })
+        .catch(error => {
+          console.log("error occured uploading", error);
+        });
+    },
     sendMsg() {
       this.message_status = 'Sending...';
       axios.post(process.env.BASE_URL + "/api/sendmessage/", 
@@ -839,6 +864,19 @@ export default {
   width: 100%;
   justify-content: space-between;
 }
+
+.cont-list-header {
+ align-items: baseline;
+}
+
+.cont-list-header button {
+  border-radius: 3px;
+}
+
+.uk-form-custom input[type=file] {
+  cursor: pointer;
+}
+
 /** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
 .top-nav-progress-bar {
   display: none;
