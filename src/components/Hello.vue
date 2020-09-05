@@ -1,48 +1,46 @@
-<template>
-    <div class="uk-container">
+<template hello-body>
+    <div class="get-in">
        <nav class="uk-navbar uk-navbar-container uk-margin">
     <div class="uk-navbar-left">
-     <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
+     <router-link class="uk-navbar-item uk-padding-remove-left uk-logo" to="/">Shukran</router-link>
     </div>
     </nav>
-    <div class="uk-container-expand" align="center">
-      <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding" v-if="loginbutton == true">
+    <div align="center">
+      <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding login-card" v-if="loginbutton == true">
     <div class="uk-card-header">
-        <div class="uk-grid-small uk-flex-middle" uk-grid>
-            <div class="uk-width-expand"  align="center">
+        <div class="uk-flex-middle">
+            <div class="uk-width-expand">
                 <h3 class="uk-card-title uk-margin-remove-bottom">Login</h3>
             </div>
         </div>
     </div>
     <div class="uk-card-body">
       <div class="uk-margin">
-        <input class="uk-input" v-on:keyup.enter="login" data-uk-tooltip title="Your username, NOT email." v-model="username" type="text" placeholder="Username">
+        <input class="uk-input uk-border-rounded" v-on:keyup.enter="login" data-uk-tooltip title="Your username, NOT email." v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-         <input v-on:keyup.enter="login" data-uk-tooltip title="***** or NOT" class="uk-input uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
+         <input v-on:keyup.enter="login" data-uk-tooltip title="***** or NOT" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
         </div>
       </div>
 
       <div class="uk-margin">
-         <p>{{issue}}</p>
-        <button class="uk-button uk-button-default uk-width-1-1" @click="login">{{loginbtn}}</button>
+         <p style="color: #ff5976;">{{issue}}</p>
+        <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="login">{{loginbtn}}</button>
       </div>
-     
     </div>
-    <div class="uk-card-footer"  align="center">
-        <a @click="loginbutton = false" class="uk-button-text">Sign up</a> | 
+    <div class="uk-card-footer" align="center">
+        <a @click="loginbutton = false" class="uk-button-text">Sign Up</a> | 
         <router-link to="/resetpassword">Reset Password</router-link>
     </div>
   </div>
 
-
   <div v-else>
-    <div class="uk-card uk-card-default uk-width-1-2@m uk-box-shadow-large uk-padding">
+    <div class="uk-card uk-card-default fit uk-width-1-2@m uk-box-shadow-large uk-padding signup-card">
      <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
-            <div class="uk-width-expand"  align="center">
+            <div class="uk-width-expand" align="center">
                 <h3 class="uk-card-title uk-margin-remove-bottom">Sign up</h3>
             </div>
         </div>
@@ -50,28 +48,29 @@
 
     <div class="uk-card-body">
       <div class="uk-margin">
-        <input v-on:keyup.enter="signup" class="uk-input uk-form" data-uk-tooltip title="Basically your brand name. What name do name do your content consumers recognise you with, please no spaces" v-model="username" type="text" placeholder="Username">
+        <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="Basically your brand name. What name do your content consumers recognise you with, please no spaces" v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
-         <input v-on:keyup.enter="signup" class="uk-input uk-form" data-uk-tooltip title="NG laws require us to have this so we can verify and pay to your account. No one else sees it so..." v-model="fullname" type="text" placeholder="Fullname">
+         <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="KYC requires us to know this. No one else sees it so..." v-model="fullname" type="text" placeholder="Fullname">
       </div>
       <div class="uk-margin">
-         <input v-on:keyup.enter="signup" class="uk-input uk-form" data-uk-tooltip title="That main email you open often" v-model="email" type="email" placeholder="Email">
+         <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="That main email you open often" v-model="email" type="email" placeholder="Email">
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-         <input v-on:keyup.enter="signup" data-uk-tooltip title="Enter a memorable secure password" class="uk-input uk-form-width-large" :type="signupPasswordFieldType" v-model="password" placeholder="Password">
+         <input v-on:keyup.enter="signup" data-uk-tooltip title="Enter a memorable secure password" class="uk-input uk-border-rounded uk-form-width-large" :type="signupPasswordFieldType" v-model="password" placeholder="Password">
          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="signupPasswordIcon" @click="switchSignupVisibility"></a>
         </div>
       </div>
 
       <div class="uk-margin">
-          <p>{{issue}}</p>
-        <button class="uk-button uk-button-default uk-width-1-1" @click="signup">{{signupbtn}}</button>
-        <br>
-           <a @click="loginbutton = true" class="uk-button-text">Login</a>
-         
+          <p style="color: #ff5976;">{{issue}}</p>
+        <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="signup">{{signupbtn}}</button>
+        <div class="uk-card-footer">
+        <a @click="loginbutton = true" class="uk-button-text">Login</a>
       </div>
+      </div>
+      
     </div>
 
     </div>
@@ -105,11 +104,11 @@ export default {
   methods: {
     login(){
       if (this.username == '' || this.password == '') {
-        this.issue = 'Please fill in the empty fields.'
+        this.issue = 'Please fill all fields.'
       } else {
         this.issue = ''
         this.loginbtn = 'loading...';
-        axios.post('https://shukran-api.herokuapp.com/api/login/', {
+        axios.post(process.env.BASE_URL + '/api/login/', {
             username: this.username.toLowerCase().trim(),
             password: md5(this.password)
         }).then( res => {
@@ -139,12 +138,12 @@ export default {
     },
     signup(){
       if (this.username == '' || this.fullname == '' || this.email == '' || this.password == '') {
-        this.issue = 'Please fill in the empty fields.'
+        this.issue = 'Please fill all fields.'
       } else if(!this.reg.test(this.email)){
         this.issue = "Enter correct email please."
       } else {
         this.signupbtn = 'loading...'
-        axios.post('https://shukran-api.herokuapp.com/api/myprofile/', {
+        axios.post(process.env.BASE_URL + '/api/myprofile/', {
            username: this.username.toLowerCase().trim()
         }).then(res => {
           if (res.data.length >= 1) {
@@ -152,7 +151,7 @@ export default {
               this.issue = 'Username already taken...'
               this.signupbtn = 'Signup'
           } else {
-            axios.post('https://shukran-api.herokuapp.com/api/createaccount/', {
+            axios.post(process.env.BASE_URL + '/api/createaccount/', {
               username: this.username.toLowerCase().trim(),
               fullname: this.fullname,
               email: this.email,
@@ -186,12 +185,7 @@ export default {
 <style scoped>
 .uk-navbar, .uk-navbar-item, .lead {
   background: transparent !important;
-  color: #c63968 !important;
-}
-.uk-container{
-  background-color: #ffffff !important;
-  color: #2f1a35 !important;
-  height: 40rem !important;
+  color: #ffffff !important;
 }
 .uk-card, .uk-card-title {
   color: #2f1a35 !important;
@@ -199,5 +193,56 @@ export default {
 .uk-button{
   background-color: #ff5976 !important;
   color: #fff6fa;
+}
+
+.login-card {
+  border-radius: 5px;
+}
+.signup-card {
+  border-radius: 5px;
+  height: 500px;
+}
+.fit {
+  width: 300px;
+}
+@media (max-width:960px) {
+  
+.login-card {
+  border-radius: 5px;
+}
+.uk-padding {
+  padding: 10px;
+}
+.signup-card {
+  border-radius: 5px;
+  height: 450px;
+}
+.uk-navbar-left {
+  margin-left: 30px;
+}
+}
+.get-in {
+  background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
+
+@media (min-width:960px) {
+  .fit {
+    width: 370px;
+  }
+  .uk-navbar-left {
+  margin-left: 50px;
+}
+}
+
+.uk-input {
+  border-width: 2px;
 }
 </style>

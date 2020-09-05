@@ -16,7 +16,7 @@
         </ul>
     </div>
 </nav>
-<img src="../assets/image.gif" height="150px" alt="Home" uk-img>    
+<img src="../assets/logo.png" height="150px" alt="Home" uk-img>    
 
 <div class="uk-section uk-section-default">
     <div class="uk-container uk-container-small">
@@ -126,7 +126,7 @@ export default {
     },
     methods: {
         getCreators () {
-            axios.get('https://shukran-api.herokuapp.com/api/allusers/').then( res => {
+            axios.get(process.env.BASE_URL + '/api/allusers/').then( res => {
                 this.creators = res.data
                 console.log('loaded creators')
             }).catch(err => {

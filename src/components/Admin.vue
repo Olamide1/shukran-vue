@@ -41,6 +41,13 @@
         </div>
     </div>
 
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <h3 class="uk-card-title">&#x20a6;{{netRevenue}}</h3>
+            <p>Revenue gotten.</p>
+        </div>
+    </div>
+
     
    </div> <br>
 
@@ -60,6 +67,7 @@
     <li>Account name: {{result.account_name}}</li>
     <li>Account Number: {{result.account_number}}</li>
     <li>Craft type: {{result.craft_type}}</li>
+    <li>Phone: {{result.phone}}</li>
     </ul>
        </div>
             </div>
@@ -98,6 +106,7 @@
     <li>Account name: {{user.account_name}}</li>
     <li>Account Number: {{user.account_number}}</li>
     <li>Craft type: {{user.craft_type}}</li>
+    <li>Phone number: {{user.phone}}</li>
     <button class="uk-button" @click="deleteUser(user._id)">{{deleted}}</button>
     </ul>
        </div>
@@ -148,7 +157,7 @@
     <tbody>
         <tr v-for= "(request, index) in requests.slice().reverse()" :key="index">
             <td>{{request.username}}</td>
-            <td>{{request.amount}}</td>
+            <td>{{request.amount * 0.9}}</td> <!-- auto calculate how much you should pay out -->
             <td>{{request.status}}</td>
             <td>Transaction: {{request.transaction_date}}</td>
             <td><button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button></td>
@@ -195,6 +204,7 @@ export default {
             requests: [],
             transactionVolume: 0,
             paid: 'Pay',
+            netRevenue: 0,
             paidVolume: 0,
             requested: 0,
             search: '',
@@ -204,7 +214,7 @@ export default {
     }, 
     methods: {
         loadUsers() {
-            axios.get('https://shukran-api.herokuapp.com/api/allusers/').then(res => {
+            axios.get(process.env.BASE_URL + '/api/allusers/').then(res => {
                 console.log('loaded users')
                 this.users = res.data
                 this.totalUsers = this.users.length
@@ -213,7 +223,7 @@ export default {
             })
         },
         loadTransactions(){
-             axios.get('https://shukran-api.herokuapp.com/api/alltransactions/').then( res=> { 
+             axios.get(process.env.BASE_URL + '/api/alltransactions/').then( res=> { 
                 console.log('loaded transactions')
                 this.transactions = res.data
             }).catch( error => {
@@ -221,11 +231,11 @@ export default {
             })
         },
         loadReceived(){
-            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
+            axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'received'
             }).then( res => {
                 let rec = []
-                console.log('loaded received tips')
+                console.log('loaded received tips', res)
                 rec = res.data
                 this.totalTransact = rec.length
                 for(var i = 0; i <= this.totalTransact; i++){
@@ -236,7 +246,7 @@ export default {
             })
         },
         loadPaid(){
-            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
+            axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'paid'
             }).then( res => {
                 let rec = []
@@ -244,14 +254,15 @@ export default {
                 rec = res.data
                 var transaction = rec.length
                 for(var i = 0; i <= transaction; i++){
-                    this.paidVolume += parseInt(rec[i].amount);
+                    this.paidVolume += parseInt(rec[i].amount) * 0.9;
+                    this.netRevenue += (parseInt(rec[i].amount) * 0.1) - 25; // ₦25 is transaction fee for transfer https://wallets.africa/faqs
                 }
             }).catch(err => {
                 console.log(err)
             })
         },
         loadRequest() {
-            axios.post('https://shukran-api.herokuapp.com/api/requests/', {
+            axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'requested'
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
@@ -263,7 +274,7 @@ export default {
         },
         update(id){
             this.paid = 'paying...'
-            axios.post('https://shukran-api.herokuapp.com/api/updatetransaction/', {
+            axios.post(process.env.BASE_URL + '/api/updatetransaction/', {
                 id: id,
                 status: 'paid'
             }).then( resp => {
@@ -276,7 +287,7 @@ export default {
         },
         deleteUser(id){
             this.deleted = 'deleting..'
-            axios.post('https://shukran-api.herokuapp.com/api/deleteuser/', {
+            axios.post(process.env.BASE_URL + '/api/deleteuser/', {
                 id: id,
             }).then( resp => {
                 this.deleted = 'Delete'
@@ -287,7 +298,7 @@ export default {
         },
          deleteTransaction(id){
             this.deleted = 'deleting..'
-            axios.post('https://shukran-api.herokuapp.com/api/deletetransaction/', {
+            axios.post(process.env.BASE_URL + '/api/deletetransaction/', {
                 id: id,
             }).then( resp => {
                 this.deleted = 'Delete'
@@ -297,7 +308,7 @@ export default {
             })
         },
         getFeedback(){
-            axios.get('https://shukran-api.herokuapp.com/api/allfeedback/').then( res =>{
+            axios.get(process.env.BASE_URL + '/api/allfeedback/').then( res =>{
                 this.allfeedback = res.data
                 console.log('loaded feedback')
             }).catch(err => {

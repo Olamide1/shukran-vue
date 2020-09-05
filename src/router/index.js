@@ -9,6 +9,11 @@ import Thankyou from '@/components/Thankyou'
 import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
 import Pricing from '@/components/Pricing'
+import Index from '@/components/Index'
+import Terms from '@/components/Terms'
+import Blog from '@/components/Blog'
+import HowItWorks from '@/components/HowItWorks'
+import Subscribers from '@/components/Subscribers'
 
 Vue.use(Router)
 
@@ -16,11 +21,51 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/terms',
+      name: 'Terms and Conditions',
+      component: Terms,
+      meta: {
+        title: 'Terms and Conditions - Shukran'
+      }
+    },
+    {
+      path: '/subscribers',
+      name: 'Subscribers',
+      component: Subscribers,
+      meta: {
+        title: 'Your Subscribers'
+      }
+    },
+    {
+      path: '/how-it-works',
+      name: 'HowItWorks',
+      component: HowItWorks,
+      meta: {
+        title: 'Shukran, how it works'
+      }
+    },
+    {
+      path: '/blog',
+      name: 'Blog',
+      component: Blog,
+      meta: {
+        title: 'Shukran Blog'
+      }
+    },
+    {
+      path: '/index',
       name: 'Home',
       component: Home,
       meta: {
         title: 'Homepage - Shukran'
+      }
+    },
+    {
+      path: '/',
+      name: 'Index',
+      component: Index,
+      meta: {
+        title: 'Welcome, and Shukran'
       }
     },
     {

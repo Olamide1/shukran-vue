@@ -4,8 +4,14 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueLazyload from 'vue-lazyload'
 
-Vue.config.productionTip = false
+Vue.use(VueLazyload, {
+  observer: true,
+  loading: '/static/img/blank-profile-picture.png',
+  error: '/static/img/placeholder-image.png', // https://stackoverflow.com/a/47677814
+})
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

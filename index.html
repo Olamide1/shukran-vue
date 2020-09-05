@@ -4,24 +4,57 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="robots" content="index, follow">
+    <meta name="description" content="Support your favourite content creator with a tip.">
+    <meta name="keywords" content="shukran, useshukran, support, tip, african, usesshukran, uses shukran, use shukran, content creators, african creator, african creators, creators, african creatives, creatives">
+    
     <title>Shukran | Tip your favorite content creators.</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/png" href="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/favicon.png"/>
+    <meta name="title" content="Shukran | Tip your favorite content creators.">
+    <meta name="description" content="Support your favourite content creator with a tip.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/icons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/png" href="/static/img/icons/favicon.png"/>
+    <script>
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.13.1";
+      analytics.load("G0zvrPtCCMXHwhYw6KKeyrM2KdJAYWnb");
+      analytics.page();
+      }}();
+    </script>
     <!--[if IE]><link rel="shortcut icon" href="/static/img/icons/favicon.ico"><![endif]-->
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://useshukran.com/">
+    <meta property="og:title" content="Shukran | Tip your favorite content creators.">
+    <meta property="og:description" content="Support your favourite content creator with a tip.">
+		<meta property="og:site_name" content="Shukran">
+		<meta property="og:image" content="/static/img/icons/favicon.png">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    
+    <!-- Twitter "C:\Users\NWACHUKWU\Documents\this is shukran\shukran-vue/static/img/icons/favicon.png" -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://useshukran.com/">
+    <meta property="twitter:title" content="Shukran | Tip your favorite content creators.">
+    <meta property="twitter:description" content="Support your favourite content creator with a tip.">
+    <meta property="twitter:image" content="/static/img/icons/favicon.png">
+
     <!-- Add to home screen for Android and modern mobile browsers -->
-    <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>static/manifest.json">
+    <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#c63968">
 
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="frontend">
-    <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/apple-touch-icon-152x152.png">
-    <link rel="mask-icon" href="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/safari-pinned-tab.svg" color="#4DBA87">
+    
+    <link rel="apple-touch-icon" href="/static/img/icons/apple-touch-icon-152x152.png">
+    <link rel="mask-icon" href="/static/img/icons/safari-pinned-tab.svg" color="#4DBA87">
     <!-- Add to home screen for Windows -->
-    <meta name="msapplication-TileImage" content="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/msapplication-icon-144x144.png">
-<meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="/static/img/icons/msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
     <% for (var chunk of webpack.chunks) {
         for (var file of chunk.files) {
           if (file.match(/\.(js|css)$/)) { %>
@@ -50,10 +83,39 @@
   })();
   </script>
   <!--End of Tawk.to Script-->
+  <!-- get country code and currency -->
+  <script type="text/javascript"> // https://stackoverflow.com/a/35123097
+    if(!localStorage.getItem('shukran-country-currency')) {
+      fetch('https://ipapi.co/json/', { // http://ipinfo.io
+          headers: {
+          'Accept': 'application/json',
+          "Content-Type": "application/json"
+        }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json()
+        })
+        .then(data => {
+          console.log(data.country_name, "using", data.currency_name, data.currency)
+          localStorage.setItem('shukran-country-currency', data.currency);
+          localStorage.setItem('shukran-country-code', data.country_code);
+        })
+        .catch(error => { // why did this error happen. let's know... save and send to backend later?
+          // console.error('There has been a problem with our fetch operation:', error);
+        });
+    } else { // use their currency
+    }
+  </script>
+
+  <!-- Google ads -->
+  <script data-ad-client='ca-pub-5489258226391683' async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   </head>
   <body>
     <noscript>
-      This is your fallback content in case JavaScript fails to load.
+      Your browser has javascript disable or doesn't support it. We're afraid javascript must be enabled.
     </noscript>
     <div id="app"></div>
     <!-- Todo: only include in production -->
@@ -61,5 +123,6 @@
     <!-- built files will be auto injected -->
   </body>
   <!--<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>-->
-  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+  <!-- <script src="https://js.paystack.co/v1/inline.js"></script> -->
 </html>

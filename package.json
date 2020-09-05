@@ -1,8 +1,8 @@
 {
-  "name": "frontend",
+  "name": "shukran",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Olamide Akomolafe <olamideakomolafe1234@gmail.com>",
+  "description": "Shukran web app. It let's creators get support through tips",
+  "author": "Olamide Akomolafe <olamideakomolafe1234@gmail.com>, Nwachukwu Ossai <nwachukwuossai@gmail.com>",
   "scripts": {
     "build": "node build/build.js",
     "dev": "node build/dev-server.js",
@@ -15,9 +15,12 @@
     "@vue/cli-plugin-babel": "^4.3.1",
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
+    "chart.js": "2.9.3",
     "es6-promise": "^4.2.8",
     "md5": "^2.2.1",
+    "money": "0.2.0",
     "vue": "^2.5.2",
+    "vue-lazyload": "1.3.3",
     "vue-router": "^3.0.1",
     "whatwg-fetch": "^3.0.0"
   },
