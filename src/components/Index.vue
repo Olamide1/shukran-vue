@@ -94,7 +94,9 @@
                       <div class="image-caption">
                         <p>
                           <b>Joined</b>
-                          {{ new Date(creator.create_date).toLocaleDateString() }}
+                          {{new Date(creator.create_date).toLocaleDateString()}},
+                          from 
+                          <img class="origin-country" :src="'/static/img/'+creator.country+'-flag.png'">
                         </p>
                       </div>
                       
@@ -113,7 +115,7 @@
             v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${creator.picture_id}`}"
             
             uk-img="target: #offcanvas-usage"
-            style="height: 414px; width: 414px; margin-left: auto;"
+            style="height: 414px; width: 414px; margin-left: 6%;"
           :to="'/cr/' + creator.username" tag="div">
                         </router-link>
                     </div>
@@ -332,67 +334,78 @@ export default {
         create_date: "2020-08-22T17:59:12.371Z",
         picture_id: "1ZUR0ymW-jNHSjgeo-jYTOP0L0t9uQ1TY",
         summary: "Hi there 👋👋. I have so many stories to tell. I just recently started putting them down on paper.  I am  learning as I go. And enjoying it thoroughly.",
-        username: "wangarimuchui"
+        username: "wangarimuchui",
+        country: 'ke'
         }, {
         craft_type: "Comedian",
         create_date: "2020-07-05T09:13:28.496Z",
         picture_id: "1wj0BCAi5hGN9USx6NKrMUgZ1lSuvhlX0",
         summary: "Thanks for always supporting the brand and having my back. Drop your name and I will reach out to you. Bless",
-        username: "josh2funny"
+        username: "josh2funny",
+        country: 'ng'
         }, {
             craft_type: "Digital media, Podcast on Digital skills and innovation",
         create_date: "2020-07-17T15:31:52.417Z",
         picture_id: "1jbhZ6Iu69hDlYquXNCeAJZXUbgFWDwvi",
         summary: "Tips, they're like hugs, just without the awkward body contact. Thanks for your support!",
-        username: "edigitalafrica"
+        username: "edigitalafrica",
+        country: 'ng'
         }, {
             craft_type: "Art/Documentary photographer",
         create_date: "2020-06-14T20:46:45.220Z",
         picture_id: "1BbqzZYHhtZygSWyBg2qKJsEMrCL71Qpv",
         summary: "Everything has its beauty.",
-        username: "tblack"
+        username: "tblack",
+        country: 'ng'
         }, {
             craft_type: "Lifestyle blogger, women development facilitator and webinar host",
         create_date: "2020-06-19T20:34:47.340Z",
         picture_id: "1aOVjWQ8ZLGs0LMwAyQgz3NLubVbEnJFY",
         summary: "Thank you so much for supporting my brand thus far, if you’d like to go a step further. Please give me a tip, it’s a small gesture that means a lot.",
-        username: "growingwomanblog"
+        username: "growingwomanblog",
+        country: 'ng'
         }, {
             craft_type: "Food photographer",
         create_date: "2020-07-25T18:37:48.410Z",
         picture_id: "1jOx4fUJekDSpdGVpkF3RXSnlb8FsOmHg",
         summary: "I believe in the power of pictures. I also love to write and support other creators like myself. Shukran Me.",
-        username: "andanje"
+        username: "andanje",
+        country: 'ke'
         }, {
             craft_type: "Podcaster & Blogger",
         create_date: "2020-08-27T16:00:05.358Z",
         picture_id: "17Be83LLU6py_EW2KykjoVRJ5dTNPHTKH",
         summary: "Thank you very much for supporting my work and I hope I will be able to make more for you.",
-        username: "randy pontiff"
+        username: "randy pontiff",
+        country: 'ke'
         }, {
             craft_type: "Bohemian visual content creator",
         create_date: "2020-06-13T16:29:09.349Z",
         picture_id: "1HlW4ri5rk8bh_uYAzgtHL0dxVzVG_s4o",
         summary: "Thank you for appealing to my definition of aesthetics, your consistent interaction with the content i put out fuels my creativity. Please help foster my artistry by tipping me :) .",
-        username: "chistorm"
+        username: "chistorm",
+        country: 'ng'
         }, {
             craft_type: "Visual Artist (Photographer)",
         create_date: "2020-05-30T15:43:49.191Z",
             picture_id: "1gvtNcm6VXHAQeKV17CayUwOmrmrSm7u0",
         summary: "You made it here! Thank you for the love and support, your tip would go a long in ensuring I keep doing what I love.",
-        username: "sonayon thomas"
+        username: "sonayon thomas",
+        country: 'ng'
         }, {
             craft_type: "Videographer, Photographer, VoiceOverArtist, Podcaster, TV presenter.",
         create_date: "2020-05-29T20:54:48.479Z",
         picture_id: "1sSOq3j_lJZy6oeUXGUkX5NhfsWDBrGW5",
         summary: "Thank you so much for coming here to support my hustle 🤗🤗 God bless you as you bless my pocket.",
-        username: "yeashamedia"
+        username: "yeashamedia",
+        country: 'ng'
         }, {
             craft_type: "Creative Director, Video Editor, Food Explorer, Photo Editor, Apps Guru and Social Media Savvy",
         create_date: "2020-06-19T05:16:21.641Z",
         picture_id: "1AsUj1bfvXosbepKC4Qy87xfDGlWVgqed",
         summary: "Thank You, I appreciate you. You are the best vibe squad. Your Tip means you enjoy my content.❤️",
-        username: "chitothelagoshustler"
+        username: "chitothelagoshustler",
+        country: 'ng'
         }],
       search: '',
       results: []
@@ -1640,6 +1653,12 @@ body.fixed {
   }
 }
 
+.origin-country {
+  max-width: 14%;
+  margin-left: 105%;
+  margin-top: -13%;
+}
+
 .name-container {
   position: relative;
 }
@@ -1654,10 +1673,10 @@ body.fixed {
   white-space: nowrap;
 }
 
-.name-container img {
+/* .name-container img {
   max-width: 90%;
   margin-left: 10%;
-}
+} */
 
 /*	----------------------------------------
 	:: Hamburger Toggle Switch
