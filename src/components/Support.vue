@@ -154,6 +154,11 @@ export default {
             break;
          }
     },
+    checkUser() {
+      if (this.username == null) {
+        this.$router.push("/");
+      }
+    },
     getSubs(){
       axios.get(process.env.BASE_URL + '/api/getsubscriptions/')
       .then((res) => {
@@ -410,6 +415,7 @@ export default {
     },
     mounted(){
       this.getSubs();
+      this.checkUser();
     }
 }
 </script>

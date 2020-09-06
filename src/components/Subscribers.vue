@@ -204,7 +204,10 @@
                     <!-- This is a button toggling the modal -->
                     <a class="uk-icon-button" uk-icon="file-edit" data-uk-tooltip title="Send an email message to all your subscribers. Make an announcement or send your love!" href="#send-message" uk-toggle></a>
                   </div>
-
+                  <div class="total-revenue">
+                    <h4 class="uk-heading-small">{{currencySymbol}}{{totalRevenue.toFixed(2)}}</h4>
+                    <small>Total revenue</small>
+                  </div>
                   <!-- This is the modal -->
                   <div id="send-message" uk-modal>
                       <div class="uk-modal-dialog uk-modal-body">
@@ -330,7 +333,8 @@ export default {
       comment: "",
       feed: "Submit",
       request: "Request",
-      uniqueSupporters: 0
+      uniqueSupporters: 0,
+      totalRevenue: 0
     };
   },
   computed: {
@@ -391,51 +395,7 @@ export default {
         });
     },
     fetchConversionDataAndUpdate() {
-      // instead, save to our db, then select from there, so everyone else calls to our db, and our db refreshes as often as possible in a month [1K free calls!]
-      const ex = () => {
-        this.tipTotal = fx(this.tipTotal)
-          .from(
-            this.tempCurr
-              ? this.tempCurr
-              : "NGN" // localStorage.getItem("shukran-country-currency")
-          ).to(this.currency);
-        
-        this.tipWithdrawn = fx(this.tipWithdrawn)
-            .from(
-              this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
-            ).to(this.currency);
-        
-        this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
-            .from(
-              this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
-            ).to(this.currency));
-            
-        switch (this.currency) {
-            case "NGN":
-              this.payoutGuard = 1000
-              break;
-            case "KES":
-              this.payoutGuard = 500
-              break
-            default:
-              this.payoutGuard = 1000
-              break;
-          }
-        /* this.payoutGuard = fx(1000) // convert payout guard ...important!
-              .from("NGN")
-              .to(this.currency); */
-        
-        this.tempCurr = this.currency;
-
-        // this.tipsChart.update(); // updates the chart... if this.tipsChart was an instance of new Chart(ctx, ...)
-
-        // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
-        // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
-      };
+      
       // hide app_id
       fetch(
         `https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`
@@ -450,91 +410,6 @@ export default {
           );
         }).then(ex)
         .catch(err => console.error("fetch ex rates err", err));
-    },
-    // https://github.com/exchangeratesapi/exchangeratesapi
-    // https://docs.openexchangerates.org/
-    rates() {
-      if (!localStorage.getItem("shukran-currency-converter-data")) {
-        this.fetchConversionDataAndUpdate();
-      } else {
-        // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
-        const savedCurrConvData = JSON.parse(
-          localStorage.getItem("shukran-currency-converter-data")
-        );
-        // check if it's more than a week old
-        // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
-        // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
-        const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000);
-
-        // calculate the no. of days between two dates
-        const diffInDays =
-          (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24);
-        if (diffInDays > 7) {
-          // more than 7 days
-          // fetch again
-          this.fetchConversionDataAndUpdate();
-        } else {
-          // less than a week old? then just convert
-          fx.base = "USD";
-          fx.rates = savedCurrConvData.rates;
-
-          this.tipTotal = fx(this.tipTotal) // convert tip total
-            .from(
-              this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
-            ).to(this.currency);
-
-          this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
-            .from(
-              this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
-            ).to(this.currency);
-
-          
-          
-          this.subscribing_amounts = this.subscribing_amounts.map(tip => fx(tip) // convert all other subscribing_amounts
-            .from(
-              this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
-            ).to(this.currency).toFixed(2)); // same with
-
-            this.subscribers.forEach(s => {
-            s.amount = fx(s.amount) // convert all other amounts
-              .from(
-                this.tempCurr
-                  ? this.tempCurr
-                  : "NGN" // localStorage.getItem("shukran-country-currency")
-              ).to(this.currency).toFixed(2); // same with
-          }); // change the currency too?
-
-          switch (this.currency) {
-            case "NGN":
-              this.payoutGuard = 1000
-              break;
-            case "KES":
-              this.payoutGuard = 500
-              break
-            default:
-              this.payoutGuard = 1000
-              break;
-          }
-        
-          /* this.payoutGuard = fx(1000) // convert payout guard ...important!
-              .from("NGN")
-              .to(this.currency); */
-
-          this.tempCurr = this.currency;
-
-          // this.tipsChart.update(); // updates the chart
-          
-          // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
-          // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
-        }
-        // console.log('all tips', this.allTips)
-      }
     },
     getSupporters() {
         // Optionally the request above could also be done as
@@ -572,165 +447,65 @@ export default {
           .then(() => { // always executed
           });
     },
-    createChart(chartId , chartData) {
-      // https://codepen.io/grayghostvisuals/pen/gpROOz
-      let chart = document.getElementById("total-tips-chart").getContext("2d"),
-        gradient = chart.createLinearGradient(0, 0, 0, 450);
+    setFX() {
+    if (!localStorage.getItem("shukran-currency-converter-data")) {
+            this.fetchConversionDataAndUpdate();
+          } else {
+            // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
+            const savedCurrConvData = JSON.parse(
+              localStorage.getItem("shukran-currency-converter-data")
+            );
+            // check if it's more than a week old
+            // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
+            // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+            const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000);
 
-      gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
-      gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
-      gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
-
-      const ctx = document.getElementById(chartId);
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: chartData.tipsDates,
-          datasets: [
-            {
-              // a(nother) line graph
-              label: "Tips",
-              data: chartData.allTips,
-              pointBorderWidth: 7,
-              pointHitRadius: 15,
-              backgroundColor: gradient /* [
-                "rgba(71, 183,132,.5)" // Green
-              ] */,
-              borderColor: ["#47b784"],
-              borderWidth: 3,
-              fill: "start",
-              lineTension: 0 // make lines straight
+            // calculate the no. of days between two dates
+            const diffInDays = (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24);
+            if (diffInDays > 7) {
+              // more than 7 days
+              // fetch again
+              this.fetchConversionDataAndUpdate();
+            } else {
+              // less than a week old? then just convert
+              fx.base = "USD";
+              fx.rates = savedCurrConvData.rates;
+            
             }
-          ]
-        },
-        options: {
-          title: {
-            display: false,
-            text: "You were tipped WHAT? WHEN?"
-          },
-          maintainAspectRatio: false,
-          responsive: true,
-          lineTension: 1,
-          scales: {
-            xAxes: [
-              {
-                pointLabels: {
-                  display: false
-                }
-              }
-            ],
-            yAxes: [
-              {
-                pointLabels: {
-                  display: false
-                },
-                ticks: {
-                  // beginAtZero: false,
-                  padding: 25,
-                  callback: function(value, index, values) {
-                    // return null to hide
-                    return chartData.currencySymbol + value; // Include a naira/ksh sign in the ticks
-                  }
-                }
-              }
-            ]
-          },
-          tooltips: {
-            callbacks: {
-              // https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-callback
-              label: function(tooltipItem, data) {
-                return `You were tipped ${chartData.currencySymbol}${parseInt(tooltipItem.value).toFixed(2)} on ${tooltipItem.label}`;
-              },
-              title: function(tooltipItem, data) {
-                return `${tooltipItem[0].label} inflow`;
-              }
-            }
+            // console.log('all tips', this.allTips)
           }
-        }
-      });
+    },
+    rates() {
+      this.totalRevenue = fx(this.totalRevenue) // convert tip total
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : "NGN" // localStorage.getItem("shukran-country-currency")
+            ).to(this.currency);
+          this.tempCurr = this.currency;
+    },
+    getTotalRevenue() {
+      axios.get(process.env.BASE_URL + "/api/gettotalrevenue/", {
+            params: {
+              id: this.profiles[0]._id,
+              username: this.profiles[0].username,
+            }
+          }).then(response => {
+            for (let index = 0; index < response.data.length; index++) {
+              const element = response.data[index];
+              this.totalRevenue += fx(element.data.amount) // convert all other amounts
+              .from(element.data.currency).to(this.currency);
+            }
+          })
+          .catch(error => {
+            console.log('baddd totoal revenue', error);
+          })
+          .then(() => { // always executed
+          });
     },
     logout() {
       sessionStorage.clear();
       this.$router.push("/accounts");
-    },
-    loadTransactions() {
-      let username = this.username;
-      axios
-        .post(process.env.BASE_URL + "/api/findall/", {
-          username: username,
-          status: "received"
-        })
-        .then(res => {
-          // console.log("loadTransactions done"); // do the currency conversion here.
-          this.transactions = res.data;
-          for (let i = 0; i < this.transactions.length; i++) {
-            this.tipTotal += parseInt(this.transactions[i].amount);
-            this.allTips.push(this.transactions[i].amount); // optimise how this is gotten
-            // https://stackoverflow.com/a/34015511
-            this.tipsDates.push(
-              new Date(
-                this.transactions[i].transaction_date
-              ).toLocaleDateString("en-GB", {
-                year: "2-digit",
-                month: "short",
-                day: "2-digit"
-              })
-            ); // .toDateString() .toLocaleDateString("en-US")
-          }
-        }).then(() => {
-          this.rates(); // get the conversion first...
-        }).then(() => this.createChart("total-tips-chart", {allTips: this.allTips, tipsDates: this.tipsDates, currencySymbol: this.currencySymbol})/* then create chart */)
-        .catch(err => {
-          console.error(err, err.code);
-        });
-      // console.log(`hey ${username} what you doing looking on here? caret to tell us? all@useshukran.com`)
-    },
-    loadWithdrawn() {
-      let username = this.username;
-      axios
-        .post(process.env.BASE_URL + "/api/findall/", {
-          username: username,
-          status: "paid"
-        })
-        .then(res => {
-          // console.log("loadWithdrawn done");
-          this.withdrawals = res.data;
-          for (let i = 0; i < this.withdrawals.length; i++) {
-            this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
-          }
-        })
-        .catch(err => {
-          // console.log(err);
-        });
-    },
-    withdrawRequest() { // convert amount to naira, we payout in naira
-
-      let amount = fx(this.amount)
-            .from(this.currency)
-            .to("NGN");
-
-      let username = this.username;
-      // let amount = this.amount;
-      let status = "requested";
-      this.request = "loading...";
-      axios
-        .post(process.env.BASE_URL + "/api/requestpayout/", {
-          username: username,
-          amount: amount, // in naira
-          status: status,
-          email: this.profiles[0].email
-        })
-        .then(res => {
-          // console.log("withdrawRequest done", res);
-          this.request = "Done";
-          UIkit.modal("#modal-middle").hide();
-          let thanks =
-            `Hi ${this.username}, your payout request will be processed within the next 6-10 hours & sent to your account with the 10% charge in effect. Hang tight`;
-          alert(thanks);
-        })
-        .catch(err => {
-          // console.log(err);
-        });
     },
     onFileChanged(event) {
       // this.selectedFile = event.target.files[0]
@@ -835,22 +610,30 @@ export default {
   },
   mounted() {
     // this.getId(); // shouldn't be
-    this.loadTransactions();
     this.checkUser();
-    this.loadWithdrawn();
     this.getBalance();
     // this.rates(); // so we don't do it on currency change
     this.getSupporters(); // should we call this? peep comment in it's definitino
     this.getSubscribers();
+    this.getTotalRevenue();
   },
   beforeMount() {
     this.getCountryData();
+    this.setFX();
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.total-revenue {
+  display: flex;
+  align-items: baseline;
+}
+.total-revenue small {
+  padding-left: 5px;
+}
 #send-message > .uk-modal-body {
   border-radius: 5px;
 }
