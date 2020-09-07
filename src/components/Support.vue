@@ -361,10 +361,6 @@ export default {
       callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
 
                   if (response.status == "successful") {
-
-                     console.log('success. transaction ref is ', response);
-                     console.warn('success. transaction ref is ', response); // optimize
-
                      if (response.currency === "KES") { // we can do more
                         amount = parseFloat(amount) * 3.55
                      } else if (response.currency === "USD") {
