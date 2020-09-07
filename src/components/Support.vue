@@ -378,6 +378,7 @@ export default {
                         message: message,
                         status: 'received',
                         currency: "NGN",
+                        tx_ref: response.tx_ref,
                         email: user_email
                      }).then(res => {
                         console.log('tipped')
