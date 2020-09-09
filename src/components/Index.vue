@@ -191,7 +191,7 @@
             <p class="caps has-text-primary">Who uses Shukran?</p>
             <h2>Creators of all kinds</h2>
             <p class="subtitle">
-              From Podcasters, Musicians ,Bloggers, YouTubers, Writers, Poets, Digital Creators, Non-Profits, Communiites, Creators of all kinds.
+              From Podcasters, Musicians ,Bloggers, YouTubers, Writers, Poets, Digital Creators, Non-Profits, Communities, Creators of all kinds.
               </p>
             <p class="subtitle">Take on that next project.</p>
             <p class="subtitle">
@@ -246,7 +246,6 @@ With support from your audience, you'll be able to get ahead in your space and k
                 <h4 class="margin-bottom-small">While at it</h4>
                 <p>You can drop an encouraging message for the content creators you support. Tell them how they have impacted you or made you feel.</p>
                 <p>Trust us, that goes a long way too. #MoralSupport</p>
-                <p>By supporting content creators on Shukan, you become a key player in their creative process and a part of their success story. Get on it!</p>
               </div>
             </div>
           </div>

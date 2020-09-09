@@ -37,7 +37,7 @@
             <a>Get tipped</a>
           </li>
           <li>
-            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
           </li>
           <li>
             <router-link to="/profile">Profile</router-link>
@@ -133,7 +133,7 @@
               <router-link to="/dash">Dashboard</router-link>
             </li>
             <li>
-              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
             <div id="modal-center" class="uk-flex-top" uk-modal>
@@ -200,7 +200,7 @@
               <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
                   <div class="sub-list-header">
-                    <h3 class="uk-card-title"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span> list</h3>
+                    <h3 class="uk-card-title"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span> list</h3>
                     <!-- This is a button toggling the modal -->
                     <a class="uk-icon-button" uk-icon="file-edit" data-uk-tooltip title="Send an email message to all your subscribers. Make an announcement or send your love!" href="#send-message" uk-toggle></a>
                   </div>
@@ -237,7 +237,7 @@
                     <ul uk-accordion v-if="this.subscribing_amounts.length > 0">
                         <li class="uk-open" v-for="(sub_amount, index) in this.subscribing_amounts"
                         :key="index">
-                            <a class="uk-accordion-title" href="#">{{currencySymbol}}{{sub_amount}} <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">shuklans</span></a>
+                            <a class="uk-accordion-title" href="#">{{currencySymbol}}{{sub_amount}} <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span></a>
                             <div class="uk-accordion-content">
                                 <ul class="uk-list uk-list-striped">
                                     <li v-for="(sub, index) in subscribers.filter(s => s.amount == sub_amount)"
@@ -267,7 +267,7 @@
                         </li> -->
                     </ul>
                     <div v-else>
-                      No <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">shuklans</span> yet
+                      No <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span> yet
                     </div>
                   </div>
                 </div>

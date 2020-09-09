@@ -37,7 +37,7 @@
             <a>Get tipped</a>
           </li>
           <li>
-            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
           </li>
           <li>
             <router-link to="/profile">Profile</router-link>
@@ -133,7 +133,7 @@
               <router-link to="/dash">Dashboard</router-link>
             </li>
             <li>
-              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
             <div id="modal-center" class="uk-flex-top" uk-modal>
