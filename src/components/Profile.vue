@@ -221,16 +221,19 @@
                   name="bn"
                   type="text"
                   data-uk-tooltip
-                  title="What bank do you wanna receive your payouts?"
+                  :title="country_code == 'KE' ? 'Kenyan creators must use MPESA' : 'What bank do you wanna receive your payouts?'"
                   class="uk-input"
                   list="bank-options"
-                  placeholder="Bank (e.g GTBank etc)"
+                  :placeholder="country_code == 'KE' ? 'MPESA' : 'Bank name'"
                   v-model="profile.bank"
+                  :disabled="country_code == 'KE'"
                 />
                 <!-- update from https://api.payant.ng/banks and find other countries' banks -->
-                <datalist v-if="country_code == 'KE'" id="bank-options">
-                    <option value="MPESA" selected>MPESA</option>
-                </datalist>
+                <!-- <div class="uk-form-controls" v-if="country_code == 'KE'">
+                    <select title="Kenyan creators must use MPESA" v-model="profile.bank" class="uk-select" id="form-stacked-select">
+                        <option value="MPESA">MPESA</option>
+                    </select>
+                </div> -->
                 <datalist v-if="country_code == 'NG'" id="bank-options">
                   <option value="ACCESS BANK NIGERIA">ACCESS BANK NIGERIA</option>
                   <option value="ECOBANK NIGERIA LIMITED">ECOBANK NIGERIA LIMITED</option>
@@ -435,7 +438,7 @@ export default {
       comment: "",
       feed: "Submit",
       profile_picture: '',
-      country_code: 'KE', // localStorage.getItem('shukran-country-code'),
+      country_code: localStorage.getItem('shukran-country-code'),
       ngBanks: [,]
     };
   },
