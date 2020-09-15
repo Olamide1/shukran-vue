@@ -78,7 +78,7 @@
           <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
        <div v-show="parseInt(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
-          <label><input v-model="isSubscribing" @change="subbed" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <span class="cancel-sub" data-uk-tooltip title="An email with instructions would be sent to your email">Email us to cancel anytime</span> <!-- Starts from next month. --></label>
+          <label><input v-model="isSubscribing" @change="subbed" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <a class="cancel-sub" href="mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription for ... creator." data-uk-tooltip title="A message with instructions would be sent to your email">Email us to cancel anytime</a> <!-- Starts from next month. --></label>
            <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
        </div>
        <div class="uk-margin">

@@ -405,7 +405,7 @@
             <button id="link-btn" v-bind:disabled="checkURL" class="uk-button show-warning" @click="updateRef">{{savebtnFour}}</button>
             <br> <br>
               <a
-                href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:&hashtags=saythanks,shukran"
+                href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=@useshukran's+helping+me+create+the+art+I+want+to+see+in+the+world,+help+me+by+supporting+the+art+you+want+to+see+in+the+world:&hashtags=saythanks,shukran"
                 class="uk-button tweet-it"
                 target="blank"
               >Tell others</a>
