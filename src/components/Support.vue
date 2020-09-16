@@ -192,6 +192,7 @@ export default {
          axios.post(process.env.BASE_URL + '/api/createsubscription/', {
             amount: parseInt(this.amount),
             supporter_email: this.email,
+            creator_email: this.userinfos[0].email,
             creator: this.username,
             creator_id: this.userinfos[0]._id,
             name: `${this.email}-shukraning-${this.userinfos[0]._id}`, // using email & _id is surety
