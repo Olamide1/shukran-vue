@@ -194,6 +194,7 @@ export default {
             supporter_email: this.email,
             creator: this.username,
             creator_id: this.userinfos[0]._id,
+            creator_email: this.userinfos[0].email,
             name: `${this.email}-shukraning-${this.userinfos[0]._id}`, // using email & _id is surety
          }, {
          cancelToken: source.token

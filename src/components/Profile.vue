@@ -17,7 +17,7 @@
         <ul class="uk-navbar-nav">
             <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
             <li>
-              <router-link to="/subscribers">Subscribers</router-link>
+              <router-link to="/subscribers">Shuclan</router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
             <li>

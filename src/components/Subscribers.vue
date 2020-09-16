@@ -391,6 +391,7 @@ export default {
           console.log("message sent?", res);
           this.message = '', this.message_subject = '';
           UIkit.modal('#send-message').hide();
+          alert('Message sent!')
         })
         .catch(err => {
           // tell them to try again later // later on, we'll be trying for them
