@@ -399,21 +399,21 @@ export default {
           .from(
             this.tempCurr
               ? this.tempCurr
-              : "NGN" // localStorage.getItem("shukran-country-currency")
+              : localStorage.getItem("shukran-country-currency")
           ).to(this.currency);
         
         this.tipWithdrawn = fx(this.tipWithdrawn)
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                : localStorage.getItem("shukran-country-currency")
             ).to(this.currency);
         
         this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                : localStorage.getItem("shukran-country-currency")
             ).to(this.currency));
             
         switch (this.currency) {
@@ -484,21 +484,21 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                : localStorage.getItem("shukran-country-currency")
             ).to(this.currency);
 
           this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                : localStorage.getItem("shukran-country-currency")
             ).to(this.currency);
           
           this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                : localStorage.getItem("shukran-country-currency")
             ).to(this.currency));
 
           switch (this.currency) {

@@ -489,9 +489,29 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                : localStorage.getItem("shukran-country-currency")
             ).to(this.currency);
-          this.tempCurr = this.currency;
+
+
+            this.subscribing_amounts = this.subscribing_amounts.map(amt => fx(amt) // convert all other tips
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            ).to(this.currency).toFixed(2));
+
+            for (let index = 0; index < this.subscribers.length; index++) {
+              let element = this.subscribers[index];
+              element.amount = fx(element.amount) // convert all other tips
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            ).to(this.currency).toFixed(2)
+            }
+
+    this.tempCurr = this.currency; // must be last
+      
     },
     logout() {
       sessionStorage.clear();

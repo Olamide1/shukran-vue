@@ -284,7 +284,7 @@ export default {
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
                amount: parseInt(amount) * 100,
-               currency: "NGN",
+               currency: localStorage.getItem("shukran-country-currency"),
                channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
                metadata: {
                   custom_fields: [
@@ -363,7 +363,7 @@ export default {
                      if (response.currency === "KES") { // we can do more
                         amount = parseFloat(amount) * 3.55
                      } else if (response.currency === "USD") {
-                        amount = parseFloat(amount) * 450
+                        amount = parseFloat(amount) * 380
                      }
                      
                      axios.post(process.env.BASE_URL + '/api/createtransaction/', {
