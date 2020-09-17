@@ -162,7 +162,7 @@ export default {
     getSubs(){
       axios.get(process.env.BASE_URL + '/api/getsubscriptions/')
       .then((res) => {
-         console.log('ress',res);
+         //console.log('ress',res);
          this.subscriptions = res.data.data; 
       });
     },
@@ -181,7 +181,7 @@ export default {
             } else {
                source.cancel('Can\'t make more than one reqeust');
             }
-            console.log(config)
+            //console.log(config)
             return config;
          }, function (error) {
             // Do something with request error
@@ -199,12 +199,12 @@ export default {
          }, {
          cancelToken: source.token
          }).then(res => { // set the subscription/payment plan ID
-            console.log('good subscription', res)
+            //console.log('good subscription', res)
             this.paymentID = res.data
          }).catch(err => {
-            console.log('bad subscription', err)
+            //console.log('bad subscription', err)
          }).finally(() => {
-            console.log('we\'re getting the payment plan id')
+            // console.log('we\'re getting the payment plan id')
          })
 
        }
@@ -220,7 +220,7 @@ export default {
          this.image = res.data[0].picture_id
          this.userinfos = res.data
       }).catch( err => {
-         console.log('!!', err)
+         // console.log('!!', err)
       })
       },
       getUrl(link){
@@ -246,12 +246,10 @@ export default {
          }
       },
       love() {
-         console.log('isSubscribing:', this.isSubscribing)
-         console.log('Subs:', this.subscriptions)
          if (this.isSubscribing) {
             try { // if it can't get id, it throws error, we so create a new subscirtpion plan
                this.paymentID = this.subscriptions.find(ele => ele.status === "active" && ele.amount === this.amount).id
-               console.log('teh payament id', this.paymentID)
+               // console.log('teh payament id', this.paymentID)
             } catch(err) { // call fun to create new subscription
 
             }
@@ -264,7 +262,7 @@ export default {
          localStorage.setItem('shukran-supporter-email', this.email);
          // localStorage.setItem('shukran-supporter-phone', this.phone);
          
-         // ---optimize re-assignments//
+         // optimize re-assignments//
           let email = this.email
           let username = this.username
           let supporter_nickname = this.nickname
@@ -374,12 +372,11 @@ export default {
                         amount: amount,
                         message: message,
                         status: 'received',
-                        currency: "NGN",
+                        currency: currency,
                         tx_ref: response.tx_ref,
                         email: user_email
                      }).then(res => {
-                        console.log('tipped')
-                        console.info('tipped')
+                        // console.info('tipped')
                         if (redirect == undefined) {
                            this.$router.push('/thanks');
                         } else {
@@ -388,8 +385,7 @@ export default {
                         }).catch(err => {
                            this.tipbtn = 'Tip'
                            this.issue = err
-                           console.log(err)
-                           console.error(err)
+                           // console.error(err)
                         })
                   } else {
                      
