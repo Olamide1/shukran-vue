@@ -434,19 +434,24 @@ export default {
           });
 
     },
-    getSubscribers() {
+    getSubscribers() { // here also gets total revenue
       axios.get(process.env.BASE_URL + "/api/getsubscribers/", {
             params: {
               id: this.profiles[0]._id,
               username: this.profiles[0].username,
             }
           }).then(response => {
-            console.log('how many subscribers', response);
+            // console.log('how many subscribers', response);
+            for (let index = 0; index < response.data.length; index++) {
+              const element = response.data[index];
+              this.totalRevenue += fx(element.amount) // convert all other amounts
+              .from(element.currency).to(this.currency);
+            }
             this.subscribers = response.data;
             this.subscribing_amounts = [...new Set(this.subscribers.map(sub => sub.amount))]
           })
           .catch(error => {
-            console.log('baddd getsubscribers', error);
+            // console.log('baddd getsubscribers', error);
           })
           .then(() => { // always executed
           });
@@ -487,25 +492,6 @@ export default {
                 : "NGN" // localStorage.getItem("shukran-country-currency")
             ).to(this.currency);
           this.tempCurr = this.currency;
-    },
-    getTotalRevenue() {
-      axios.get(process.env.BASE_URL + "/api/gettotalrevenue/", {
-            params: {
-              id: this.profiles[0]._id,
-              username: this.profiles[0].username,
-            }
-          }).then(response => {
-            for (let index = 0; index < response.data.length; index++) {
-              const element = response.data[index];
-              this.totalRevenue += fx(element.data.amount) // convert all other amounts
-              .from(element.data.currency).to(this.currency);
-            }
-          })
-          .catch(error => {
-            console.log('baddd totoal revenue', error);
-          })
-          .then(() => { // always executed
-          });
     },
     logout() {
       sessionStorage.clear();
@@ -619,7 +605,6 @@ export default {
     // this.rates(); // so we don't do it on currency change
     this.getSupporters(); // should we call this? peep comment in it's definitino
     this.getSubscribers();
-    this.getTotalRevenue();
   },
   beforeMount() {
     this.getCountryData();
