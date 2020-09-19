@@ -574,7 +574,14 @@ export default {
     
     bankUpdate() {
       var id = this.id;
-      var bank = this.profiles[0].bank;
+      // hot fix, pre-set bank if country_code is KE
+      let bank;
+      if (this.country_code == 'KE') {
+        bank = this.profiles[0].bank = JSON.parse(sessionStorage.getItem('profile')).bank = 'MPESA'
+      } else {
+        bank = this.profiles[0].bank;
+      }
+      
       var account_name = this.profiles[0].account_name;
       var account_number = this.profiles[0].account_number;
       this.savebtnTwo = "saving...";

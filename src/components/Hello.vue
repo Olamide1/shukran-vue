@@ -147,7 +147,7 @@ export default {
            username: this.username.toLowerCase().trim()
         }).then(res => {
           if (res.data.length >= 1) {
-            console.log('username taken')
+              // console.log('username taken')
               this.issue = 'Username already taken...'
               this.signupbtn = 'Signup'
           } else {
@@ -159,7 +159,7 @@ export default {
             }).then(res => {
               this.signupbtn = 'Signup'
               if (res.data.message == "User's email exist") {
-                console.log('cannot register')
+                // console.log('cannot register')
                 this.issue = "User's email exist"
               } else {
                 console.log('registered')
@@ -169,7 +169,7 @@ export default {
                 this.$router.push('/profile')
               }
             }).catch( error => {
-              console.log(error)
+              // console.log(error)
             })
           }
         }).catch( err => {
