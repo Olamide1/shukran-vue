@@ -375,7 +375,7 @@ export default {
           sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // update session too
         })
         .catch(error => {
-          console.log("error occured uploading", error);
+          // console.log("error occured uploading", error);
         });
     },
     sendMsg() {
@@ -388,14 +388,14 @@ export default {
           message_subject: this.message_subject
         }).then(res => {
           this.message_status = 'Sent';
-          console.log("message sent?", res);
+          // console.log("message sent?", res);
           this.message = '', this.message_subject = '';
           UIkit.modal('#send-message').hide();
           alert('Message sent!')
         })
         .catch(err => {
           // tell them to try again later // later on, we'll be trying for them
-          console.log("send message err", err);
+          // console.log("send message err", err);
         });
     },
     fetchConversionDataAndUpdate() {
@@ -424,11 +424,11 @@ export default {
             }
           })
           .then(response => {
-            console.log('how many', response.data.length);
+            // console.log('how many', response.data.length);
             this.uniqueSupporters = response.data.length
           })
           .catch(error => {
-            console.log('baddd', error);
+            // console.log('baddd', error);
           })
           .then(() => { // always executed
           });
@@ -533,7 +533,7 @@ export default {
       bar2.style.display = 'flex';
       axios.post(process.env.BASE_URL + "/api/update/", formData, {
           onUploadProgress: progressEvent => {
-            console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
+            // console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
             bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
             if (progressEvent.loaded / progressEvent.total == 1) {
               bar1.style.display = bar2.style.display = 'none';
