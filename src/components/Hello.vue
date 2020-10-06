@@ -31,7 +31,8 @@
       </div>
     </div>
     <div class="uk-card-footer" align="center">
-        <a @click="loginbutton = false" class="uk-button-text">Sign Up</a>
+        <a @click="loginbutton = false" class="uk-button-text">Sign Up</a> | 
+        <router-link to="/resetpassword">Reset Password</router-link>
     </div>
   </div>
 
@@ -66,8 +67,7 @@
           <p style="color: #ff5976;">{{issue}}</p>
         <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="signup">{{signupbtn}}</button>
         <div class="uk-card-footer">
-        <a @click="loginbutton = true" class="uk-button-text">Login</a> | 
-        <router-link to="/resetpassword">Reset Password</router-link>
+        <a @click="loginbutton = true" class="uk-button-text">Login</a>
       </div>
       </div>
       
