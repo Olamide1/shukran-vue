@@ -646,7 +646,7 @@ export default {
 
 .uk-icon-button.send-message-all {
     background: #e46067;
-    color: #000;
+    color: #212121;
 }
 .total-revenue {
   display: flex;
