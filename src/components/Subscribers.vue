@@ -237,7 +237,7 @@
                     <ul uk-accordion v-if="this.subscribing_amounts.length > 0">
                         <li class="uk-open" v-for="(sub_amount, index) in this.subscribing_amounts"
                         :key="index">
-                            <a class="uk-accordion-title" href="#">{{currencySymbol}}{{sub_amount}} <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span></a>
+                            <a class="uk-accordion-title" href="#">{{currencySymbol}}{{sub_amount.toFixed(2)}} <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span></a>
                             <div class="uk-accordion-content">
                                 <ul class="uk-list uk-list-striped">
                                     <li v-for="(sub, index) in subscribers.filter(s => s.amount == sub_amount)"
@@ -413,7 +413,9 @@ export default {
             JSON.stringify(data)
           );
         }).then(ex)
-        .catch(err => console.error("fetch ex rates err", err));
+        .catch(err => {
+          // console.error("fetch ex rates err", err)
+        });
     },
     getSupporters() {
         // Optionally the request above could also be done as
@@ -446,8 +448,14 @@ export default {
               const element = response.data[index];
               this.totalRevenue += fx(element.amount) // convert all other amounts
               .from(element.currency).to(this.currency);
+
+              // crucial part
+              
+              element.amount = fx(element.amount) // convert all other amounts
+              .from(element.currency).to(this.currency);
             }
             this.subscribers = response.data;
+
             this.subscribing_amounts = [...new Set(this.subscribers.map(sub => sub.amount))]
           })
           .catch(error => {
@@ -498,7 +506,7 @@ export default {
               this.tempCurr
                 ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency")
-            ).to(this.currency).toFixed(2));
+            ).to(this.currency));
 
             for (let index = 0; index < this.subscribers.length; index++) {
               let element = this.subscribers[index];
@@ -507,7 +515,7 @@ export default {
               this.tempCurr
                 ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency")
-            ).to(this.currency).toFixed(2)
+            ).to(this.currency)
             }
 
     this.tempCurr = this.currency; // must be last
