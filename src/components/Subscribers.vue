@@ -201,8 +201,8 @@
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
                   <div class="sub-list-header">
                     <h3 class="uk-card-title"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span> list</h3>
-                    <!-- This is a button toggling the modal -->
-                    <a class="uk-icon-button" uk-icon="file-edit" data-uk-tooltip title="Send an email message to all your subscribers. Make an announcement or send your love!" href="#send-message" uk-toggle></a>
+                    <!-- The button toggling the message modal -->
+                    <a class="uk-icon-button send-message-all" uk-icon="file-edit" data-uk-tooltip title="Send an email message to all your subscribers. Make an announcement or send your love!" href="#send-message" uk-toggle></a>
                   </div>
                   <div class="total-revenue">
                     <h4 class="uk-heading-small">{{currencySymbol}}{{totalRevenue.toFixed(2)}}</h4>
@@ -217,7 +217,7 @@
                               <input class="uk-input" type="text" v-model="message_subject" placeholder="Subject">
                           </div>
                           <div class="uk-margin">
-                              <textarea class="uk-textarea" v-model="message" rows="5" placeholder="Send your subscribers a message"></textarea>
+                              <textarea class="uk-textarea" v-model="message" rows="5" placeholder="Type your message. All your shuclans will receive this message."></textarea>
                           </div>
                           <p class="uk-text-right">
                               <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
@@ -644,6 +644,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.uk-icon-button.send-message-all {
+    background: #e46067;
+    color: #000;
+}
 .total-revenue {
   display: flex;
   align-items: baseline;
