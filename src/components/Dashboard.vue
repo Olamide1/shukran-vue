@@ -784,6 +784,7 @@ export default {
         username: this.username,
         email: this.profiles[0].email,
       });
+      analytics.track('Account Accessed',{  authentication:'Login'})
     },
     getId() {
       let username = this.username;
