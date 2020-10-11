@@ -257,6 +257,9 @@ export default {
       },
       save() {
          // [optimize] save their email & nickname & phone number for later autofilling
+
+         analytics.identify(this.email ,{  nickname: this.nickname});
+         analytics.track('Tipping Creator',{  authentication:'Tipped creator'})
    
          localStorage.setItem('shukran-supporter-nickname', this.nickname);
          localStorage.setItem('shukran-supporter-email', this.email);

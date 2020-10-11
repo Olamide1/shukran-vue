@@ -275,7 +275,7 @@
               <!-- Total revenue end -->
 
               <!-- Uncomment for next feature -->
-              <!-- <div>
+              <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                   
                   <div class="sub-list-header cont-list-header">
@@ -294,7 +294,7 @@
                     </ul>
                   </div>
                 </div>
-              </div> -->
+              </div>
 
         </div>
 
@@ -363,7 +363,7 @@ export default {
   },
   methods: {
     addFile() {
-// this.selectedFile = event.target.files[0]
+      // this.selectedFile = event.target.files[0]
       let formData = new FormData();
       formData.append("creator_id", this.profiles[0]._id);
       formData.append("file", event.target.files[0]);

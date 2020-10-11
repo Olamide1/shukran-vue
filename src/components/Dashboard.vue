@@ -779,6 +779,11 @@ export default {
       if (this.username == null) {
         this.$router.push("/accounts");
       }
+
+      analytics.identify(this.profiles[0]._id, {
+        username: this.username,
+        email: this.profiles[0].email,
+      });
     },
     getId() {
       let username = this.username;

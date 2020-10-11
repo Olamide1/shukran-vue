@@ -166,6 +166,10 @@ export default {
                 sessionStorage.setItem('username', res.data.username)
                 sessionStorage.setItem('id', res.data._id)
                 sessionStorage.setItem('profile', JSON.stringify(res.data))
+
+                analytics.identify(res.data._id ,{  email: res.data.email});
+                analytics.track('Account Created',{  authentication:'Signup'})
+
                 this.$router.push('/profile')
               }
             }).catch( error => {
