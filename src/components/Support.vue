@@ -364,7 +364,7 @@ export default {
 
                   if (response.status == "successful") {
                      if (response.currency === "KES") { // we can do more
-                        amount = parseFloat(amount) * 3.55
+                        amount = parseFloat(amount) * 4.4
                      } else if (response.currency === "USD") {
                         amount = parseFloat(amount) * 380
                      }
@@ -375,7 +375,7 @@ export default {
                         amount: amount,
                         message: message,
                         status: 'received',
-                        currency: currency,
+                        currency: "NGN", // currency
                         tx_ref: response.tx_ref,
                         email: user_email
                      }).then(res => {

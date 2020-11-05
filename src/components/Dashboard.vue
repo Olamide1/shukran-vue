@@ -355,7 +355,7 @@ export default {
       allTips: [], // optimise this later
       tipsDates: [],
       currency: !localStorage.getItem("shukran-country-currency") ? "NGN" : localStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
-      tempCurr: "",
+      tempCurr: "NGN", // cause they come as this
       payoutGuard: 1000, // 1000 naira
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
@@ -398,22 +398,22 @@ export default {
         this.tipTotal = fx(this.tipTotal)
           .from(
             this.tempCurr
-              ? this.tempCurr
-              : localStorage.getItem("shukran-country-currency")
+              /* ? this.tempCurr
+              : localStorage.getItem("shukran-country-currency") */
           ).to(this.currency);
         
         this.tipWithdrawn = fx(this.tipWithdrawn)
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
         
         this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
             
         switch (this.currency) {
@@ -483,22 +483,22 @@ export default {
           this.tipTotal = fx(this.tipTotal) // convert tip total
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
 
           this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
           
           this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
 
           switch (this.currency) {
@@ -518,7 +518,7 @@ export default {
               .to(this.currency); */
 
           this.tempCurr = this.currency;
-
+          console.log('did conversion after ...');
           // this.tipsChart.update(); // updates the chart
           
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
@@ -650,7 +650,7 @@ export default {
           status: "received"
         })
         .then(res => {
-          // console.log("loadTransactions done"); // do the currency conversion here.
+          console.log("loadTransactions done", res); // do the currency conversion here.
           this.transactions = res.data;
           for (let i = 0; i < this.transactions.length; i++) {
             this.tipTotal += parseInt(this.transactions[i].amount);
@@ -672,7 +672,7 @@ export default {
         .catch(err => {
           console.error(err, err.code);
         });
-      // console.log(`hey ${username} what you doing looking on here? caret to tell us? all@useshukran.com`)
+      // console.log(`hey ${username} what you doing looking on here? care to tell us? all@useshukran.com`)
     },
     loadWithdrawn() {
       let username = this.username;
@@ -682,21 +682,32 @@ export default {
           status: "paid"
         })
         .then(res => {
-          // console.log("loadWithdrawn done");
+          console.log("loadWithdrawn done", res);
           this.withdrawals = res.data;
           for (let i = 0; i < this.withdrawals.length; i++) {
             this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
           }
+          console.log('first withdrawn', this.tipWithdrawn);
+        }).then(() => {
+          // this.rates();
+          this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
+            .from("NGN").to(this.currency);
+          console.log('tip withdrawn', this.tipWithdrawn);
         })
         .catch(err => {
           // console.log(err);
         });
     },
-    withdrawRequest() { // convert amount to naira, we payout in naira
-
-      let amount = fx(this.amount)
+    withdrawRequest() { // convert to naira
+      /* let amount = fx(this.amount)
             .from(this.currency)
-            .to("NGN");
+            .to("NGN"); */
+      let amount = this.amount;
+      if (this.currency === "KES") { // we can do more
+        amount = parseFloat(this.amount) * 4.4
+      } else if (this.currency === "USD") {
+        amount = parseFloat(this.amount) * 380
+      }
 
       let username = this.username;
       // let amount = this.amount;

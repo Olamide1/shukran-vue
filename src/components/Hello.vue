@@ -16,11 +16,11 @@
     </div>
     <div class="uk-card-body">
       <div class="uk-margin">
-        <input class="uk-input uk-border-rounded" v-on:keyup.enter="login" data-uk-tooltip title="Your username, NOT email." v-model="username" type="text" placeholder="Username">
+        <input class="uk-input uk-border-rounded" name="username" v-on:keyup.enter="login" data-uk-tooltip title="Your username, NOT email." v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-         <input v-on:keyup.enter="login" data-uk-tooltip title="***** or NOT" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
+         <input v-on:keyup.enter="login" name="password" data-uk-tooltip title="***** or NOT" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
         </div>
       </div>

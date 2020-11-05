@@ -237,12 +237,14 @@
                     <ul uk-accordion v-if="this.subscribing_amounts.length > 0">
                         <li class="uk-open" v-for="(sub_amount, index) in this.subscribing_amounts"
                         :key="index">
-                            <a class="uk-accordion-title" href="#">{{currencySymbol}}{{sub_amount.toFixed(2)}} <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span></a>
+                            <a class="uk-accordion-title" href="#">
+                              <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span> paying {{currencySymbol}}{{sub_amount.toFixed(2)}}
+                            </a>
                             <div class="uk-accordion-content">
                                 <ul class="uk-list uk-list-striped">
                                     <li v-for="(sub, index) in subscribers.filter(s => s.amount == sub_amount)"
                                       :key="index">
-                                      {{sub.name.split('-', 1)[0]}}
+                                      {{sub.customer.customer_email}}
                                       <p><small>Subscribed {{new Date(
                                                   sub.created_at
                                                 ).toLocaleDateString("en-GB", {
@@ -275,7 +277,7 @@
               <!-- Total revenue end -->
 
               <!-- Uncomment for next feature -->
-              <div>
+              <!-- <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                   
                   <div class="sub-list-header cont-list-header">
@@ -294,7 +296,7 @@
                     </ul>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
         </div>
 
@@ -366,16 +368,18 @@ export default {
       // this.selectedFile = event.target.files[0]
       let formData = new FormData();
       formData.append("creator_id", this.profiles[0]._id);
+      formData.append("username", this.profiles[0].username);
+      formData.append("folder_id", this.profiles[0].folder_id); // done ?
       formData.append("file", event.target.files[0]);
-      // console.log(event.target.files);
       
-      axios.post(process.env.BASE_URL + "/api/update/", formData)
+      axios.post(process.env.BASE_URL + "/api/createcontent/", formData)
         .then(res => {
-          this.profiles[0].picture_id = res.data;
-          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // update session too
+          console.log('new user', res)
+          this.profiles[0] = res.data;
+          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // TODO: update session differently, update the files that creators have uploaded...
         })
         .catch(error => {
-          // console.log("error occured uploading", error);
+          console.log("error occured uploading", error);
         });
     },
     sendMsg() {
@@ -399,7 +403,6 @@ export default {
         });
     },
     fetchConversionDataAndUpdate() {
-      
       // hide app_id
       fetch(
         `https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`
@@ -436,6 +439,26 @@ export default {
           });
 
     },
+    getTotalRevenue() {
+      axios.get(process.env.BASE_URL + "/api/gettotalrevenue/", {
+            params: {
+              id: this.profiles[0]._id,
+            }
+          }).then(response => {
+            // when we pay out someone, how are we do we balance?
+            // same logic for subscription
+            console.log('how many revenue', response);
+            for (let index = 0; index < response.data.length; index++) {
+              const element = response.data[index];
+              this.totalRevenue += fx(element.data.amount) // convert all other amounts
+              .from('NGN').to(this.currency);
+            }
+
+          })
+          .catch(error => {
+            console.log('not gtr', error);
+          })
+    },
     getSubscribers() { // here also gets total revenue
       axios.get(process.env.BASE_URL + "/api/getsubscribers/", {
             params: {
@@ -443,23 +466,21 @@ export default {
               username: this.profiles[0].username,
             }
           }).then(response => {
-            // console.log('how many subscribers', response);
+            // when we pay out someone, how are we do we balance?
+            // same logic for subscription?
+            console.log('how many subscribers', response);
             for (let index = 0; index < response.data.length; index++) {
               const element = response.data[index];
-              this.totalRevenue += fx(element.amount) // convert all other amounts
-              .from(element.currency).to(this.currency);
 
-              // crucial part
-              
               element.amount = fx(element.amount) // convert all other amounts
-              .from(element.currency).to(this.currency);
+              .from('NGN').to(this.currency);
             }
             this.subscribers = response.data;
 
-            this.subscribing_amounts = [...new Set(this.subscribers.map(sub => sub.amount))]
+            this.subscribing_amounts = [...new Set(this.subscribers.map(sub => sub.amount))];
           })
           .catch(error => {
-            // console.log('baddd getsubscribers', error);
+            console.log('bad get subscribers', error);
           })
           .then(() => { // always executed
           });
@@ -633,6 +654,7 @@ export default {
     // this.rates(); // so we don't do it on currency change
     this.getSupporters(); // should we call this? peep comment in it's definitino
     this.getSubscribers();
+    this.getTotalRevenue();
   },
   beforeMount() {
     this.getCountryData();
