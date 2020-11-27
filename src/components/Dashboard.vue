@@ -281,9 +281,160 @@
             <!-- table -->
             <div>
               <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-                <h3 class="uk-card-title">Tip details. <span v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</span></h3>
+                <div>
 
-                <div class="tippers-table">
+                  <div class="tip-details-header-section uk-flex uk-flex-between">
+                    <span>
+                      Tip details.
+                    </span>
+                    <ul class="uk-pagination uk-flex-right" uk-margin>
+                        <li><a href="#"><span uk-pagination-previous></span></a></li>
+                        <li><a href="#">1</a></li>
+                        <li class="uk-disabled"><span>...</span></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">6</a></li>
+                        <li class="uk-active"><span>7</span></li>
+                        <li><a href="#">8</a></li>
+                        <li><a href="#"><span uk-pagination-next></span></a></li>
+                    </ul>
+                  </div>
+                  
+                  <h1 class="uk-heading-small" v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</h1>
+                  
+                </div>
+                
+                <ul class="uk-list uk-list-divider">
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li><li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right" v-for="(transaction, index) in transactions" :key="index">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}<!-- {{transaction.amount}} --> from {{ transaction.supporter_nickname }}</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">
+                            {{ transaction.message.length === 0 ? "" : transaction.message.endsWith('.') ? transaction.message + ' &#8212;' : transaction.message.concat('.') + ' &#8212;' }} 
+                             
+                            <time :datetime="transaction.transaction_date">
+                              {{new Intl.DateTimeFormat("en" , {
+                                dateStyle: "long"
+                              }).format(new Date(transaction.transaction_date))}}
+                            </time>
+                          </p>
+                      </div>
+                    </li>
+                </ul>
+                
+                <!-- <div class="tippers-table">
                   <table class="uk-table uk-table-middle uk-table-divider">
                     <thead>
                       <tr>
@@ -298,12 +449,12 @@
                         :key="index"
                       >
                         <td>{{transaction.supporter_nickname}}</td>
-                        <td>{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}<!-- {{transaction.amount}} --></td>
+                        <td>{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}</td>
                         <td>{{transaction.message}}</td>
                       </tr>
                     </tbody>
                   </table>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- //table -->
@@ -356,7 +507,7 @@ export default {
       tipsDates: [],
       currency: !localStorage.getItem("shukran-country-currency") ? "NGN" : localStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
       tempCurr: "NGN", // cause they come as this
-      payoutGuard: 1000, // 1000 naira
+      payoutGuard: 1000, // 1000 NGN
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
       amount: 0,
@@ -408,7 +559,8 @@ export default {
                 /* ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
-        
+
+        // convert transaction.amount too... to use in tip div
         this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
@@ -526,6 +678,9 @@ export default {
         }
         // console.log('all tips', this.allTips)
       }
+
+      // re-render, the whole page, to update the graph
+      this.$forceUpdate();
     },
     getSupporters() {
         // Optionally the request above could also be done as
@@ -857,6 +1012,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.tip-details-header-section > ul {
+  margin-top: 0px;
+}
 /** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
 .top-nav-progress-bar {
   display: none;

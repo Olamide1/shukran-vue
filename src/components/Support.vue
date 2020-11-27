@@ -29,6 +29,33 @@
     </div>
 </div>
 
+<!-- -->
+<div class="uk-child-width-1-2@m" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+                <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
+            </div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">Media Top</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">Media Bottom</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+            </div>
+            <div class="uk-card-media-bottom">
+                <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -->
+
    <!-- mobile view -->
    <div class="uk-card uk-card-default uk-width-1-2@m show-mobile-only">
     <div class="uk-card-header">

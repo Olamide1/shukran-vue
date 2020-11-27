@@ -277,7 +277,7 @@
               <!-- Total revenue end -->
 
               <!-- Uncomment for next feature -->
-              <!-- <div>
+              <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                   
                   <div class="sub-list-header cont-list-header">
@@ -289,14 +289,28 @@
                   </div>
 
                   <div class="">
-                    <ul class="uk-list uk-list-striped">
-                        <li>List item 1</li>
-                        <li>List item 2</li>
-                        <li>List item 3</li>
+                    <ul class="uk-list uk-list-striped" v-if="this.profiles[0].content && this.profiles[0].content.length > 0">
+                        <li v-for="(content) in this.profiles[0].content" :key="content.created_at">
+                          <div class="uk-grid-small uk-flex-middle" uk-grid>
+                              <div class="uk-width-auto">
+                                  <span :uk-icon="contentIcon(content.file_type)"></span>
+                              </div>
+                              <div class="uk-width-expand">
+                                  <h5 class="uk-margin-remove-bottom">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
+                                  <p class="uk-text-meta uk-margin-remove-top">Added <time :datetime="content.created_at">
+                                    {{new Intl.DateTimeFormat("en" , {
+                                      dateStyle: "long"
+                                    }).format(new Date(content.created_at))}}</time></p>
+                              </div>
+                          </div>
+                        </li>
                     </ul>
+                    <div v-else>
+                      No <span uk-tooltip="You can upload materials that'll only be accessible to your Shuklans">uploads</span> yet
+                    </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
 
         </div>
 
@@ -310,6 +324,7 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+import Vue from "vue";
 export default {
   name: "subscribers",
   data() {
@@ -376,11 +391,68 @@ export default {
         .then(res => {
           console.log('new user', res)
           this.profiles[0] = res.data;
+          // this.$set(this.profiles[0], res.data);
+          this.$forceUpdate() // forces the DOM to re-render
           sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // TODO: update session differently, update the files that creators have uploaded...
         })
         .catch(error => {
           console.log("error occured uploading", error);
         });
+    },
+    contentIcon: function(mime) {
+      switch (mime) {
+        case "image/jpeg":
+        case 'image/gif':
+        case 'image/jpg':
+        case 'image/png':
+        case 'image/tiff':
+        case 'image/vnd.wap.wbmp':
+        case 'image/x-icon':
+        case 'image/x-jng':
+        case 'image/x-ms-bmp':
+        case 'image/svg+xml':
+        case 'image/webp':
+          return "icon: image";
+          break;
+        case "application/msword":
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+        case "application/rtf":
+          return "icon: file-text";
+          break;
+        case "application/pdf":
+          return "icon: file-pdf";
+          break;
+        case "video/webm":
+        case "video/3gpp2":
+        case "video/3gpp":
+        case "video/mp2t":
+        case "video/ogg":
+        case "video/x-msvideo":
+        case "video/mpeg":
+          return "icon: play-circle";
+          break;
+        case "audio/mpeg":
+        case "audio/3gpp2":
+        case "audio/3gpp":
+        case "audio/webm":
+        case "audio/wav":
+        case "audio/acc":
+        case "audio/ogg":
+        case "audio/opus":
+          return "icon: play";
+          break;
+        case "application/zip":
+        case "application/x-7z-compressed":
+        case "application/vnd.rar":
+        case "application/x-bzip2":
+        case "application/x-bzip":
+          return "icon: album";
+          break;
+        default:
+          return "icon: file";
+          break;
+      }
     },
     sendMsg() {
       this.message_status = 'Sending...';
