@@ -191,7 +191,7 @@
             <p class="caps has-text-primary">Who uses Shukran?</p>
             <h2>Creators of all kinds</h2>
             <p class="subtitle">
-              From Podcasters, Musicians ,Bloggers, YouTubers, Writers, Poets, Digital Creators, Non-Profits, Communiites, Creators of all kinds.
+              From Podcasters, Musicians ,Bloggers, YouTubers, Writers, Poets, Digital Creators, Non-Profits, Communities, Creators of all kinds.
               </p>
             <p class="subtitle">Take on that next project.</p>
             <p class="subtitle">
@@ -246,7 +246,6 @@ With support from your audience, you'll be able to get ahead in your space and k
                 <h4 class="margin-bottom-small">While at it</h4>
                 <p>You can drop an encouraging message for the content creators you support. Tell them how they have impacted you or made you feel.</p>
                 <p>Trust us, that goes a long way too. #MoralSupport</p>
-                <p>By supporting content creators on Shukan, you become a key player in their creative process and a part of their success story. Get on it!</p>
               </div>
             </div>
           </div>
@@ -333,15 +332,15 @@ export default {
             craft_type: "STORYTELLER. WRITER WITH AN AFRICAN TWIST",
         create_date: "2020-08-22T17:59:12.371Z",
         picture_id: "1ZUR0ymW-jNHSjgeo-jYTOP0L0t9uQ1TY",
-        summary: "Hi there 👋👋. I have so many stories to tell. I just recently started putting them down on paper.  I am  learning as I go. And enjoying it thoroughly.",
+        summary: "Hi there 👋👋. I have so many stories to tell. I just recently started putting them down on paper. I am  learning as I go. And enjoying it thoroughly.",
         username: "wangarimuchui",
         country: 'ke'
         }, {
-        craft_type: "Comedian",
-        create_date: "2020-07-05T09:13:28.496Z",
-        picture_id: "1wj0BCAi5hGN9USx6NKrMUgZ1lSuvhlX0",
-        summary: "Thanks for always supporting the brand and having my back. Drop your name and I will reach out to you. Bless",
-        username: "josh2funny",
+        craft_type: "Author",
+        create_date: "2020-10-28T00:33:02.836+00:00",
+        picture_id: "1G1FcL-RBMMsnrPrTijQWd5cUYxMcrffi",
+        summary: "Receiving donations of #1000 or more for the XXVI book! The reviews are in... it is the next Best Seller! Get it while it's in stock!",
+        username: "pearlewae29",
         country: 'ng'
         }, {
             craft_type: "Digital media, Podcast on Digital skills and innovation",

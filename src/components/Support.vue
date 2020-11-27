@@ -29,6 +29,33 @@
     </div>
 </div>
 
+<!-- -->
+<div class="uk-child-width-1-2@m" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+                <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
+            </div>
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">Media Top</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-body">
+                <h3 class="uk-card-title">Media Bottom</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+            </div>
+            <div class="uk-card-media-bottom">
+                <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -->
+
    <!-- mobile view -->
    <div class="uk-card uk-card-default uk-width-1-2@m show-mobile-only">
     <div class="uk-card-header">
@@ -78,7 +105,7 @@
           <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
        <div v-show="parseInt(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
-          <label><input v-model="isSubscribing" @change="subbed" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <span class="cancel-sub" data-uk-tooltip title="An email with instructions would be sent to your email">Email us to cancel anytime</span> <!-- Starts from next month. --></label>
+          <label><input v-model="isSubscribing" @change="subbed" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <a class="cancel-sub" href="mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription for ... creator." data-uk-tooltip title="A message with instructions would be sent to your email">Email us to cancel anytime</a> <!-- Starts from next month. --></label>
            <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
        </div>
        <div class="uk-margin">
@@ -162,7 +189,7 @@ export default {
     getSubs(){
       axios.get(process.env.BASE_URL + '/api/getsubscriptions/')
       .then((res) => {
-         console.log('ress',res);
+         //console.log('ress',res);
          this.subscriptions = res.data.data; 
       });
     },
@@ -181,7 +208,7 @@ export default {
             } else {
                source.cancel('Can\'t make more than one reqeust');
             }
-            console.log(config)
+            //console.log(config)
             return config;
          }, function (error) {
             // Do something with request error
@@ -195,16 +222,17 @@ export default {
             creator_email: this.userinfos[0].email,
             creator: this.username,
             creator_id: this.userinfos[0]._id,
+            creator_email: this.userinfos[0].email,
             name: `${this.email}-shukraning-${this.userinfos[0]._id}`, // using email & _id is surety
          }, {
          cancelToken: source.token
          }).then(res => { // set the subscription/payment plan ID
-            console.log('good subscription', res)
+            //console.log('good subscription', res)
             this.paymentID = res.data
          }).catch(err => {
-            console.log('bad subscription', err)
+            //console.log('bad subscription', err)
          }).finally(() => {
-            console.log('we\'re getting the payment plan id')
+            // console.log('we\'re getting the payment plan id')
          })
 
        }
@@ -220,7 +248,7 @@ export default {
          this.image = res.data[0].picture_id
          this.userinfos = res.data
       }).catch( err => {
-         console.log('!!', err)
+         // console.log('!!', err)
       })
       },
       getUrl(link){
@@ -246,12 +274,10 @@ export default {
          }
       },
       love() {
-         console.log('isSubscribing:', this.isSubscribing)
-         console.log('Subs:', this.subscriptions)
          if (this.isSubscribing) {
             try { // if it can't get id, it throws error, we so create a new subscirtpion plan
                this.paymentID = this.subscriptions.find(ele => ele.status === "active" && ele.amount === this.amount).id
-               console.log('teh payament id', this.paymentID)
+               // console.log('teh payament id', this.paymentID)
             } catch(err) { // call fun to create new subscription
 
             }
@@ -259,12 +285,15 @@ export default {
       },
       save() {
          // [optimize] save their email & nickname & phone number for later autofilling
+
+         analytics.identify(this.email ,{  nickname: this.nickname});
+         analytics.track('Tipping Creator',{  authentication:'Tipped creator'})
    
          localStorage.setItem('shukran-supporter-nickname', this.nickname);
          localStorage.setItem('shukran-supporter-email', this.email);
          // localStorage.setItem('shukran-supporter-phone', this.phone);
          
-         // ---optimize re-assignments//
+         // optimize re-assignments//
           let email = this.email
           let username = this.username
           let supporter_nickname = this.nickname
@@ -286,7 +315,7 @@ export default {
                key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
                email: email,
                amount: parseInt(amount) * 100,
-               currency: "NGN",
+               currency: localStorage.getItem("shukran-country-currency"),
                channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
                metadata: {
                   custom_fields: [
@@ -363,9 +392,9 @@ export default {
 
                   if (response.status == "successful") {
                      if (response.currency === "KES") { // we can do more
-                        amount = parseFloat(amount) * 3.55
+                        amount = parseFloat(amount) * 4.4
                      } else if (response.currency === "USD") {
-                        amount = parseFloat(amount) * 450
+                        amount = parseFloat(amount) * 380
                      }
                      
                      axios.post(process.env.BASE_URL + '/api/createtransaction/', {
@@ -374,12 +403,11 @@ export default {
                         amount: amount,
                         message: message,
                         status: 'received',
-                        currency: "NGN",
+                        currency: "NGN", // currency
                         tx_ref: response.tx_ref,
                         email: user_email
                      }).then(res => {
-                        console.log('tipped')
-                        console.info('tipped')
+                        // console.info('tipped')
                         if (redirect == undefined) {
                            this.$router.push('/thanks');
                         } else {
@@ -388,8 +416,7 @@ export default {
                         }).catch(err => {
                            this.tipbtn = 'Tip'
                            this.issue = err
-                           console.log(err)
-                           console.error(err)
+                           // console.error(err)
                         })
                   } else {
                      

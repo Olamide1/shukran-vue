@@ -37,7 +37,7 @@
             <a>Get tipped</a>
           </li>
           <li>
-            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
           </li>
           <li>
             <router-link to="/profile">Profile</router-link>
@@ -133,7 +133,7 @@
               <router-link to="/dash">Dashboard</router-link>
             </li>
             <li>
-              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
             <div id="modal-center" class="uk-flex-top" uk-modal>
@@ -200,9 +200,9 @@
               <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
                   <div class="sub-list-header">
-                    <h3 class="uk-card-title"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span> list</h3>
-                    <!-- This is a button toggling the modal -->
-                    <a class="uk-icon-button" uk-icon="file-edit" data-uk-tooltip title="Send an email message to all your subscribers. Make an announcement or send your love!" href="#send-message" uk-toggle></a>
+                    <h3 class="uk-card-title"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span> list</h3>
+                    <!-- The button toggling the message modal -->
+                    <a class="uk-icon-button send-message-all" uk-icon="file-edit" data-uk-tooltip title="Send an email message to all your subscribers. Make an announcement or send your love!" href="#send-message" uk-toggle></a>
                   </div>
                   <div class="total-revenue">
                     <h4 class="uk-heading-small">{{currencySymbol}}{{totalRevenue.toFixed(2)}}</h4>
@@ -217,7 +217,7 @@
                               <input class="uk-input" type="text" v-model="message_subject" placeholder="Subject">
                           </div>
                           <div class="uk-margin">
-                              <textarea class="uk-textarea" v-model="message" rows="5" placeholder="Send your subscribers a message"></textarea>
+                              <textarea class="uk-textarea" v-model="message" rows="5" placeholder="Type your message. All your shuclans will receive this message."></textarea>
                           </div>
                           <p class="uk-text-right">
                               <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
@@ -237,12 +237,14 @@
                     <ul uk-accordion v-if="this.subscribing_amounts.length > 0">
                         <li class="uk-open" v-for="(sub_amount, index) in this.subscribing_amounts"
                         :key="index">
-                            <a class="uk-accordion-title" href="#">{{currencySymbol}}{{sub_amount}} <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">shuklans</span></a>
+                            <a class="uk-accordion-title" href="#">
+                              <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span> paying {{currencySymbol}}{{sub_amount.toFixed(2)}}
+                            </a>
                             <div class="uk-accordion-content">
                                 <ul class="uk-list uk-list-striped">
                                     <li v-for="(sub, index) in subscribers.filter(s => s.amount == sub_amount)"
                                       :key="index">
-                                      {{sub.name.split('-', 1)[0]}}
+                                      {{sub.customer.customer_email}}
                                       <p><small>Subscribed {{new Date(
                                                   sub.created_at
                                                 ).toLocaleDateString("en-GB", {
@@ -267,7 +269,7 @@
                         </li> -->
                     </ul>
                     <div v-else>
-                      No <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">shuklans</span> yet
+                      No <span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span> yet
                     </div>
                   </div>
                 </div>
@@ -275,7 +277,7 @@
               <!-- Total revenue end -->
 
               <!-- Uncomment for next feature -->
-              <!-- <div>
+              <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                   
                   <div class="sub-list-header cont-list-header">
@@ -287,14 +289,28 @@
                   </div>
 
                   <div class="">
-                    <ul class="uk-list uk-list-striped">
-                        <li>List item 1</li>
-                        <li>List item 2</li>
-                        <li>List item 3</li>
+                    <ul class="uk-list uk-list-striped" v-if="this.profiles[0].content && this.profiles[0].content.length > 0">
+                        <li v-for="(content) in this.profiles[0].content" :key="content.created_at">
+                          <div class="uk-grid-small uk-flex-middle" uk-grid>
+                              <div class="uk-width-auto">
+                                  <span :uk-icon="contentIcon(content.file_type)"></span>
+                              </div>
+                              <div class="uk-width-expand">
+                                  <h5 class="uk-margin-remove-bottom">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
+                                  <p class="uk-text-meta uk-margin-remove-top">Added <time :datetime="content.created_at">
+                                    {{new Intl.DateTimeFormat("en" , {
+                                      dateStyle: "long"
+                                    }).format(new Date(content.created_at))}}</time></p>
+                              </div>
+                          </div>
+                        </li>
                     </ul>
+                    <div v-else>
+                      No <span uk-tooltip="You can upload materials that'll only be accessible to your Shuklans">uploads</span> yet
+                    </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
 
         </div>
 
@@ -308,6 +324,7 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+import Vue from "vue";
 export default {
   name: "subscribers",
   data() {
@@ -363,20 +380,79 @@ export default {
   },
   methods: {
     addFile() {
-// this.selectedFile = event.target.files[0]
+      // this.selectedFile = event.target.files[0]
       let formData = new FormData();
       formData.append("creator_id", this.profiles[0]._id);
+      formData.append("username", this.profiles[0].username);
+      formData.append("folder_id", this.profiles[0].folder_id); // done ?
       formData.append("file", event.target.files[0]);
-      // console.log(event.target.files);
       
-      axios.post(process.env.BASE_URL + "/api/update/", formData)
+      axios.post(process.env.BASE_URL + "/api/createcontent/", formData)
         .then(res => {
-          this.profiles[0].picture_id = res.data;
-          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // update session too
+          console.log('new user', res)
+          this.profiles[0] = res.data;
+          // this.$set(this.profiles[0], res.data);
+          this.$forceUpdate() // forces the DOM to re-render
+          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // TODO: update session differently, update the files that creators have uploaded...
         })
         .catch(error => {
           console.log("error occured uploading", error);
         });
+    },
+    contentIcon: function(mime) {
+      switch (mime) {
+        case "image/jpeg":
+        case 'image/gif':
+        case 'image/jpg':
+        case 'image/png':
+        case 'image/tiff':
+        case 'image/vnd.wap.wbmp':
+        case 'image/x-icon':
+        case 'image/x-jng':
+        case 'image/x-ms-bmp':
+        case 'image/svg+xml':
+        case 'image/webp':
+          return "icon: image";
+          break;
+        case "application/msword":
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+        case "application/rtf":
+          return "icon: file-text";
+          break;
+        case "application/pdf":
+          return "icon: file-pdf";
+          break;
+        case "video/webm":
+        case "video/3gpp2":
+        case "video/3gpp":
+        case "video/mp2t":
+        case "video/ogg":
+        case "video/x-msvideo":
+        case "video/mpeg":
+          return "icon: play-circle";
+          break;
+        case "audio/mpeg":
+        case "audio/3gpp2":
+        case "audio/3gpp":
+        case "audio/webm":
+        case "audio/wav":
+        case "audio/acc":
+        case "audio/ogg":
+        case "audio/opus":
+          return "icon: play";
+          break;
+        case "application/zip":
+        case "application/x-7z-compressed":
+        case "application/vnd.rar":
+        case "application/x-bzip2":
+        case "application/x-bzip":
+          return "icon: album";
+          break;
+        default:
+          return "icon: file";
+          break;
+      }
     },
     sendMsg() {
       this.message_status = 'Sending...';
@@ -388,18 +464,17 @@ export default {
           message_subject: this.message_subject
         }).then(res => {
           this.message_status = 'Sent';
-          console.log("message sent?", res);
+          // console.log("message sent?", res);
           this.message = '', this.message_subject = '';
           UIkit.modal('#send-message').hide();
           alert('Message sent!')
         })
         .catch(err => {
           // tell them to try again later // later on, we'll be trying for them
-          console.log("send message err", err);
+          // console.log("send message err", err);
         });
     },
     fetchConversionDataAndUpdate() {
-      
       // hide app_id
       fetch(
         `https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`
@@ -413,7 +488,9 @@ export default {
             JSON.stringify(data)
           );
         }).then(ex)
-        .catch(err => console.error("fetch ex rates err", err));
+        .catch(err => {
+          // console.error("fetch ex rates err", err)
+        });
     },
     getSupporters() {
         // Optionally the request above could also be done as
@@ -424,29 +501,58 @@ export default {
             }
           })
           .then(response => {
-            console.log('how many', response.data.length);
+            // console.log('how many', response.data.length);
             this.uniqueSupporters = response.data.length
           })
           .catch(error => {
-            console.log('baddd', error);
+            // console.log('baddd', error);
           })
           .then(() => { // always executed
           });
 
     },
-    getSubscribers() {
+    getTotalRevenue() {
+      axios.get(process.env.BASE_URL + "/api/gettotalrevenue/", {
+            params: {
+              id: this.profiles[0]._id,
+            }
+          }).then(response => {
+            // when we pay out someone, how are we do we balance?
+            // same logic for subscription
+            console.log('how many revenue', response);
+            for (let index = 0; index < response.data.length; index++) {
+              const element = response.data[index];
+              this.totalRevenue += fx(element.data.amount) // convert all other amounts
+              .from('NGN').to(this.currency);
+            }
+
+          })
+          .catch(error => {
+            console.log('not gtr', error);
+          })
+    },
+    getSubscribers() { // here also gets total revenue
       axios.get(process.env.BASE_URL + "/api/getsubscribers/", {
             params: {
               id: this.profiles[0]._id,
               username: this.profiles[0].username,
             }
           }).then(response => {
+            // when we pay out someone, how are we do we balance?
+            // same logic for subscription?
             console.log('how many subscribers', response);
+            for (let index = 0; index < response.data.length; index++) {
+              const element = response.data[index];
+
+              element.amount = fx(element.amount) // convert all other amounts
+              .from('NGN').to(this.currency);
+            }
             this.subscribers = response.data;
-            this.subscribing_amounts = [...new Set(this.subscribers.map(sub => sub.amount))]
+
+            this.subscribing_amounts = [...new Set(this.subscribers.map(sub => sub.amount))];
           })
           .catch(error => {
-            console.log('baddd getsubscribers', error);
+            console.log('bad get subscribers', error);
           })
           .then(() => { // always executed
           });
@@ -484,28 +590,29 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                : localStorage.getItem("shukran-country-currency")
             ).to(this.currency);
-          this.tempCurr = this.currency;
-    },
-    getTotalRevenue() {
-      axios.get(process.env.BASE_URL + "/api/gettotalrevenue/", {
-            params: {
-              id: this.profiles[0]._id,
-              username: this.profiles[0].username,
+
+
+            this.subscribing_amounts = this.subscribing_amounts.map(amt => fx(amt) // convert all other tips
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            ).to(this.currency));
+
+            for (let index = 0; index < this.subscribers.length; index++) {
+              let element = this.subscribers[index];
+              element.amount = fx(element.amount) // convert all other tips
+            .from(
+              this.tempCurr
+                ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency")
+            ).to(this.currency)
             }
-          }).then(response => {
-            for (let index = 0; index < response.data.length; index++) {
-              const element = response.data[index];
-              this.totalRevenue += fx(element.data.amount) // convert all other amounts
-              .from(element.data.currency).to(this.currency);
-            }
-          })
-          .catch(error => {
-            console.log('baddd totoal revenue', error);
-          })
-          .then(() => { // always executed
-          });
+
+    this.tempCurr = this.currency; // must be last
+      
     },
     logout() {
       sessionStorage.clear();
@@ -527,7 +634,7 @@ export default {
       bar2.style.display = 'flex';
       axios.post(process.env.BASE_URL + "/api/update/", formData, {
           onUploadProgress: progressEvent => {
-            console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
+            // console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
             bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
             if (progressEvent.loaded / progressEvent.total == 1) {
               bar1.style.display = bar2.style.display = 'none';
@@ -631,6 +738,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.uk-icon-button.send-message-all {
+    background: #e46067;
+    color: #212121;
+}
 .total-revenue {
   display: flex;
   align-items: baseline;

@@ -16,11 +16,11 @@
     </div>
     <div class="uk-card-body">
       <div class="uk-margin">
-        <input class="uk-input uk-border-rounded" v-on:keyup.enter="login" data-uk-tooltip title="Your username, NOT email." v-model="username" type="text" placeholder="Username">
+        <input class="uk-input uk-border-rounded" name="username" v-on:keyup.enter="login" data-uk-tooltip title="Your username, NOT email." v-model="username" type="text" placeholder="Username">
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-         <input v-on:keyup.enter="login" data-uk-tooltip title="***** or NOT" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
+         <input v-on:keyup.enter="login" name="password" data-uk-tooltip title="***** or NOT" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
         </div>
       </div>
@@ -147,7 +147,7 @@ export default {
            username: this.username.toLowerCase().trim()
         }).then(res => {
           if (res.data.length >= 1) {
-            console.log('username taken')
+              // console.log('username taken')
               this.issue = 'Username already taken...'
               this.signupbtn = 'Signup'
           } else {
@@ -159,17 +159,21 @@ export default {
             }).then(res => {
               this.signupbtn = 'Signup'
               if (res.data.message == "User's email exist") {
-                console.log('cannot register')
+                // console.log('cannot register')
                 this.issue = "User's email exist"
               } else {
                 console.log('registered')
                 sessionStorage.setItem('username', res.data.username)
                 sessionStorage.setItem('id', res.data._id)
                 sessionStorage.setItem('profile', JSON.stringify(res.data))
+
+                analytics.identify(res.data._id ,{  email: res.data.email});
+                analytics.track('Account Created',{  authentication:'Signup'})
+
                 this.$router.push('/profile')
               }
             }).catch( error => {
-              console.log(error)
+              // console.log(error)
             })
           }
         }).catch( err => {

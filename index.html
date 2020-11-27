@@ -85,6 +85,8 @@
   <!--End of Tawk.to Script-->
   <!-- get country code and currency -->
   <script type="text/javascript"> // https://stackoverflow.com/a/35123097
+
+    // should we be checking periodically? or everytime?
     if(!localStorage.getItem('shukran-country-currency')) {
       fetch('https://ipapi.co/json/', { // http://ipinfo.io
           headers: {

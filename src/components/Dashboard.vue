@@ -37,7 +37,7 @@
             <a>Get tipped</a>
           </li>
           <li>
-            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+            <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
           </li>
           <li>
             <router-link to="/profile">Profile</router-link>
@@ -133,7 +133,7 @@
               <router-link to="/dash">Dashboard</router-link>
             </li>
             <li>
-              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuklans'">Shuklans</span></router-link>
+              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclan</span></router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
             <div id="modal-center" class="uk-flex-top" uk-modal>
@@ -158,7 +158,7 @@
             </li>
             <!--Feedback area start -->
             <li id="give-feedback" uk-toggle="target: #my-id">
-              Give feedbackOlamide1
+              Give feedback
               <a uk-icon="heart"></a>
             </li>
             <div id="my-id" uk-modal>
@@ -281,9 +281,160 @@
             <!-- table -->
             <div>
               <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-                <h3 class="uk-card-title">Tip details. <span v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</span></h3>
+                <div>
 
-                <div class="tippers-table">
+                  <div class="tip-details-header-section uk-flex uk-flex-between">
+                    <span>
+                      Tip details.
+                    </span>
+                    <ul class="uk-pagination uk-flex-right" uk-margin>
+                        <li><a href="#"><span uk-pagination-previous></span></a></li>
+                        <li><a href="#">1</a></li>
+                        <li class="uk-disabled"><span>...</span></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">6</a></li>
+                        <li class="uk-active"><span>7</span></li>
+                        <li><a href="#">8</a></li>
+                        <li><a href="#"><span uk-pagination-next></span></a></li>
+                    </ul>
+                  </div>
+                  
+                  <h1 class="uk-heading-small" v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</h1>
+                  
+                </div>
+                
+                <ul class="uk-list uk-list-divider">
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li><li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                      </div>
+                    </li>
+                    <li class="uk-margin-small-left uk-margin-small-right" v-for="(transaction, index) in transactions" :key="index">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}<!-- {{transaction.amount}} --> from {{ transaction.supporter_nickname }}</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">
+                            {{ transaction.message.length === 0 ? "" : transaction.message.endsWith('.') ? transaction.message + ' &#8212;' : transaction.message.concat('.') + ' &#8212;' }} 
+                             
+                            <time :datetime="transaction.transaction_date">
+                              {{new Intl.DateTimeFormat("en" , {
+                                dateStyle: "long"
+                              }).format(new Date(transaction.transaction_date))}}
+                            </time>
+                          </p>
+                      </div>
+                    </li>
+                </ul>
+                
+                <!-- <div class="tippers-table">
                   <table class="uk-table uk-table-middle uk-table-divider">
                     <thead>
                       <tr>
@@ -298,12 +449,12 @@
                         :key="index"
                       >
                         <td>{{transaction.supporter_nickname}}</td>
-                        <td>{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}<!-- {{transaction.amount}} --></td>
+                        <td>{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}</td>
                         <td>{{transaction.message}}</td>
                       </tr>
                     </tbody>
                   </table>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- //table -->
@@ -355,8 +506,8 @@ export default {
       allTips: [], // optimise this later
       tipsDates: [],
       currency: !localStorage.getItem("shukran-country-currency") ? "NGN" : localStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
-      tempCurr: "",
-      payoutGuard: 1000, // 1000 naira
+      tempCurr: "NGN", // cause they come as this
+      payoutGuard: 1000, // 1000 NGN
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
       amount: 0,
@@ -398,22 +549,23 @@ export default {
         this.tipTotal = fx(this.tipTotal)
           .from(
             this.tempCurr
-              ? this.tempCurr
-              : "NGN" // localStorage.getItem("shukran-country-currency")
+              /* ? this.tempCurr
+              : localStorage.getItem("shukran-country-currency") */
           ).to(this.currency);
         
         this.tipWithdrawn = fx(this.tipWithdrawn)
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
-        
+
+        // convert transaction.amount too... to use in tip div
         this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
             
         switch (this.currency) {
@@ -483,22 +635,22 @@ export default {
           this.tipTotal = fx(this.tipTotal) // convert tip total
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
 
           this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
           
           this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
-                ? this.tempCurr
-                : "NGN" // localStorage.getItem("shukran-country-currency")
+                /* ? this.tempCurr
+                : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
 
           switch (this.currency) {
@@ -518,7 +670,7 @@ export default {
               .to(this.currency); */
 
           this.tempCurr = this.currency;
-
+          console.log('did conversion after ...');
           // this.tipsChart.update(); // updates the chart
           
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
@@ -526,6 +678,9 @@ export default {
         }
         // console.log('all tips', this.allTips)
       }
+
+      // re-render, the whole page, to update the graph
+      this.$forceUpdate();
     },
     getSupporters() {
         // Optionally the request above could also be done as
@@ -650,7 +805,7 @@ export default {
           status: "received"
         })
         .then(res => {
-          // console.log("loadTransactions done"); // do the currency conversion here.
+          console.log("loadTransactions done", res); // do the currency conversion here.
           this.transactions = res.data;
           for (let i = 0; i < this.transactions.length; i++) {
             this.tipTotal += parseInt(this.transactions[i].amount);
@@ -672,7 +827,7 @@ export default {
         .catch(err => {
           console.error(err, err.code);
         });
-      // console.log(`hey ${username} what you doing looking on here? caret to tell us? all@useshukran.com`)
+      // console.log(`hey ${username} what you doing looking on here? care to tell us? all@useshukran.com`)
     },
     loadWithdrawn() {
       let username = this.username;
@@ -682,21 +837,32 @@ export default {
           status: "paid"
         })
         .then(res => {
-          // console.log("loadWithdrawn done");
+          console.log("loadWithdrawn done", res);
           this.withdrawals = res.data;
           for (let i = 0; i < this.withdrawals.length; i++) {
             this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
           }
+          console.log('first withdrawn', this.tipWithdrawn);
+        }).then(() => {
+          // this.rates();
+          this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
+            .from("NGN").to(this.currency);
+          console.log('tip withdrawn', this.tipWithdrawn);
         })
         .catch(err => {
           // console.log(err);
         });
     },
-    withdrawRequest() { // convert amount to naira, we payout in naira
-
-      let amount = fx(this.amount)
+    withdrawRequest() { // convert to naira
+      /* let amount = fx(this.amount)
             .from(this.currency)
-            .to("NGN");
+            .to("NGN"); */
+      let amount = this.amount;
+      if (this.currency === "KES") { // we can do more
+        amount = parseFloat(this.amount) * 4.4
+      } else if (this.currency === "USD") {
+        amount = parseFloat(this.amount) * 380
+      }
 
       let username = this.username;
       // let amount = this.amount;
@@ -779,6 +945,12 @@ export default {
       if (this.username == null) {
         this.$router.push("/accounts");
       }
+
+      analytics.identify(this.profiles[0]._id, {
+        username: this.username,
+        email: this.profiles[0].email,
+      });
+      analytics.track('Account Accessed',{  authentication:'Login'})
     },
     getId() {
       let username = this.username;
@@ -840,6 +1012,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.tip-details-header-section > ul {
+  margin-top: 0px;
+}
 /** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
 .top-nav-progress-bar {
   display: none;

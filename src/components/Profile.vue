@@ -17,7 +17,7 @@
         <ul class="uk-navbar-nav">
             <li class="uk-active"><router-link to="/dash">Dashboard</router-link></li>
             <li>
-              <router-link to="/subscribers">Subscribers</router-link>
+              <router-link to="/subscribers">Shuclan</router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle><a>Get tipped</a></li>
             <li>
@@ -221,16 +221,19 @@
                   name="bn"
                   type="text"
                   data-uk-tooltip
-                  title="What bank do you wanna receive your payouts?"
+                  :title="country_code == 'KE' ? 'Kenyan creators must use MPESA' : 'What bank do you wanna receive your payouts?'"
                   class="uk-input"
                   list="bank-options"
-                  placeholder="Bank (e.g GTBank etc)"
+                  :placeholder="country_code == 'KE' ? 'MPESA' : 'Bank name'"
                   v-model="profile.bank"
+                  :disabled="country_code == 'KE'"
                 />
                 <!-- update from https://api.payant.ng/banks and find other countries' banks -->
-                <datalist v-if="country_code == 'KE'" id="bank-options">
-                    <option value="MPESA" selected>MPESA</option>
-                </datalist>
+                <!-- <div class="uk-form-controls" v-if="country_code == 'KE'">
+                    <select title="Kenyan creators must use MPESA" v-model="profile.bank" class="uk-select" id="form-stacked-select">
+                        <option value="MPESA">MPESA</option>
+                    </select>
+                </div> -->
                 <datalist v-if="country_code == 'NG'" id="bank-options">
                   <option value="ACCESS BANK NIGERIA">ACCESS BANK NIGERIA</option>
                   <option value="ECOBANK NIGERIA LIMITED">ECOBANK NIGERIA LIMITED</option>
@@ -402,7 +405,7 @@
             <button id="link-btn" v-bind:disabled="checkURL" class="uk-button show-warning" @click="updateRef">{{savebtnFour}}</button>
             <br> <br>
               <a
-                href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+signed+up+to+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:&hashtags=saythanks,shukran"
+                href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=@useshukran's+helping+me+create+the+art+I+want+to+see+in+the+world,+help+me+by+supporting+the+art+you+want+to+see+in+the+world:&hashtags=saythanks,shukran"
                 class="uk-button tweet-it"
                 target="blank"
               >Tell others</a>
@@ -435,7 +438,7 @@ export default {
       comment: "",
       feed: "Submit",
       profile_picture: '',
-      country_code: 'KE', // localStorage.getItem('shukran-country-code'),
+      country_code: localStorage.getItem('shukran-country-code'),
       ngBanks: [,]
     };
   },
@@ -571,7 +574,14 @@ export default {
     
     bankUpdate() {
       var id = this.id;
-      var bank = this.profiles[0].bank;
+      // hot fix, pre-set bank if country_code is KE
+      let bank;
+      if (this.country_code == 'KE') {
+        bank = this.profiles[0].bank = JSON.parse(sessionStorage.getItem('profile')).bank = 'MPESA'
+      } else {
+        bank = this.profiles[0].bank;
+      }
+      
       var account_name = this.profiles[0].account_name;
       var account_number = this.profiles[0].account_number;
       this.savebtnTwo = "saving...";
