@@ -20,7 +20,7 @@
          <div class="uk-background-blend-multiply uk-background-primary uk-section uk-section-small uk-background-cover" style="background-image: url('images/photo.jpg');" :style="'background-image: url(https://drive.google.com/uc?export=view&id=' + image + ');'">
                
             <div class="uk-container">
-               <div class="uk-card uk-card-hover uk-card-body">
+               <div class="uk-card uk-card-body">
 
                      <div class="header-combo">
                     <mark>
