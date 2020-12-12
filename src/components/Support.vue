@@ -17,18 +17,30 @@
       </nav>
 
       <div class="uk-section-default ">
-         <div class="uk-section uk-section-small uk-background-cover" style="background-image: url('images/photo.jpg');" :style="'background-image: url(https://drive.google.com/uc?export=view&id=' + image + ');'">
+         <div class="uk-background-blend-multiply uk-background-primary uk-section uk-section-small uk-background-cover" style="background-image: url('images/photo.jpg');" :style="'background-image: url(https://drive.google.com/uc?export=view&id=' + image + ');'">
                
             <div class="uk-container">
                <div class="uk-card uk-card-hover uk-card-body">
 
-                  <div class="header-combo">
-                    <h4 class="uk-heading-small">{{username}}</h4>
-                    <small>a(n) {{field}}</small>
-                  </div>
+                     <div class="header-combo">
+                    <mark>
+                       <h4 class="uk-heading-small uk-margin-remove-bottom">{{username}}</h4>
+                    </mark>
+                    <mark>
+                       <small>&middot; {{field}}</small>
+                    </mark>
+                     </div>
 
-                  <p>{{summary}}</p>
-                  <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
+                  <p>
+                     <mark>
+                        {{summary}}
+                     </mark>
+                  </p>
+                  <p>
+                     <mark>
+                        <a v-bind:href="''+content+''" target="blank">Find my content here.</a>
+                     </mark>
+                  </p>
                </div>
             </div>
 
