@@ -1,81 +1,202 @@
 <template>
    <div class="support-div">
-       <nav class="uk-navbar uk-navbar-container uk-margin" uk-navbar="boundary-align: true; align: center;">
-        <div class="uk-navbar-left">
-     <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
-    </div>
 
-    <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-            <li>
-                <router-link to="/accounts" class="lead">Creators</router-link>
-            </li>
-        </ul>
-    </div>
-</nav>
 
-<div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin show-desktop-only" uk-grid>
-    <div class="uk-card-media-left uk-cover-container">
-        <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="" uk-cover>
-        <!-- <canvas width="600" height="400"></canvas> -->
-    </div>
-    <div>
-        <div class="uk-card-body">
-            <h3 class="uk-card-title">Meet {{username}}</h3>
-            <p>a(n) {{field}}</p>
-            <p>{{summary}}</p>
-            <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
-        </div>
-    </div>
-</div>
+      <nav class="uk-navbar uk-navbar-container uk-margin" uk-navbar="boundary-align: true; align: center;">
+         <div class="uk-navbar-left">
+            <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
+         </div>
 
-<!-- -->
-<div class="uk-child-width-1-2@m" uk-grid>
-    <div>
-        <div class="uk-card uk-card-default">
-            <div class="uk-card-media-top">
-                <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
+         <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                  <li>
+                     <router-link to="/accounts" class="lead">Creators</router-link>
+                  </li>
+            </ul>
+         </div>
+      </nav>
+
+      <div class="uk-section-default ">
+         <div class="uk-section uk-section-small uk-background-cover" style="background-image: url('images/photo.jpg');" :style="'background-image: url(https://drive.google.com/uc?export=view&id=' + image + ');'">
+               
+            <div class="uk-container">
+               <div class="uk-card uk-card-hover uk-card-body">
+
+                  <div class="total-revenue">
+                    <h4 class="uk-heading-small">{{username}}</h4>
+                    <small>a(n) {{field}}</small>
+                  </div>
+
+                  <p>{{summary}}</p>
+                  <p><a v-bind:href="''+content+''" target="blank">Find my content here.</a></p>
+               </div>
             </div>
-            <div class="uk-card-body">
-                <h3 class="uk-card-title">Media Top</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+
+         </div>
+      </div>
+
+      <div>
+         <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: push">
+
+            <ul class="uk-slideshow-items">
+               <li>
+                     <div class="uk-card uk-card-default">
+                           <div class="uk-card-media-top">
+                              <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
+                           </div>
+                           <div class="uk-card-body">
+                              <h3 class="uk-card-title">Media Top</h3>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                           </div>
+                     </div>
+               </li>
+               <li>
+                     <div class="uk-card uk-card-default">
+                           <div class="uk-card-media-top">
+                              <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
+                           </div>
+                           <div class="uk-card-body">
+                              <h3 class="uk-card-title">Media Top</h3>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                           </div>
+                     </div>
+               </li>
+               <li>
+                     <div class="uk-card uk-card-default">
+                           <div class="uk-card-media-top">
+                              <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
+                           </div>
+                           <div class="uk-card-body">
+                              <h3 class="uk-card-title">Media Top</h3>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                           </div>
+                     </div>
+               </li>
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+
+         </div>
+      </div>
+
+      <div class="uk-child-width-1-2@m" uk-grid>
+         <div>
+            <div class="uk-card uk-card-default">
+                  <div class="uk-card-media-top">
+                     <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
+                  </div>
+                  <div class="uk-card-body">
+                     <h3 class="uk-card-title">Media Top</h3>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                  </div>
+            </div>
+         </div>
+         <div>
+            <div class="uk-card uk-card-default">
+                  <div class="uk-card-body">
+                     <h3 class="uk-card-title">Media Bottom</h3>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                  </div>
+                  <div class="uk-card-media-bottom">
+                     <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="">
+                  </div>
+            </div>
+         </div>
+      </div>
+      <!-- -->
+
+      <div class="uk-section uk-section-default uk-section-small uk-padding-remove-top">
+            <div class="uk-container">
+
+                <h1>Card</h1>
+
+                <div class="uk-child-width-1-4@m uk-grid-match uk-grid uk-grid-stack" uk-grid="">
+                    <div class="uk-first-column">
+
+                        <div class="uk-card uk-card-default uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">Default</h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
+                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uk-grid-margin uk-first-column">
+
+                        <div class="uk-card uk-card-primary uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">Primary</h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
+                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uk-grid-margin uk-first-column">
+
+                        <div class="uk-card uk-card-secondary uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">Secondary</h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
+                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uk-grid-margin uk-first-column">
+
+                        <div class="uk-card uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">Hover</h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
+                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-    <div>
-        <div class="uk-card uk-card-default">
-            <div class="uk-card-body">
-                <h3 class="uk-card-title">Media Bottom</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-            </div>
-            <div class="uk-card-media-bottom">
-                <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="">
-            </div>
-        </div>
-    </div>
-</div>
-<!-- -->
 
    <!-- mobile view -->
-   <div class="uk-card uk-card-default uk-width-1-2@m show-mobile-only">
-    <div class="uk-card-header">
-        <div class="uk-grid-small uk-flex-middle" uk-grid>
-            <div class="uk-width-auto">
-                <img class="almost-square" width="40" height="40" v-lazy="'https://drive.google.com/uc?export=view&id=' + image">
+      <div class="uk-card uk-card-default uk-width-1-2@m show-mobile-only">
+         <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                  <div class="uk-width-auto">
+                     <img class="almost-square" width="40" height="40" v-lazy="'https://drive.google.com/uc?export=view&id=' + image">
+                  </div>
+                  <div class="uk-width-expand">
+                     <h3 class="uk-card-title uk-margin-remove-bottom">Meet {{username}}</h3>
+                     <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">a(n) {{field}}</time></p>
+                  </div>
             </div>
-            <div class="uk-width-expand">
-                <h3 class="uk-card-title uk-margin-remove-bottom">Meet {{username}}</h3>
-                <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">a(n) {{field}}</time></p>
-            </div>
-        </div>
-    </div>
-    <div class="uk-card-body">
-        <p>{{summary}}</p>
-    </div>
-    <div class="uk-card-footer">
-       <a v-bind:href="''+content+''" target="blank" class="uk-label ">Find my content here.</a>
-    </div>
-</div>
+         </div>
+         <div class="uk-card-body">
+            <p>{{summary}}</p>
+         </div>
+         <div class="uk-card-footer">
+            <a v-bind:href="''+content+''" target="blank" class="uk-label ">Find my content here.</a>
+         </div>
+      </div>
 <br>
    <!-- //mobile view -->
       <div class="uk-container">
@@ -445,6 +566,15 @@ export default {
 }
 </script>
 <style scoped>
+
+.total-revenue {
+  display: flex;
+  align-items: baseline;
+}
+.total-revenue small {
+  padding-left: 5px;
+}
+
 .subscription-nudge {
    text-align: left;
 }

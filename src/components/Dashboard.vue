@@ -282,7 +282,6 @@
             <div>
               <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                 <div>
-
                   <div class="tip-details-header-section uk-flex uk-flex-between">
                     <span>
                       Tip details.

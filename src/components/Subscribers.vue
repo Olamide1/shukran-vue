@@ -107,7 +107,6 @@
           <button class="uk-offcanvas-close" type="button" uk-close></button>
 
           <h3>Shukran</h3>
-          <!-- -->
           <div
             ref="file"
             id="image-background"
