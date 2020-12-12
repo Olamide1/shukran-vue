@@ -35,144 +35,177 @@
          </div>
       </div>
 
-      <div>
-         <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: push">
-
-            <ul class="uk-slideshow-items">
-               <li>
-                     <div class="uk-card uk-card-default">
-                           <div class="uk-card-media-top">
-                              <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
-                           </div>
-                           <div class="uk-card-body">
-                              <h3 class="uk-card-title">Media Top</h3>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                           </div>
-                     </div>
-               </li>
-               <li>
-                     <div class="uk-card uk-card-default">
-                           <div class="uk-card-media-top">
-                              <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
-                           </div>
-                           <div class="uk-card-body">
-                              <h3 class="uk-card-title">Media Top</h3>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                           </div>
-                     </div>
-               </li>
-               <li>
-                     <div class="uk-card uk-card-default">
-                           <div class="uk-card-media-top">
-                              <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
-                           </div>
-                           <div class="uk-card-body">
-                              <h3 class="uk-card-title">Media Top</h3>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                           </div>
-                     </div>
-               </li>
-            </ul>
-
-            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-
-         </div>
-      </div>
-
-      <div class="uk-child-width-1-2@m" uk-grid>
-         <div>
-            <div class="uk-card uk-card-default">
-                  <div class="uk-card-media-top">
-                     <img :src="'https://drive.google.com/uc?export=view&id=' + image" :alt="'Image of ' + username">
-                  </div>
-                  <div class="uk-card-body">
-                     <h3 class="uk-card-title">Media Top</h3>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                  </div>
-            </div>
-         </div>
-         <div>
-            <div class="uk-card uk-card-default">
-                  <div class="uk-card-body">
-                     <h3 class="uk-card-title">Media Bottom</h3>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                  </div>
-                  <div class="uk-card-media-bottom">
-                     <img :src="'https://drive.google.com/uc?export=view&id=' + image" alt="">
-                  </div>
-            </div>
-         </div>
-      </div>
+      
       <!-- -->
 
-      <div class="uk-section uk-section-default uk-section-small uk-padding-remove-top">
+      <div class="uk-padding-large-top uk-section uk-section-default uk-section-small uk-padding-remove-bottom">
             <div class="uk-container">
 
-                <h1>Card</h1>
+               <h2>Contents</h2>
 
-                <div class="uk-child-width-1-4@m uk-grid-match uk-grid uk-grid-stack" uk-grid="">
-                    <div class="uk-first-column">
+               <div class="uk-flex uk-flex-row" style="overflow-x: scroll;">
+
+                  <div class="uk-card uk-card-default uk-card-hover">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
+                        </div>
+                  </div>
+
+                  <div class="uk-card uk-card-default  uk-card-hover uk-margin-medium-left">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
+                        </div>
+                  </div>
+
+                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
+                        </div>
+                  </div>
+
+                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
+                        </div>
+                  </div>
+
+                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
+                        </div>
+                  </div>
+
+                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
+                        </div>
+                  </div>
+
+                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
+                        </div>
+                  </div>
+
+
+               </div>
+
+               <!-- // Some form of seperation \\ -->
+
+                <!-- <div class="uk-child-width-1-4@m uk-grid-match uk-grid uk-grid-row-medium" uk-grid="">
+                    <div class="">
 
                         <div class="uk-card uk-card-default uk-card-hover">
                             <div class="uk-card-badge">Hot</div>
                             <div class="uk-card-body">
-                                <h3 class="uk-card-title">Default</h3>
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">PDF</span>
+                                 </h3>
                                 <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 <p uk-margin="">
-                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
-                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
                                 </p>
                             </div>
                         </div>
 
                     </div>
-                    <div class="uk-grid-margin uk-first-column">
+                    <div class="uk-grid-margin ">
 
                         <div class="uk-card uk-card-primary uk-card-hover">
                             <div class="uk-card-badge">Hot</div>
                             <div class="uk-card-body">
-                                <h3 class="uk-card-title">Primary</h3>
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">PDF</span> 
+                                </h3>
                                 <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 <p uk-margin="">
-                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
-                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
-                                </p>
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>                                </p>
                             </div>
                         </div>
 
                     </div>
-                    <div class="uk-grid-margin uk-first-column">
+                    <div class="uk-grid-margin ">
 
                         <div class="uk-card uk-card-secondary uk-card-hover">
                             <div class="uk-card-badge">Hot</div>
                             <div class="uk-card-body">
-                                <h3 class="uk-card-title">Secondary</h3>
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">IMAGE</span>
+                                </h3>
                                 <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 <p uk-margin="">
-                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
-                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
                                 </p>
                             </div>
                         </div>
 
                     </div>
-                    <div class="uk-grid-margin uk-first-column">
+                    <div class="uk-grid-margin ">
 
                         <div class="uk-card uk-card-hover">
                             <div class="uk-card-badge">Hot</div>
                             <div class="uk-card-body">
-                                <h3 class="uk-card-title">Hover</h3>
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">VIDEO</span>
+                                </h3>
                                 <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 <p uk-margin="">
-                                    <a class="uk-button uk-button-default uk-first-column" href="#">Button</a>
-                                    <a class="uk-button uk-button-text uk-margin-small-left" href="#">Button</a>
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
                                 </p>
                             </div>
                         </div>
 
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -567,6 +600,9 @@ export default {
 </script>
 <style scoped>
 
+.sk {
+   width: 200px;
+}
 .total-revenue {
   display: flex;
   align-items: baseline;
