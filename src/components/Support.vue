@@ -22,7 +22,7 @@
             <div class="uk-container">
                <div class="uk-card uk-card-hover uk-card-body">
 
-                  <div class="total-revenue">
+                  <div class="header-combo">
                     <h4 class="uk-heading-small">{{username}}</h4>
                     <small>a(n) {{field}}</small>
                   </div>
@@ -41,7 +41,10 @@
       <div class="uk-padding-large-top uk-section uk-section-default uk-section-small uk-padding-remove-bottom">
             <div class="uk-container">
 
+               <div class="header-combo">
                <h2>Contents</h2>
+                  <small>&middot; 5</small>
+               </div>
 
                <div class="uk-flex uk-flex-row" style="overflow-x: scroll;">
 
@@ -208,7 +211,7 @@
                 </div> -->
 
             </div>
-        </div>
+      </div>
 
    <!-- mobile view -->
      
@@ -584,11 +587,11 @@ export default {
 .sk {
    width: 200px;
 }
-.total-revenue {
+.header-combo {
   display: flex;
   align-items: baseline;
 }
-.total-revenue small {
+.header-combo small {
   padding-left: 5px;
 }
 
