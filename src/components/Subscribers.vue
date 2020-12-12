@@ -295,11 +295,22 @@
                                   <span :uk-icon="contentIcon(content.file_type)"></span>
                               </div>
                               <div class="uk-width-expand">
-                                  <h5 class="uk-margin-remove-bottom">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
-                                  <p class="uk-text-meta uk-margin-remove-top">Added <time :datetime="content.created_at">
-                                    {{new Intl.DateTimeFormat("en" , {
-                                      dateStyle: "long"
-                                    }).format(new Date(content.created_at))}}</time></p>
+                                  <div class="uk-grid uk-flex-middle uk-flex-between">
+                                    <div>
+                                      <h5 class="uk-margin-remove-bottom">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
+                                      <p class="uk-text-meta uk-margin-remove-top">Added <time :datetime="content.created_at">
+                                        {{new Intl.DateTimeFormat("en" , {
+                                          dateStyle: "long"
+                                        }).format(new Date(content.created_at))}}</time>
+                                      </p>
+                                    </div>
+                                    <div class="uk-width-auto">
+                                        <a href="" class="uk-icon-button" uk-icon="pencil"></a>
+                                    </div>
+                                  </div>
+                                  <p class="uk-margin-remove-top">
+                                    This should be some sorta long description about the product for the audience to read. I hope they will, and that they find it enticing. Else...
+                                  </p>
                               </div>
                           </div>
                         </li>

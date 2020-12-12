@@ -211,28 +211,9 @@
         </div>
 
    <!-- mobile view -->
-      <div class="uk-card uk-card-default uk-width-1-2@m show-mobile-only">
-         <div class="uk-card-header">
-            <div class="uk-grid-small uk-flex-middle" uk-grid>
-                  <div class="uk-width-auto">
-                     <img class="almost-square" width="40" height="40" v-lazy="'https://drive.google.com/uc?export=view&id=' + image">
-                  </div>
-                  <div class="uk-width-expand">
-                     <h3 class="uk-card-title uk-margin-remove-bottom">Meet {{username}}</h3>
-                     <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">a(n) {{field}}</time></p>
-                  </div>
-            </div>
-         </div>
-         <div class="uk-card-body">
-            <p>{{summary}}</p>
-         </div>
-         <div class="uk-card-footer">
-            <a v-bind:href="''+content+''" target="blank" class="uk-label ">Find my content here.</a>
-         </div>
-      </div>
-<br>
+     
    <!-- //mobile view -->
-      <div class="uk-container">
+      <div class="uk-container uk-margin-top">
          <div class="uk-container-expand" align="center" >
       <div class="uk-card tip-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
     <div class="uk-card-body">
