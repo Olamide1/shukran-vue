@@ -289,7 +289,7 @@
 
                   <div class="">
                     <ul class="uk-list uk-list-striped" v-if="this.profiles[0].content && this.profiles[0].content.length > 0">
-                        <li v-for="(content) in this.profiles[0].content" :key="content.created_at">
+                        <li v-for="content in this.profiles[0].content" :key="content.created_at">
                           <div class="uk-grid-small uk-flex-middle" uk-grid>
                               <div class="uk-width-auto">
                                   <span :uk-icon="contentIcon(content.file_type)"></span>
@@ -298,18 +298,20 @@
                                   <div class="uk-grid uk-flex-middle uk-flex-between">
                                     <div>
                                       <h5 class="uk-margin-remove-bottom">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
-                                      <p class="uk-text-meta uk-margin-remove-top">Added <time :datetime="content.created_at">
+                                      <p class="uk-text-meta uk-margin-remove-top">{{contentType(content.file_type)}} &mdash; Added <time :datetime="content.created_at">
                                         {{new Intl.DateTimeFormat("en" , {
                                           dateStyle: "long"
                                         }).format(new Date(content.created_at))}}</time>
                                       </p>
                                     </div>
-                                    <div class="uk-width-auto">
-                                        <a href="" class="uk-icon-button" uk-icon="pencil"></a>
+                                    <div v-on:click="changeProductDescription(content._id, content.created_at)" :data-index="content.created_at" class="uk-width-auto">
+                                        <a class="uk-icon-button" uk-icon="pencil" :data-index="content.created_at"
+                                        uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
+                                        ></a>
                                     </div>
                                   </div>
-                                  <p class="uk-margin-remove-top">
-                                    This should be some sorta long description about the product for the audience to read. I hope they will, and that they find it enticing. Else...
+                                  <p class="uk-margin-remove-top" @change="updateProductDescription" :data-index="content.created_at" contenteditable="false">
+                                    {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
                                   </p>
                               </div>
                           </div>
@@ -386,9 +388,48 @@ export default {
           return "₦";
           break;
       }
+    },
+    contentReversed() {
+      return this.profiles[0].content.reverse()
     }
   },
   methods: {
+    updateProductDescription(evt) {
+      // console.log(evt.target.innerText);
+    },
+    changeProductDescription(_id, _ref) {
+      let _prgrph = document.querySelector(`p[data-index='${_ref}']`);
+      if (_prgrph.isContentEditable) { // Disable Editing
+        _prgrph.contentEditable = 'false';
+        document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'pencil');
+
+        // update product description
+        axios.post(process.env.BASE_URL + "/api/updatecontentdescription/", {id: this.profiles[0]._id, content_id: _id, updateData: {"description": _prgrph.innerText}})
+        .then(res => {
+          console.log('updated!', res)
+        })
+        .catch(error => {
+          console.log("error occured updating", error);
+        });
+      } else { // Enable editing
+        _prgrph.contentEditable = 'true';
+        this.moveCursorToEnd(_prgrph)
+        document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'check');
+      }
+    },
+    moveCursorToEnd(target) { // https://stackoverflow.com/a/48384974
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(target);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      target.focus();
+      range.detach(); // optimization
+
+      // set scroll to the end if multiline
+      target.scrollTop = target.scrollHeight;
+    },
     addFile() {
       // this.selectedFile = event.target.files[0]
       let formData = new FormData();
@@ -399,15 +440,76 @@ export default {
       
       axios.post(process.env.BASE_URL + "/api/createcontent/", formData)
         .then(res => {
-          console.log('new user', res)
-          this.profiles[0] = res.data;
+          console.log('new content', res)
+          res.data.content.reverse()
+          Vue.set(this.profiles[0], res.data)
+          // this.profiles[0] = res.data;
           // this.$set(this.profiles[0], res.data);
-          this.$forceUpdate() // forces the DOM to re-render
           sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // TODO: update session differently, update the files that creators have uploaded...
+          let newContent = res.data.content.slice(-1)
+          console.log(newContent)
+          return newContent
+        }).then((newContent) => {
+          this.changeProductDescription(newContent[0]._id, newContent[0].created_at)
         })
         .catch(error => {
           console.log("error occured uploading", error);
         });
+    },
+    contentType: function(mime) {
+      switch (mime) {
+        case "image/jpeg":
+        case 'image/gif':
+        case 'image/jpg':
+        case 'image/png':
+        case 'image/tiff':
+        case 'image/vnd.wap.wbmp':
+        case 'image/x-icon':
+        case 'image/x-jng':
+        case 'image/x-ms-bmp':
+        case 'image/svg+xml':
+        case 'image/webp':
+          return "IMAGE";
+          break;
+        case "application/msword":
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+        case "application/rtf":
+          return "DOC";
+          break;
+        case "application/pdf":
+          return "PDF";
+          break;
+        case "video/webm":
+        case "video/3gpp2":
+        case "video/3gpp":
+        case "video/mp2t":
+        case "video/ogg":
+        case "video/x-msvideo":
+        case "video/mpeg":
+          return "VIDEO";
+          break;
+        case "audio/mpeg":
+        case "audio/3gpp2":
+        case "audio/3gpp":
+        case "audio/webm":
+        case "audio/wav":
+        case "audio/acc":
+        case "audio/ogg":
+        case "audio/opus":
+          return "AUDIO";
+          break;
+        case "application/zip":
+        case "application/x-7z-compressed":
+        case "application/vnd.rar":
+        case "application/x-bzip2":
+        case "application/x-bzip":
+          return "ZIP";
+          break;
+        default:
+          return "FILE";
+          break;
+      }
     },
     contentIcon: function(mime) {
       switch (mime) {
