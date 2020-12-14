@@ -289,7 +289,7 @@
 
                   <div class="">
                     <ul class="uk-list uk-list-striped" v-if="this.profiles[0].content && this.profiles[0].content.length > 0">
-                        <li v-for="content in this.profiles[0].content" :key="content.created_at">
+                        <li v-for="content in contentOrderedByDate" :key="content.created_at">
                           <div class="uk-grid-small uk-flex-middle" uk-grid>
                               <div class="uk-width-auto">
                                   <span :uk-icon="contentIcon(content.file_type)"></span>
@@ -389,8 +389,10 @@ export default {
           break;
       }
     },
-    contentReversed() {
-      return this.profiles[0].content.reverse()
+    contentOrderedByDate() { // sort based on newly added
+      return this.profiles[0].content.sort(function compareDates(d1, d2) {
+        return d2.created_at < d1.created_at ? -1 : 1
+      })
     }
   },
   methods: {
