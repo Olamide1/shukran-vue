@@ -283,7 +283,9 @@
                     <h3 class="uk-card-title">Content list</h3>
                     <div uk-form-custom>
                         <input ref="addFileInput" type="file" @change="addFile">
-                        <button class="uk-button uk-button-default" type="button" tabindex="1">Add file</button>
+                        <button class="uk-button uk-button-default" type="button" tabindex="1">
+                          <span id="addfile-button-text">Add file</span>
+                        </button>
                     </div>
                   </div>
 
@@ -446,7 +448,16 @@ export default {
       formData.append("folder_id", this.profile.folder_id); // done ?
       formData.append("file", event.target.files[0]);
       
-      axios.post(process.env.BASE_URL + "/api/createcontent/", formData)
+      axios.post(process.env.BASE_URL + "/api/createcontent/", formData, {
+          onUploadProgress: progressEvent => {
+            console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
+            document.getElementById('addfile-button-text').innerText = 'Uploading — ' + parseInt((progressEvent.loaded / progressEvent.total) * 100) + '%'
+            if (progressEvent.loaded == progressEvent.total) {
+              console.log('done', progressEvent.loaded, progressEvent.total);
+              document.getElementById('addfile-button-text').innerText = 'Add file'
+            }
+          }
+        })
         .then(res => {
           console.log('new content', res)
           res.data.content.reverse()
