@@ -306,13 +306,19 @@
                                         }).format(new Date(content.created_at))}}</time>
                                       </p>
                                     </div>
-                                    <div v-on:click="changeProductDescription(content._id, content.created_at)" :data-index="content.created_at" class="uk-width-auto">
-                                        <a class="uk-icon-button" uk-icon="pencil" :data-index="content.created_at"
+                                    <div class="uk-width-auto">
+                                        <a class="uk-icon-button" uk-icon="trash"
+                                        uk-tooltip="Delete this content"
+                                        v-on:click="deleteContent(content._id)"
+                                        ></a>
+                                        
+                                        <a class="uk-icon-button uk-margin-small-left" uk-icon="pencil" :data-index="content.created_at"
+                                        v-on:click="changeProductDescription(content._id, content.created_at)"
                                         uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
                                         ></a>
                                     </div>
                                   </div>
-                                  <p class="uk-margin-remove-top" @change="updateProductDescription" :data-index="content.created_at" contenteditable="false">
+                                  <p class="uk-margin-remove-top" :data-index="content.created_at" contenteditable="false">
                                     {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
                                   </p>
                               </div>
@@ -399,13 +405,26 @@ export default {
     }
   },
   methods: {
-    updateProductDescription(evt) {
-      // console.log(evt.target.innerText);
-    },
-    contentOrderedByDate() { // sort based on newly added
-      return this.profile.content.sort(function compareDates(d1, d2) {
-        return d2.created_at < d1.created_at ? -1 : 1
-      })
+    deleteContent(_id) {
+      axios.post(process.env.BASE_URL + '/api/deletecontent/', {
+        id: this.profile._id,
+        content_id: _id
+      }).then(res => {
+          console.log('updated delete content', res)
+          if (res.data.nModified == 1) {
+            this.$set(this.profile, 'content', this.profile.content.filter(c => c._id !== _id))
+            
+            this.$nextTick(function () {
+              // maybe notify that it's been successfully deleted?
+            })
+            sessionStorage.setItem("profile", JSON.stringify(this.profile)) // TODO: update session differently, update the files that creators have deleted...
+
+          }
+          
+        })
+        .catch(error => {
+          console.log("error occured deleting", error);
+        });
     },
     changeProductDescription(_id, _ref) {
       let _prgrph = document.querySelector(`p[data-index='${_ref}']`);
@@ -460,7 +479,6 @@ export default {
         })
         .then(res => {
           console.log('new content', res)
-          res.data.content.reverse()
           this.$set(this.profile, 'content', res.data.content)
           
           this.$nextTick(function () {
@@ -688,7 +706,7 @@ export default {
           .catch(error => {
             console.log('bad get subscribers', error);
           })
-          .then(() => { // always executed
+          .then(() => {
           });
     },
     setFX() {
@@ -820,7 +838,7 @@ export default {
         .then(res => {
           this.id = res.data[0]._id;
           // console.log("id");
-          this.profile = res.data;
+          this.profile = res.data[0];
         })
         .catch(err => {
           // console.log(err);

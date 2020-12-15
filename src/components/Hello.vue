@@ -176,10 +176,12 @@ export default {
               }
             }).catch( error => {
               // console.log(error)
+              this.signupbtn = 'Sign up, again'
             })
           }
         }).catch( err => {
           console.log(err)
+          this.signupbtn = 'Sign up, again'
         })
       }
     }
