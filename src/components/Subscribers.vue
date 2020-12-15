@@ -80,7 +80,7 @@
               <div
                 ref="file"
                 class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '/static/img/loading.gif' }"
+                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profile.picture_id}`, loading: '/static/img/loading.gif' }"
                 uk-img
               >
 
@@ -111,7 +111,7 @@
             ref="file"
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '/static/img/loading.gif' }"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profile.picture_id}`, loading: '/static/img/loading.gif' }"
             uk-img
           >
             <div
@@ -282,14 +282,14 @@
                   <div class="sub-list-header cont-list-header">
                     <h3 class="uk-card-title">Content list</h3>
                     <div uk-form-custom>
-                        <input name="addFileInput" type="file" @change="addFile">
+                        <input ref="addFileInput" type="file" @change="addFile">
                         <button class="uk-button uk-button-default" type="button" tabindex="1">Add file</button>
                     </div>
                   </div>
 
                   <div class="">
-                    <ul class="uk-list uk-list-striped" v-if="this.profiles[0].content && this.profiles[0].content.length > 0">
-                        <li v-for="content in this.profiles[0].content" :key="content.created_at">
+                    <ul class="uk-list uk-list-striped" v-if="this.profile.content && this.profile.content.length > 0">
+                        <li v-for="content in this.profile.content" :key="content.created_at">
                           <div class="uk-grid-small uk-flex-middle" uk-grid>
                               <div class="uk-width-auto">
                                   <span :uk-icon="contentIcon(content.file_type)"></span>
@@ -359,7 +359,7 @@ export default {
       tipTotal: 0,
       tipWithdrawn: 0,
       withdrawals: [],
-      profiles: [JSON.parse(sessionStorage.getItem("profile"))],
+      profile: JSON.parse(sessionStorage.getItem("profile")),
       balance: 0,
       comment: "",
       feed: "Submit",
@@ -390,7 +390,7 @@ export default {
     }
   },
   watch: {
-      profiles: {
+      profile: {
         handler(val, oldVal) {
         },
         deep: true
@@ -401,7 +401,7 @@ export default {
       // console.log(evt.target.innerText);
     },
     contentOrderedByDate() { // sort based on newly added
-      return this.profiles[0].content.sort(function compareDates(d1, d2) {
+      return this.profile.content.sort(function compareDates(d1, d2) {
         return d2.created_at < d1.created_at ? -1 : 1
       })
     },
@@ -412,7 +412,7 @@ export default {
         document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'pencil');
 
         // update product description, TODO, if no change in text, don't make http request
-        axios.post(process.env.BASE_URL + "/api/updatecontentdescription/", {id: this.profiles[0]._id, content_id: _id, updateData: {"description": _prgrph.innerText}})
+        axios.post(process.env.BASE_URL + "/api/updatecontentdescription/", {id: this.profile._id, content_id: _id, updateData: {"description": _prgrph.innerText}})
         .then(res => {
           console.log('updated!', res)
         })
@@ -441,28 +441,26 @@ export default {
     addFile() {
       // this.selectedFile = event.target.files[0]
       let formData = new FormData();
-      formData.append("creator_id", this.profiles[0]._id);
-      formData.append("username", this.profiles[0].username);
-      formData.append("folder_id", this.profiles[0].folder_id); // done ?
+      formData.append("creator_id", this.profile._id);
+      formData.append("username", this.profile.username);
+      formData.append("folder_id", this.profile.folder_id); // done ?
       formData.append("file", event.target.files[0]);
       
       axios.post(process.env.BASE_URL + "/api/createcontent/", formData)
         .then(res => {
           console.log('new content', res)
           res.data.content.reverse()
-          Vue.set(this.profiles[0], res.data)
-          // this.profiles[0] = res.data;
-          // this.$set(this.profiles[0], res.data);
+          this.$set(this.profile, 'content', res.data.content)
           
-          this.$nextTick(function() {
+          this.$nextTick(function () {
             let newContent = res.data.content[0]
             console.log(newContent)
-            document.querySelector["input[name='addFileInput']"]
+            // https://stackoverflow.com/a/22506053 // we def don't need https://stackoverflow.com/a/63123264
+            this.$refs.addFileInput.value = null;
             this.changeProductDescription(newContent._id, newContent.created_at)
           })
           sessionStorage.setItem("profile", JSON.stringify(res.data)) // TODO: update session differently, update the files that creators have uploaded...
 
-          
         }).then(() => {
         })
         .catch(error => {
@@ -639,7 +637,7 @@ export default {
     getTotalRevenue() {
       axios.get(process.env.BASE_URL + "/api/gettotalrevenue/", {
             params: {
-              id: this.profiles[0]._id,
+              id: this.profile._id,
             }
           }).then(response => {
             // when we pay out someone, how are we do we balance?
@@ -659,8 +657,8 @@ export default {
     getSubscribers() { // here also gets total revenue
       axios.get(process.env.BASE_URL + "/api/getsubscribers/", {
             params: {
-              id: this.profiles[0]._id,
-              username: this.profiles[0].username,
+              id: this.profile._id,
+              username: this.profile.username,
             }
           }).then(response => {
             // when we pay out someone, how are we do we balance?
@@ -746,7 +744,7 @@ export default {
     onFileChanged(event) {
       // this.selectedFile = event.target.files[0]
       let formData = new FormData();
-      formData.append("id", this.profiles[0]._id);
+      formData.append("id", this.profile._id);
       formData.append("pic", event.target.files[0]);
       // console.log(event.target.files);
       
@@ -769,8 +767,8 @@ export default {
         })
         .then(res => {
           loader1.style.display = loader2.style.display = 'none';
-          this.profiles[0].picture_id = res.data;
-          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // update session too
+          this.profile.picture_id = res.data;
+          sessionStorage.setItem('profile', JSON.stringify(this.profile)) // update session too
         })
         .catch(error => {
           // console.log("error occured", error);
@@ -811,7 +809,7 @@ export default {
         .then(res => {
           this.id = res.data[0]._id;
           // console.log("id");
-          this.profiles = res.data;
+          this.profile = res.data;
         })
         .catch(err => {
           // console.log(err);
