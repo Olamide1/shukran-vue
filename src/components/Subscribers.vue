@@ -282,14 +282,14 @@
                   <div class="sub-list-header cont-list-header">
                     <h3 class="uk-card-title">Content list</h3>
                     <div uk-form-custom>
-                        <input type="file" @change="addFile">
+                        <input name="addFileInput" type="file" @change="addFile">
                         <button class="uk-button uk-button-default" type="button" tabindex="1">Add file</button>
                     </div>
                   </div>
 
                   <div class="">
                     <ul class="uk-list uk-list-striped" v-if="this.profiles[0].content && this.profiles[0].content.length > 0">
-                        <li v-for="content in contentOrderedByDate" :key="content.created_at">
+                        <li v-for="content in this.profiles[0].content" :key="content.created_at">
                           <div class="uk-grid-small uk-flex-middle" uk-grid>
                               <div class="uk-width-auto">
                                   <span :uk-icon="contentIcon(content.file_type)"></span>
@@ -299,7 +299,7 @@
                                     <div>
                                       <h5 class="uk-margin-remove-bottom">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
                                       <p class="uk-text-meta uk-margin-remove-top">{{contentType(content.file_type)}} &mdash; Added <time :datetime="content.created_at">
-                                        {{new Intl.DateTimeFormat("en" , {
+                                        {{new Intl.DateTimeFormat("en", {
                                           dateStyle: "long"
                                         }).format(new Date(content.created_at))}}</time>
                                       </p>
@@ -325,7 +325,6 @@
               </div>
 
         </div>
-
       </div>
     </div>
   </div>
@@ -388,16 +387,23 @@ export default {
           return "₦";
           break;
       }
-    },
-    contentOrderedByDate() { // sort based on newly added
-      return this.profiles[0].content.sort(function compareDates(d1, d2) {
-        return d2.created_at < d1.created_at ? -1 : 1
-      })
+    }
+  },
+  watch: {
+      profiles: {
+        handler(val, oldVal) {
+        },
+        deep: true
     }
   },
   methods: {
     updateProductDescription(evt) {
       // console.log(evt.target.innerText);
+    },
+    contentOrderedByDate() { // sort based on newly added
+      return this.profiles[0].content.sort(function compareDates(d1, d2) {
+        return d2.created_at < d1.created_at ? -1 : 1
+      })
     },
     changeProductDescription(_id, _ref) {
       let _prgrph = document.querySelector(`p[data-index='${_ref}']`);
@@ -405,7 +411,7 @@ export default {
         _prgrph.contentEditable = 'false';
         document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'pencil');
 
-        // update product description
+        // update product description, TODO, if no change in text, don't make http request
         axios.post(process.env.BASE_URL + "/api/updatecontentdescription/", {id: this.profiles[0]._id, content_id: _id, updateData: {"description": _prgrph.innerText}})
         .then(res => {
           console.log('updated!', res)
@@ -447,12 +453,17 @@ export default {
           Vue.set(this.profiles[0], res.data)
           // this.profiles[0] = res.data;
           // this.$set(this.profiles[0], res.data);
-          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // TODO: update session differently, update the files that creators have uploaded...
-          let newContent = res.data.content.slice(-1)
-          console.log(newContent)
-          return newContent
-        }).then((newContent) => {
-          this.changeProductDescription(newContent[0]._id, newContent[0].created_at)
+          
+          this.$nextTick(function() {
+            let newContent = res.data.content[0]
+            console.log(newContent)
+            document.querySelector["input[name='addFileInput']"]
+            this.changeProductDescription(newContent._id, newContent.created_at)
+          })
+          sessionStorage.setItem("profile", JSON.stringify(res.data)) // TODO: update session differently, update the files that creators have uploaded...
+
+          
+        }).then(() => {
         })
         .catch(error => {
           console.log("error occured uploading", error);
