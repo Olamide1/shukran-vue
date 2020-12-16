@@ -50,102 +50,48 @@
       
       <!-- -->
 
-      <div class="uk-padding-large-top uk-section uk-section-default uk-section-small uk-padding-remove-bottom">
+      <div v-if="this.creatorInfo.content.length > 0" class="uk-padding-large-top uk-section uk-section-default uk-section-small uk-padding-remove-bottom">
             <div class="uk-container">
 
                <div class="header-combo">
                <h2>Contents</h2>
-                  <small>&middot; 5</small>
+                  <small>&middot; {{this.creatorInfo.content.length}}</small>
                </div>
 
                <div class="uk-flex uk-flex-row" style="overflow-x: scroll;">
 
-                  <div class="uk-card uk-card-default uk-card-hover">
-                        <div class="uk-card-badge">Hot</div>
+                  <div v-for="content in this.creatorInfo.content" :key="content.created_at" class="uk-card uk-card-default description-body">
+                        <div class="uk-card-badge">
+                           {{new Date(
+                              content.created_at
+                           ).toLocaleDateString("en-GB", {
+                              year: "2-digit",
+                              month: "short"
+                           })}}
+                        </div>
                         <div class="uk-card-body sk">
                            <h3 class="uk-card-title">
-                              <span class="uk-label">PDF</span>
+                              <span class="uk-label">{{contentType(content.file_type)}}</span>
                            </h3>
-                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                           <p uk-margin="">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           <p class="peek-it">{{ content.description }}</p>
+                           <p uk-margin="" class="get-it">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" :href="content.web_view_link">Download</a>
                            </p>
                         </div>
                   </div>
 
-                  <div class="uk-card uk-card-default  uk-card-hover uk-margin-medium-left">
+                  <div v-for="n in 4" :key="n" class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
                         <div class="uk-card-badge">Hot</div>
                         <div class="uk-card-body sk">
                            <h3 class="uk-card-title">
                               <span class="uk-label">PDF</span>
                            </h3>
-                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                           <p uk-margin="">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
-                           </p>
-                        </div>
-                  </div>
-
-                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
-                        <div class="uk-card-badge">Hot</div>
-                        <div class="uk-card-body sk">
-                           <h3 class="uk-card-title">
-                              <span class="uk-label">PDF</span>
-                           </h3>
-                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                           <p uk-margin="">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
-                           </p>
-                        </div>
-                  </div>
-
-                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
-                        <div class="uk-card-badge">Hot</div>
-                        <div class="uk-card-body sk">
-                           <h3 class="uk-card-title">
-                              <span class="uk-label">PDF</span>
-                           </h3>
-                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                           <p uk-margin="">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
-                           </p>
-                        </div>
-                  </div>
-
-                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
-                        <div class="uk-card-badge">Hot</div>
-                        <div class="uk-card-body sk">
-                           <h3 class="uk-card-title">
-                              <span class="uk-label">PDF</span>
-                           </h3>
-                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                           <p uk-margin="">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
-                           </p>
-                        </div>
-                  </div>
-
-                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
-                        <div class="uk-card-badge">Hot</div>
-                        <div class="uk-card-body sk">
-                           <h3 class="uk-card-title">
-                              <span class="uk-label">PDF</span>
-                           </h3>
-                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                           <p uk-margin="">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
-                           </p>
-                        </div>
-                  </div>
-
-                  <div class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
-                        <div class="uk-card-badge">Hot</div>
-                        <div class="uk-card-body sk">
-                           <h3 class="uk-card-title">
-                              <span class="uk-label">PDF</span>
-                           </h3>
-                           <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                           <p uk-margin="">
+                           <p class="peek-it">Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                           sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.sit amet, consectetur adipiscing elit, 
+                           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                           labore et dolore magna aliqua.sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.sit amet, 
+                           consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="" class="get-it">
                               <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
                            </p>
                         </div>
@@ -233,7 +179,7 @@
       <div class="uk-card tip-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
     <div class="uk-card-body">
         <h3 class="uk-card-title">Let <span class="capitalize">{{username}}</span> know you</h3>
-        <p>You'll not have to fill your nickname & email address again for a faster tipping experience.</p>
+        <p>You'll won't have to fill your nickname & email address again for a faster experience.</p>
        <div>
          <div class="uk-margin">
             <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
@@ -246,7 +192,7 @@
              <div class="uk-form-controls" style="margin-right: 1px">
                   <select @change="showTipNudge()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall" id="form-stacked-select">
                      <option value="NGN">₦</option>
-                     <option value="KES">Ksh</option>
+                     <option value="KES">/-</option>
                      <option value="USD">$</option>
                   </select>
             </div>
@@ -309,11 +255,13 @@ export default {
           image: '',
           redirect: '',
           subscriptions: [],
-          userinfos: [],
+          creatorInfo: {},
           reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
           user_email: '',
           issue: ''
        }
+    },
+    computed: {
     },
     methods:{
        currencySymbol() {
@@ -339,7 +287,7 @@ export default {
     getSubs(){
       axios.get(process.env.BASE_URL + '/api/getsubscriptions/')
       .then((res) => {
-         //console.log('ress',res);
+         // console.log('res',res);
          this.subscriptions = res.data.data; 
       });
     },
@@ -369,11 +317,11 @@ export default {
          axios.post(process.env.BASE_URL + '/api/createsubscription/', {
             amount: parseInt(this.amount),
             supporter_email: this.email,
-            creator_email: this.userinfos[0].email,
+            creator_email: this.creatorInfo.email,
             creator: this.username,
-            creator_id: this.userinfos[0]._id,
-            creator_email: this.userinfos[0].email,
-            name: `${this.email}-shukraning-${this.userinfos[0]._id}`, // using email & _id is surety
+            creator_id: this.creatorInfo._id,
+            creator_email: this.creatorInfo.email,
+            name: `${this.email}-shukraning-${this.creatorInfo._id}`, // using email & _id is surety
          }, {
          cancelToken: source.token
          }).then(res => { // set the subscription/payment plan ID
@@ -391,12 +339,12 @@ export default {
       axios.post(process.env.BASE_URL + '/api/myprofile/', {
          username: this.username.toLowerCase().trim()
       }).then( res => {
-         // console.log('why this?', res) // if res.data is empty, say we don't have any such creators
+         console.log('creator profile', res) // if res.data is empty, say we don't have any such creators
          this.summary = res.data[0].summary
          this.field = res.data[0].craft_type
          this.content = this.getUrl(res.data[0].primary_link)
          this.image = res.data[0].picture_id
-         this.userinfos = res.data
+         this.creatorInfo = res.data[0]
       }).catch( err => {
          // console.log('!!', err)
       })
@@ -433,6 +381,61 @@ export default {
             }
          }
       },
+      contentType(mime) {
+         switch (mime) {
+         case "image/jpeg":
+         case 'image/gif':
+         case 'image/jpg':
+         case 'image/png':
+         case 'image/tiff':
+         case 'image/vnd.wap.wbmp':
+         case 'image/x-icon':
+         case 'image/x-jng':
+         case 'image/x-ms-bmp':
+         case 'image/svg+xml':
+         case 'image/webp':
+            return "IMAGE";
+            break;
+         case "application/msword":
+         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+         case "application/rtf":
+            return "DOC";
+            break;
+         case "application/pdf":
+            return "PDF";
+            break;
+         case "video/webm":
+         case "video/3gpp2":
+         case "video/3gpp":
+         case "video/mp2t":
+         case "video/ogg":
+         case "video/x-msvideo":
+         case "video/mpeg":
+            return "VIDEO";
+            break;
+         case "audio/mpeg":
+         case "audio/3gpp2":
+         case "audio/3gpp":
+         case "audio/webm":
+         case "audio/wav":
+         case "audio/acc":
+         case "audio/ogg":
+         case "audio/opus":
+            return "AUDIO";
+            break;
+         case "application/zip":
+         case "application/x-7z-compressed":
+         case "application/vnd.rar":
+         case "application/x-bzip2":
+         case "application/x-bzip":
+            return "ZIP";
+            break;
+         default:
+            return "FILE";
+            break;
+         }
+      },
       save() {
          // [optimize] save their email & nickname & phone number for later autofilling
 
@@ -451,8 +454,8 @@ export default {
           let amount = this.amount
           // let phone = this.phone
           let currency = this.currency
-          let user_email = this.userinfos[0].email
-          let redirect = this.userinfos[0].redirect
+          let user_email = this.creatorInfo.email
+          let redirect = this.creatorInfo.redirect
           if(email == '' || amount == '') {
              this.issue = 'Enter email & amount please'
              this.tipbtn = "Tip"
@@ -511,7 +514,7 @@ export default {
 
                   FlutterwaveCheckout({
       public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
-      tx_ref: `${email}-shukran${this.isSubscribing ? 'ing' : ''}-${this.userinfos[0]._id} @ ${Date.now()}`,
+      tx_ref: `${email}-shukran${this.isSubscribing ? 'ing' : ''}-${this.creatorInfo._id} @ ${Date.now()}`,
       amount: parseInt(amount),
       // https://stackoverflow.com/a/40560953
       // make country based on currency? how about ?
@@ -524,7 +527,7 @@ export default {
       ...(this.isSubscribing && this.paymentID !== undefined) && {payment_plan: this.paymentID},
       meta: {
         meta_one: 23,
-        meta_two: "A string",
+        meta_two: "A test string",
         supporter_message: message,
         supporter_nickname: supporter_nickname,
         // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
@@ -595,7 +598,22 @@ export default {
 }
 </script>
 <style scoped>
+.sk p.peek-it {
+   height: 180px;
+   overflow-y: scroll;
+}
+.description-body {
+   height: auto;
+}
+.get-it{
+   bottom: 30px;
+}
 
+@media screen and (min-width: 1200px) {
+   .get-it{
+      bottom: 40px;
+   }
+}
 .sk {
    width: 200px;
 }
