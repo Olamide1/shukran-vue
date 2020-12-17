@@ -75,7 +75,7 @@
                            </h3>
                            <p class="peek-it">{{ content.description }}</p>
                            <p uk-margin="" class="get-it">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" :href="content.web_view_link">Download</a>
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" :href="content.web_content_link" download>Download</a>
                            </p>
                         </div>
                   </div>

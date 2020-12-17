@@ -299,14 +299,14 @@
                               <div class="uk-width-expand">
                                   <div class="uk-grid uk-flex-middle uk-flex-between">
                                     <div>
-                                      <h5 class="uk-margin-remove-bottom">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
+                                      <h5 class="uk-margin-remove-bottom content-name">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
                                       <p class="uk-text-meta uk-margin-remove-top">{{contentType(content.file_type)}} &mdash; Added <time :datetime="content.created_at">
                                         {{new Intl.DateTimeFormat("en", {
                                           dateStyle: "long"
                                         }).format(new Date(content.created_at))}}</time>
                                       </p>
                                     </div>
-                                    <div class="uk-width-auto">
+                                    <div class="uk-width-auto uk-padding-remove-left">
                                         <a class="uk-icon-button" uk-icon="trash"
                                         uk-tooltip="Delete this content"
                                         v-on:click="deleteContent(content._id)"
@@ -889,7 +889,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.content-name {
+  width: 95%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .uk-icon-button.send-message-all {
     background: #e46067;
     color: #212121;
