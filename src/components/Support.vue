@@ -273,7 +273,7 @@ export default {
                return '$'
                break;
          case "KES":
-               return 'Ksh'
+               return '/-'
                break;
          default:
             break;
