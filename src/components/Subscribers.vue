@@ -412,7 +412,7 @@
                                                       {{currencySymbol}}
                                                     </label>
                                                   
-                                                  <input @change="changeThresholdPrice" uk-tooltip="Click to edit" class="uk-input uk-text-meta uk-form-blank threshold-price" :id="content.created_at" :data-index="content.created_at" type="number" placeholder="??">
+                                                  <input @change="changeThresholdPrice" uk-tooltip="Click to edit" class="uk-input uk-text-meta uk-form-blank threshold-price" :value="content.threshold.amount" :id="content.created_at" :data-index="content.created_at" type="number" placeholder="0.00">
                                               </div>
                                           </div>
                                       </div>
@@ -1056,7 +1056,7 @@ p[contenteditable='true'] {
   -webkit-box-orient: vertical;
 }
 .content-name {
-  width: 95%;
+  width: 75%;
   /* white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; */
