@@ -531,7 +531,6 @@ export default {
         supporter_message: message,
         supporter_nickname: supporter_nickname,
         // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
-        
       },
       customer: { 
         email: email,
@@ -539,7 +538,6 @@ export default {
         supporter_nickname: supporter_nickname,
         creator_username: username,
         subscribing: this.isSubscribing
-
       },
       callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
 

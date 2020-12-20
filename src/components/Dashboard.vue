@@ -164,9 +164,9 @@
             <div id="my-id" uk-modal>
               <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Hi {{username}}</h2>
-                <p>Show some love or raise an issue</p>
+                <p>Show some love 😊 or raise an issue 🙃</p>
                 <div class="uk-margin">
-                  <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
+                  <textarea class="uk-textarea" placeholder="Type your message" v-model="comment"></textarea>
                 </div>
                 <div class="uk-margin">
                   <button class="uk-button uk-button-default" @click="submitFeedback">{{feed}}</button>
@@ -516,7 +516,7 @@ export default {
       profiles: [JSON.parse(sessionStorage.getItem("profile"))],
       balance: 0,
       comment: "",
-      feed: "Submit",
+      feed: "Send",
       request: "Request",
       uniqueSupporters: 0
     };
@@ -922,7 +922,7 @@ export default {
     submitFeedback() {
       let username = this.username;
       let comment = this.comment;
-      this.feed = "loading...";
+      this.feed = "Sending...";
       axios
         .post(process.env.BASE_URL + "/api/givefeedback/", {
           username: username,
@@ -1013,6 +1013,12 @@ export default {
 <style scoped>
 .tip-details-header-section > ul {
   margin-top: 0px;
+}
+#my-id > div {
+  border-radius: 5px;
+}
+#my-id > div textarea, #my-id > div button {
+  border-radius: 3px;
 }
 /** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
 .top-nav-progress-bar {
