@@ -291,19 +291,150 @@
 
                   <div class="">
                     <ul class="uk-list uk-list-striped" v-if="this.profile.content && this.profile.content.length > 0">
+
+                      <li>
+                          <div>
+                              <!-- <div class="uk-width-auto">
+                                  <span :uk-icon="contentIcon('image/png')"></span>
+                              </div> -->
+                              <div class="">
+                                  <!-- <div class="uk-grid uk-flex-middle uk-flex-between">
+                                    <div>
+                                      <h5 class="uk-margin-remove-bottom content-name">
+                                        I have no other God  
+                                      </h5>
+                                     
+                                          <div class="th-price uk-text-small">
+                                            &mdash; Added
+                                            <span class="uk-text-meta uk-margin-remove-top">
+                                             December 17, 2020
+                                            </span>
+                                            for shuclans paying
+                                              <div class="uk-inline" uk-tooltip="Click to edit">
+                                                  <b>{{currencySymbol}}</b>
+                                                  <input class="uk-input uk-text-meta uk-form-blank threshold-price" data-index="2020-02-17T03:00:05.446Z" type="number" placeholder="??">
+                                              </div>
+                                          </div>
+                                      
+                                    </div>
+                                    <div class="uk-width-auto uk-padding-remove-left">
+                                        <a class="uk-icon-button" uk-icon="trash"
+                                        uk-tooltip="Delete this content"
+                                        ></a>
+                                        
+                                        <a class="uk-icon-button uk-margin-small-left" uk-icon="pencil" 
+                                        uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
+                                        ></a>
+                                    </div>
+                                  </div> -->
+                                  <!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
+
+                                  <div>
+                                      <div class="uk-width-expand">
+                                          <div class="uk-grid-small uk-flex-middle uk-flex-between" uk-grid>
+                                            <h4 class="uk-margin-remove-bottom uk-text-truncate content-name">Title This joadfaoiof jkdfkna dkfjanlki aoifoao</h4>
+                                            
+                                            <div class="uk-width-auto uk-margin-remove-top">
+                                                <a class="uk-icon-button" uk-icon="trash"
+                                              uk-tooltip="Delete this content"
+                                              v-on:click="deleteContent(content._id)"
+                                              ></a>
+                                              
+                                              <a class="uk-icon-button uk-margin-auto-left@m" uk-icon="pencil"
+                                              v-on:click="changeProductDescription(content._id, content.created_at)"
+                                              uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
+                                              ></a>
+                                            </div>
+
+                                          </div>
+                                          <div class="th-price uk-text-small">
+                                            <span class="uk-label">PDF</span>
+                                            &mdash; Added
+                                            <span class="uk-text-meta uk-margin-remove-top">
+                                             December 17, 2020
+                                            </span>
+                                            for shuclans paying
+                                              <div class="uk-inline" uk-tooltip="Click to edit">
+                                                  <b>
+                                                    <label for="2020-02-17T03:00:05.446Z">
+                                                      {{currencySymbol}}
+                                                    </label>
+                                                  </b>
+                                                  <input class="uk-input uk-text-meta uk-form-blank threshold-price" id="2020-02-17T03:00:05.446Z" data-index="2020-02-17T03:00:05.446Z" type="number" placeholder="??">
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <p class="uk-margin-remove-top uk-margin-remove-bottom the-what" contenteditable="false">
+                                    content.descripAdd a description for Click the edit icon to do that content.description.trim
+                                  </p>
+                              </div>
+                          </div>
+                        </li>
+
+                        <!-- // delete the li up // -->
                         <li v-for="content in this.profile.content" :key="content.created_at">
-                          <div class="uk-grid-small uk-flex-middle" uk-grid>
+                          <div>
+                              <div class=""><!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
+
+                                  <div>
+                                      <div class="uk-width-expand">
+                                          <div class="uk-grid-small uk-flex-middle uk-flex-between" uk-grid>
+                                            <h4 class="uk-margin-remove-bottom uk-text-truncate content-name">
+                                              {{content.filename.split('.').slice(0, -1).join('.')}}
+                                            </h4>
+                                            
+                                            <div class="uk-width-auto uk-margin-remove-top">
+                                                <a class="uk-icon-button" uk-icon="trash"
+                                              uk-tooltip="Delete this content"
+                                              v-on:click="deleteContent(content._id)"
+                                              ></a>
+                                              
+                                              <a class="uk-icon-button uk-margin-auto-left@m" uk-icon="pencil"
+                                              :data-index="content.created_at"
+                                              v-on:click="changeProductDescription(content._id, content.created_at)"
+                                              uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
+                                              ></a>
+                                            </div>
+
+                                          </div>
+                                          <div class="th-price uk-text-small">
+                                            <span class="uk-label">{{contentType(content.file_type)}}</span>
+                                            &mdash; Added
+                                            <span class="uk-text-meta uk-margin-remove-top">
+                                             {{new Date(content.created_at).toDateString()}}
+                                            </span>
+                                            for shuclans paying
+                                              <div class="uk-inline" >
+                                                  
+                                                    <label :for="content.created_at">
+                                                      {{currencySymbol}}
+                                                    </label>
+                                                  
+                                                  <input @change="changeThresholdPrice" uk-tooltip="Click to edit" class="uk-input uk-text-meta uk-form-blank threshold-price" :value="content.threshold.amount" :id="content.created_at" :data-index="content.created_at" type="number" placeholder="0.00">
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <p class="uk-margin-remove-top uk-margin-remove-bottom the-what" :data-index="content.created_at" contenteditable="false">
+                                    {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
+                                  </p>
+                              </div>
+                          </div>
+                          <!-- <div class="uk-grid-small uk-flex-middle" uk-grid>
                               <div class="uk-width-auto">
                                   <span :uk-icon="contentIcon(content.file_type)"></span>
                               </div>
                               <div class="uk-width-expand">
                                   <div class="uk-grid uk-flex-middle uk-flex-between">
                                     <div>
-                                      <h5 class="uk-margin-remove-bottom content-name">{{content.filename.split('.').slice(0, -1).join('.')}}</h5><!-- Removing the file extention -->
+                                      <h5 class="uk-margin-remove-bottom content-name">{{content.filename.split('.').slice(0, -1).join('.')}}</h5>
                                       <p class="uk-text-meta uk-margin-remove-top">{{contentType(content.file_type)}} &mdash; Added <time :datetime="content.created_at">
-                                        {{new Intl.DateTimeFormat("en", {
-                                          dateStyle: "long"
-                                        }).format(new Date(content.created_at))}}</time>
+                                        {{
+                                          new Date(content.created_at).toDateString()
+                                        }}</time>
                                       </p>
                                     </div>
                                     <div class="uk-width-auto uk-padding-remove-left">
@@ -322,7 +453,7 @@
                                     {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
                                   </p>
                               </div>
-                          </div>
+                          </div> -->
                         </li>
                     </ul>
                     <div v-else>
@@ -426,14 +557,29 @@ export default {
           console.log("error occured deleting", error);
         });
     },
+    changeThresholdPrice() {
+      // console.log(event.target.value);
+    },
     changeProductDescription(_id, _ref) {
       let _prgrph = document.querySelector(`p[data-index='${_ref}']`);
+      let _price = document.querySelector(`input[data-index='${_ref}']`);
       if (_prgrph.isContentEditable) { // Disable Editing
         _prgrph.contentEditable = 'false';
+
+        document.querySelector(`input[data-index='${_ref}']`).classList.add('uk-form-blank')
         document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'pencil');
+        console.log(_price.value);
 
         // update product description, TODO, if no change in text, don't make http request
-        axios.post(process.env.BASE_URL + "/api/updatecontentdescription/", {id: this.profile._id, content_id: _id, updateData: {"description": _prgrph.innerText}})
+        axios.post(process.env.BASE_URL + "/api/updatecontentdescription/", {
+          id: this.profile._id,
+          content_id: _id,
+          updateData: {
+            "description": _prgrph.innerText,
+            "price": _price.value,
+            "currency": this.currency
+          }
+        })
         .then(res => {
           console.log('updated!', res)
         })
@@ -443,6 +589,8 @@ export default {
       } else { // Enable editing
         _prgrph.contentEditable = 'true';
         this.moveCursorToEnd(_prgrph)
+
+        document.querySelector(`input[data-index='${_ref}']`).classList.remove('uk-form-blank')
         document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'check');
       }
     },
@@ -889,11 +1037,35 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.content-name {
-  width: 95%;
-  white-space: nowrap;
+p[contenteditable='true'] {
+  outline: auto;
+}
+
+.threshold-price {
+  height: 30px;
+  width: 70px;
+  margin-bottom: 5px;
+  padding: 2px 0 2px 0;
+}
+
+.the-what { /** https://css-tricks.com/line-clampin/ */
+  /* width: 250px; */
   overflow: hidden;
-  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.content-name {
+  width: 75%;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+@media (max-width: 960px) {
+  .content-name {
+    width: 50%;
+  }
 }
 .uk-icon-button.send-message-all {
     background: #e46067;

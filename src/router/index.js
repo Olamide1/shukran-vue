@@ -5,7 +5,7 @@ import Dashboard from '@/components/Dashboard'
 import Profile from '@/components/Profile'
 import Home from '@/components/Home'
 import Support from '@/components/Support'
-import Thankyou from '@/components/Thankyou'
+import ThankYou from '@/components/ThankYou'
 import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
 import Pricing from '@/components/Pricing'
@@ -119,8 +119,8 @@ export default new Router({
     },
     {
       path: '/thanks',
-      name: 'Thankyou',
-      component: Thankyou
+      name: 'ThankYou',
+      component: ThankYou
     },
     {
       path: '/resetpassword',
