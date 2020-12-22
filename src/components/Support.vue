@@ -80,7 +80,7 @@
                         </div>
                   </div>
 
-                  <div v-for="n in 4" :key="n" class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
+                  <!-- <div v-for="n in 4" :key="n" class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
                         <div class="uk-card-badge">Hot</div>
                         <div class="uk-card-body sk">
                            <h3 class="uk-card-title">
@@ -95,7 +95,7 @@
                               <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
                            </p>
                         </div>
-                  </div>
+                  </div> -->
 
 
                </div>
@@ -171,9 +171,6 @@
             </div>
       </div>
 
-   <!-- mobile view -->
-     
-   <!-- //mobile view -->
       <div class="uk-container uk-margin-top">
          <div class="uk-container-expand" align="center" >
       <div class="uk-card tip-card uk-card-default uk-width-1-2@m" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">

@@ -291,88 +291,8 @@
 
                   <div class="">
                     <ul class="uk-list uk-list-striped" v-if="this.profile.content && this.profile.content.length > 0">
-
-                      <li>
-                          <div>
-                              <!-- <div class="uk-width-auto">
-                                  <span :uk-icon="contentIcon('image/png')"></span>
-                              </div> -->
-                              <div class="">
-                                  <!-- <div class="uk-grid uk-flex-middle uk-flex-between">
-                                    <div>
-                                      <h5 class="uk-margin-remove-bottom content-name">
-                                        I have no other God  
-                                      </h5>
-                                     
-                                          <div class="th-price uk-text-small">
-                                            &mdash; Added
-                                            <span class="uk-text-meta uk-margin-remove-top">
-                                             December 17, 2020
-                                            </span>
-                                            for shuclans paying
-                                              <div class="uk-inline" uk-tooltip="Click to edit">
-                                                  <b>{{currencySymbol}}</b>
-                                                  <input class="uk-input uk-text-meta uk-form-blank threshold-price" data-index="2020-02-17T03:00:05.446Z" type="number" placeholder="??">
-                                              </div>
-                                          </div>
-                                      
-                                    </div>
-                                    <div class="uk-width-auto uk-padding-remove-left">
-                                        <a class="uk-icon-button" uk-icon="trash"
-                                        uk-tooltip="Delete this content"
-                                        ></a>
-                                        
-                                        <a class="uk-icon-button uk-margin-small-left" uk-icon="pencil" 
-                                        uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
-                                        ></a>
-                                    </div>
-                                  </div> -->
-                                  <!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
-
-                                  <div>
-                                      <div class="uk-width-expand">
-                                          <div class="uk-grid-small uk-flex-middle uk-flex-between" uk-grid>
-                                            <h4 class="uk-margin-remove-bottom uk-text-truncate content-name">Title This joadfaoiof jkdfkna dkfjanlki aoifoao</h4>
-                                            
-                                            <div class="uk-width-auto uk-margin-remove-top">
-                                                <a class="uk-icon-button" uk-icon="trash"
-                                              uk-tooltip="Delete this content"
-                                              v-on:click="deleteContent(content._id)"
-                                              ></a>
-                                              
-                                              <a class="uk-icon-button uk-margin-auto-left@m" uk-icon="pencil"
-                                              v-on:click="changeProductDescription(content._id, content.created_at)"
-                                              uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
-                                              ></a>
-                                            </div>
-
-                                          </div>
-                                          <div class="th-price uk-text-small">
-                                            <span class="uk-label">PDF</span>
-                                            &mdash; Added
-                                            <span class="uk-text-meta uk-margin-remove-top">
-                                             December 17, 2020
-                                            </span>
-                                            for shuclans paying
-                                              <div class="uk-inline" uk-tooltip="Click to edit">
-                                                  <b>
-                                                    <label for="2020-02-17T03:00:05.446Z">
-                                                      {{currencySymbol}}
-                                                    </label>
-                                                  </b>
-                                                  <input class="uk-input uk-text-meta uk-form-blank threshold-price" id="2020-02-17T03:00:05.446Z" data-index="2020-02-17T03:00:05.446Z" type="number" placeholder="??">
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-
-                                  <p class="uk-margin-remove-top uk-margin-remove-bottom the-what" contenteditable="false">
-                                    content.descripAdd a description for Click the edit icon to do that content.description.trim
-                                  </p>
-                              </div>
-                          </div>
-                        </li>
-
+                      <!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
+                     
                         <!-- // delete the li up // -->
                         <li v-for="content in this.profile.content" :key="content.created_at">
                           <div>
@@ -412,7 +332,7 @@
                                                       {{currencySymbol}}
                                                     </label>
                                                   
-                                                  <input @change="changeThresholdPrice" uk-tooltip="Click to edit" class="uk-input uk-text-meta uk-form-blank threshold-price" :value="content.threshold.amount" :id="content.created_at" :data-index="content.created_at" type="number" placeholder="0.00">
+                                                  <input @change="changeThresholdPrice(content._id)" uk-tooltip="Click to edit" class="uk-input uk-text-meta uk-form-blank threshold-price" :value="content.threshold.amount" :id="content.created_at" :data-index="content.created_at" type="number" placeholder="0.00">
                                               </div>
                                           </div>
                                       </div>
@@ -557,8 +477,32 @@ export default {
           console.log("error occured deleting", error);
         });
     },
-    changeThresholdPrice() {
-      // console.log(event.target.value);
+    changeThresholdPrice(_id) {
+      console.log(_id, event.target.value);
+
+      // console.log(event.srcElement.getAttribute('data-index'));
+
+      // update product price
+      axios.post(process.env.BASE_URL + "/api/updatecontentmetadata/", {
+        id: this.profile._id,
+        content_id: _id,
+        updateData: {
+          "price": event.target.value,
+          "currency": this.currency
+        }
+      })
+      .then(res => {
+        console.log('updated!', res)
+        sessionStorage.setItem('profile', JSON.stringify(res.data))
+        if (res.status == 200) {
+          console.log('yes');
+        } else {
+          console.log('no');
+        }
+      })
+      .catch(error => {
+        console.log("error occured updating", error);
+      });
     },
     changeProductDescription(_id, _ref) {
       let _prgrph = document.querySelector(`p[data-index='${_ref}']`);
@@ -571,7 +515,7 @@ export default {
         console.log(_price.value);
 
         // update product description, TODO, if no change in text, don't make http request
-        axios.post(process.env.BASE_URL + "/api/updatecontentdescription/", {
+        axios.post(process.env.BASE_URL + "/api/updatecontentmetadata/", {
           id: this.profile._id,
           content_id: _id,
           updateData: {
@@ -582,6 +526,7 @@ export default {
         })
         .then(res => {
           console.log('updated!', res)
+          sessionStorage.setItem('profile', JSON.stringify(res.data))
         })
         .catch(error => {
           console.log("error occured updating", error);
