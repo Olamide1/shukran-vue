@@ -282,19 +282,15 @@
             <div>
               <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                 <div>
+
                   <div class="tip-details-header-section uk-flex uk-flex-between">
-                    <span>
+                    <span class="uk-margin-small-top">
                       Tip details.
                     </span>
-                    <ul class="uk-pagination uk-flex-right" uk-margin>
-                        <li><a href="#"><span uk-pagination-previous></span></a></li>
-                        <li><a href="#">1</a></li>
-                        <li class="uk-disabled"><span>...</span></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li class="uk-active"><span>7</span></li>
-                        <li><a href="#">8</a></li>
-                        <li><a href="#"><span uk-pagination-next></span></a></li>
+                    <ul class=" uk-flex-right " uk-tab uk-switcher="connect: .re-tain; animation: uk-animation-fade">
+                      
+                      <li v-for="(n, ni) in Math.round(transactions.length/viewPerPage)" :key="ni"><a href="#">{{ni + 1}}</a></li>
+                    
                     </ul>
                   </div>
                   
@@ -302,17 +298,29 @@
                   
                 </div>
                 
-                <ul class="uk-list uk-list-divider">
-                    <li v-for="n in 13" :key="n + 'i'" class="uk-margin-small-left uk-margin-small-right">
+                <ul class="uk-switcher re-tain">
+                <li v-for="(n, ni) in Math.round(transactions.length/viewPerPage)" :key="ni + 'jop'" :data-index="ni">
+                  <ul class="uk-list uk-list-divider">
+                  
+                    <li v-for="(m, mi) in transactions.slice(ni*viewPerPage, (ni*viewPerPage)+viewPerPage)" :key="m.transaction_date" :data-index="mi" class="uk-margin-small-left uk-margin-small-right">
                       <div class="uk-width-expand">
-                          <h5 class="uk-margin-remove-bottom">$5 from Anonymous</h5>
-                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">This is meant to be a somewhat long or short message or not. &#8212; <time datetime="">April 01, November</time></p>
+                          <h5 class="uk-margin-remove-bottom">{{currencySymbol}}<span class="uk-text-bolder">{{m.amount.toFixed(2)}}</span> from {{ m.supporter_nickname }}</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">
+                            {{ m.message.length === 0 ? "" : m.message.trim().endsWith('.') ? m.message + ' &#8212;' : m.message.concat('.') + ' &#8212;' }} 
+                             
+                            <time :datetime="m.transaction_date">
+                              {{new Intl.DateTimeFormat("en" , {
+                                dateStyle: "long"
+                              }).format(new Date(m.transaction_date))}}
+                            </time>
+                          </p>
                       </div>
                     </li>
                     
-                    <li class="uk-margin-small-left uk-margin-small-right" v-for="(transaction, index) in transactions" :key="index">
+                    
+                    <!-- <li class="uk-margin-small-left uk-margin-small-right" v-for="(transaction, index) in transactions" :key="index">
                       <div class="uk-width-expand">
-                          <h5 class="uk-margin-remove-bottom">{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}<!-- {{transaction.amount}} --> from {{ transaction.supporter_nickname }}</h5>
+                          <h5 class="uk-margin-remove-bottom">{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}} from {{ transaction.supporter_nickname }}</h5>
                           <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">
                             {{ transaction.message.length === 0 ? "" : transaction.message.endsWith('.') ? transaction.message + ' &#8212;' : transaction.message.concat('.') + ' &#8212;' }} 
                              
@@ -323,7 +331,9 @@
                             </time>
                           </p>
                       </div>
-                    </li>
+                    </li> -->
+                  </ul>
+                  </li>
                 </ul>
                 
                 <!-- <div class="tippers-table">
@@ -389,6 +399,7 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+import { forEach } from 'shelljs/commands';
 export default {
   name: "dashboard",
   data() {
@@ -411,7 +422,8 @@ export default {
       comment: "",
       feed: "Send",
       request: "Request",
-      uniqueSupporters: 0
+      uniqueSupporters: 0,
+      viewPerPage: 8
     };
   },
   computed: {
@@ -459,6 +471,11 @@ export default {
                 /* ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
+        
+        for (let index = 0; index < this.transactions.length; index++) {
+          const element = this.transactions[index];
+          element.amount = fx(element.amount).from(this.tempCurr).to(this.currency)
+        }
             
         switch (this.currency) {
             case "NGN":
@@ -544,6 +561,11 @@ export default {
                 /* ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
+
+          for (let index = 0; index < this.transactions.length; index++) {
+            const element = this.transactions[index];
+            element.amount = fx(element.amount).from(this.tempCurr).to(this.currency)
+          }
 
           switch (this.currency) {
             case "NGN":

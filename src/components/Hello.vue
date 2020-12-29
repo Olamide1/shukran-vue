@@ -113,7 +113,7 @@ export default {
         axios.post(process.env.BASE_URL + '/api/login/', {
             username: this.username.toLowerCase().trim(),
             password: md5(this.password)
-        }).then( res => {
+        }).then(res => {
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
             this.issue = 'Username or password incorrect...'
