@@ -20,7 +20,7 @@
 
     <p class="uk-text-lead">2020 has been so many things, it's a bit daunting to sum it up for everyone. Still we must reflect on it so we can, at least, try to make 2021 better. Right?</p>
 
-    <p>We started Shukran to make creators earn better. So far, just a handful of creators really earned something worth while this year. We want to change that, so that a greater percentage of us earns so much that they can solely become their own media companies. That's our over aching goal by the way. It's only fair.</p>
+    <p>We started Shukran to make creators earn better. So far, just a handful of creators really earned something worth while this year. We want to change that, so that a greater percentage of us earn so much that they can solely become their own media companies. That's our over-arching goal by the way. It's only fair.</p>
     <p>We sent out highlights for 2020, please do check your email. You could respond to us and tell us what you think about it. We'd really love to hear what you think. We're determined to make Shukran a better platform for you to earn. 2021 is really gonna be a bang! Expect a lot from us to you.</p>
 
     <p>Shukran.</p>
