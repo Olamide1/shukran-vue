@@ -133,7 +133,7 @@
               <router-link to="/dash">Dashboard</router-link>
             </li>
             <li>
-              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclan</span></router-link>
+              <router-link to="/subscribers"><span uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span></router-link>
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
             <div id="modal-center" class="uk-flex-top" uk-modal>
@@ -164,9 +164,9 @@
             <div id="my-id" uk-modal>
               <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Hi {{username}}</h2>
-                <p>Show some love or raise an issue</p>
+                <p>Show some love 😊 or raise an issue 🙃</p>
                 <div class="uk-margin">
-                  <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
+                  <textarea class="uk-textarea" placeholder="Type your message" v-model="comment"></textarea>
                 </div>
                 <div class="uk-margin">
                   <button class="uk-button uk-button-default" @click="submitFeedback">{{feed}}</button>
@@ -198,6 +198,8 @@
           
           <div>
             <div class="uk-grid-row-medium uk-flex-column info-card" uk-grid>
+
+              
             <div>
               <!-- Total tips start -->
               <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
@@ -250,13 +252,12 @@
             <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                   <h3 class="uk-card-title">Overview</h3>
-                  <ul class="metrics">
+                  <!-- <ul class="metrics">
                     <li class="li-available">Available</li>
                     <li class="li-withdrawn">Withdrawn</li>
                   </ul>
 
                   <div class="progress">
-                    <!-- 1000 naira should be payoutGuard -->
                     <span
                       :uk-tooltip="`${availableBalance > payoutGuard ? 'You have ' + currencySymbol + parseInt(availableBalance) + ' available to withdraw' : 'You need more than ' + currencySymbol + payoutGuard + ' to make a withdrawal request'}`"
                       class="value"
@@ -269,7 +270,19 @@
                       :data-label="`~${currencySymbol}${tipWithdrawn.toFixed(0)}`"
                       :style="`width:${(((tipTotal - availableBalance) / tipTotal) * 100).toFixed(2)}%;`"
                     ></span>
-                  </div>
+                  </div> -->
+
+                  <div class="chart-container-2">
+                  <canvas
+                    id="total-money-chart"
+                    aria-label="Total Money Chart"
+                    role="Total Money chart image"
+                  >
+                  <div id="chartjs-tooltip"></div>
+                    <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
+                  </canvas>
+                </div>
+
                 </div>
               </div>
 
@@ -281,29 +294,46 @@
             <!-- table -->
             <div>
               <div class="info-card uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-                <h3 class="uk-card-title">Tip details. <span v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</span></h3>
+                <div>
 
-                <div class="tippers-table">
-                  <table class="uk-table uk-table-middle uk-table-divider">
-                    <thead>
-                      <tr>
-                        <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
-                        <th style="color:#516E6F;">Amount</th>
-                        <th style="color:#516E6F;">Message</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="(transaction, index) in transactions"
-                        :key="index"
-                      >
-                        <td>{{transaction.supporter_nickname}}</td>
-                        <td>{{currencySymbol}}{{parseFloat(allTips[index]).toFixed(2)}}<!-- {{transaction.amount}} --></td>
-                        <td>{{transaction.message}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="tip-details-header-section uk-flex uk-flex-between">
+                    <span class="uk-margin-small-top">
+                      Tip details.
+                    </span>
+                    <ul class=" uk-flex-right " uk-tab uk-switcher="connect: .re-tain; animation: uk-animation-fade">
+                      
+                      <li v-for="(n, ni) in Math.round(transactions.length/viewPerPage)" :key="ni"><a href="#">{{ni + 1}}</a></li>
+                    
+                    </ul>
+                  </div>
+                  
+                  <h1 class="uk-heading-small" v-show="uniqueSupporters > 0">{{uniqueSupporters}} supporters</h1>
+                  
                 </div>
+                
+                <ul class="uk-switcher re-tain">
+                <li v-for="(n, ni) in Math.round(transactions.length/viewPerPage)" :key="ni + 'jop'" :data-index="ni">
+                  <ul class="uk-list uk-list-divider">
+                  
+                    <li v-for="(m, mi) in transactions.slice(ni*viewPerPage, (ni*viewPerPage)+viewPerPage)" :key="m.transaction_date" :data-index="mi" class="uk-margin-small-left uk-margin-small-right">
+                      <div class="uk-width-expand">
+                          <h5 class="uk-margin-remove-bottom">{{currencySymbol}}<span class="uk-text-bolder">{{parseFloat(m.amount).toFixed(2)}}</span> from {{ m.supporter_nickname }}</h5>
+                          <p class="uk-text-meta uk-margin-remove-bottom uk-margin-small-top">
+                            {{ m.message.length === 0 ? "" : m.message.trim().endsWith('.') ? m.message + ' &#8212;' : m.message.concat('.') + ' &#8212;' }} 
+                             
+                            <time :datetime="m.transaction_date">
+                              {{new Intl.DateTimeFormat("en" , {
+                                dateStyle: "long"
+                              }).format(new Date(m.transaction_date))}}
+                            </time>
+                          </p>
+                      </div>
+                    </li>
+                    
+                  </ul>
+                  </li>
+                </ul>
+                
               </div>
             </div>
             <!-- //table -->
@@ -346,6 +376,7 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+import { forEach } from 'shelljs/commands';
 export default {
   name: "dashboard",
   data() {
@@ -356,7 +387,7 @@ export default {
       tipsDates: [],
       currency: !localStorage.getItem("shukran-country-currency") ? "NGN" : localStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
       tempCurr: "NGN", // cause they come as this
-      payoutGuard: 1000, // 1000 naira
+      payoutGuard: 1000, // 1000 NGN
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
       amount: 0,
@@ -366,9 +397,10 @@ export default {
       profiles: [JSON.parse(sessionStorage.getItem("profile"))],
       balance: 0,
       comment: "",
-      feed: "Submit",
+      feed: "Send",
       request: "Request",
-      uniqueSupporters: 0
+      uniqueSupporters: 0,
+      viewPerPage: 8
     };
   },
   computed: {
@@ -408,13 +440,19 @@ export default {
                 /* ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency);
-        
+
+        // convert transaction.amount too... to use in tip div
         this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
             .from(
               this.tempCurr
                 /* ? this.tempCurr
                 : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
+        
+        for (let index = 0; index < this.transactions.length; index++) {
+          const element = this.transactions[index];
+          element.amount = fx(element.amount).from(this.tempCurr).to(this.currency)
+        }
             
         switch (this.currency) {
             case "NGN":
@@ -501,6 +539,11 @@ export default {
                 : localStorage.getItem("shukran-country-currency") */
             ).to(this.currency));
 
+          for (let index = 0; index < this.transactions.length; index++) {
+            const element = this.transactions[index];
+            element.amount = fx(element.amount).from(this.tempCurr).to(this.currency)
+          }
+
           switch (this.currency) {
             case "NGN":
               this.payoutGuard = 1000
@@ -526,6 +569,9 @@ export default {
         }
         // console.log('all tips', this.allTips)
       }
+
+      // re-render, the whole page, to update the graph
+      this.$forceUpdate();
     },
     getSupporters() {
         // Optionally the request above could also be done as
@@ -631,12 +677,137 @@ export default {
                 return `You were tipped ${chartData.currencySymbol}${parseInt(tooltipItem.value).toFixed(2)} on ${tooltipItem.label}`;
               },
               title: function(tooltipItem, data) {
-                return `${tooltipItem[0].label} inflow`;
+                return `${tooltipItem[0].label} tip`;
               }
             }
           }
         }
       });
+
+
+      // https://uidesigndaily.com/posts/sketch-stats-card-statistics-analytics-chart-day-817
+      const ctx2 = document.getElementById("total-money-chart");
+
+      /* Chart.defaults.global.tooltips.custom = function(tooltip) {
+        // Tooltip Element
+        var tooltipEl = document.getElementById('chartjs-tooltip');
+
+        // Hide if no tooltip
+        if (tooltip.opacity === 0) {
+          tooltipEl.style.opacity = 0;
+          return;
+        }
+
+        // Set caret Position
+        tooltipEl.classList.remove('above', 'below', 'no-transform');
+        if (tooltip.yAlign) {
+          tooltipEl.classList.add(tooltip.yAlign);
+        } else {
+          tooltipEl.classList.add('no-transform');
+        }
+
+        function getBody(bodyItem) {
+          return bodyItem.lines;
+        }
+
+        // Set Text
+        if (tooltip.body) {
+          var titleLines = tooltip.title || [];
+          var bodyLines = tooltip.body.map(getBody);
+
+          var innerHtml = '<thead>';
+
+          titleLines.forEach(function(title) {
+            innerHtml += '<tr><th>' + title + '</th></tr>';
+          });
+          innerHtml += '</thead><tbody>';
+
+          bodyLines.forEach(function(body, i) {
+            var colors = tooltip.labelColors[i];
+            var style = 'background:' + colors.backgroundColor;
+            style += '; border-color:' + colors.borderColor;
+            style += '; border-width: 2px';
+            var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+            innerHtml += '<tr><td>' + span + body + '</td></tr>';
+          });
+          innerHtml += '</tbody>';
+
+          var tableRoot = tooltipEl.querySelector('table');
+          tableRoot.innerHTML = innerHtml;
+        }
+
+        var positionY = this._chart.canvas.offsetTop;
+        var positionX = this._chart.canvas.offsetLeft;
+
+        // Display, position, and set styles for font
+        tooltipEl.style.opacity = 1;
+        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+        tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
+        tooltipEl.style.fontSize = tooltip.bodyFontSize;
+        tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
+        tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
+      }; */
+
+      let config = {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: [300, 50, 100, 40, 10],
+            backgroundColor: [
+              /* Chart.colorName.red,
+              Chart.colorName.orange,
+              Chart.colorName.yellow,
+              Chart.colorName.green,
+              Chart.colorName.blue, */
+            ],
+          }],
+          labels: [
+            'Red',
+            'Orange',
+            'Yellow',
+            'Green',
+            'Blue'
+          ]
+        },
+        options: {
+          responsive: true,
+          legend: {
+            display: false
+          },
+          tooltips: {
+            enabled: false,
+          }
+        }
+      };
+
+      let chrt2 = new Chart(ctx2, /* config */{
+          type: 'doughnut',
+          data: {
+            datasets: [{
+              data: [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)],
+              backgroundColor: ['#3C67D6', '#7244AD'], // https://www.instagram.com/p/CJBJs6BAX0S/
+              borderWidth: 4,
+            }],
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+                'Available',
+                'Withdrawn'
+            ]
+          },
+          options: {
+            cutoutPercentage: 75,
+            legend: {
+              position: 'bottom',
+              labels: {
+                usePointStyle: true,
+              }
+            },
+          }
+      });
+
+      // console.log('chart => ', chrt2);
+      
     },
     logout() {
       sessionStorage.clear();
@@ -704,7 +875,7 @@ export default {
             .to("NGN"); */
       let amount = this.amount;
       if (this.currency === "KES") { // we can do more
-        amount = parseFloat(this.amount) * 4.4
+        amount = parseFloat(this.amount) * 4.1
       } else if (this.currency === "USD") {
         amount = parseFloat(this.amount) * 380
       }
@@ -768,7 +939,7 @@ export default {
     submitFeedback() {
       let username = this.username;
       let comment = this.comment;
-      this.feed = "loading...";
+      this.feed = "Sending...";
       axios
         .post(process.env.BASE_URL + "/api/givefeedback/", {
           username: username,
@@ -857,6 +1028,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.tip-details-header-section > ul {
+  margin-top: 0px;
+}
+#my-id > div {
+  border-radius: 5px;
+}
+#my-id > div textarea, #my-id > div button {
+  border-radius: 3px;
+}
 /** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
 .top-nav-progress-bar {
   display: none;

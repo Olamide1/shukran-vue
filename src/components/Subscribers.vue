@@ -80,7 +80,7 @@
               <div
                 ref="file"
                 class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '/static/img/loading.gif' }"
+                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profile.picture_id}`, loading: '/static/img/loading.gif' }"
                 uk-img
               >
 
@@ -107,12 +107,11 @@
           <button class="uk-offcanvas-close" type="button" uk-close></button>
 
           <h3>Shukran</h3>
-          <!-- -->
           <div
             ref="file"
             id="image-background"
             class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`, loading: '/static/img/loading.gif' }"
+            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profile.picture_id}`, loading: '/static/img/loading.gif' }"
             uk-img
           >
             <div
@@ -164,9 +163,9 @@
             <div id="my-id" uk-modal>
               <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Hi {{username}}</h2>
-                <p>Show some love or raise an issue</p>
+                <p>Show some love 😊 or raise an issue 🙃</p>
                 <div class="uk-margin">
-                  <textarea class="uk-textarea" placeholder="message" v-model="comment"></textarea>
+                  <textarea class="uk-textarea" placeholder="Type your message" v-model="comment"></textarea>
                 </div>
                 <div class="uk-margin">
                   <button class="uk-button uk-button-default" @click="submitFeedback">{{feed}}</button>
@@ -277,29 +276,114 @@
               <!-- Total revenue end -->
 
               <!-- Uncomment for next feature -->
-              <!-- <div>
+              <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                   
                   <div class="sub-list-header cont-list-header">
                     <h3 class="uk-card-title">Content list</h3>
                     <div uk-form-custom>
-                        <input type="file" @change="addFile">
-                        <button class="uk-button uk-button-default" type="button" tabindex="1">Add file</button>
+                        <input ref="addFileInput" type="file" @change="addFile">
+                        <button class="uk-button uk-button-default" type="button" tabindex="1">
+                          <span id="addfile-button-text">Add file</span>
+                        </button>
                     </div>
                   </div>
 
                   <div class="">
-                    <ul class="uk-list uk-list-striped">
-                        <li>List item 1</li>
-                        <li>List item 2</li>
-                        <li>List item 3</li>
+                    <ul class="uk-list uk-list-striped" v-if="this.profile.content && this.profile.content.length > 0">
+                      <!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
+                     
+                        <!-- // delete the li up // -->
+                        <li v-for="content in this.profile.content" :key="content.created_at">
+                          <div>
+                              <div class=""><!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
+
+                                  <div>
+                                      <div class="uk-width-expand">
+                                          <div class="uk-grid-small uk-flex-middle uk-flex-between" uk-grid>
+                                            <h4 class="uk-margin-remove-bottom uk-text-truncate content-name">
+                                              {{content.filename.split('.').slice(0, -1).join('.')}}
+                                            </h4>
+                                            
+                                            <div class="uk-width-auto uk-margin-remove-top">
+                                                <a class="uk-icon-button" uk-icon="trash"
+                                              uk-tooltip="Delete this content"
+                                              v-on:click="deleteContent(content._id)"
+                                              ></a>
+                                              
+                                              <a class="uk-icon-button uk-margin-auto-left@m" uk-icon="pencil"
+                                              :data-index="content.created_at"
+                                              v-on:click="changeProductDescription(content._id, content.created_at)"
+                                              uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
+                                              ></a>
+                                            </div>
+
+                                          </div>
+                                          <div class="th-price uk-text-small">
+                                            <span class="uk-label">{{contentType(content.file_type)}}</span>
+                                            &mdash; Added
+                                            <span class="uk-text-meta uk-margin-remove-top">
+                                             {{new Date(content.created_at).toDateString()}}
+                                            </span>
+                                            for shuclans paying
+                                              <div class="uk-inline" >
+                                                  
+                                                    <label :for="content.created_at">
+                                                      {{currencySymbol}}
+                                                    </label>
+                                                  
+                                                  <input @change="changeThresholdPrice(content._id)" uk-tooltip="Click to edit" class="uk-input uk-text-meta uk-form-blank threshold-price" :value="content.threshold.amount" :id="content.created_at" :data-index="content.created_at" type="number" placeholder="0.00">
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <p class="uk-margin-remove-top uk-margin-remove-bottom the-what" :data-index="content.created_at" contenteditable="false">
+                                    {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
+                                  </p>
+                              </div>
+                          </div>
+                          <!-- <div class="uk-grid-small uk-flex-middle" uk-grid>
+                              <div class="uk-width-auto">
+                                  <span :uk-icon="contentIcon(content.file_type)"></span>
+                              </div>
+                              <div class="uk-width-expand">
+                                  <div class="uk-grid uk-flex-middle uk-flex-between">
+                                    <div>
+                                      <h5 class="uk-margin-remove-bottom content-name">{{content.filename.split('.').slice(0, -1).join('.')}}</h5>
+                                      <p class="uk-text-meta uk-margin-remove-top">{{contentType(content.file_type)}} &mdash; Added <time :datetime="content.created_at">
+                                        {{
+                                          new Date(content.created_at).toDateString()
+                                        }}</time>
+                                      </p>
+                                    </div>
+                                    <div class="uk-width-auto uk-padding-remove-left">
+                                        <a class="uk-icon-button" uk-icon="trash"
+                                        uk-tooltip="Delete this content"
+                                        v-on:click="deleteContent(content._id)"
+                                        ></a>
+                                        
+                                        <a class="uk-icon-button uk-margin-small-left" uk-icon="pencil" :data-index="content.created_at"
+                                        v-on:click="changeProductDescription(content._id, content.created_at)"
+                                        uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
+                                        ></a>
+                                    </div>
+                                  </div>
+                                  <p class="uk-margin-remove-top" :data-index="content.created_at" contenteditable="false">
+                                    {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
+                                  </p>
+                              </div>
+                          </div> -->
+                        </li>
                     </ul>
+                    <div v-else>
+                      No <span uk-tooltip="You can upload materials that'll only be accessible to your Shuklans">uploads</span> yet
+                    </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
 
         </div>
-
       </div>
     </div>
   </div>
@@ -310,6 +394,7 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+import Vue from "vue";
 export default {
   name: "subscribers",
   data() {
@@ -333,10 +418,10 @@ export default {
       tipTotal: 0,
       tipWithdrawn: 0,
       withdrawals: [],
-      profiles: [JSON.parse(sessionStorage.getItem("profile"))],
+      profile: JSON.parse(sessionStorage.getItem("profile")),
       balance: 0,
       comment: "",
-      feed: "Submit",
+      feed: "Send",
       request: "Request",
       uniqueSupporters: 0,
       totalRevenue: 0
@@ -363,24 +448,256 @@ export default {
       }
     }
   },
+  watch: {
+      profile: {
+        handler(val, oldVal) {
+        },
+        deep: true
+    }
+  },
   methods: {
+    deleteContent(_id) {
+      axios.post(process.env.BASE_URL + '/api/deletecontent/', {
+        id: this.profile._id,
+        content_id: _id
+      }).then(res => {
+          console.log('updated delete content', res)
+          if (res.data.nModified == 1) {
+            this.$set(this.profile, 'content', this.profile.content.filter(c => c._id !== _id))
+            
+            this.$nextTick(function () {
+              // maybe notify that it's been successfully deleted?
+            })
+            sessionStorage.setItem("profile", JSON.stringify(this.profile)) // TODO: update session differently, update the files that creators have deleted...
+
+          }
+          
+        })
+        .catch(error => {
+          console.log("error occured deleting", error);
+        });
+    },
+    changeThresholdPrice(_id) {
+      console.log(_id, event.target.value);
+
+      // console.log(event.srcElement.getAttribute('data-index'));
+
+      // update product price
+      axios.post(process.env.BASE_URL + "/api/updatecontentmetadata/", {
+        id: this.profile._id,
+        content_id: _id,
+        updateData: {
+          "price": event.target.value,
+          "currency": this.currency
+        }
+      })
+      .then(res => {
+        console.log('updated!', res)
+        sessionStorage.setItem('profile', JSON.stringify(res.data))
+        if (res.status == 200) {
+          console.log('yes');
+        } else {
+          console.log('no');
+        }
+      })
+      .catch(error => {
+        console.log("error occured updating", error);
+      });
+    },
+    changeProductDescription(_id, _ref) {
+      let _prgrph = document.querySelector(`p[data-index='${_ref}']`);
+      let _price = document.querySelector(`input[data-index='${_ref}']`);
+      if (_prgrph.isContentEditable) { // Disable Editing
+        _prgrph.contentEditable = 'false';
+
+        document.querySelector(`input[data-index='${_ref}']`).classList.add('uk-form-blank')
+        document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'pencil');
+        console.log(_price.value);
+
+        // update product description, TODO, if no change in text, don't make http request
+        axios.post(process.env.BASE_URL + "/api/updatecontentmetadata/", {
+          id: this.profile._id,
+          content_id: _id,
+          updateData: {
+            "description": _prgrph.innerText,
+            "price": _price.value,
+            "currency": this.currency
+          }
+        })
+        .then(res => {
+          console.log('updated!', res)
+          sessionStorage.setItem('profile', JSON.stringify(res.data))
+        })
+        .catch(error => {
+          console.log("error occured updating", error);
+        });
+      } else { // Enable editing
+        _prgrph.contentEditable = 'true';
+        this.moveCursorToEnd(_prgrph)
+
+        document.querySelector(`input[data-index='${_ref}']`).classList.remove('uk-form-blank')
+        document.querySelector(`a[data-index='${_ref}']`).setAttribute('uk-icon', 'check');
+      }
+    },
+    moveCursorToEnd(target) { // https://stackoverflow.com/a/48384974
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(target);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      target.focus();
+      range.detach(); // optimization
+
+      // set scroll to the end if multiline
+      target.scrollTop = target.scrollHeight;
+    },
     addFile() {
       // this.selectedFile = event.target.files[0]
       let formData = new FormData();
-      formData.append("creator_id", this.profiles[0]._id);
-      formData.append("username", this.profiles[0].username);
-      formData.append("folder_id", this.profiles[0].folder_id); // done ?
+      formData.append("creator_id", this.profile._id);
+      formData.append("username", this.profile.username);
+      formData.append("folder_id", this.profile.folder_id); // done ?
       formData.append("file", event.target.files[0]);
       
-      axios.post(process.env.BASE_URL + "/api/createcontent/", formData)
+      axios.post(process.env.BASE_URL + "/api/createcontent/", formData, {
+          onUploadProgress: progressEvent => {
+            console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
+            document.getElementById('addfile-button-text').innerText = 'Uploading — ' + parseInt((progressEvent.loaded / progressEvent.total) * 100) + '%'
+            if (progressEvent.loaded == progressEvent.total) {
+              console.log('done', progressEvent.loaded, progressEvent.total);
+              document.getElementById('addfile-button-text').innerText = 'Add file'
+            }
+          }
+        })
         .then(res => {
-          console.log('new user', res)
-          this.profiles[0] = res.data;
-          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // TODO: update session differently, update the files that creators have uploaded...
+          console.log('new content', res)
+          this.$set(this.profile, 'content', res.data.content)
+          
+          this.$nextTick(function () {
+            let newContent = res.data.content[0]
+            console.log(newContent)
+            // https://stackoverflow.com/a/22506053 // we def don't need https://stackoverflow.com/a/63123264
+            this.$refs.addFileInput.value = null;
+            this.changeProductDescription(newContent._id, newContent.created_at)
+          })
+          sessionStorage.setItem("profile", JSON.stringify(res.data)) // TODO: update session differently, update the files that creators have uploaded...
+
+        }).then(() => {
         })
         .catch(error => {
           console.log("error occured uploading", error);
         });
+    },
+    contentType: function(mime) {
+      switch (mime) {
+        case "image/jpeg":
+        case 'image/gif':
+        case 'image/jpg':
+        case 'image/png':
+        case 'image/tiff':
+        case 'image/vnd.wap.wbmp':
+        case 'image/x-icon':
+        case 'image/x-jng':
+        case 'image/x-ms-bmp':
+        case 'image/svg+xml':
+        case 'image/webp':
+          return "IMAGE";
+          break;
+        case "application/msword":
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+        case "application/rtf":
+          return "DOC";
+          break;
+        case "application/pdf":
+          return "PDF";
+          break;
+        case "video/webm":
+        case "video/3gpp2":
+        case "video/3gpp":
+        case "video/mp2t":
+        case "video/ogg":
+        case "video/x-msvideo":
+        case "video/mpeg":
+          return "VIDEO";
+          break;
+        case "audio/mpeg":
+        case "audio/3gpp2":
+        case "audio/3gpp":
+        case "audio/webm":
+        case "audio/wav":
+        case "audio/acc":
+        case "audio/ogg":
+        case "audio/opus":
+          return "AUDIO";
+          break;
+        case "application/zip":
+        case "application/x-7z-compressed":
+        case "application/vnd.rar":
+        case "application/x-bzip2":
+        case "application/x-bzip":
+          return "ZIP";
+          break;
+        default:
+          return "FILE";
+          break;
+      }
+    },
+    contentIcon: function(mime) {
+      switch (mime) {
+        case "image/jpeg":
+        case 'image/gif':
+        case 'image/jpg':
+        case 'image/png':
+        case 'image/tiff':
+        case 'image/vnd.wap.wbmp':
+        case 'image/x-icon':
+        case 'image/x-jng':
+        case 'image/x-ms-bmp':
+        case 'image/svg+xml':
+        case 'image/webp':
+          return "icon: image";
+          break;
+        case "application/msword":
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+        case "application/rtf":
+          return "icon: file-text";
+          break;
+        case "application/pdf":
+          return "icon: file-pdf";
+          break;
+        case "video/webm":
+        case "video/3gpp2":
+        case "video/3gpp":
+        case "video/mp2t":
+        case "video/ogg":
+        case "video/x-msvideo":
+        case "video/mpeg":
+          return "icon: play-circle";
+          break;
+        case "audio/mpeg":
+        case "audio/3gpp2":
+        case "audio/3gpp":
+        case "audio/webm":
+        case "audio/wav":
+        case "audio/acc":
+        case "audio/ogg":
+        case "audio/opus":
+          return "icon: play";
+          break;
+        case "application/zip":
+        case "application/x-7z-compressed":
+        case "application/vnd.rar":
+        case "application/x-bzip2":
+        case "application/x-bzip":
+          return "icon: album";
+          break;
+        default:
+          return "icon: file";
+          break;
+      }
     },
     sendMsg() {
       this.message_status = 'Sending...';
@@ -442,7 +759,7 @@ export default {
     getTotalRevenue() {
       axios.get(process.env.BASE_URL + "/api/gettotalrevenue/", {
             params: {
-              id: this.profiles[0]._id,
+              id: this.profile._id,
             }
           }).then(response => {
             // when we pay out someone, how are we do we balance?
@@ -462,8 +779,8 @@ export default {
     getSubscribers() { // here also gets total revenue
       axios.get(process.env.BASE_URL + "/api/getsubscribers/", {
             params: {
-              id: this.profiles[0]._id,
-              username: this.profiles[0].username,
+              id: this.profile._id,
+              username: this.profile.username,
             }
           }).then(response => {
             // when we pay out someone, how are we do we balance?
@@ -482,7 +799,7 @@ export default {
           .catch(error => {
             console.log('bad get subscribers', error);
           })
-          .then(() => { // always executed
+          .then(() => {
           });
     },
     setFX() {
@@ -549,7 +866,7 @@ export default {
     onFileChanged(event) {
       // this.selectedFile = event.target.files[0]
       let formData = new FormData();
-      formData.append("id", this.profiles[0]._id);
+      formData.append("id", this.profile._id);
       formData.append("pic", event.target.files[0]);
       // console.log(event.target.files);
       
@@ -572,8 +889,8 @@ export default {
         })
         .then(res => {
           loader1.style.display = loader2.style.display = 'none';
-          this.profiles[0].picture_id = res.data;
-          sessionStorage.setItem('profile', JSON.stringify(this.profiles[0])) // update session too
+          this.profile.picture_id = res.data;
+          sessionStorage.setItem('profile', JSON.stringify(this.profile)) // update session too
         })
         .catch(error => {
           // console.log("error occured", error);
@@ -582,7 +899,7 @@ export default {
     submitFeedback() {
       let username = this.username;
       let comment = this.comment;
-      this.feed = "loading...";
+      this.feed = "Sending...";
       axios
         .post(process.env.BASE_URL + "/api/givefeedback/", {
           username: username,
@@ -614,7 +931,7 @@ export default {
         .then(res => {
           this.id = res.data[0]._id;
           // console.log("id");
-          this.profiles = res.data;
+          this.profile = res.data[0];
         })
         .catch(err => {
           // console.log(err);
@@ -665,7 +982,36 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+p[contenteditable='true'] {
+  outline: auto;
+}
 
+.threshold-price {
+  height: 30px;
+  width: 70px;
+  margin-bottom: 5px;
+  padding: 2px 0 2px 0;
+}
+
+.the-what { /** https://css-tricks.com/line-clampin/ */
+  /* width: 250px; */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.content-name {
+  width: 75%;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+@media (max-width: 960px) {
+  .content-name {
+    width: 50%;
+  }
+}
 .uk-icon-button.send-message-all {
     background: #e46067;
     color: #212121;
@@ -676,6 +1022,12 @@ export default {
 }
 .total-revenue small {
   padding-left: 5px;
+}
+#my-id > div {
+  border-radius: 5px;
+}
+#my-id > div textarea, #my-id > div button {
+  border-radius: 3px;
 }
 #send-message > .uk-modal-body {
   border-radius: 5px;

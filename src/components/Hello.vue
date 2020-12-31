@@ -66,11 +66,13 @@
       <div class="uk-margin">
           <p style="color: #ff5976;">{{issue}}</p>
         <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="signup">{{signupbtn}}</button>
-        <div class="uk-card-footer">
-        <a @click="loginbutton = true" class="uk-button-text">Login</a>
-      </div>
+        
       </div>
       
+    </div>
+
+    <div class="uk-card-footer">
+      <a @click="loginbutton = true" class="uk-button-text">Login</a>
     </div>
 
     </div>
@@ -111,7 +113,7 @@ export default {
         axios.post(process.env.BASE_URL + '/api/login/', {
             username: this.username.toLowerCase().trim(),
             password: md5(this.password)
-        }).then( res => {
+        }).then(res => {
           if (res.data.length == 0) {
             this.loginbtn = 'Login'
             this.issue = 'Username or password incorrect...'
@@ -148,7 +150,7 @@ export default {
         }).then(res => {
           if (res.data.length >= 1) {
               // console.log('username taken')
-              this.issue = 'Username already taken...'
+              this.issue = 'Username already taken!'
               this.signupbtn = 'Signup'
           } else {
             axios.post(process.env.BASE_URL + '/api/createaccount/', {
@@ -160,7 +162,7 @@ export default {
               this.signupbtn = 'Signup'
               if (res.data.message == "User's email exist") {
                 // console.log('cannot register')
-                this.issue = "User's email exist"
+                this.issue = "Creator's email exist!"
               } else {
                 console.log('registered')
                 sessionStorage.setItem('username', res.data.username)
@@ -174,10 +176,12 @@ export default {
               }
             }).catch( error => {
               // console.log(error)
+              this.signupbtn = 'Sign up, again'
             })
           }
         }).catch( err => {
           console.log(err)
+          this.signupbtn = 'Sign up, again'
         })
       }
     }
@@ -204,22 +208,14 @@ export default {
 }
 .signup-card {
   border-radius: 5px;
-  height: 500px;
 }
 .fit {
   width: 300px;
 }
 @media (max-width:960px) {
-  
-.login-card {
-  border-radius: 5px;
-}
+
 .uk-padding {
   padding: 10px;
-}
-.signup-card {
-  border-radius: 5px;
-  height: 450px;
 }
 .uk-navbar-left {
   margin-left: 30px;

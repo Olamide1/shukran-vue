@@ -5,7 +5,7 @@ import Dashboard from '@/components/Dashboard'
 import Profile from '@/components/Profile'
 import Home from '@/components/Home'
 import Support from '@/components/Support'
-import Thankyou from '@/components/Thankyou'
+import ThankYou from '@/components/ThankYou'
 import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
 import Pricing from '@/components/Pricing'
@@ -14,6 +14,7 @@ import Terms from '@/components/Terms'
 import Blog from '@/components/Blog'
 import HowItWorks from '@/components/HowItWorks'
 import Subscribers from '@/components/Subscribers'
+import _2020 from '@/components/2020'
 
 Vue.use(Router)
 
@@ -21,6 +22,13 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/2020',
+      name: '2020',
+      component: _2020,
+      meta: {
+        title: 'The Shukran 2020 Highlight'
+      }
+    },{
       path: '/terms',
       name: 'Terms and Conditions',
       component: Terms,
@@ -119,8 +127,8 @@ export default new Router({
     },
     {
       path: '/thanks',
-      name: 'Thankyou',
-      component: Thankyou
+      name: 'ThankYou',
+      component: ThankYou
     },
     {
       path: '/resetpassword',
