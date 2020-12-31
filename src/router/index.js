@@ -14,6 +14,7 @@ import Terms from '@/components/Terms'
 import Blog from '@/components/Blog'
 import HowItWorks from '@/components/HowItWorks'
 import Subscribers from '@/components/Subscribers'
+import _2020 from '@/components/2020'
 
 Vue.use(Router)
 
@@ -21,6 +22,13 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/2020',
+      name: '2020',
+      component: _2020,
+      meta: {
+        title: 'The Shukran 2020 Highlight'
+      }
+    },{
       path: '/terms',
       name: 'Terms and Conditions',
       component: Terms,
