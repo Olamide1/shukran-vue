@@ -199,7 +199,6 @@
           <div>
             <div class="uk-grid-row-medium uk-flex-column info-card" uk-grid>
 
-              
             <div>
               <!-- Total tips start -->
               <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
@@ -252,26 +251,7 @@
             <div>
                 <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
                   <h3 class="uk-card-title">Overview</h3>
-                  <!-- <ul class="metrics">
-                    <li class="li-available">Available</li>
-                    <li class="li-withdrawn">Withdrawn</li>
-                  </ul>
-
-                  <div class="progress">
-                    <span
-                      :uk-tooltip="`${availableBalance > payoutGuard ? 'You have ' + currencySymbol + parseInt(availableBalance) + ' available to withdraw' : 'You need more than ' + currencySymbol + payoutGuard + ' to make a withdrawal request'}`"
-                      class="value"
-                      :data-label="`~${currencySymbol}${availableBalance.toFixed(0)}`"
-                      :style="`width:${(((tipTotal - tipWithdrawn) / tipTotal) * 100).toFixed(2)}%;`"
-                    ></span>
-                    <span
-                      :uk-tooltip="`You've withdrawn ${currencySymbol}${tipWithdrawn.toFixed(2)} so far`"
-                      class="value"
-                      :data-label="`~${currencySymbol}${tipWithdrawn.toFixed(0)}`"
-                      :style="`width:${(((tipTotal - availableBalance) / tipTotal) * 100).toFixed(2)}%;`"
-                    ></span>
-                  </div> -->
-
+                  
                   <div id="chart-container-2">
                     
                     <canvas
@@ -396,6 +376,8 @@ export default {
       payoutGuard: 1000, // 1000 NGN
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
+      chart1: null,
+      chart2: null,
       amount: 0,
       tipTotal: 0,
       tipWithdrawn: 0,
@@ -476,8 +458,10 @@ export default {
               .to(this.currency); */
         
         this.tempCurr = this.currency;
-
-        // this.tipsChart.update(); // updates the chart... if this.tipsChart was an instance of new Chart(ctx, ...)
+        if (this.chart1) {
+          this.chart1.update();
+          this.chart2.update();
+        }
 
         // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
         // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
@@ -500,6 +484,7 @@ export default {
     // https://github.com/exchangeratesapi/exchangeratesapi
     // https://docs.openexchangerates.org/
     rates() {
+      sessionStorage.setItem('shukran-curr-cur-sym', this.currencySymbol)
       if (!localStorage.getItem("shukran-currency-converter-data")) {
         this.fetchConversionDataAndUpdate();
       } else {
@@ -567,8 +552,14 @@ export default {
               .to(this.currency); */
 
           this.tempCurr = this.currency;
-          console.log('did conversion after ...');
-          // this.tipsChart.update(); // updates the chart
+          console.log('did conversion after ...', this.allTips);
+
+          if (this.chart1) { // update charts
+            this.chart1.data.datasets[0].data = this.allTips
+            this.chart1.update();
+            this.chart2.data.datasets[0].data = [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)]
+            this.chart2.update();
+          }
           
           // const rate = fx(this.tipTotal).from(localStorage.getItem('shukran-country-currency')).to(this.currency)
           // console.log(`${localStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
@@ -613,34 +604,34 @@ export default {
           .then(() => { // always executed
           });
     },
-    createChart(chartId , chartData) {
+    createChart() {
       // https://codepen.io/grayghostvisuals/pen/gpROOz
-      let chart = document.getElementById("total-tips-chart").getContext("2d"),
-        gradient = chart.createLinearGradient(0, 0, 0, 450);
 
-      gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
+      const ctx = document.getElementById("total-tips-chart").getContext("2d");
+      
+      let gradient = ctx.createLinearGradient(0, 450, 0, 50);
+      gradient.addColorStop(1, "rgba(255, 0, 0, 0.5)");
       gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
-      gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
+      gradient.addColorStop(0, "rgba(255, 0, 0, 0)");
 
-      const ctx = document.getElementById(chartId);
-      new Chart(ctx, {
+      this.chart1 = new Chart(ctx, {
         type: "line",
         data: {
-          labels: chartData.tipsDates,
+          labels: this.tipsDates,
           datasets: [
             {
-              // a(nother) line graph
               label: "Tips",
-              data: chartData.allTips,
-              pointBorderWidth: 7,
-              pointHitRadius: 15,
-              backgroundColor: gradient /* [
-                "rgba(71, 183,132,.5)" // Green
-              ] */,
-              borderColor: ["#47b784"],
-              borderWidth: 3,
+              data: this.allTips,
+              pointBorderWidth: 8,
+              pointHitRadius: 16,
+              pointHoverBackgroundColor: '#359F79',
+              pointHoverBorderColor: '#359F79',
+              pointHoverRadius: 7.5,
+              backgroundColor: gradient,
+              borderColor: "#34378B", // Array | String, if array, it'll pick for the different points color per array element
+              borderWidth: 4,
               fill: "start",
-              lineTension: 0 // make lines straight
+              lineTension: 0, // 0 make lines straight
             }
           ]
         },
@@ -670,7 +661,7 @@ export default {
                   padding: 25,
                   callback: function(value, index, values) {
                     // return null to hide
-                    return chartData.currencySymbol + value; // Include a naira/ksh sign in the ticks
+                    return sessionStorage.getItem('shukran-curr-cur-sym') + value; // Include a naira/ksh sign in the ticks
                   }
                 }
               }
@@ -680,10 +671,10 @@ export default {
             callbacks: {
               // https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-callback
               label: function(tooltipItem, data) {
-                return `You were tipped ${chartData.currencySymbol}${parseInt(tooltipItem.value).toFixed(2)} on ${tooltipItem.label}`;
+                return `You were tipped ${sessionStorage.getItem('shukran-curr-cur-sym')}${parseFloat(tooltipItem.value).toFixed(2)} on ${tooltipItem.label}`;
               },
               title: function(tooltipItem, data) {
-                return `${tooltipItem[0].label} tip`;
+                return `Tip Details`;
               }
             }
           }
@@ -711,7 +702,6 @@ export default {
           responsive: true,
           cutoutPercentage: 75,
           legend: {
-            // display: false,
             position: 'bottom',
             labels: {
               usePointStyle: true,
@@ -719,80 +709,92 @@ export default {
           },
           tooltips: {
             enabled: false,
+            custom: function(tooltip) { // https://www.chartjs.org/docs/latest/configuration/tooltip.html#external-custom-tooltips
+              
+              let tooltipEl = document.getElementById('chartjs-tooltip');
+
+              // Hide if no tooltip
+              if (tooltip.opacity === 0) {
+                tooltipEl.style.opacity = 0;
+                return;
+              }
+
+              // Set caret Position
+              tooltipEl.classList.remove('above', 'below', 'no-transform');
+              if (tooltip.yAlign) {
+                tooltipEl.classList.add(tooltip.yAlign);
+              } else {
+                tooltipEl.classList.add('no-transform');
+              }
+
+              function getBody(bodyItem) {
+                for (let i = 0; i < bodyItem.lines.length; i++) {
+                  bodyItem.lines[i] = bodyItem.lines[i].replace(':', ': ' + sessionStorage.getItem('shukran-curr-cur-sym'))
+                }
+                
+                return bodyItem.lines;
+              }
+
+              // Set Text
+              if (tooltip.body) {
+                let titleLines = tooltip.title || [];
+                let bodyLines = tooltip.body.map(getBody);
+
+                let innerHtml = '<thead>';
+
+                titleLines.forEach(function(title) {
+                  innerHtml += '<tr><th>' + title + '</th></tr>';
+                });
+                innerHtml += '</thead><tbody>';
+
+                bodyLines.forEach(function(body, i) {
+                  let colors = tooltip.labelColors[i];
+                  let style = 'background:' + colors.backgroundColor;
+                  style += '; border-color:' + colors.borderColor;
+                  style += '; border-width: 2px';
+                  let span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+                  innerHtml += '<tr><td>' + span + body + '</td></tr>';
+                });
+                innerHtml += '</tbody>';
+
+                let tableRoot = tooltipEl.querySelector('table');
+                tableRoot.innerHTML = innerHtml;
+              }
+
+              // let chart = context.chart;
+              // let positionY = ctx2.canvas.offsetTop;
+              // let positionX = ctx2.canvas.offsetLeft;
+              let positionY = this._chart.canvas.offsetTop;
+              let positionX = this._chart.canvas.offsetLeft;
+
+              // Display, position, and set styles for font
+              tooltipEl.style.opacity = 1;
+              tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+              tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+              tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
+              tooltipEl.style.fontSize = tooltip.bodyFontSize;
+              tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
+              tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
+              
+            },
+            callbacks: {
+							// Use the footer callback to display the sum of the items showing in the tooltip
+							footer: function(tooltipItems, data) {
+								let sum = 0;
+
+                tooltipItems.forEach(function(tooltipItem) {
+                  sum += data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                });
+                return 'Sum: ' + sum;
+							},
+						},
           },
         }
       };
 
-
-      
-
-
       const ctx2 = document.getElementById("total-money-chart").getContext('2d');
 
-      window.Chart.defaults.global.tooltips.custom = function(tooltip) {
-        console.log(tooltip);
-        let tooltipEl = document.getElementById('chartjs-tooltip');
-
-        // Hide if no tooltip
-        if (tooltip.opacity === 0) {
-          tooltipEl.style.opacity = 0;
-          return;
-        }
-
-        // Set caret Position
-        tooltipEl.classList.remove('above', 'below', 'no-transform');
-        if (tooltip.yAlign) {
-          tooltipEl.classList.add(tooltip.yAlign);
-        } else {
-          tooltipEl.classList.add('no-transform');
-        }
-
-        function getBody(bodyItem) {
-          return bodyItem.lines;
-        }
-
-        // Set Text
-        if (tooltip.body) {
-          let titleLines = tooltip.title || [];
-          let bodyLines = tooltip.body.map(getBody);
-
-          let innerHtml = '<thead>';
-
-          titleLines.forEach(function(title) {
-            innerHtml += '<tr><th>' + title + '</th></tr>';
-          });
-          innerHtml += '</thead><tbody>';
-
-          bodyLines.forEach(function(body, i) {
-            let colors = tooltip.labelColors[i];
-            let style = 'background:' + colors.backgroundColor;
-            style += '; border-color:' + colors.borderColor;
-            style += '; border-width: 2px';
-            let span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
-            innerHtml += '<tr><td>' + span + body + '</td></tr>';
-          });
-          innerHtml += '</tbody>';
-
-          let tableRoot = tooltipEl.querySelector('table');
-          tableRoot.innerHTML = innerHtml;
-        }
-
-        // let chart = context.chart;
-        let positionY = ctx2.canvas.offsetTop;
-        let positionX = ctx2.canvas.offsetLeft;
-
-        // Display, position, and set styles for font
-        tooltipEl.style.opacity = 1;
-        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-        tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
-        tooltipEl.style.fontSize = tooltip.bodyFontSize;
-        tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
-        tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
-        
-      };
-
-      let chrt2 = new Chart(ctx2, config);
+      this.chart2 = new Chart(ctx2, config);
       
     },
     logout() {
@@ -810,7 +812,7 @@ export default {
           console.log("loadTransactions done", res); // do the currency conversion here.
           this.transactions = res.data;
           for (let i = 0; i < this.transactions.length; i++) {
-            this.tipTotal += parseInt(this.transactions[i].amount);
+            this.tipTotal += parseFloat(this.transactions[i].amount);
             this.allTips.push(this.transactions[i].amount); // optimise how this is gotten
             // https://stackoverflow.com/a/34015511
             this.tipsDates.push(
@@ -825,7 +827,9 @@ export default {
           }
         }).then(() => {
           this.rates(); // get the conversion first...
-        }).then(() => this.createChart("total-tips-chart", {allTips: this.allTips, tipsDates: this.tipsDates, currencySymbol: this.currencySymbol})/* then create chart */)
+        }).then(() => {
+          this.createChart() /* then create chart */
+        })
         .catch(err => {
           console.error(err, err.code);
         });
@@ -842,7 +846,7 @@ export default {
           console.log("loadWithdrawn done", res);
           this.withdrawals = res.data;
           for (let i = 0; i < this.withdrawals.length; i++) {
-            this.tipWithdrawn += parseInt(this.withdrawals[i].amount);
+            this.tipWithdrawn += parseFloat(this.withdrawals[i].amount);
           }
           console.log('first withdrawn', this.tipWithdrawn);
         }).then(() => {
@@ -1008,6 +1012,7 @@ export default {
   },
   beforeMount() {
     this.getCountryData();
+    sessionStorage.setItem('shukran-curr-cur-sym', this.currencySymbol)
   }
 };
 </script>
