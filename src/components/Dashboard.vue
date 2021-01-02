@@ -272,16 +272,22 @@
                     ></span>
                   </div> -->
 
-                  <div class="chart-container-2">
-                  <canvas
-                    id="total-money-chart"
-                    aria-label="Total Money Chart"
-                    role="Total Money chart image"
-                  >
-                  <div id="chartjs-tooltip"></div>
-                    <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
-                  </canvas>
-                </div>
+                  <div id="chart-container-2">
+                    
+                    <canvas
+                      id="total-money-chart"
+                      aria-label="Total Money Chart"
+                      role="Total Money chart image"
+                      class="chartjs-render-monitor"
+                    >
+                    
+                      <p aria-label="Fallback text">Your browser does not support displaying canvas</p>
+                    </canvas>
+                    <div id="chartjs-tooltip" class="chartjs-tooltip center">
+                      <table></table>
+                    </div>
+                    
+                  </div>
 
                 </div>
               </div>
@@ -686,11 +692,46 @@ export default {
 
 
       // https://uidesigndaily.com/posts/sketch-stats-card-statistics-analytics-chart-day-817
-      const ctx2 = document.getElementById("total-money-chart");
+      
 
-      /* Chart.defaults.global.tooltips.custom = function(tooltip) {
-        // Tooltip Element
-        var tooltipEl = document.getElementById('chartjs-tooltip');
+      let config = {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)],
+            backgroundColor: ['#3C67D6', '#7244AD'], // https://www.instagram.com/p/CJBJs6BAX0S/
+            borderWidth: 4,
+          }],
+          labels: [ // These labels appear in the legend and in the tooltips when hovering different arcs
+            'Available',
+            'Withdrawn'
+          ]
+        },
+        options: {
+          responsive: true,
+          cutoutPercentage: 75,
+          legend: {
+            // display: false,
+            position: 'bottom',
+            labels: {
+              usePointStyle: true,
+            }
+          },
+          tooltips: {
+            enabled: false,
+          },
+        }
+      };
+
+
+      
+
+
+      const ctx2 = document.getElementById("total-money-chart").getContext('2d');
+
+      window.Chart.defaults.global.tooltips.custom = function(tooltip) {
+        console.log(tooltip);
+        let tooltipEl = document.getElementById('chartjs-tooltip');
 
         // Hide if no tooltip
         if (tooltip.opacity === 0) {
@@ -712,10 +753,10 @@ export default {
 
         // Set Text
         if (tooltip.body) {
-          var titleLines = tooltip.title || [];
-          var bodyLines = tooltip.body.map(getBody);
+          let titleLines = tooltip.title || [];
+          let bodyLines = tooltip.body.map(getBody);
 
-          var innerHtml = '<thead>';
+          let innerHtml = '<thead>';
 
           titleLines.forEach(function(title) {
             innerHtml += '<tr><th>' + title + '</th></tr>';
@@ -723,21 +764,22 @@ export default {
           innerHtml += '</thead><tbody>';
 
           bodyLines.forEach(function(body, i) {
-            var colors = tooltip.labelColors[i];
-            var style = 'background:' + colors.backgroundColor;
+            let colors = tooltip.labelColors[i];
+            let style = 'background:' + colors.backgroundColor;
             style += '; border-color:' + colors.borderColor;
             style += '; border-width: 2px';
-            var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+            let span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
             innerHtml += '<tr><td>' + span + body + '</td></tr>';
           });
           innerHtml += '</tbody>';
 
-          var tableRoot = tooltipEl.querySelector('table');
+          let tableRoot = tooltipEl.querySelector('table');
           tableRoot.innerHTML = innerHtml;
         }
 
-        var positionY = this._chart.canvas.offsetTop;
-        var positionX = this._chart.canvas.offsetLeft;
+        // let chart = context.chart;
+        let positionY = ctx2.canvas.offsetTop;
+        let positionX = ctx2.canvas.offsetLeft;
 
         // Display, position, and set styles for font
         tooltipEl.style.opacity = 1;
@@ -747,66 +789,10 @@ export default {
         tooltipEl.style.fontSize = tooltip.bodyFontSize;
         tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
         tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
-      }; */
-
-      let config = {
-        type: 'pie',
-        data: {
-          datasets: [{
-            data: [300, 50, 100, 40, 10],
-            backgroundColor: [
-              /* Chart.colorName.red,
-              Chart.colorName.orange,
-              Chart.colorName.yellow,
-              Chart.colorName.green,
-              Chart.colorName.blue, */
-            ],
-          }],
-          labels: [
-            'Red',
-            'Orange',
-            'Yellow',
-            'Green',
-            'Blue'
-          ]
-        },
-        options: {
-          responsive: true,
-          legend: {
-            display: false
-          },
-          tooltips: {
-            enabled: false,
-          }
-        }
+        
       };
 
-      let chrt2 = new Chart(ctx2, /* config */{
-          type: 'doughnut',
-          data: {
-            datasets: [{
-              data: [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)],
-              backgroundColor: ['#3C67D6', '#7244AD'], // https://www.instagram.com/p/CJBJs6BAX0S/
-              borderWidth: 4,
-            }],
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Available',
-                'Withdrawn'
-            ]
-          },
-          options: {
-            cutoutPercentage: 75,
-            legend: {
-              position: 'bottom',
-              labels: {
-                usePointStyle: true,
-              }
-            },
-          }
-      });
-
-      // console.log('chart => ', chrt2);
+      let chrt2 = new Chart(ctx2, config);
       
     },
     logout() {
@@ -1028,6 +1014,42 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+/** 
+  total money chart js custom style
+
+  https://www.chartjs.org/samples/latest/tooltips/custom-pie.html
+*/
+#canvas-holder {
+  width: 100%;
+  margin-top: 50px;
+  text-align: center;
+}
+#chartjs-tooltip {
+  opacity: 1;
+  position: absolute;
+  background: rgba(0, 0, 0, .7);
+  color: white;
+  border-radius: 3px;
+  -webkit-transition: all .1s ease;
+  transition: all .1s ease;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+/**
+  .chartjs-tooltip-key
+  https://github.com/vuejs/vue-loader/issues/559#issuecomment-545628323
+ */
+#chartjs-tooltip >>> .chartjs-tooltip-key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+}
+
+
 .tip-details-header-section > ul {
   margin-top: 0px;
 }
