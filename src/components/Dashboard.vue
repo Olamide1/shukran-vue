@@ -376,7 +376,7 @@ export default {
       payoutGuard: 1000, // 1000 NGN
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
-      chart1: null,
+      chart1: null, // maybe also show recurring tips
       chart2: null,
       amount: 0,
       tipTotal: 0,
@@ -552,7 +552,6 @@ export default {
               .to(this.currency); */
 
           this.tempCurr = this.currency;
-          console.log('did conversion after ...', this.allTips);
 
           if (this.chart1) { // update charts
             this.chart1.data.datasets[0].data = this.allTips
@@ -609,10 +608,10 @@ export default {
 
       const ctx = document.getElementById("total-tips-chart").getContext("2d");
       
-      let gradient = ctx.createLinearGradient(0, 450, 0, 50);
+      /* let gradient = ctx.createLinearGradient(0, 450, 0, 50);
       gradient.addColorStop(1, "rgba(255, 0, 0, 0.5)");
       gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
-      gradient.addColorStop(0, "rgba(255, 0, 0, 0)");
+      gradient.addColorStop(0, "rgba(255, 0, 0, 0)"); */
 
       this.chart1 = new Chart(ctx, {
         type: "line",
@@ -627,7 +626,7 @@ export default {
               pointHoverBackgroundColor: '#359F79',
               pointHoverBorderColor: '#359F79',
               pointHoverRadius: 7.5,
-              backgroundColor: gradient,
+              backgroundColor: 'rgba(52, 55, 139, 0.7)', // gradient,
               borderColor: "#34378B", // Array | String, if array, it'll pick for the different points color per array element
               borderWidth: 4,
               fill: "start",
