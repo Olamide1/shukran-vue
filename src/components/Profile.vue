@@ -438,7 +438,7 @@ export default {
       comment: "",
       feed: "Submit",
       profile_picture: '',
-      country_code: localStorage.getItem('shukran-country-code'),
+      country_code: sessionStorage.getItem('shukran-country-code'),
       ngBanks: [,]
     };
   },

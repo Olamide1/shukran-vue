@@ -394,16 +394,189 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+fx.rates = { // LiG
+  "AED": 3.6732,
+  "AFN": 77.571739,
+  "ALL": 101.322195,
+  "AMD": 522.91,
+  "ANG": 1.79468,
+  "AOA": 654.16,
+  "ARS": 85.115434,
+  "AUD": 1.29985,
+  "AWG": 1.8,
+  "AZN": 1.7025,
+  "BAM": 1.601236,
+  "BBD": 2,
+  "BDT": 84.632456,
+  "BGN": 1.601212,
+  "BHD": 0.377011,
+  "BIF": 1941.945389,
+  "BMD": 1,
+  "BND": 1.328012,
+  "BOB": 6.919072,
+  "BRL": 5.1934,
+  "BSD": 1,
+  "BTC": 0.00003015358,
+  "BTN": 73.428791,
+  "BWP": 10.802857,
+  "BYN": 2.612258,
+  "BZD": 2.015329,
+  "CAD": 1.273005,
+  "CDF": 1971.040379,
+  "CHF": 0.890075,
+  "CLF": 0.025749,
+  "CLP": 710.49939,
+  "CNH": 6.50503,
+  "CNY": 6.533,
+  "COP": 3461.475266,
+  "CRC": 610.275904,
+  "CUC": 0.999805,
+  "CUP": 25.75,
+  "CVE": 90.55,
+  "CZK": 21.470201,
+  "DJF": 178.902125,
+  "DKK": 6.0929,
+  "DOP": 58.177256,
+  "DZD": 132.070391,
+  "EGP": 15.842604,
+  "ERN": 15.001453,
+  "ETB": 39.551923,
+  "EUR": 0.824063,
+  "FJD": 2.0392,
+  "FKP": 0.731368,
+  "GBP": 0.731368,
+  "GEL": 3.285,
+  "GGP": 0.731368,
+  "GHS": 5.899054,
+  "GIP": 0.731368,
+  "GMD": 51.755,
+  "GNF": 10001.800634,
+  "GTQ": 7.793425,
+  "GYD": 209.171282,
+  "HKD": 7.75325,
+  "HNL": 24.201215,
+  "HRK": 6.1794,
+  "HTG": 72.62042,
+  "HUF": 296.92,
+  "IDR": 14213.6925,
+  "ILS": 3.21302,
+  "IMP": 0.731368,
+  "INR": 73.09225,
+  "IQD": 1468.227817,
+  "IRR": 42105,
+  "ISK": 127.81,
+  "JEP": 0.731368,
+  "JMD": 142.971637,
+  "JOD": 0.709,
+  "JPY": 103.23998054,
+  "KES": 99.5, // 109.74,
+  "KGS": 83.169856,
+  "KHR": 4057.957295,
+  "KMF": 403.000217,
+  "KPW": 900,
+  "KRW": 1085.73,
+  "KWD": 0.304144,
+  "KYD": 0.833157,
+  "KZT": 421.359547,
+  "LAK": 9341.069588,
+  "LBP": 1519.51088,
+  "LKR": 186.166825,
+  "LRD": 164.233303,
+  "LSL": 14.681041,
+  "LYD": 1.344386,
+  "MAD": 8.927095,
+  "MDL": 17.269066,
+  "MGA": 3931.398747,
+  "MKD": 50.444146,
+  "MMK": 1334.572418,
+  "MNT": 2854.186283,
+  "MOP": 7.983466,
+  "MRO": 357,
+  "MRU": 36.18,
+  "MUR": 39.699575,
+  "MVR": 15.4,
+  "MWK": 774.654957,
+  "MXN": 19.8822,
+  "MYR": 4.0505,
+  "MZN": 74.81,
+  "NAD": 14.69,
+  "NGN": 380, // 396.700509,
+  "NIO": 34.873728,
+  "NOK": 8.63301,
+  "NPR": 117.485776,
+  "NZD": 1.412085,
+  "OMR": 0.384976,
+  "PAB": 1,
+  "PEN": 3.637889,
+  "PGK": 3.539268,
+  "PHP": 48.338897,
+  "PKR": 160.992872,
+  "PLN": 3.75377,
+  "PYG": 6951.07244,
+  "QAR": 3.64125,
+  "RON": 3.9831,
+  "RSD": 96.25,
+  "RUB": 73.945,
+  "RWF": 990.813199,
+  "SAR": 3.751084,
+  "SBD": 8.002049,
+  "SCR": 21.204537,
+  "SDG": 55.225,
+  "SEK": 8.26929,
+  "SGD": 1.321615,
+  "SHP": 0.731368,
+  "SLL": 10099.47633,
+  "SOS": 581.358349,
+  "SRD": 14.154,
+  "SSP": 130.26,
+  "STD": 20389.997455,
+  "STN": 20.325,
+  "SVC": 8.748595,
+  "SYP": 513.419605,
+  "SZL": 14.677733,
+  "THB": 30.170546,
+  "TJS": 11.325199,
+  "TMT": 3.5,
+  "TND": 2.6945,
+  "TOP": 2.274086,
+  "TRY": 7.4392,
+  "TTD": 6.795284,
+  "TWD": 28.069001,
+  "TZS": 2318.537,
+  "UAH": 28.475256,
+  "UGX": 3655.26232,
+  "USD": 1,
+  "UYU": 42.360892,
+  "UZS": 10474.795277,
+  "VEF": 248487.642241,
+  "VES": 1105425.302503,
+  "VND": 23344.601074,
+  "VUV": 108.952017,
+  "WST": 2.536797,
+  "XAF": 540.549729,
+  "XAG": 0.03790043,
+  "XAU": 0.0005268,
+  "XCD": 2.70255,
+  "XDR": 0.696046,
+  "XOF": 540.549729,
+  "XPD": 0.00040677,
+  "XPF": 98.336844,
+  "XPT": 0.00093188,
+  "YER": 250.408348,
+  "ZAR": 14.662595,
+  "ZMW": 21.165801,
+  "ZWL": 322
+};
 import Vue from "vue";
 export default {
-  name: "subscribers",
+  name: "Subscribers",
   data() {
     return {
       username: sessionStorage.getItem("username"),
       transactions: [],
       allTips: [], // optimise this later
       tipsDates: [],
-      currency: !localStorage.getItem("shukran-country-currency") ? "NGN" : localStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
+      currency: !sessionStorage.getItem("shukran-country-currency") ? "NGN" : sessionStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
       tempCurr: "",
       payoutGuard: 1000, // 1000 naira
       url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
@@ -719,24 +892,6 @@ export default {
           // console.log("send message err", err);
         });
     },
-    fetchConversionDataAndUpdate() {
-      // hide app_id
-      fetch(
-        `https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f`
-      ).then(resp => resp.json())
-        .then(data => {
-          fx.base = "USD"; // wish it was localStorage.getItem('shukran-country-currency')
-          fx.rates = data.rates;
-          // console.log(data);
-          localStorage.setItem(
-            "shukran-currency-converter-data",
-            JSON.stringify(data)
-          );
-        }).then(ex)
-        .catch(err => {
-          // console.error("fetch ex rates err", err)
-        });
-    },
     getSupporters() {
         // Optionally the request above could also be done as
         // we really don't need this end point, because we can just count the number of tips they've gotten, the table length
@@ -802,40 +957,12 @@ export default {
           .then(() => {
           });
     },
-    setFX() {
-    if (!localStorage.getItem("shukran-currency-converter-data")) {
-            this.fetchConversionDataAndUpdate();
-          } else {
-            // console.log('saved d', localStorage.getItem('shukran-currency-converter-data'))
-            const savedCurrConvData = JSON.parse(
-              localStorage.getItem("shukran-currency-converter-data")
-            );
-            // check if it's more than a week old
-            // https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
-            // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
-            const lastSavedDate = new Date(savedCurrConvData.timestamp * 1000);
-
-            // calculate the no. of days between two dates
-            const diffInDays = (new Date().getTime() - lastSavedDate.getTime()) / (1000 * 3600 * 24);
-            if (diffInDays > 7) {
-              // more than 7 days
-              // fetch again
-              this.fetchConversionDataAndUpdate();
-            } else {
-              // less than a week old? then just convert
-              fx.base = "USD";
-              fx.rates = savedCurrConvData.rates;
-            
-            }
-            // console.log('all tips', this.allTips)
-          }
-    },
     rates() {
       this.totalRevenue = fx(this.totalRevenue) // convert tip total
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : sessionStorage.getItem("shukran-country-currency")
             ).to(this.currency);
 
 
@@ -843,7 +970,7 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : sessionStorage.getItem("shukran-country-currency")
             ).to(this.currency));
 
             for (let index = 0; index < this.subscribers.length; index++) {
@@ -852,7 +979,7 @@ export default {
             .from(
               this.tempCurr
                 ? this.tempCurr
-                : localStorage.getItem("shukran-country-currency")
+                : sessionStorage.getItem("shukran-country-currency")
             ).to(this.currency)
             }
 
@@ -936,32 +1063,6 @@ export default {
         .catch(err => {
           // console.log(err);
         });
-    },
-    getCountryData(){
-        if(!localStorage.getItem('shukran-country-currency')) {
-          fetch('https://ipapi.co/json/', { // http://ipinfo.io
-              headers: {
-              'Accept': 'application/json',
-              "Content-Type": "application/json"
-            }
-            })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.json()
-            })
-            .then(data => {
-              // console.log(data.country_name, "using", data.currency_name, data.currency)
-              localStorage.setItem('shukran-country-currency', data.currency);
-              this.currency = data.currency;
-              localStorage.setItem('shukran-country-code', data.country_code);
-            })
-            .catch(error => { // why did this error happen. let's know... save and send to backend later?
-              // console.error('There has been a problem with our fetch operation:', error);
-            });
-        } else { // use their currency
-        }
     }
   },
   mounted() {
@@ -974,8 +1075,6 @@ export default {
     this.getTotalRevenue();
   },
   beforeMount() {
-    this.getCountryData();
-    this.setFX();
   }
 };
 </script>

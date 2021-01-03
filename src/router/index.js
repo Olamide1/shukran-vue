@@ -61,7 +61,7 @@ export default new Router({
       }
     },
     {
-      path: '/index',
+      path: '/index', // needs deleting
       name: 'Home',
       component: Home,
       meta: {

@@ -7,7 +7,7 @@
 
 		<meta name="robots" content="index, follow">
     <meta name="description" content="Support your favourite content creator with a tip.">
-    <meta name="keywords" content="shukran, useshukran, support, tip, african, usesshukran, uses shukran, use shukran, content creators, african creator, african creators, creators, african creatives, creatives">
+    <meta name="keywords" content="shukran, useshukran, support, tip, african, usesshukran, use shukran, content creators, african creator, creators, african creatives, creatives">
     
     <title>Shukran | Tip your favorite content creators.</title>
     <meta name="title" content="Shukran | Tip your favorite content creators.">
@@ -34,7 +34,6 @@
 		<meta property="og:image:width" content="500">
     <meta property="og:image:height" content="500">
     
-    <!-- Twitter "C:\Users\NWACHUKWU\Documents\this is shukran\shukran-vue/static/img/icons/favicon.png" -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://useshukran.com/">
     <meta property="twitter:title" content="Shukran | Tip your favorite content creators.">
@@ -87,12 +86,12 @@
   <script type="text/javascript"> // https://stackoverflow.com/a/35123097
 
     // should we be checking periodically? or everytime?
-    if(!localStorage.getItem('shukran-country-currency')) {
+    if(!sessionStorage.getItem('shukran-country-currency')) {
       fetch('https://ipapi.co/json/', { // http://ipinfo.io
           headers: {
-          'Accept': 'application/json',
-          "Content-Type": "application/json"
-        }
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+          }
         })
         .then(response => {
           if (!response.ok) {
@@ -101,14 +100,13 @@
           return response.json()
         })
         .then(data => {
-          console.log(data.country_name, "using", data.currency_name, data.currency)
-          localStorage.setItem('shukran-country-currency', data.currency);
-          localStorage.setItem('shukran-country-code', data.country_code);
+          // console.log(data.country_name, "using", data.currency_name, data.currency)
+          sessionStorage.setItem('shukran-country-currency', data.currency);
+          sessionStorage.setItem('shukran-country-code', data.country_code);
         })
-        .catch(error => { // why did this error happen. let's know... save and send to backend later?
+        .catch(error => { // hopefully we never get here. If we do, we ask them for thier country
           // console.error('There has been a problem with our fetch operation:', error);
         });
-    } else { // use their currency
     }
   </script>
 

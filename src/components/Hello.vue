@@ -104,7 +104,7 @@ export default {
     }
   },
   methods: {
-    login(){
+    login() {
       if (this.username == '' || this.password == '') {
         this.issue = 'Please fill all fields.'
       } else {
@@ -138,7 +138,7 @@ export default {
       this.loginPasswordIcon = this.loginPasswordIcon === "icon: lock" ? "icon: unlock" : "icon: lock";
       this.loginPasswordFieldType = this.loginPasswordFieldType === 'password' ? 'text' : 'password';
     },
-    signup(){
+    signup() {
       if (this.username == '' || this.fullname == '' || this.email == '' || this.password == '') {
         this.issue = 'Please fill all fields.'
       } else if(!this.reg.test(this.email)){
@@ -169,18 +169,18 @@ export default {
                 sessionStorage.setItem('id', res.data._id)
                 sessionStorage.setItem('profile', JSON.stringify(res.data))
 
-                analytics.identify(res.data._id ,{  email: res.data.email});
-                analytics.track('Account Created',{  authentication:'Signup'})
+                analytics.identify(res.data._id , { email: res.data.email });
+                analytics.track('Account Created', { authentication: 'Signup' })
 
                 this.$router.push('/profile')
               }
             }).catch( error => {
-              // console.log(error)
+              // console.error(error)
               this.signupbtn = 'Sign up, again'
             })
           }
         }).catch( err => {
-          console.log(err)
+          console.error(err)
           this.signupbtn = 'Sign up, again'
         })
       }
@@ -198,7 +198,7 @@ export default {
 .uk-card, .uk-card-title {
   color: #2f1a35 !important;
 }
-.uk-button{
+.uk-button {
   background-color: #ff5976 !important;
   color: #fff6fa;
 }
@@ -213,17 +213,15 @@ export default {
   width: 300px;
 }
 @media (max-width:960px) {
-
-.uk-padding {
-  padding: 10px;
-}
-.uk-navbar-left {
-  margin-left: 30px;
-}
+  .uk-padding {
+    padding: 10px;
+  }
+  .uk-navbar-left {
+    margin-left: 30px;
+  }
 }
 .get-in {
   background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
-
   position: fixed;
   bottom: 0;
   right: 0;
@@ -238,8 +236,8 @@ export default {
     width: 370px;
   }
   .uk-navbar-left {
-  margin-left: 50px;
-}
+    margin-left: 50px;
+  }
 }
 
 .uk-input {
