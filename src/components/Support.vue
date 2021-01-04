@@ -406,7 +406,7 @@ export default {
    data() {
       return {
          username: this.$route.params.username,
-         tipGuard: 20, // should be 100 naira or Ksh
+         tipGuard: 5, // should be 100 naira or Ksh
          tipNudge: '',
          currency: !sessionStorage.getItem('shukran-country-currency') ? "NGN" : sessionStorage.getItem('shukran-country-currency'), // hardcoding NGN isn't ideal
          message: '',
@@ -532,7 +532,7 @@ showUserWelcome() {
       if (this.currency == "USD") {
          this.tipGuard = 3;
       } else {
-         this.tipGuard = 20; // should be 100
+         this.tipGuard = 5; // should be 100
       }
 
       if (isNaN(this.amount)) {
