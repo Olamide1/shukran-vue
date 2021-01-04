@@ -80,7 +80,7 @@
       </div>
     </section>
 
-    <!-- our slider -->
+    <!-- our slider, TODO: we should add 7 to 10 more random creators when the slider is getting to the end -->
 
     <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
       <div class="uk-slider-items uk-grid">

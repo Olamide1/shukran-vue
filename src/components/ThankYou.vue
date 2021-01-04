@@ -5,7 +5,7 @@
         <div class="thanks-text">
             <h3 class="uk-text-lead">{{nickname}}, Shukran!</h3>
             <p>
-                Check out these other amazing creators or find more creators to tip: <router-link to="/">here</router-link> or you can 
+                Check out these other amazing creators or find more creators to tip: <router-link to="/#creators">here</router-link> or you can 
                 <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+tipped+someone+on+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:&hashtags=saythanks,shukran" 
                 class="">
                     tweet about it
