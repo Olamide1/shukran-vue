@@ -518,6 +518,7 @@ export default {
       console.log(this.paymentID, '8');
    },
 showUserWelcome() {
+   console.log('evn', process.env.BASE_URL);
    axios.post(process.env.BASE_URL + '/api/myprofile/', {
       username: this.username.toLowerCase().trim()
    }).then(res => {
