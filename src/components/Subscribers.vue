@@ -338,42 +338,11 @@
                                       </div>
                                   </div>
 
-                                  <p class="uk-margin-remove-top uk-margin-remove-bottom the-what" :data-index="content.created_at" contenteditable="false">
+                                  <div class="uk-margin-remove-top uk-margin-remove-bottom the-what" :data-index="content.created_at" contenteditable="false">
                                     {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
-                                  </p>
+                                  </div>
                               </div>
                           </div>
-                          <!-- <div class="uk-grid-small uk-flex-middle" uk-grid>
-                              <div class="uk-width-auto">
-                                  <span :uk-icon="contentIcon(content.file_type)"></span>
-                              </div>
-                              <div class="uk-width-expand">
-                                  <div class="uk-grid uk-flex-middle uk-flex-between">
-                                    <div>
-                                      <h5 class="uk-margin-remove-bottom content-name">{{content.filename.split('.').slice(0, -1).join('.')}}</h5>
-                                      <p class="uk-text-meta uk-margin-remove-top">{{contentType(content.file_type)}} &mdash; Added <time :datetime="content.created_at">
-                                        {{
-                                          new Date(content.created_at).toDateString()
-                                        }}</time>
-                                      </p>
-                                    </div>
-                                    <div class="uk-width-auto uk-padding-remove-left">
-                                        <a class="uk-icon-button" uk-icon="trash"
-                                        uk-tooltip="Delete this content"
-                                        v-on:click="deleteContent(content._id)"
-                                        ></a>
-                                        
-                                        <a class="uk-icon-button uk-margin-small-left" uk-icon="pencil" :data-index="content.created_at"
-                                        v-on:click="changeProductDescription(content._id, content.created_at)"
-                                        uk-tooltip="Tell your Shuclans what this content is about. Give a hint or full description, tell a story."
-                                        ></a>
-                                    </div>
-                                  </div>
-                                  <p class="uk-margin-remove-top" :data-index="content.created_at" contenteditable="false">
-                                    {{content.description == undefined || content.description.trim().length == 0 ? `*Add a description for ${content.filename.split('.').slice(0, -1).join('.')}. Click the edit icon to do that.` : content.description.trim()}}
-                                  </p>
-                              </div>
-                          </div> -->
                         </li>
                     </ul>
                     <div v-else>
@@ -678,7 +647,7 @@ export default {
       });
     },
     changeProductDescription(_id, _ref) {
-      let _prgrph = document.querySelector(`p[data-index='${_ref}']`);
+      let _prgrph = document.querySelector(`div[data-index='${_ref}']`);
       let _price = document.querySelector(`input[data-index='${_ref}']`);
       if (_prgrph.isContentEditable) { // Disable Editing
         _prgrph.contentEditable = 'false';
@@ -1081,7 +1050,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-p[contenteditable='true'] {
+div[contenteditable] {
+  min-height: 25px;
+}
+div[contenteditable]:empty::before {
+  content: '*Add a description';
+  color: rgba(0,0,0,0.2);
+}
+
+div[contenteditable='true'] {
   outline: auto;
 }
 

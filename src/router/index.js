@@ -15,6 +15,7 @@ import Blog from '@/components/Blog'
 import HowItWorks from '@/components/HowItWorks'
 import Subscribers from '@/components/Subscribers'
 import _2020 from '@/components/2020'
+import _404 from '@/components/404'
 
 Vue.use(Router)
 
@@ -136,6 +137,14 @@ export default new Router({
       component: Reset,
       meta: {
         title: 'Reset - Shukran'
+      }
+    },
+    {
+      path: '*',
+      name: '404',
+      component: _404,
+      meta: {
+        title: '404'
       }
     }
   ]

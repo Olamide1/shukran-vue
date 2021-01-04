@@ -1,18 +1,11 @@
 <template>
     <div class="base">
-
-
         <div class="thanks-text">
-            <h3 class="blk">{{nickname ? nickname + ', ' : ''}}Shukran!</h3>
+            <h3 class="blk">404, Ouch!</h3>
             <p class="blk">
-                Check out these other amazing creators or find more creators to tip <router-link to="/#creators">here</router-link> or you can 
-                <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=I+just+tipped+someone+on+@useshukran.+It's+amazingly+simple+to+use.+Find+creators+to+tip+here:&hashtags=saythanks,shukran" 
-                class="">
-                    tweet about it <!-- add twitter bird after text, and home icon after 'here' link -->
-                </a>
+                The page you were looking for doens't exsit. But these creators do.
             </p>
         </div>
-
 
         <div class="uk-position-relative uk-visible-toggle uk-light uk-container" tabindex="-1" uk-slider>
 
@@ -47,7 +40,7 @@
 <script>
 import axios from 'axios'
 export default {
-    name: "ThankYou",
+    name: "_404",
     data () {
         return {
             nickname: localStorage.getItem('shukran-supporter-nickname'),
@@ -61,7 +54,7 @@ export default {
     },
     methods: {
         getRandomCreators() {
-            axios.get(process.env.BASE_URL + `/api/randomcreators/${15}/`)
+            axios.get(process.env.BASE_URL + `/api/randomcreators/${25}/`)
             .then((res) => {
                 console.log('res', res.data);
                 this.randomCreators = res.data; 
@@ -88,14 +81,6 @@ export default {
 }
 .blk {
     color: black;
-}
-p.blk > a {
-    color: #000;
-
-    background-image: linear-gradient(to right, blue 75%, transparent 75%);
-    background-position: 0 1.04em;
-    background-repeat: repeat-x;
-    background-size: 8px 3px;
 }
 .thanks-text {
     text-align: center;

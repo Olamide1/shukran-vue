@@ -179,7 +179,7 @@
        <div>
          <div class="uk-margin">
             <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
-            <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="email">
+            <input type="email" class="uk-input" autocomplete="email" placeholder="Email" v-model="supporter_email">
             <!-- <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone"> -->
          </div>
        </div>
@@ -197,11 +197,11 @@
           <p style="color: #c63968;"> {{tipNudge}}</p>
        </div>
        <div v-show="parseInt(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
-          <label><input v-model="isSubscribing" @change="subbed" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <a class="cancel-sub" href="mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription for ... creator." data-uk-tooltip title="A message with instructions would be sent to your email">Email us to cancel anytime</a> <!-- Starts from next month. --></label>
+          <label><input v-model="isSubscribing" class="uk-checkbox" type="checkbox"> Wanna tip {{username}} <b>{{currencySymbol()}}</b>{{amount}}<!-- this time --> every month<!-- for the next 1 year -->? <a class="cancel-sub" href="mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription for ... creator." data-uk-tooltip title="A message with instructions would be sent to your email">Email us to cancel anytime</a> <!-- Starts from next month. --></label>
            <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
        </div>
        <div class="uk-margin">
-          <textarea @input="subbed" placeholder="Drop an encouraging message" class="uk-textarea" v-model="message"></textarea>
+          <textarea :placeholder="'Drop an encouraging message for ' + username" class="uk-textarea" v-model="message"></textarea>
        </div>
        <div class="uk-margin">
           <p style="color: #c63968;">{{issue}}</p>
@@ -406,13 +406,13 @@ export default {
    data() {
       return {
          username: this.$route.params.username,
-         tipGuard: 100, // should be 100 naira
+         tipGuard: 20, // should be 100 naira or Ksh
          tipNudge: '',
          currency: !sessionStorage.getItem('shukran-country-currency') ? "NGN" : sessionStorage.getItem('shukran-country-currency'), // hardcoding NGN isn't ideal
          message: '',
          nickname: !localStorage.getItem('shukran-supporter-nickname') ? '' : localStorage.getItem('shukran-supporter-nickname'),
-         email: !localStorage.getItem('shukran-supporter-email') ? '' : localStorage.getItem('shukran-supporter-email'),
-         amount: '',
+         supporter_email: !localStorage.getItem('shukran-supporter-email') ? '' : localStorage.getItem('shukran-supporter-email'),
+         amount: '', // should be 0
          // phone: !localStorage.getItem('shukran-supporter-phone') ? '' : localStorage.getItem('shukran-supporter-phone'),
          tipbtn: 'Tip',
          isSubscribing: false,
@@ -421,12 +421,22 @@ export default {
          redirect: '',
          subscriptions: [],
          creatorInfo: {},
-         reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-         user_email: '',
+         emailRegEx: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/, // checking for email, why though?
          issue: ''
       }
    },
    computed: {
+   },
+   watch: {
+      isSubscribing: function (val) { // right now, if they change the amount after we've made a request, we can't update the subscription to reflect the new amount... we need our custom payment kini so we sort everything in the backend
+         if (val) { console.log(val);
+            this.subbed()
+         }
+      },
+      supporter_email: function (val, oldVal) {
+         console.log(value, oldValue);
+         localStorage.setItem('shukran-supporter-email', value)
+      }
    },
    methods:{
       currencySymbol() {
@@ -449,64 +459,72 @@ export default {
       this.$router.push("/");
    }
    },
-   getSubs(){
-   axios.get(process.env.BASE_URL + '/api/getsubscriptions/')
-   .then((res) => {
-      // console.log('res',res);
-      this.subscriptions = res.data.data; 
-   });
+   getSubs(){ // why not do this on first initial request
+      axios.get(process.env.BASE_URL + `/api/getsubscriptions/${this.creatorInfo._id}/`)
+      .then((res) => {
+         console.log('subs res',res);
+         this.subscriptions = res.data; 
+      }).catch((err) => console.error('subs err', err));
    },
    subbed() {
-      // because of the 2nd test in this if, we won't need axios.interceptors ... right now, it's just an overkill
+      try {
+         console.log('tryigng');
+         // careful here, it's important we use '==' not '===', this.amount is string, sub.amount is int... == would work for comparison, but === won't
+         this.paymentID = this.subscriptions.find(sub => sub.amount == this.amount && sub.currency == this.currency).id // ?.id sadly doens't work
+         console.log(this.paymentID, '99');
+      } catch (error) { // means there are no subs like that
+         
+      }
+      // 
       if (this.isSubscribing && this.paymentID === undefined) { // check if it hasn't ran
-      const source = axios.CancelToken.source();
-      let paymentID = this.paymentID; // re-assign because we don't see it inside axios.intercptors.request.use(...)
-      axios.interceptors.request.use(function (config) {
-         // Do something before request is sent, like we're inserting a timeout for only requests with a particular baseURL
-         if (paymentID === undefined && config.url === process.env.BASE_URL + '/api/createsubscription/') { 
-            // config.timeout = 4000;
-            return config
-         } else if (paymentID !== undefined && config.url !== process.env.BASE_URL + '/api/createsubscription/') {
-            return config
-         } else {
-            source.cancel('Can\'t make more than one reqeust');
-         }
-         //console.log(config)
-         return config;
-      }, function (error) {
-         // Do something with request error
-         return Promise.reject(error);
-      });
-      
-      // before we make this call, let's check if the subscirption amount exits in this.subscirptions
-      axios.post(process.env.BASE_URL + '/api/createsubscription/', {
-         amount: parseInt(this.amount),
-         supporter_email: this.email,
-         creator_email: this.creatorInfo.email,
-         creator: this.username,
-         creator_id: this.creatorInfo._id,
-         creator_email: this.creatorInfo.email,
-         name: `${this.email}-shukraning-${this.creatorInfo._id}`, // using email & _id is surety
-      }, {
-      cancelToken: source.token
-      }).then(res => { // set the subscription/payment plan ID
-         //console.log('good subscription', res)
-         this.paymentID = res.data
-      }).catch(err => {
-         //console.log('bad subscription', err)
-      }).finally(() => {
-         // console.log('we\'re getting the payment plan id')
-      })
+         const source = axios.CancelToken.source();
+         let paymentID = this.paymentID; // re-assign because we don't see it inside axios.intercptors.request.use(...)
+         axios.interceptors.request.use(function (config) {
+            // Do something before request is sent, like we're inserting a timeout for only requests with a particular baseURL
+            if (paymentID === undefined && config.url === process.env.BASE_URL + '/api/createsubscription/') { 
+               // config.timeout = 4000;
+               return config
+            } else if (paymentID !== undefined && config.url === process.env.BASE_URL + '/api/createsubscription/') { // we could add checking that paymentID is a number --over-kill
+               source.cancel('Can\'t make more than one reqeust for subscription'); // cancels request
+            } else {
+               return config
+            }
+            // console.log(config)
+         }, function (error) {
+            // Do something with request error
+            return Promise.reject(error);
+         });
+         
+         // before we make this call, let's check if the subscirption amount exits in this.subscirptions
+         axios.post(process.env.BASE_URL + '/api/createsubscription/', {
+            amount: parseInt(this.amount),
+            supporter_email: this.supporter_email, // not using
+            creator_email: this.creatorInfo.email, // not using
+            creator_username: this.username, // not using
+            creator_id: this.creatorInfo._id, // not using
+            name: `shukraning-${this.creatorInfo._id}`, // using _id is surety, [we stopped using email]
+         }, {
+            cancelToken: source.token
+         }).then(res => { // set the subscription/payment plan ID
+            //console.log('good subscription', res)
+            this.paymentID = res.data
+         }).catch(err => {
+            // console.log('bad subscription', err)
+         }).finally(() => {
+            // console.log('we\'re getting the payment plan id')
+         })
 
       }
+      console.log(this.paymentID, '8');
    },
 showUserWelcome() {
    axios.post(process.env.BASE_URL + '/api/myprofile/', {
       username: this.username.toLowerCase().trim()
-   }).then( res => {
+   }).then(res => {
       // console.log('creator profile', res) // if res.data is empty, say we don't have any such creators
-      this.creatorInfo = res.data[0]
-   }).catch( err => {
+      this.creatorInfo = res.data[0];
+      this.getSubs()
+   }).catch(err => {
       // console.log('!!', err)
    })
    },
@@ -514,7 +532,7 @@ showUserWelcome() {
       if (this.currency == "USD") {
          this.tipGuard = 3;
       } else {
-         this.tipGuard = 100; // should be 100
+         this.tipGuard = 20; // should be 100
       }
 
       if (isNaN(this.amount)) {
@@ -523,16 +541,6 @@ showUserWelcome() {
          this.tipNudge = `Please support ${this.username} with at least ${this.currencySymbol()}${this.tipGuard}`;
       } else {
          this.tipNudge = ''
-      }
-   },
-   love() {
-      if (this.isSubscribing) {
-         try { // if it can't get id, it throws error, we so create a new subscirtpion plan
-            this.paymentID = this.subscriptions.find(ele => ele.status === "active" && ele.amount === this.amount).id
-            // console.log('teh payament id', this.paymentID)
-         } catch(err) { // call fun to create new subscription
-
-         }
       }
    },
    contentType(mime) {
@@ -593,34 +601,34 @@ showUserWelcome() {
    save() {
       // [optimize] save their email & nickname & phone number for later autofilling
 
-      analytics.identify(this.email ,{  nickname: this.nickname});
+      analytics.identify(this.supporter_email ,{  nickname: this.nickname});
       analytics.track('Tipping Creator',{  authentication:'Tipped creator'})
 
       localStorage.setItem('shukran-supporter-nickname', this.nickname);
-      localStorage.setItem('shukran-supporter-email', this.email);
+      localStorage.setItem('shukran-supporter-email', this.supporter_email);
       // localStorage.setItem('shukran-supporter-phone', this.phone);
       
       // optimize re-assignments//
-         let email = this.email
+         let supporter_email = this.supporter_email
          let username = this.username
          let supporter_nickname = this.nickname
          let message = this.message
          let amount = this.amount
          // let phone = this.phone
          let currency = this.currency
-         let user_email = this.creatorInfo.email
+         let creator_email = this.creatorInfo.email
          let redirect = this.creatorInfo.redirect
-         if(email == '' || amount == '') {
+         if(supporter_email == '' || amount == '') {
             this.issue = 'Enter email & amount please'
             this.tipbtn = "Tip"
-         } else if(!this.reg.test(this.email)){
+         } else if(!this.emailRegEx.test(this.supporter_email)){
             this.issue = "Please enter a correct email";
             this.tipbtn = "Tip"
          } else {
             // paystack
          /* var handler = PaystackPop.setup({
             key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
-            email: email,
+            supporter_email: supporter_email,
             amount: parseInt(amount) * 100,
             currency: sessionStorage.getItem("shukran-country-currency"),
             channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
@@ -633,7 +641,7 @@ showUserWelcome() {
                   }
                   ]},
             callback: function(response){
-               localStorage.setItem('shukran_email', email)
+               localStorage.setItem('shukran_email', supporter_email)
                localStorage.setItem('shukran_nickname', supporter_nickname)
                // localStorage.setItem('shukran_phone', phone)
                axios.post(process.env.BASE_URL + '/api/createtransaction/', {
@@ -643,7 +651,7 @@ showUserWelcome() {
                   currency: currency,
                   message: message,
                   status: 'received',
-                  email: user_email
+                  creator_email: creator_email
                   }).then(res => {
                      console.log('tipped')
                      if (redirect == '') {
@@ -668,7 +676,7 @@ showUserWelcome() {
 
                FlutterwaveCheckout({
    public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
-   tx_ref: `${email}-shukran${this.isSubscribing ? 'ing' : ''}-${this.creatorInfo._id} @ ${Date.now()}`,
+   tx_ref: `${supporter_email}-shukran${this.isSubscribing ? 'ing' : ''}-${this.creatorInfo._id} @ ${Date.now()}`,
    amount: parseInt(amount),
    // https://stackoverflow.com/a/40560953
    // make country based on currency? how about ?
@@ -676,7 +684,7 @@ showUserWelcome() {
    currency: this.currency,
    ...(this.currency == "GBP") && {type: "debit_uk_account"}, // to accept uk payments
    payment_options: "card, mobilemoney, ussd, account, banktransfer, mpesa, qr, payattitude, credit",
-   // redirect_url: redirect == '' ? 'https://useshukran.com/thanks' : redirect, // specified redirect URL
+   // redirect_url: redirect ? redirect : process.env.BASE_URL + '/thanks', // specified redirect URL
    // creating subscriptions
    ...(this.isSubscribing && this.paymentID !== undefined) && {payment_plan: this.paymentID},
    meta: {
@@ -687,7 +695,7 @@ showUserWelcome() {
       // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
    },
    customer: { 
-      email: email,
+      email: supporter_email, // must be 'email'
       supporter_message: message,
       supporter_nickname: supporter_nickname,
       creator_username: username,
@@ -706,25 +714,28 @@ showUserWelcome() {
                         .from(currency).to("NGN")
                   
                   axios.post(process.env.BASE_URL + '/api/createtransaction/', {
-                     username: username,
+                     creator_username: username,
                      supporter_nickname: supporter_nickname,
+                     supporter_email: supporter_email,
                      amount: amount,
                      message: message,
                      status: 'received',
                      currency: "NGN", // currency
                      tx_ref: response.tx_ref,
-                     email: user_email
+                     creator_email: creator_email
                   }).then(res => {
-                     // console.info('tipped')
-                     if (redirect == '') {
-                        this.$router.push('/thanks');
+                     console.log(this, redirect);
+                     console.info('tipped', res)
+                     if (redirect) {
+                        window.location = process.env.BASE_URL + '/thanks' ; // this.$router.push('/thanks');
                      } else {
                         window.location = redirect
                      }
                      }).catch(err => {
                         this.tipbtn = 'Tip'
                         this.issue = err; // what if err is not a string?!
-                        // console.error(err)
+                        console.error(err)
+                        window.location = process.env.BASE_URL + '/thanks' ; // this.$router.push('/thanks'); // should we ?
                      })
                } else {
                   
@@ -744,7 +755,7 @@ showUserWelcome() {
       this.showUserWelcome();
    },
    mounted(){
-      this.getSubs();
+      // this.getSubs();
       this.checkUser();
    }
 }
