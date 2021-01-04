@@ -215,14 +215,15 @@
                       <h4 class="uk-modal-title">Payout request</h4>
                     </div>
                     <button class="uk-modal-close-default" type="button" uk-close></button>
-                    <div class="uk-margin">
+                    <div >
                       <h4>Available balance: {{currencySymbol}}{{availableBalance.toFixed(2)}}</h4>
+                      <h5 class="uk-margin-remove-top">We'll payout to your <strong>{{ profiles.bank }}, <u>{{ profiles.account_number }}</u></strong></h5>
                     </div>
-                    <div class="uk-margin" align="center">
+                    <div class="uk-margin" >
                       <input type="number" class="uk-input payout-input" placeholder="Amount" v-model="amount" />
-                      <span v-if="amount > (availableBalance)">Insufficient available balance.</span>
+                      <span v-if="amount > (availableBalance)" class="rqp-text">Insufficient available balance.</span>
                       <br />
-                      <span v-if="amount < payoutGuard">Payout requests cannot be less than {{currencySymbol}}{{payoutGuard.toFixed(2)}}</span>
+                      <span v-if="amount < payoutGuard" class="rqp-text">Payout requests cannot be less than {{currencySymbol}}{{payoutGuard.toFixed(2)}}</span>
                     </div>
                     <div class="uk-margin">
                       <button
@@ -1087,6 +1088,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.rqp-text {
+  display: block;
+  padding-top: 5px;
+}
 
 /** 
   total money chart js custom style
