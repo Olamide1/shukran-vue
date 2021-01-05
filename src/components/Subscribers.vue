@@ -329,7 +329,7 @@
                                               <div class="uk-inline" >
                                                   
                                                     <label :for="content.created_at">
-                                                      {{currencySymbol}}
+                                                      {{thresholdCurrSym(content.threshold.currency)}}
                                                     </label>
                                                   
                                                   <input @change="changeThresholdPrice(content._id)" uk-tooltip="Click to edit" class="uk-input uk-text-meta uk-form-blank threshold-price" :value="content.threshold.amount" :id="content.created_at" :data-index="content.created_at" type="number" placeholder="0.00">
@@ -363,6 +363,7 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+fx.base = "USD";
 fx.rates = { // LiG
   "AED": 3.6732,
   "AFN": 77.571739,
@@ -598,6 +599,23 @@ export default {
     }
   },
   methods: {
+    
+    thresholdCurrSym: function (c) {
+      switch (c) {
+        case "NGN":
+          return "₦";
+          break;
+        case "USD":
+          return "$";
+          break;
+        case "KES":
+          return "Ksh";
+          break;
+        default:
+          return "₦";
+          break;
+      }
+    },
     deleteContent(_id) {
       axios.post(process.env.BASE_URL + '/api/deletecontent/', {
         id: this.profile._id,
@@ -630,7 +648,7 @@ export default {
         content_id: _id,
         updateData: {
           "price": event.target.value,
-          "currency": this.currency
+          "currency": 'NGN' // sessionStorage.getItem("shukran-country-currency") // this.currency
         }
       })
       .then(res => {

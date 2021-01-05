@@ -228,6 +228,7 @@ goes through... it'll probably crash our server... given how we won't have an em
 unknown user */
 import axios from 'axios'
 import fx from "money";
+fx.base = "USD";
 fx.rates = { // LiG
   "AED": 3.6732,
   "AFN": 77.571739,
@@ -727,16 +728,16 @@ showUserWelcome() {
                   }).then(res => {
                      console.log(this, redirect);
                      console.info('tipped', res)
-                     if (redirect) {
-                        window.location = process.env.BASE_URL + '/thanks' ; // this.$router.push('/thanks');
-                     } else {
+                     if (redirect) { // show some info telling them they would be redirected
                         window.location = redirect
+                     } else {
+                        window.location = process.env.URL + '/thanks' ; // this.$router.push('/thanks');
                      }
                      }).catch(err => {
                         this.tipbtn = 'Tip'
                         this.issue = err; // what if err is not a string?!
                         console.error(err)
-                        window.location = process.env.BASE_URL + '/thanks' ; // this.$router.push('/thanks'); // should we ?
+                        window.location = process.env.URL + '/thanks' ; // this.$router.push('/thanks'); // should we ?
                      })
                } else {
                   
