@@ -433,7 +433,7 @@ export default {
             this.subbed()
          }
       },
-      supporter_email: function (val, oldVal) {
+      supporter_email: function (value, oldValue) {
          console.log(value, oldValue);
          localStorage.setItem('shukran-supporter-email', value)
       }
