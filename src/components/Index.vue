@@ -416,31 +416,16 @@ export default {
     },
     getCreators() {
       // console.log('env', process.env.BASE_URL, process.env.NODE_ENV)
-
+      localStorage.removeItem('shukran-amazing-creators')
       axios
         .get(process.env.BASE_URL + "/api/allusers/")
         .then(res => {
           this.creators = res.data; // loaded creators
-          localStorage.setItem('shukran-amazing-creators', JSON.stringify(res.data));
+          // localStorage.setItem('shukran-amazing-creators', JSON.stringify(res.data));
         })
         .catch(err => {
           console.log("error", err);
         });
-
-      /* if(!localStorage.getItem('shukran-amazing-creators')) {
-          axios
-            .get(process.env.BASE_URL + "/api/allusers/")
-            .then(res => {
-              this.creators = res.data; // loaded creators
-              localStorage.setItem('shukran-amazing-creators', JSON.stringify(res.data));
-            })
-            .catch(err => {
-              console.log("error", err);
-            });
-      } else { // do nothing..?
-        this.creators = JSON.parse(localStorage.getItem('shukran-amazing-creators'));
-      } */
-
     },
     close(){
         UIkit.modal('#modal-sections').hide()
