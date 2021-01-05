@@ -5,7 +5,6 @@
   "author": "Olamide Akomolafe <olamideakomolafe1234@gmail.com>, Nwachukwu Ossai <nwachukwuossai@gmail.com>",
   "scripts": {
     "build": "node build/build.js",
-    "test-build": "NODE_ENV=test node build/build.js",
     "dev": "node build/dev-server.js",
     "e2e": "node test/e2e/runner.js",
     "start": "node build/dev-server.js",
