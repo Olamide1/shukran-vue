@@ -637,6 +637,10 @@ export default {
         this.chart1.data.datasets[0].data = this.allTips
         this.chart1.update();
         this.chart2.data.datasets[0].data = [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)]
+        this.chart2.data.labels = [ // These labels appear in the
+          this.currencySymbol + this.availableBalance.toFixed(2) + ' Available',
+          this.currencySymbol + this.tipWithdrawn.toFixed(2) + ' Withdrawn'
+        ]
         this.chart2.update();
       }
       
@@ -760,7 +764,6 @@ export default {
 
       // https://uidesigndaily.com/posts/sketch-stats-card-statistics-analytics-chart-day-817
       
-
       let config = {
         type: 'doughnut',
         data: {
@@ -770,8 +773,8 @@ export default {
             borderWidth: 4,
           }],
           labels: [ // These labels appear in the legend and in the tooltips when hovering different arcs
-            'Available',
-            'Withdrawn'
+            this.currencySymbol + this.availableBalance.toFixed(2) + ' Available',
+            this.currencySymbol + this.tipWithdrawn.toFixed(2) + ' Withdrawn'
           ]
         },
         options: {
@@ -781,6 +784,7 @@ export default {
             position: 'bottom',
             labels: {
               usePointStyle: true,
+              fontSize: 18,
             }
           },
           tooltips: {
@@ -805,7 +809,8 @@ export default {
 
               function getBody(bodyItem) {
                 for (let i = 0; i < bodyItem.lines.length; i++) {
-                  bodyItem.lines[i] = bodyItem.lines[i].replace(':', ': ' + sessionStorage.getItem('shukran-curr-cur-sym'))
+                  // bodyItem.lines[i] = bodyItem.lines[i].replace(':', ': ' + sessionStorage.getItem('shukran-curr-cur-sym'))
+                  bodyItem.lines[i] = bodyItem.lines[i].split(':')[0]
                 }
                 
                 return bodyItem.lines;
