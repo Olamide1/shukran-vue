@@ -123,7 +123,7 @@ export default new Router({
       component: Support,
       meta: {
         reload: false,
-        title: 'User -'
+        title: vm => `Shukran ${vm.$route.params.username}`
       }
     },
     {

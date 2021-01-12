@@ -226,7 +226,7 @@ put up a nice message or redirect... not show a creator that doens't exist... to
 I opened /cr/chukd and it opened, asking to tip 'chukd' whoever that is... even if the payment
 goes through... it'll probably crash our server... given how we won't have an email for the
 unknown user */
-import axios from 'axios'
+import axios from 'axios';
 import fx from "money";
 fx.base = "USD";
 fx.rates = { // LiG
@@ -456,9 +456,9 @@ export default {
       }
    },
    checkUser() {
-   if (this.username == null) {
-      this.$router.push("/");
-   }
+      if (this.username == null) {
+         this.$router.push("/");
+      }
    },
    getSubs(){ // why not do this on first initial request
       axios.get(process.env.BASE_URL + `/api/getsubscriptions/${this.creatorInfo._id}/`)
