@@ -25,24 +25,27 @@
                <div class="uk-card uk-card-body">
 
                      <div class="header-combo">
-                    <mark>
-                       <h4 class="uk-heading-small uk-margin-remove-bottom">{{this.creatorInfo.username}}</h4>
-                    </mark>
-                    <mark>
-                       <small>&middot; {{this.creatorInfo.craft_type}}</small>
-                    </mark>
+                        <mark>
+                           <h4 class="uk-heading-small uk-margin-remove-bottom">{{this.creatorInfo.username}}</h4>
+                        </mark>
+                        
                      </div>
+                     <p>
+                           <mark>
+                              <small>&mdash; {{this.creatorInfo.craft_type}}</small>
+                           </mark>
+                        </p>
 
-                  <p>
-                     <mark>
-                        {{this.creatorInfo.summary}}
-                     </mark>
-                  </p>
-                  <p>
-                     <mark>
-                        <a :href="this.creatorInfo.primary_link" target="blank">Find my content here.</a>
-                     </mark>
-                  </p>
+                     <p>
+                        <mark>
+                           {{this.creatorInfo.summary}}
+                        </mark>
+                     </p>
+                     <p>
+                        <mark>
+                           <a :href="this.creatorInfo.primary_link" target="blank">Find my content here.</a>
+                        </mark>
+                     </p>
                </div>
             </div>
 
@@ -782,12 +785,10 @@ showUserWelcome() {
 .sk {
    width: 200px;
 }
+
 .header-combo {
-  display: flex;
-  align-items: baseline;
-}
-.header-combo small {
-  padding-left: 5px;
+   display: flex;
+   align-items: baseline;
 }
 
 .subscription-nudge {
@@ -814,23 +815,15 @@ showUserWelcome() {
    border-radius: 5px;
    margin-bottom: 30px;
 }
-.uk-card, .uk-card-title {
-   /* background-color: #fceedd; */
-   color: #ff6870;
-}
 .capitalize {
-    text-transform: capitalize;   
-  }
+   text-transform: capitalize;   
+}
 .uk-button{
   background-color: #c63968;
   color: #fceedd;
   border-radius: 3px
 }
 
-.uk-label{
-  background-color: #c63968;
-  color: #fceedd;
-}
 .uk-input {
    margin-bottom: 5px;
    border-radius: 3px
