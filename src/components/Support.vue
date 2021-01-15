@@ -622,6 +622,7 @@ showUserWelcome() {
          // let phone = this.phone
          let currency = this.currency
          let creator_email = this.creatorInfo.email
+         let creator_id = this.creatorInfo._id
          let redirect = this.creatorInfo.redirect
          if(supporter_email == '' || amount == '') {
             this.issue = 'Enter email & amount please'
@@ -692,9 +693,7 @@ showUserWelcome() {
    // redirect_url: redirect ? redirect : process.env.BASE_URL + '/thanks', // specified redirect URL
    // creating subscriptions
    ...(this.isSubscribing && this.paymentID !== undefined) && {payment_plan: this.paymentID},
-   meta: {
-      meta_one: 23,
-      meta_two: "A test string",
+   meta: { // Goes to our flutterwave dashboard
       supporter_message: message,
       supporter_nickname: supporter_nickname,
       // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
@@ -718,10 +717,11 @@ showUserWelcome() {
                   amount = fx(amount) // convert to NGN
                         .from(response.currency).to("NGN")
                   
-                  axios.post(process.env.BASE_URL + '/api/createtransaction/', {
-                     creator_username: username,
+                  axios.post(process.env.BASE_URL + '/api/createtransaction/', { // we should ref the creator id
+                     username: username, // creator_username
                      supporter_nickname: supporter_nickname,
                      supporter_email: supporter_email,
+                     creator_id: creator_id,
                      amount: amount,
                      message: message,
                      status: 'received',
