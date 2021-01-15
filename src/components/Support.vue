@@ -410,7 +410,7 @@ export default {
    data() {
       return {
          username: this.$route.params.username,
-         tipGuard: 5, // should be 100 naira or Ksh
+         tipGuard: process.env.TIP_GUARD, // should be 100 naira or Ksh // should be dynamic
          tipNudge: '',
          currency: !sessionStorage.getItem('shukran-country-currency') ? "NGN" : sessionStorage.getItem('shukran-country-currency'), // hardcoding NGN isn't ideal
          message: '',
@@ -459,6 +459,7 @@ export default {
       }
    },
    checkUser() {
+   console.log('TIP_GUARD', process.env.TIP_GUARD);
       if (this.username == null) {
          this.$router.push("/");
       }
@@ -537,7 +538,7 @@ showUserWelcome() {
       if (this.currency == "USD") {
          this.tipGuard = 3;
       } else {
-         this.tipGuard = 5; // should be 100
+         this.tipGuard = process.env.TIP_GUARD; // should be 100
       }
 
       if (isNaN(this.amount)) {
@@ -623,7 +624,7 @@ showUserWelcome() {
          let currency = this.currency
          let creator_email = this.creatorInfo.email
          let creator_id = this.creatorInfo._id
-         let redirect = this.creatorInfo.redirect
+         let redirect = this.creatorInfo.primary_link
          if(supporter_email == '' || amount == '') {
             this.issue = 'Enter email & amount please'
             this.tipbtn = "Tip"
@@ -729,8 +730,8 @@ showUserWelcome() {
                      tx_ref: response.tx_ref,
                      creator_email: creator_email
                   }).then(res => {
-                     console.log(this, redirect);
-                     console.info('tipped', res)
+                     // console.log(this, redirect);
+                     // console.info('tipped', res)
                      if (redirect) { // show some info telling them they would be redirected
                         window.location = redirect
                      } else {
