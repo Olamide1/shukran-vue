@@ -716,7 +716,7 @@ showUserWelcome() {
                   } */
 
                   amount = fx(amount) // convert to NGN
-                        .from(currency).to("NGN")
+                        .from(response.currency).to("NGN")
                   
                   axios.post(process.env.BASE_URL + '/api/createtransaction/', {
                      creator_username: username,
