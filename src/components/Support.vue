@@ -433,12 +433,11 @@ export default {
    },
    watch: {
       isSubscribing: function (val) { // right now, if they change the amount after we've made a request, we can't update the subscription to reflect the new amount... we need our custom payment kini so we sort everything in the backend
-         if (val) { console.log(val);
+         if (val) {
             this.subbed()
          }
       },
       supporter_email: function (value, oldValue) {
-         console.log(value, oldValue);
          localStorage.setItem('shukran-supporter-email', value)
       }
    },
@@ -459,7 +458,6 @@ export default {
       }
    },
    checkUser() {
-   console.log('TIP_GUARD', process.env.TIP_GUARD);
       if (this.username == null) {
          this.$router.push("/");
       }
@@ -467,16 +465,16 @@ export default {
    getSubs(){ // why not do this on first initial request
       axios.get(process.env.BASE_URL + `/api/getsubscriptions/${this.creatorInfo._id}/`)
       .then((res) => {
-         console.log('subs res',res);
+         // console.log('subs res',res);
          this.subscriptions = res.data; 
       }).catch((err) => console.error('subs err', err));
    },
    subbed() {
       try {
-         console.log('tryigng');
+         // console.log('tryigng');
          // careful here, it's important we use '==' not '===', this.amount is string, sub.amount is int... == would work for comparison, but === won't
          this.paymentID = this.subscriptions.find(sub => sub.amount == this.amount && sub.currency == this.currency).id // ?.id sadly doens't work
-         console.log(this.paymentID, '99');
+         // console.log(this.paymentID, '99');
       } catch (error) { // means there are no subs like that
          
       }
@@ -520,10 +518,9 @@ export default {
          })
 
       }
-      console.log(this.paymentID, '8');
+      // console.log(this.paymentID, '8');
    },
 showUserWelcome() {
-   console.log(process.env.NODE_ENV, 'evn', process.env.BASE_URL);
    axios.post(process.env.BASE_URL + '/api/myprofile/', {
       username: this.username.toLowerCase().trim()
    }).then(res => {
