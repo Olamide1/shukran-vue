@@ -144,7 +144,7 @@ export default new Router({
       name: '404',
       component: NotFoundErrorPage,
       meta: {
-        title: '404'
+        title: '📸👩🏾‍💻📹✍️🎙️💅🏻🎼❤️'
       }
     }
   ]
