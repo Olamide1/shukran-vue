@@ -105,7 +105,7 @@ At Shukran, we are committed to providing a safe and secure user experience for 
     <h1 class="uk-article-title"><a class="uk-link-reset" href="">CONTACT SHUKRAN</a></h1>
 
     <p>
-        Have any  questions, feedback or concerns regarding these Terms or the Services, please contact us at <a href="mailto:contact@useshukran.com">contact@useshukran.com</a> and <a href="mailto:support@useshukran.com">support@useshukran.com</a>.
+        Have any  questions, feedback or concerns regarding these Terms or the Services, please contact us at <a href="mailto:contact@useshukran.com">contact@useshukran.com</a> or <a href="mailto:support@useshukran.com">support@useshukran.com</a>.
     </p>
     
 

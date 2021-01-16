@@ -520,16 +520,16 @@ export default {
       }
       // console.log(this.paymentID, '8');
    },
-showUserWelcome() {
-   axios.post(process.env.BASE_URL + '/api/myprofile/', {
-      username: this.username.toLowerCase().trim()
-   }).then(res => {
-      // console.log('creator profile', res) // if res.data is empty, say we don't have any such creators
-      this.creatorInfo = res.data[0];
-      this.getSubs()
-   }).catch(err => {
-      // console.log('!!', err)
-   })
+   showUserWelcome() {
+      axios.post(process.env.BASE_URL + '/api/myprofile/', {
+         username: this.username.toLowerCase().trim()
+      }).then(res => {
+         // console.log('creator profile', res) // if res.data is empty, say we don't have any such creators
+         this.creatorInfo = res.data[0];
+         this.getSubs()
+      }).catch(err => {
+         // console.log('!!', err)
+      })
    },
    showTipNudge() {
       if (this.currency == "USD") {
