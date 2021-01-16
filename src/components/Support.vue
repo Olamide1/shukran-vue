@@ -523,6 +523,8 @@ export default {
    showUserWelcome() {
       axios.post(process.env.BASE_URL + '/api/myprofile/', {
          username: this.username.toLowerCase().trim()
+      }, {
+         withCredentials: true
       }).then(res => {
          // console.log('creator profile', res) // if res.data is empty, say we don't have any such creators
          this.creatorInfo = res.data[0];
@@ -726,9 +728,11 @@ export default {
                      currency: "NGN", // currency
                      tx_ref: response.tx_ref,
                      creator_email: creator_email
-                  }).then(res => {
-                     // console.log(this, redirect);
-                     // console.info('tipped', res)
+                  }, {
+                     withCredentials: true
+                  }).then(res => { // if they subscribed ...refresh the page to show their content.
+                     console.log(this, JSON.stringify(res));
+                     console.info('tipped', res)
                      if (redirect) { // show some info telling them they would be redirected
                         window.location = redirect
                      } else {
