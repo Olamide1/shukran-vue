@@ -8,5 +8,5 @@ module.exports = merge(devEnv, {
   TIP_GUARD: 5,
   DEBUG_MODE: true,
   BASE_URL: '"https://shukran-staging-api.herokuapp.com"',
-  URL: '"https://shukranstaging.netlify.app/"'
+  URL: '"https://shukranstaging.netlify.app"'
 })

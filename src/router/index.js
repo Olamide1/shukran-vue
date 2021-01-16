@@ -14,8 +14,8 @@ import Terms from '@/components/Terms'
 import Blog from '@/components/Blog'
 import HowItWorks from '@/components/HowItWorks'
 import Subscribers from '@/components/Subscribers'
-import _2020 from '@/components/2020'
-import _404 from '@/components/404'
+import Year2020 from '@/components/2020'
+import NotFoundErrorPage from '@/components/404'
 
 Vue.use(Router)
 
@@ -25,7 +25,7 @@ export default new Router({
     {
       path: '/2020',
       name: '2020',
-      component: _2020,
+      component: Year2020,
       meta: {
         title: 'The Shukran 2020 Highlight'
       }
@@ -142,7 +142,7 @@ export default new Router({
     {
       path: '*',
       name: '404',
-      component: _404,
+      component: NotFoundErrorPage,
       meta: {
         title: '404'
       }

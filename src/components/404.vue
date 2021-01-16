@@ -40,7 +40,7 @@
 <script>
 import axios from 'axios'
 export default {
-    name: "_404",
+    name: "NotFoundErrorPage",
     data () {
         return {
             nickname: localStorage.getItem('shukran-supporter-nickname'),

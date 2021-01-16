@@ -33,7 +33,7 @@
 
 <script>
 export default {
-    name: '_2020'
+    name: 'Year2020'
 }
 </script>
 
