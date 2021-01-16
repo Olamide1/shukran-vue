@@ -711,15 +711,11 @@ export default {
    callback: function(response){// if transaction not successful, don't do anything... get info why & probably who...
 
                if (response.status == "successful") {
-                  /* if (response.currency === "KES") { // we can do more
-                     amount = parseFloat(amount) * 4.4
-                  } else if (response.currency === "USD") {
-                     amount = parseFloat(amount) * 380
-                  } */
-
-                  amount = fx(amount) // convert to NGN
+                  if (response.currency !== "NGN") { // we can do more
+                     amount = fx(amount) // convert to NGN
                         .from(response.currency).to("NGN")
-                  
+                  }
+
                   axios.post(process.env.BASE_URL + '/api/createtransaction/', { // we should ref the creator id
                      username: username, // creator_username
                      supporter_nickname: supporter_nickname,
@@ -735,8 +731,9 @@ export default {
                      withCredentials: true
                   }).then(res => { // if they subscribed ...refresh the page to show their content.
                      console.log(this, JSON.stringify(res));
+                     console.log('redirected response', document.URL, res.config.data.tx_ref);
                      console.info('tipped', res)
-                     if (isSub) {
+                     if (res.config.data.tx_ref.includes('-shukraning-')) {
                         window.location = document.URL + '#content-parent'
                      }
                      else if (redirect) { // show some info telling them they would be redirected
