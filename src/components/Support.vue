@@ -463,7 +463,7 @@ export default {
       }
    },
    getSubs(){ // why not do this on first initial request
-      axios.get(process.env.BASE_URL + `/api/getsubscriptions/${this.creatorInfo._id}/`)
+      axios.get(process.env.BASE_URL + `/api/getsubscriptions/${this.creatorInfo._id}/`, { withCredentials: true })
       .then((res) => {
          // console.log('subs res',res);
          this.subscriptions = res.data; 
