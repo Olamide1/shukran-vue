@@ -52,7 +52,8 @@
          </div>
       </div>
 
-      <div v-if="this.creatorInfo.content && this.creatorInfo.content.length > 0" class="uk-padding-large-top uk-section uk-section-default uk-section-small uk-padding-remove-bottom">
+      <div id="content-parent">
+         <div v-if="this.creatorInfo.content && this.creatorInfo.content.length > 0" class="uk-padding-large-top uk-section uk-section-default uk-section-small uk-padding-remove-bottom">
             <div class="uk-container">
 
                <div class="header-combo">
@@ -171,6 +172,7 @@
                 </div> -->
 
             </div>
+      </div>
       </div>
 
       <div class="uk-container uk-margin-top">
@@ -624,6 +626,7 @@ export default {
          let creator_email = this.creatorInfo.email
          let creator_id = this.creatorInfo._id
          let redirect = this.creatorInfo.primary_link
+         let isSub = this.isSubscribing
          if(supporter_email == '' || amount == '') {
             this.issue = 'Enter email & amount please'
             this.tipbtn = "Tip"
@@ -733,7 +736,10 @@ export default {
                   }).then(res => { // if they subscribed ...refresh the page to show their content.
                      console.log(this, JSON.stringify(res));
                      console.info('tipped', res)
-                     if (redirect) { // show some info telling them they would be redirected
+                     if (isSub) {
+                        window.location = document.URL + '#content-parent'
+                     }
+                     else if (redirect) { // show some info telling them they would be redirected
                         window.location = redirect
                      } else {
                         window.location = process.env.URL + '/thanks' ; // this.$router.push('/thanks');
