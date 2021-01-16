@@ -54,7 +54,9 @@ export default {
     },
     methods: {
         getRandomCreators() {
-            axios.get(process.env.BASE_URL + `/api/randomcreators/${25}/`)
+            axios.get(process.env.BASE_URL + `/api/randomcreators/${25}/`, {
+                withCredentials: true
+            })
             .then((res) => {
                 console.log('res', res.data);
                 this.randomCreators = res.data; 
