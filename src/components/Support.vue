@@ -76,9 +76,10 @@
                            <h3 class="uk-card-title">
                               <span class="uk-label">{{contentType(content.file_type)}}</span>
                            </h3>
+                           <p>{{ content.filename }}</p>
                            <p class="peek-it">{{ content.description }}</p>
                            <p uk-margin="" class="get-it">
-                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" :href="content.web_content_link" download>Download</a>
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" :href="content.web_content_link ? content.web_content_link : 'https://drive.google.com/uc?id='+ content.file_id +'&export=download'" download>Download</a>
                            </p>
                         </div>
                   </div>

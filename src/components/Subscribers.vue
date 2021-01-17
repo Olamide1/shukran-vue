@@ -612,7 +612,7 @@ export default {
           return "Ksh";
           break;
         default:
-          return "₦";
+          return c;
           break;
       }
     },
@@ -1043,8 +1043,7 @@ export default {
           username: username
         })
         .then(res => {
-          this.id = res.data[0]._id;
-          // console.log("id");
+          console.log("me", res.data[0]);
           this.profile = res.data[0];
         })
         .catch(err => {
