@@ -776,6 +776,11 @@ export default {
    height: 180px;
    overflow-y: scroll;
 }
+@media screen and (max-device-width: 415px) {
+   .sk p.peek-it {
+   height: 130px;
+}
+}
 .description-body {
    height: auto;
 }
