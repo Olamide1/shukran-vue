@@ -778,7 +778,7 @@ export default {
 }
 @media screen and (max-device-width: 415px) {
    .sk p.peek-it {
-   height: 130px;
+   height: 120px;
 }
 }
 .description-body {
