@@ -612,7 +612,7 @@ export default {
           return "Ksh";
           break;
         default:
-          return c;
+          return this.thresholdCurrSym(sessionStorage.getItem("shukran-country-currency"));
           break;
       }
     },
@@ -648,7 +648,7 @@ export default {
         content_id: _id,
         updateData: {
           "price": event.target.value,
-          "currency": 'NGN' // sessionStorage.getItem("shukran-country-currency") // this.currency
+          // "currency": 'NGN' // sessionStorage.getItem("shukran-country-currency") // this.currency
         }
       })
       .then(res => {
@@ -681,7 +681,7 @@ export default {
           updateData: {
             "description": _prgrph.innerText,
             "price": _price.value,
-            "currency": this.currency
+            "currency": sessionStorage.getItem("shukran-country-currency")
           }
         })
         .then(res => {
