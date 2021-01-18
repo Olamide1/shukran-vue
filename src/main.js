@@ -6,7 +6,9 @@ import App from './App'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
 import titleMixin from './mixins/titleMixin'
+import VueMeta from 'vue-meta'
 
+Vue.use(VueMeta)
 Vue.mixin(titleMixin)
 
 Vue.use(VueLazyload, {

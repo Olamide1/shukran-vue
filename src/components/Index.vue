@@ -171,10 +171,12 @@
             <div class="uk-modal-body" v-else>
                     <div>
                         <div v-for="result in filteresults" :key="result.id">
-                            <router-link :to="'/cr/' + result.username" class="uk-modal-close">{{result.username}}</router-link>
+                            <router-link style="font-size: x-large;" :to="'/cr/' + result.username" class="uk-modal-close">{{result.username}}</router-link>
                             <p>{{result.summary}}</p>
-                            <router-link :to="'/cr/' + result.username" class="uk-button uk-modal-close" style="color: #c63968;" >Tip {{result.username}}</router-link>
-                <hr class="uk-divider-icon">
+                            <router-link :to="'/cr/' + creator.username" class="uk-button">
+                              <button @click="close()" style="border-radius: 3px;background-color: #c63968; color: #fceedd; padding: 0 20px 0 20px;" class="uk-button uk-button-default">Tip {{result.username}}</button>
+                            </router-link>
+                            <hr class="uk-divider-icon">
                         </div>
                     </div>
             </div>
