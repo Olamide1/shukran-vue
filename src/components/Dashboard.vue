@@ -707,8 +707,8 @@ export default {
               pointHoverBackgroundColor: '#359F79',
               pointHoverBorderColor: '#359F79',
               pointHoverRadius: 7.5,
-              backgroundColor: 'rgba(52, 55, 139, 0.7)', // gradient,
-              borderColor: "#34378B", // Array | String, if array, it'll pick for the different points color per array element
+              backgroundColor: '#F8CAC1', // gradient,
+              borderColor: "#E6393C", // Array | String, if array, it'll pick for the different points color per array element
               borderWidth: 4,
               fill: "start",
               lineTension: 0, // 0 make lines straight
@@ -769,7 +769,7 @@ export default {
         data: {
           datasets: [{
             data: [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)],
-            backgroundColor: ['#3C67D6', '#7244AD'], // https://www.instagram.com/p/CJBJs6BAX0S/
+            backgroundColor: ['#F8CAC1', '#E6393C'], // https://www.instagram.com/p/CJBJs6BAX0S/
             borderWidth: 4,
           }],
           labels: [ // These labels appear in the legend and in the tooltips when hovering different arcs
