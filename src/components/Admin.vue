@@ -193,7 +193,7 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'admin',
+    name: 'Admin',
     data(){
         return{
             admin: 'admin',

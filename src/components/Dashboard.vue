@@ -325,34 +325,6 @@
             </div>
             <!-- //table -->
         </div>
-
-        <!-- <ul uk-accordion>
-          <li>
-            <a class="uk-accordion-title h3" href="#">Tips details</a>
-            <div class="uk-accordion-content">
-              <p v-if="transactions.length == 0" align="center">No tips sent to you yet</p>
-
-              <div v-else>
-                <table class="uk-table uk-table-middle uk-table-divider">
-                  <thead>
-                    <tr>
-                      <th class="uk-width-small" style="color:#516E6F;">Nickname</th>
-                      <th style="color:#516E6F;">Amount</th>
-                      <th style="color:#516E6F;">Message</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(transaction, index) in transactions.slice().reverse()" :key="index">
-                      <td>{{transaction.supporter_nickname}}</td>
-                      <td>&#x20a6;{{transaction.amount}}</td>
-                      <td>{{transaction.message}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </li>
-        </ul>-->
       </div>
     </div>
   </div>
@@ -363,6 +335,7 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
+import { resolve } from '../../vetur.config';
 fx.base = "USD";
 fx.rates = { // LiG
   "AED": 3.6732,
@@ -633,9 +606,11 @@ export default {
 
       this.tempCurr = this.currency;
 
-      if (this.chart1) { // update charts
+      if (this.chart1) { // update chart1
         this.chart1.data.datasets[0].data = this.allTips
         this.chart1.update();
+      }
+      if (this.chart2) { // update chart2
         this.chart2.data.datasets[0].data = [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)]
         this.chart2.data.labels = [ // These labels appear in the
           this.currencySymbol + this.availableBalance.toFixed(2) + ' Available',
@@ -643,7 +618,6 @@ export default {
         ]
         this.chart2.update();
       }
-      
       // const rate = fx(this.tipTotal).from(sessionStorage.getItem('shukran-country-currency')).to(this.currency)
       // console.log(`${sessionStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
 
@@ -659,11 +633,11 @@ export default {
             }
           })
           .then(response => {
-            console.log('how many', response.data.length);
+            // console.log('how many', response.data.length);
             this.uniqueSupporters = response.data.length
           })
           .catch(error => {
-            console.log('baddd', error);
+            // console.error('baddd', error);
           })
           .then(() => { // always executed
           });
@@ -684,7 +658,7 @@ export default {
           .then(() => { // always executed
           });
     },
-    createChart() {
+    createTipsChart() {
       // https://codepen.io/grayghostvisuals/pen/gpROOz
 
       const ctx = document.getElementById("total-tips-chart").getContext("2d");
@@ -760,8 +734,9 @@ export default {
           }
         }
       });
-
-
+      
+    },
+    createOverviewChart() {
       // https://uidesigndaily.com/posts/sketch-stats-card-statistics-analytics-chart-day-817
       
       let config = {
@@ -876,7 +851,6 @@ export default {
       const ctx2 = document.getElementById("total-money-chart").getContext('2d');
 
       this.chart2 = new Chart(ctx2, config);
-      
     },
     logout() {
       sessionStorage.clear();
@@ -888,7 +862,7 @@ export default {
           username: username,
           status: "received"
         }).then(res => {
-          console.log("loadTransactions done", res); // do the currency conversion here.
+          // console.log("loadTransactions done", res); // do the currency conversion here.
           this.transactions = res.data;
           for (let i = 0; i < this.transactions.length; i++) {
             this.tipTotal += parseFloat(this.transactions[i].amount);
@@ -907,7 +881,7 @@ export default {
         }).then(() => {
           this.rates(); // get the conversion first...
         }).then(() => {
-          this.createChart() /* then create chart */
+          this.createTipsChart() // then create the first chart chart1
         })
         .catch(err => {
           console.error(err, err.code);
@@ -922,20 +896,22 @@ export default {
           status: "paid"
         })
         .then(res => {
-          console.log("loadWithdrawn done", res);
-          this.withdrawals = res.data;
-          for (let i = 0; i < this.withdrawals.length; i++) {
-            this.tipWithdrawn += parseFloat(this.withdrawals[i].amount);
+          // console.log("loadWithdrawn done", res);
+          this.withdrawals = res.data; // don't use this just immeidately ... or at all
+          for (let i = 0; i < res.data.length; i++) {
+            this.tipWithdrawn += parseFloat(res.data[i].amount);
           }
-          console.log('first withdrawn', this.tipWithdrawn);
+          // console.log('amt withdrawn loaded', this.tipWithdrawn);
         }).then(() => {
           // this.rates();
           this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
             .from("NGN").to(this.currency);
-          console.log('tip withdrawn', this.tipWithdrawn);
+          // console.log('tip withdrawn converted', this.tipWithdrawn);
+        }).then(() => {
+          this.createOverviewChart()
         })
         .catch(err => {
-          // console.log(err);
+          console.error('loadWithdraw', err);
         });
     },
     withdrawRequest() { // convert to naira
@@ -986,7 +962,7 @@ export default {
       bar2.style.display = 'flex';
       axios.post(process.env.BASE_URL + "/api/update/", formData, {
           onUploadProgress: progressEvent => {
-            console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
+            // console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
             bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
             if (progressEvent.loaded / progressEvent.total == 1) {
               bar1.style.display = bar2.style.display = 'none';
@@ -1074,13 +1050,27 @@ export default {
     }
   },
   mounted() {
+
+    new Promise((resolve, reject) => { // we must be sure about this
+      this.loadTransactions();
+      resolve() // must call
+    })
+    .then(() => {
+      this.getBalance();
+    })
+    .then(() => {
+      this.loadWithdrawn();
+    })
+    .then(() => {
+      this.getSupporters(); // should we call this? peep comment in it's definitino
+      this.getSubscribers();
+    })
     // this.getId(); // shouldn't be
-    this.loadTransactions();
-    this.loadWithdrawn();
-    this.getBalance();
+    
+    
+    
     // this.rates(); // so we don't do it on currency change
-    this.getSupporters(); // should we call this? peep comment in it's definitino
-    this.getSubscribers();
+    
   },
   beforeMount() {
     this.checkUser();

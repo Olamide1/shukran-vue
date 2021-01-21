@@ -85,7 +85,7 @@
 import axios from 'axios'
 var md5 = require('md5')
 export default {
-  name: 'hello',
+  name: 'Hello',
   data () {
     return {
       loginbutton: true,

@@ -16,12 +16,21 @@ import HowItWorks from '@/components/HowItWorks'
 import Subscribers from '@/components/Subscribers'
 import Year2020 from '@/components/2020'
 import NotFoundErrorPage from '@/components/404'
+import BossIn from '@/components/BossIn'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/who',
+      name: 'BossIn',
+      component: BossIn,
+      meta: {
+        title: 'Who you?'
+      }
+    },
     {
       path: '/2020',
       name: '2020',
@@ -29,7 +38,8 @@ export default new Router({
       meta: {
         title: 'The Shukran 2020 Highlight'
       }
-    },{
+    },
+    {
       path: '/terms',
       name: 'Terms and Conditions',
       component: Terms,
@@ -106,7 +116,8 @@ export default new Router({
       name: 'Admin',
       component: Admin,
       meta: {
-        title: 'Admin - Shukran'
+        title: 'Admin - Shukran',
+        authenticate: true
       }
     },
     {
@@ -149,3 +160,20 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/boss') {
+    if (sessionStorage.getItem('++') && sessionStorage.getItem('++') === 'false') {
+      next({
+          path: '/who',
+          params: { nextUrl: to.fullPath }
+      })
+    } else if (sessionStorage.getItem('++') === 'true') { // should really be jwt or sth
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router
