@@ -412,7 +412,6 @@
             
             </div>
             
-            
           </li>
         </ul>
       </div>
@@ -421,6 +420,9 @@
 </template>
 
 <script>
+/**
+Design template for profile page https://uidesigndaily.com/posts/sketch-profile-settings-app-day-671 -- doesn't really rhyme well with header, we can make it work
+ */
 // `https://drive.google.com/uc?id=${data.post.m edia[i]}`
 import axios from "axios";
 export default {

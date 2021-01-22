@@ -163,13 +163,18 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/boss') {
-    if (sessionStorage.getItem('++') && sessionStorage.getItem('++') === 'false') {
+    if (sessionStorage.getItem('++')) {
+      if (sessionStorage.getItem('++') === 'true') {
+        next()
+      } else {
+        next({
+          to: '/who'
+        })
+      }
+    } else { // should really be jwt or sth
       next({
-          path: '/who',
-          params: { nextUrl: to.fullPath }
+        to: '/who'
       })
-    } else if (sessionStorage.getItem('++') === 'true') { // should really be jwt or sth
-      next()
     }
   } else {
     next()
