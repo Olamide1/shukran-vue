@@ -9,7 +9,7 @@ import titleMixin from './mixins/titleMixin'
 import VueMeta from 'vue-meta'
 
 Vue.use(VueMeta)
-Vue.mixin(titleMixin)
+Vue.mixin(titleMixin) // not working on page navigation
 
 Vue.use(VueLazyload, {
   observer: true,

@@ -335,7 +335,6 @@
 import axios from "axios";
 import Chart from "chart.js";
 import fx from "money";
-import { resolve } from '../../vetur.config';
 fx.base = "USD";
 fx.rates = { // LiG
   "AED": 3.6732,

@@ -173,7 +173,7 @@ router.beforeEach((to, from, next) => {
       }
     } else { // should really be jwt or sth
       next({
-        to: '/who'
+        path: '/who'
       })
     }
   } else {
