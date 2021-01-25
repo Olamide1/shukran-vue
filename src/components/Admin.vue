@@ -189,6 +189,9 @@
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in _transactions" :key="index">
                             <div class="uk-width-expand">
                                 <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} hafeestonova</h4>
+                                <div class="uk-margin-small">
+                                    <button class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
+                                </div>
                                 <p class="uk-text-meta uk-margin-remove-top">
                                     <time datetime="2016-04-01T19:00">
                                         {{transaction.transaction_date}}
@@ -204,6 +207,13 @@
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in _requests" :key="index"><!-- do reverse from server -->
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount * 0.9}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
+                            <div class="uk-margin-small">
+                                <div class="uk-button-group">
+                                    <button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button>
+                                    <button class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(request._id)">{{deleted}}</button>
+                                </div>
+                                
+                            </div>
                             <p class="uk-text-meta uk-margin-remove-top"><time :datetime="request.transaction_date">{{request.transaction_date}}</time>, {{request.status}}</p>
                         </div>
                     </div>
