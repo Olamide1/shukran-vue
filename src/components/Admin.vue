@@ -204,7 +204,7 @@
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in _requests" :key="index"><!-- do reverse from server -->
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount * 0.9}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
-                            <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">{{request.transaction_date}}</time>, {{request.status}}</p>
+                            <p class="uk-text-meta uk-margin-remove-top"><time :datetime="request.transaction_date">{{request.transaction_date}}</time>, {{request.status}}</p>
                         </div>
                     </div>
                 </div>
