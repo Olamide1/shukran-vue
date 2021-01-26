@@ -20,7 +20,7 @@
       </div>
       <div class="uk-margin">
         <div class="uk-inline">
-         <input v-on:keyup.enter="login" name="password" data-uk-tooltip title="***** or NOT" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
+         <input v-on:keyup.enter="login" name="password" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
          <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
         </div>
       </div>

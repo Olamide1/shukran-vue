@@ -11,18 +11,19 @@
       </div>
 
       <div class="uk-navbar-right">
-        <div class="uk-form-controls uk-margin-small-right" style="width: 60px;">
-          <select
+        <div uk-form-custom="target: > * > span:first-child" class="uk-margin-small-right">
+            <select
+            class=""
             @change="rates()"
-            v-model="currency"
-            style="border-radius: 3px"
-            class="uk-select uk-form-width-xsmall"
-            id="form-stacked-select"
-          >
-            <option value="NGN">₦</option>
-            <option value="KES">Ksh</option>
-            <option value="USD">$</option>
-          </select>
+            v-model="currency">
+                <option value="NGN">₦</option>
+                <option value="KES">Ksh</option>
+                <option value="USD">$</option>
+            </select>
+            <button class="uk-button white-bg-button" id="drop-down" type="button" tabindex="-1" style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
+                <span></span>
+                <span uk-icon="icon: chevron-down"></span>
+            </button>
         </div>
       </div>
     </nav>
@@ -55,24 +56,25 @@
         <ul class="uk-navbar-nav">
           <li>
             <a>
-              <div class="uk-form-controls" style="width: 60px;">
-                <select
+              <div uk-form-custom="target: > * > span:first-child" class="">
+                  <select
+                  class=""
                   @change="rates()"
-                  v-model="currency"
-                  style="border-radius: 3px"
-                  class="uk-select uk-form-width-xsmall"
-                  id="form-stacked-select"
-                >
-                  <option value="NGN">₦</option>
-                  <option value="KES">Ksh</option>
-                  <option value="USD">$</option>
-                </select>
+                  v-model="currency">
+                      <option value="NGN">₦</option>
+                      <option value="KES">Ksh</option>
+                      <option value="USD">$</option>
+                  </select>
+                  <button class="uk-button white-bg-button" id="drop-down" type="button" tabindex="-1" style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
+                      <span></span>
+                      <span uk-icon="icon: chevron-down"></span>
+                  </button>
               </div>
             </a>
           </li>
           <li>
             <a class href="#modal-middle" uk-toggle>
-              <button class="uk-button request-button uk-button-primary">Request payout</button>
+              <button class="uk-button red-button request-button">Request payout</button>
             </a>
           </li>
           <li>
@@ -164,12 +166,12 @@
             <div id="my-id" uk-modal>
               <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Hi {{username}}</h2>
-                <p>Show some love 😊 or raise an issue 🙃</p>
+                <p>Show some love 😊or raise an issue 🙃</p>
                 <div class="uk-margin">
                   <textarea class="uk-textarea" placeholder="Type your message" v-model="comment"></textarea>
                 </div>
                 <div class="uk-margin">
-                  <button class="uk-button uk-button-default" @click="submitFeedback">{{feed}}</button>
+                  <button class="uk-button red-button" @click="submitFeedback">{{feed}}</button>
                 </div>
                 <button class="uk-modal-close-default" type="button" uk-close></button>
               </div>
@@ -227,7 +229,7 @@
                     </div>
                     <div class="uk-margin">
                       <button
-                        class="uk-button payout-button"
+                        class="uk-button red-button payout-button"
                         :disabled="amount > availableBalance || amount < payoutGuard"
                         @click="withdrawRequest()"
                       >{{request}}</button>
@@ -1261,11 +1263,15 @@ progress.top-nav-progress-bar::-webkit-progress-value { background: blue; }
   /* background-color: #fceedd; */
   color: #ff6870;
 }
-.uk-button {
+.white-bg-button {
+  background-color: white;
+  color: #000;
+}
+.red-button {
   background-color: #c63968 !important;
   color: #fceedd;
 }
-.request-button.uk-button-primary {
+.request-button {
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
@@ -1415,7 +1421,7 @@ li.li-withdrawn:before {
 
 @media (max-width: 960px) {
   .desktop-nav,
-  .request-button.uk-button-primary {
+  .request-button {
     display: none;
   }
 

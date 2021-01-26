@@ -188,11 +188,12 @@
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid >
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in _transactions" :key="index">
                             <div class="uk-width-expand">
-                                <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} hafeestonova</h4>
+                                <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} {{transaction.username}}</h4>
                                 <div class="uk-margin-small">
                                     <button class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
                                 </div>
                                 <p class="uk-text-meta uk-margin-remove-top">
+                                    &mdash;
                                     <time datetime="2016-04-01T19:00">
                                         {{transaction.transaction_date}}
                                     </time>{{transaction.supporter_nickname ? ', by ' + transaction.supporter_nickname : ''}}
