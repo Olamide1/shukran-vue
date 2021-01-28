@@ -136,20 +136,28 @@
             </li>
             <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
             <div id="modal-center" class="uk-flex-top" uk-modal>
-              <div
-                class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto"
-                uk-overflow-auto
-              >
+              <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto tip-modal" uk-overflow-auto>
                 <button class="uk-modal-close-default" type="button" uk-close></button>
-                <h2 class="uk-modal-title">
-                  Hey
-                  <span class="capitalize">{{username}}</span>,
-                </h2>
-                <p class="show">Share this link to get tipped.</p>
-                <router-link
-                  :to="'/cr/' + username"
-                  class="uk-modal-close"
-                >https://useshukran.com/{{url}}</router-link>
+                <h2 class="uk-modal-title">🎉</h2>
+                <p class="show uk-text-lead">Hey {{ username }}, share the link below to get tipped.</p>
+                  <router-link class="uk-text-break " :to="'/cr/' + username">{{ url }}</router-link>
+                <p class="uk-text-meta">
+                  TL;DR Share link with your audience <textarea name="" class="uk-textarea uk-form-blank" id="shukran-link" v-model="url"></textarea>
+                </p>
+                <p class="uk-text-meta">
+                  <span class="uk-text-bolder">How exactly do you get tipped, you ask?</span> Include your link in your profile description on Twitter, Instagram, YouTube, Podcasts, etc. and ask your audience to support you.
+                  Talk about it in your YouTube videos, Podcast episodes, and where ever you create content. Include it in your blog.
+                  Most creators shy away from doing these, and really shouldn't. You can read <u><a class="uk-text-primary" href="https://blog.useshukran.com/its-not-begging-youre-giving-value">what we have to say</a></u> concerning that.
+                </p>
+                <p class="uk-margin modal-buttons">
+                  <button @click="copyShukranLink" class="uk-button uk-button-default uk-margin-small-right">Copy link</button>
+                  <a :href="'https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=If+you+love+my+content,+you+can+support+me+here+https://useshukran.com/cr/'+this.username+'+so+I+can+continue+to+give+more+and+better'"
+                    class="uk-button tweet-it" target="blank">
+                    Tell others
+                    <span uk-icon="twitter"></span>
+                    </a>
+                </p>
+                
               </div>
             </div>
             <li>
@@ -549,7 +557,7 @@ export default {
       currency: !sessionStorage.getItem("shukran-country-currency") ? "NGN" : sessionStorage.getItem("shukran-country-currency"), // optimse later, use country's currency
       tempCurr: "",
       payoutGuard: 1000, // 1000 naira
-      url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
+      url: "https://useshukran.com/cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
       copied: "",
       files: [],
       amount: 0,
@@ -599,7 +607,12 @@ export default {
     }
   },
   methods: {
-    
+    copyShukranLink() {
+      console.log('tryna copy');
+      let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
+      copyText.select();
+      document.execCommand("copy");
+    },
     thresholdCurrSym: function (c) {
       switch (c) {
         case "NGN":
@@ -1067,6 +1080,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.modal-buttons > * {
+  border-radius: 3px;
+    background-color: #c63968 !important;
+    color: #fceedd;
+}
+.tip-modal {
+  border-radius: 5px;
+}
+@media (max-width: 640px) {
+  .modal-buttons > .uk-button {
+    padding: 0 10px;
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 640px) {
+  textarea {
+    height: 25px;
+  }
+}
 div[contenteditable] {
   min-height: 25px;
 }

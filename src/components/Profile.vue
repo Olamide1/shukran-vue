@@ -77,14 +77,33 @@
             <router-link to="/subscribers">Shuclans</router-link>
           </li>
           <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
-          <div id="modal-center" class="uk-flex-top" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto" uk-overflow-auto>
+          
+          <div id="modal-center" class="uk-flex-top" uk-modal><!-- https://uidesigndaily.com/posts/sketch-modal-ui-design-pop-up-day-1244 -->
+            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto tip-modal" uk-overflow-auto>
               <button class="uk-modal-close-default" type="button" uk-close></button>
-              <h2 class="uk-modal-title">Hey {{ username }},</h2>
-              <p class="show">Share this link to get tipped.</p>
-              <router-link :to="'/cr/' + username" class="uk-modal-close">https://useshukran.com/{{ url }}</router-link>
+              <h2 class="uk-modal-title">🎉</h2>
+              <p class="show uk-text-lead">Hey {{ username }}, share the link below to get tipped.</p>
+                <router-link class="uk-text-break " :to="'/cr/' + username">{{ url }}</router-link>
+              <p class="uk-text-meta">
+                TL;DR Share link with your audience <textarea name="" class="uk-textarea uk-form-blank" id="shukran-link" v-model="url"></textarea>
+              </p>
+              <p class="uk-text-meta">
+                <span class="uk-text-bolder">How exactly do you get tipped, you ask?</span> Include your link in your profile description on Twitter, Instagram, YouTube, Podcasts, etc. and ask your audience to support you.
+                Talk about it in your YouTube videos, Podcast episodes, and where ever you create content. Include it in your blog.
+                Most creators shy away from doing these, and really shouldn't. You can read <u><a class="uk-text-primary" href="https://blog.useshukran.com/its-not-begging-youre-giving-value">what we have to say</a></u> concerning that.
+              </p>
+              <p class="uk-margin modal-buttons">
+                <button @click="copyShukranLink" class="uk-button uk-button-default uk-margin-small-right">Copy link</button>
+                <a :href="'https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=If+you+love+my+content,+you+can+support+me+here+https://useshukran.com/cr/'+this.username+'+so+I+can+continue+to+give+more+and+better'"
+                  class="uk-button tweet-it" target="blank">
+                  Tell others
+                  <span class="" uk-icon="twitter"></span>
+                  </a>
+              </p>
+              
             </div>
           </div>
+
           <li>
             <router-link to="/profile">Profile</router-link>
           </li>
@@ -115,8 +134,9 @@
         </ul>
       </div>
     </div>
-    <div class="uk-section uk-padding" align="center">
-      <div class="uk-width-2-3@m" uk-alert>
+    <div class="uk-padding@s uk-container" >
+
+      <div class="" uk-alert>
         <a class="uk-alert-close" uk-close></a>
         <h3>Hey {{ username }},</h3>
         <p>
@@ -124,9 +144,10 @@
           <span class="mobile-profile-tab">icon</span> headers to get to the other tabs.
         </p>
       </div>
-      <div class="uk-card uk-width-2-3@m">
+
+      <div class="uk-card ">
         <div class="uk-card-header">
-          <h3 class="uk-card-title">User Profile</h3>
+          <h3 class="uk-card-title uk-text-center">User Profile</h3>
         </div>
 
         <div class="desktop-profile-tab">
@@ -148,7 +169,7 @@
         </div>
 
         <div class="mobile-profile-tab">
-          <ul class="uk-child-width-expand uk-subnav uk-iconnav uk-subnav-pill" uk-switcher="connect: .switch-class">
+          <ul class="uk-child-width-expand uk-subnav uk-iconnav uk-subnav-pill uk-text-center" uk-switcher="connect: .switch-class">
             <li><a href="#" uk-icon="icon: user"></a></li>
             <li><a href="#" uk-icon="icon: credit-card"></a></li>
             <li><a href="#" uk-icon="icon: info"></a></li>
@@ -158,7 +179,7 @@
 
         <ul class="uk-switcher uk-margin switch-class">
           <li>
-            <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
+            <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" >
               <div class="uk-margin">
                 <label for="fn" class="to-the-left"> Full name </label>
                 <input name="fn" type="text" class="uk-input" placeholder="Fullname" v-model="profile.fullname" />
@@ -182,18 +203,19 @@
             </div>
           </li>
           <li>
-            <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
+            <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" >
               <div class="uk-margin">
                 <label for="bn" class="to-the-left" v-if="country_code == 'KE'">
                   MPESA
                 </label>
                 <label for="bn" class="to-the-left" v-else> Bank </label>
-                <input name="bn" type="text" data-uk-tooltip :title="
-                    country_code == 'KE'
-                      ? 'Kenyan creators must use MPESA'
-                      : 'What bank do you wanna receive your payouts?'
-                  " class="uk-input" list="bank-options" :placeholder="country_code == 'KE' ? 'MPESA' : 'Bank name'"
+                <input name="bn" type="text" class="uk-input" list="bank-options" :placeholder="country_code == 'KE' ? 'MPESA' : 'Bank name'"
                   v-model="profile.bank" :disabled="country_code == 'KE'" />
+                  <div class="uk-text-meta">
+                    {{country_code == 'KE'
+                      ? 'Kenyan creators must use MPESA'
+                      : 'What bank do you wanna receive your payouts?'}}
+                  </div>
                 <!-- update from https://api.payant.ng/banks and find other countries' banks -->
                 <!-- <div class="uk-form-controls" v-if="country_code == 'KE'">
                     <select title="Kenyan creators must use MPESA" v-model="profile.bank" class="uk-select" id="form-stacked-select">
@@ -246,9 +268,11 @@
                   MPESA Name
                 </label>
                 <label for="an" class="to-the-left" v-else> Account name </label>
-                <input name="an" type="text" class="uk-input" data-uk-tooltip
-                  title="This is for us to vet that we are paying out the correct person." placeholder=""
+                <input name="an" type="text" class="uk-input" placeholder=""
                   v-model="profile.account_name" />
+                  <div class="uk-text-meta">
+                      This is for us to vet that we are paying out the correct person.
+                  </div>
               </div>
 
               <div class="uk-margin">
@@ -256,8 +280,11 @@
                   MPESA number
                 </label>
                 <label for="anub" class="to-the-left" v-else> Account number </label>
-                <input name="anub" type="text" data-uk-tooltip title="Your account number so we can pay you"
+                <input name="anub" type="text"
                   class="uk-input" placeholder="Account Number" v-model="profile.account_number" />
+                <div class="uk-text-meta">
+                  Your account number so we can pay you
+                </div>
               </div>
               <button class="uk-button" @click="bankUpdate">
                 {{ savebtnTwo }}
@@ -265,35 +292,43 @@
             </div>
           </li>
           <li>
-            <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" align="center">
+            <div class="uk-card-body" v-for="(profile, index) in profiles" :key="index" >
               <div class="uk-margin">
                 <label for="c" class="to-the-left"> Craft </label>
-                <input name="c" type="text" data-uk-tooltip
-                  title="What do your content consumers know you for? You can fill as many as possible and seperate them with a comma."
+                <input name="c" type="text" 
                   class="uk-input" placeholder="What Do You Do? (Podcaster, Videographer)"
                   v-model="profile.craft_type" />
+                  <div class="uk-text-meta">
+                    What do your content consumers know you for? You can fill as many as possible and seperate them with a comma.
+                  </div>
               </div>
               <div class="uk-margin">
                 <label for="f" class="to-the-left"> Following </label>
-                <input name="f" type="text" data-uk-tooltip
-                  title="The approximate number of followers + listeners + subscribers (It does not have to be 100% accurate, we'll take 80%)"
+                <input name="f" type="text"
                   class="uk-input" placeholder="Approximate Audience Size (listeners, subs etc)"
                   v-model="profile.audience_size" />
+                  <div class="uk-text-meta">
+                    The approximate number of followers + listeners + subscribers (It does not have to be 100% accurate, we'll take 80%)
+                  </div>
               </div>
 
               <div class="uk-margin">
                 <label for="pl" class="to-the-left"> Primary link </label>
-                <input name="pl" type="text" data-uk-tooltip
-                  title="This link can be your disha, website or podcast link, It is for outsiders to find your content and learn about you"
+                <input name="pl" type="text"
                   class="uk-input" placeholder="Link to your content e.g. (https://youtube.com/username)"
                   v-model="profile.primary_link" />
+                  <div class="uk-text-meta">
+                    This link can be your disha, website or podcast link, It is for outsiders to find your content and learn about you
+                  </div>
               </div>
               <div class="uk-margin">
                 <label for="tm" class="to-the-left"> Thank you message </label>
-                <textarea name="tm" data-uk-tooltip
-                  title="Say something nice, witty, sweet etc., to get people to relate and tip you."
+                <textarea name="tm" 
                   class="uk-textarea" placeholder="Heartfelt Message To Audience" v-model="profile.summary"
                   maxlength="150"></textarea>
+                  <div class="uk-text-meta">
+                    Say something nice, witty, sweet etc., to get people to relate and tip you.
+                  </div>
               </div>
               <button class="uk-button uk-button-default" @click="messageUpdate">
                 {{ savebtnThree }}
@@ -302,7 +337,7 @@
           </li>
 
           <li>
-            <div class="uk-card-body" align="center">
+            <div class="uk-card-body" >
               <div class="uk-margin">
                 <p class="digital-link-text">
                   Have exclusive content you want to share to only those that tip you?
@@ -316,17 +351,23 @@
               </div>
               <div class="uk-margin" v-for="(profile, index) in profiles" :key="index">
                 <label for="dpl" class="to-the-left"> Digital product link </label>
-                <input name="dpl" type="url" data-uk-tooltip title="Input a valid URL. https://downloadmystuff.com/link"
-                  class="uk-input" placeholder="Redirect link (https://downloadmybook.com)"
+                <input name="dpl" type="url"
+                  class="uk-input" placeholder="https://downloadmystuff.com"
                   v-model="profile.redirect" />
+                  <div class="uk-text-meta">
+                    Input a valid URL. <b>https://</b>downloadmystuff.com/link
+                  </div>
               </div>
-              <button id="link-btn" v-bind:disabled="checkURL" class="uk-button show-warning" @click="updateRef">
-                {{ savebtnFour }}
-              </button>
-              <br />
-              <br />
-              <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=@useshukran's+helping+me+create+the+art+I+want+to+see+in+the+world,+help+me+by+supporting+the+art+you+want+to+see+in+the+world:&hashtags=saythanks,shukran"
-                class="uk-button tweet-it" target="blank">Tell others</a>
+              <div class="uk-margin-top redirect-tab-buttons">
+                <button id="link-btn" v-bind:disabled="checkURL" class="uk-button show-warning" @click="updateRef">
+                  {{ savebtnFour }}
+                </button>
+                <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=@useshukran's+helping+me+create+the+art+I+want+to+see+in+the+world,+help+me+by+supporting+the+art+you+want+to+see+in+the+world:&hashtags=saythanks,shukran"
+                  class="uk-button tweet-it" target="blank">
+                  Tell others
+                  <span class="" uk-icon="twitter"></span>
+                  </a><!-- should tell others about the product -->
+              </div>
             </div>
           </li>
         </ul>
@@ -352,7 +393,7 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
         savebtnTwo: "Save",
         savebtnThree: "Save",
         savebtnFour: "Save",
-        url: "cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
+        url: "https://useshukran.com/cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
         comment: "",
         feed: "Submit",
         profile_picture: "",
@@ -369,6 +410,12 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
       },
     },
     methods: {
+      copyShukranLink() {
+        console.log('tryna copy');
+        let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
+        copyText.select();
+        document.execCommand("copy");
+      },
       logout() {
         sessionStorage.clear();
         this.$router.push("/accounts");
@@ -600,6 +647,29 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.modal-buttons > * {
+  border-radius: 3px;
+}
+.tip-modal {
+  border-radius: 5px;
+}
+@media (max-width: 640px) {
+  .modal-buttons > .uk-button {
+    padding: 0 10px;
+    font-size: 0.8rem;
+  }
+  .redirect-tab-buttons > * {
+    padding: 0 10px;
+  }
+  textarea {
+    height: 25px;
+  }
+}
+
+.redirect-tab-buttons > button {
+    margin-right: 20px;
+  }
+
   .uk-navbar,
   .uk-navbar-item {
     color: #ffffff;
