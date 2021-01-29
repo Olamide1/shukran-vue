@@ -199,7 +199,7 @@
                   <select @change="showTipNudge()" v-model="currency" style="border-radius: 3px"
                     class="uk-select uk-form-width-xsmall" id="form-stacked-select">
                     <option value="NGN">₦</option>
-                    <option value="KES">/-</option>
+                    <option value="KES">Ksh</option>
                     <option value="USD">$</option>
                   </select>
                 </div>
@@ -470,7 +470,7 @@ unknown user */
             return '$'
             break;
           case "KES":
-            return '/-'
+            return 'Ksh'
             break;
           default:
             break;
@@ -756,7 +756,7 @@ unknown user */
                   amount: amount,
                   message: message,
                   status: 'received',
-                  currency: "NGN", // currency
+                  currency: 'NGN', // currency
                   tx_ref: response.tx_ref,
                   creator_email: creator_email
                 }, {
