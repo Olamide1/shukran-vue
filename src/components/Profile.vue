@@ -500,18 +500,19 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
             id: id,
           })
           .then((res) => {
-            console.log("updated");
+            console.log("updated", res);
+            sessionStorage.setItem('profile', JSON.stringify(res.data))
             this.savebtnFour = "Saved!";
             setTimeout(() => {
               this.savebtnFour = "Save";
-            }, 3000);
+            }, 5000);
           })
           .catch((err) => {
             console.log(err);
             this.savebtnFour = "Please try again!";
             setTimeout(() => {
               this.savebtnFour = "Save";
-            }, 3000);
+            }, 5000);
           });
       },
       getSupporters() {
@@ -541,12 +542,12 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
             comment: comment,
           })
           .then((res) => {
-            console.log("feedback submited");
+            // console.log("feedback submited"); // no
             UIkit.modal("#my-id").hide();
             alert("Thank you for your feedback!");
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       },
 
@@ -574,6 +575,7 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
           })
           .then((res) => {
             console.log("updated");
+            sessionStorage.setItem('profile', JSON.stringify(res.data))
             this.savebtnTwo = "Saved!";
             setTimeout(() => {
               this.savebtnTwo = "Save";
@@ -599,10 +601,11 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
             },
           })
           .then((res) => {
+            // sessionStorage.setItem('profile', JSON.stringify(res.data)) // optimize
             this.profiles[0].picture_id = res.data;
           })
           .catch((error) => {
-            console.log("error occured", error);
+            console.error("error occured", error);
           });
       },
       personalInfo() {
@@ -622,6 +625,7 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
           })
           .then((res) => {
             console.log("updated");
+            sessionStorage.setItem('profile', JSON.stringify(res.data))
             this.savebtnOne = "Saved!";
             setTimeout(() => {
               this.savebtnOne = "Save";
