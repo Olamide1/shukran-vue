@@ -1087,6 +1087,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+  #total-tips-chart { width: 300px !important; } /* your css rules for ipad portrait */
+}
   .modal-buttons>* {
     border-radius: 3px;
 
