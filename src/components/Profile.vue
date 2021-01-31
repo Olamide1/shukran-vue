@@ -85,11 +85,11 @@
               <p class="show uk-text-lead">Hey {{ username }}, share the link below to get tipped.</p>
                 <router-link class="uk-text-break " :to="'/cr/' + username">{{ url }}</router-link>
               <p class="uk-text-meta">
-                TL;DR Share link with your audience <textarea name="" class="uk-textarea uk-form-blank" id="shukran-link" v-model="url"></textarea>
+                <span class="uk-text-bolder">TL;DR</span> Share link with your audience <textarea name="" class="uk-textarea uk-form-blank" id="shukran-link" v-model="url"></textarea>
               </p>
               <p class="uk-text-meta">
-                <span class="uk-text-bolder">How exactly do you get tipped, you ask?</span> Include your link in your profile description on Twitter, Instagram, YouTube, Podcasts, etc. and ask your audience to support you.
-                Talk about it in your YouTube videos, Podcast episodes, and where ever you create content. Include it in your blog.
+                <span class="uk-text-bolder">How exactly do you get tipped, you ask?</span> Include your link in your profile description on Twitter, Instagram, YouTube, Podcasts, in your blog etc. and ask your audience to support you.
+                Talk about it in your YouTube videos, Podcast episodes, and where ever you create content.
                 Most creators shy away from doing these, and really shouldn't. You can read <u><a class="uk-text-primary" href="https://blog.useshukran.com/its-not-begging-youre-giving-value">what we have to say</a></u> concerning that.
               </p>
               <p class="uk-margin modal-buttons">
