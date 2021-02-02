@@ -666,7 +666,7 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
     padding: 0 10px;
   }
   textarea {
-    height: 25px;
+    height: 50px;
   }
 }
 

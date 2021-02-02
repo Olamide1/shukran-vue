@@ -1108,7 +1108,7 @@
     }
 
     textarea {
-      height: 25px;
+      height: 50px;
     }
   }
 

@@ -1101,7 +1101,7 @@
 
   @media (min-width: 640px) {
     textarea {
-      height: 25px;
+      height: 50px;
     }
   }
 
