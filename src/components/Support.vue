@@ -185,7 +185,7 @@
           uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false" align="center">
           <div class="uk-card-body">
             <h3 class="uk-card-title">Let <span class="capitalize">{{username}}</span> know you</h3>
-            <p>You'll won't have to fill your nickname & email address again for a faster experience.</p>
+            <p>You won't have to fill your nickname & email address again for a faster experience.</p>
             <div>
               <div class="uk-margin">
                 <input type="text" class="uk-input" autocomplete="nickname" placeholder="Nickname" v-model="nickname">
@@ -450,8 +450,7 @@ unknown user */
     },
     computed: {},
     watch: {
-      isSubscribing: function (
-      val) { // right now, if they change the amount after we've made a request, we can't update the subscription to reflect the new amount... we need our custom payment kini so we sort everything in the backend
+      isSubscribing: function (val) { // right now, if they change the amount after we've made a request, we can't update the subscription to reflect the new amount... we need our custom payment kini so we sort everything in the backend
         if (val) {
           this.subbed()
         }
@@ -544,7 +543,7 @@ unknown user */
         // console.log(this.paymentID, '8');
       },
       showUserWelcome() {
-        axios.post(process.env.BASE_URL + '/api/myprofile/', {
+        axios.post(process.env.BASE_URL + '/api/creatorprofile/', {
           username: this.username.toLowerCase().trim()
         }, {
           withCredentials: true
@@ -762,12 +761,13 @@ unknown user */
                 }, {
                   withCredentials: true
                 }).then(res => { // if they subscribed ...refresh the page to show their content.
-                  // console.log('tipped res', JSON.stringify(res));
-                  // console.log('this', JSON.stringify(this));
-                  // console.log('redirected response', document.URL, JSON.parse(res.config.data).tx_ref);
-                  // console.info('_redirect', _redirect)
+                  console.log('tipped res', JSON.stringify(res));
+                  console.log('this', JSON.stringify(this));
+                  console.log('redirected response', document.URL, JSON.parse(res.config.data).tx_ref);
+                  console.info('_redirect', _redirect)
                   if (JSON.parse(res.config.data).tx_ref.includes('-shukraning-')) {
-                    window.location = document.URL + '#content-parent'
+                    // Vue.set('profile', res.data); // instead update sessionStorage ??
+                    window.location.href = document.URL + '#content-parent'; // https://stackoverflow.com/a/45199686/9259701
                   } else if (_redirect) { // show some info telling them they would be redirected
                     window.location = _redirect
                   } else {

@@ -160,7 +160,7 @@ export default {
         this.issue = "Enter correct email please."
       } else {
         this.signupbtn = 'loading...'
-        axios.post(process.env.BASE_URL + '/api/myprofile/', {
+        axios.post(process.env.BASE_URL + '/api/creatorprofile/', {
            username: this.username.toLowerCase().trim()
         }).then(res => {
           if (res.data.length >= 1) {

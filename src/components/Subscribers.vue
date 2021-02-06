@@ -1054,7 +1054,7 @@
       getId() {
         let username = this.username;
         axios
-          .post(process.env.BASE_URL + "/api/myprofile/", {
+          .post(process.env.BASE_URL + "/api/creatorprofile/", {
             username: username
           })
           .then(res => {

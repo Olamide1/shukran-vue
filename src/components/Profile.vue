@@ -426,7 +426,7 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
       getId() {
         var username = this.username;
         axios
-          .post(process.env.BASE_URL + "/api/myprofile/", {
+          .post(process.env.BASE_URL + "/api/creatorprofile/", {
             username: username,
           })
           .then((res) => {
