@@ -553,6 +553,8 @@ unknown user */
           this.getSubs()
         }).catch(err => {
           // console.log('!!', err)
+        }).finally(() => {
+
         })
       },
       showTipNudge() {
@@ -767,7 +769,8 @@ unknown user */
                   console.info('_redirect', _redirect)
                   if (JSON.parse(res.config.data).tx_ref.includes('-shukraning-')) {
                     // Vue.set('profile', res.data); // instead update sessionStorage ??
-                    window.location.href = document.URL + '#content-parent'; // https://stackoverflow.com/a/45199686/9259701
+                    location.reload()
+                    location.assign(document.URL + '#content-parent')
                   } else if (_redirect) { // show some info telling them they would be redirected
                     window.location = _redirect
                   } else {
@@ -778,7 +781,7 @@ unknown user */
                   this.issue = err; // what if err is not a string?!
                   // console.error('catch in tip', err)
                   window.location = process.env.URL +
-                  '/thanks'; // this.$router.push('/thanks'); // should we ?
+                  '/thanks'; // this.$router.push('/thanks'); // should we, no because this isn't Vue ?
                 })
               } else {
 

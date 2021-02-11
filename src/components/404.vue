@@ -58,7 +58,6 @@ export default {
                 withCredentials: true
             })
             .then((res) => {
-                console.log('res', res.data);
                 this.randomCreators = res.data; 
             });
         }
