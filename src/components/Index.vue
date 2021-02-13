@@ -427,6 +427,16 @@ export default {
         })
         .catch(err => {
           console.log("error", err);
+        })
+        .finally(() => {
+            axios
+            .get(process.env.BASE_URL + "/api/test/cookies/")
+            .then(res => {
+              console.info('check if cookies\' set', res.data)
+            })
+            .catch(err => {
+              console.log("test cookies error", err);
+            })
         });
     },
     close(){

@@ -22,7 +22,7 @@
                             </div>
                         </a>
                         <div class="uk-panel">
-                            <h4>{{ creator.username }} &mdash; <span>{{creator.craft_type}}</span> </h4>
+                            <h4 class="uk-text-break">{{ creator.username }} &mdash; <span>{{creator.craft_type}}</span> </h4>
                             
                             <p>{{ creator.summary }}</p>
                         </div>
@@ -39,6 +39,7 @@
 </template>
 <script>
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 export default {
     name: "NotFoundErrorPage",
     data () {
@@ -72,7 +73,6 @@ export default {
 <style scoped>
 .base {
   background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
-
   position: fixed;
   bottom: 0;
   right: 0;
