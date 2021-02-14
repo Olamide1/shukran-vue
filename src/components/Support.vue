@@ -485,13 +485,13 @@ unknown user */
             withCredentials: true
           })
           .then((res) => {
-            // console.log('subs res',res);
+            console.log('subs res',res); // debug
             this.subscriptions = res.data;
           }).catch((err) => console.error('subs err', err));
       },
       subbed() {
         try {
-          // console.log('tryigng');
+          console.log('tryigng to sub', this.subscriptions);
           // careful here, it's important we use '==' not '===', this.amount is string, sub.amount is int... == would work for comparison, but === won't
           this.paymentID = this.subscriptions.find(sub => sub.amount == this.amount && sub.currency == this.currency)
             .id // using '?.id' sadly doens't work
