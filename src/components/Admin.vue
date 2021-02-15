@@ -351,15 +351,25 @@ export default {
             this.overviewChart = new Chart(ctx, { // https://www.chartjs.org/docs/latest/axes/cartesian/time.html
                 data: {
                     datasets: [{
-                        label: 'TIPS',
+                        label: 'Cash In',
                         type: 'line',
-                        data: this.transactions.map(({transaction_date, amount, username}) => ({x: new Date(transaction_date).getTime(), y:amount, username}) ).sort((a, b) => (a.x > b.x) ? 1 : -1), // {t: , y:} // https://stackoverflow.com/a/61720671/9259701 // https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
+                        data: this.transactions.filter(trans => trans.status === 'received').map(({transaction_date, amount, username}) => ({x: new Date(transaction_date).getTime(), y:amount, username}) ).sort((a, b) => (a.x > b.x) ? 1 : -1), // {t: , y:} // https://stackoverflow.com/a/61720671/9259701 // https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
                         pointRadius: 0,
                         fill: false,
                         lineTension: 0,
                         borderWidth: 2,
                         backgroundColor: "rgba(255, 99, 132, 0.5)",
                         borderColor: "rgb(255, 99, 132)"
+                    }, {
+                        label: 'Cash out',
+                        type: 'line',
+                        data: this.transactions.filter(trans => trans.status === 'paid').map(({transaction_date, amount, username}) => ({x: new Date(transaction_date).getTime(), y:amount, username}) ).sort((a, b) => (a.x > b.x) ? 1 : -1), // {t: , y:} // https://stackoverflow.com/a/61720671/9259701 // https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
+                        pointRadius: 0,
+                        fill: false,
+                        lineTension: 0,
+                        borderWidth: 2,
+                        backgroundColor: "black",
+                        borderColor: "black"
                     }]
                 },
                 options: {
@@ -472,7 +482,13 @@ export default {
                         mode: 'index',
                         callbacks: {
                             label: function(tooltipItem, myData) {
-                                let label = myData.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].username + ' got tipped ' + new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(parseFloat(tooltipItem.value).toFixed(2));
+                                let _text = ''
+                                if (tooltipItem.datasetIndex == 0) {
+                                    _text = ' got tipped '
+                                } else {
+                                    _text = ' cashed out '
+                                }
+                                let label = myData.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].username + _text + new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(parseFloat(tooltipItem.value).toFixed(2));
                                 return label;
                             }
                         }
