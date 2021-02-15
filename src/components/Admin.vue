@@ -8,7 +8,7 @@
         <a class="uk-navbar-item uk-logo" href="#">Shukran</a>
 
         <ul class="uk-navbar-nav">
-            <li><a href="#">Logout</a></li>
+            <li><a @click="logout">Logout</a></li>
         </ul>
 
     </div>
@@ -280,6 +280,10 @@ export default {
     methods: {
         closeSearch() {
             this.search = ''
+        },
+        logout() {
+            sessionStorage.clear('++')
+            this.$router.push('/')
         },
         clickInfo(index){
             let users = this.users

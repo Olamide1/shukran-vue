@@ -415,6 +415,10 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
         let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
         copyText.select();
         document.execCommand("copy");
+        evt.target.innerText = 'COPIED!'
+        setTimeout(function () { // kinda too fast... we should delay a bit
+          evt.target.innerText = 'COPY LINK'
+        }, 5000)
       },
       logout() {
         sessionStorage.clear();

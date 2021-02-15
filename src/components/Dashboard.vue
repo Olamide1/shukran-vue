@@ -62,7 +62,7 @@
                   <option value="KES">Ksh</option>
                   <option value="USD">$</option>
                 </select>
-                <button class="uk-button white-bg-button" id="drop-down" type="button" tabindex="-1"
+                <button class="uk-button " id="drop-down" type="button" tabindex="-1"
                   style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
                   <span></span>
                   <span uk-icon="icon: chevron-down"></span>
@@ -558,11 +558,14 @@
       }
     },
     methods: {
-      copyShukranLink() {
-        console.log('tryna copy');
+      copyShukranLink(evt) {
         let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
         copyText.select();
         document.execCommand("copy");
+        evt.target.innerText = 'COPIED!'
+        setTimeout(function () { // kinda too fast... we should delay a bit
+          evt.target.innerText = 'COPY LINK'
+        }, 5000)
       },
       rates() {
         sessionStorage.setItem('shukran-curr-cur-sym', this.currencySymbol)
@@ -1111,7 +1114,10 @@
       height: 50px;
     }
   }
-
+.uk-button {
+  background-color: #c63968;
+    color: #fceedd;
+}
   .rqp-text {
     display: block;
     padding-top: 5px;

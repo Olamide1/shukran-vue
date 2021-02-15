@@ -11,13 +11,17 @@
       </div>
 
       <div class="uk-navbar-right">
-        <div class="uk-form-controls uk-margin-small-right" style="width: 60px;">
-          <select @change="rates()" v-model="currency" style="border-radius: 3px" class="uk-select uk-form-width-xsmall"
-            id="form-stacked-select">
+        <div uk-form-custom="target: > * > span:first-child" class="uk-margin-small-right">
+          <select class="" @change="rates()" v-model="currency">
             <option value="NGN">₦</option>
             <option value="KES">Ksh</option>
             <option value="USD">$</option>
           </select>
+          <button class="uk-button white-bg-button" id="drop-down" type="button" tabindex="-1"
+            style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
+            <span></span>
+            <span uk-icon="icon: chevron-down"></span>
+          </button>
         </div>
       </div>
     </nav>
@@ -52,13 +56,17 @@
         <ul class="uk-navbar-nav">
           <li>
             <a>
-              <div class="uk-form-controls" style="width: 60px;">
-                <select @change="rates()" v-model="currency" style="border-radius: 3px"
-                  class="uk-select uk-form-width-xsmall" id="form-stacked-select">
+              <div uk-form-custom="target: > * > span:first-child" class="">
+                <select class="" @change="rates()" v-model="currency">
                   <option value="NGN">₦</option>
                   <option value="KES">Ksh</option>
                   <option value="USD">$</option>
                 </select>
+                <button class="uk-button" id="drop-down" type="button" tabindex="-1"
+                  style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
+                  <span></span>
+                  <span uk-icon="icon: chevron-down"></span>
+                </button>
               </div>
             </a>
           </li>
@@ -612,6 +620,10 @@
         let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
         copyText.select();
         document.execCommand("copy");
+        evt.target.innerText = 'COPIED!'
+        setTimeout(function () { // kinda too fast... we should delay a bit
+          evt.target.innerText = 'COPY LINK'
+        }, 5000)
       },
       thresholdCurrSym: function (c) {
         switch (c) {
@@ -1087,7 +1099,10 @@
     background-color: #c63968 !important;
     color: #fceedd;
   }
-
+.uk-button.white-bg-button {
+    background-color: white;
+    color: #000;
+  }
   .tip-modal {
     border-radius: 5px;
   }
@@ -1360,7 +1375,7 @@
   }
 
   .uk-button {
-    background-color: #c63968 !important;
+    background-color: #c63968;
     color: #fceedd;
   }
 
