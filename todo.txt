@@ -2,6 +2,7 @@ Defer loading flutterwave in pages we don't do payments in, faster loading
 
 how to deceive the browser auto box to fill in their username along with their password during password reset
 
+show with a graph, the number of creators in we have in different countries in /admin
 
 calling https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f
 {

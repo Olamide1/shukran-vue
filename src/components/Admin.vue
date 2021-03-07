@@ -326,7 +326,7 @@ export default {
         },
         loadUsers() {
             axios.get(process.env.BASE_URL + '/api/allusers/').then(res => {
-                console.log('loaded users')
+                console.log('loaded users', res.data)
                 this.users = res.data
                 this.totalUsers = this.users.length
             }).catch(err => {
