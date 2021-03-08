@@ -105,7 +105,6 @@ export default {
           token: this.$route.query.token,
           password: this.newPassword
         }).then((res) => {
-          console.log(res);
           switch (res.status) {
             case 200:
               this.issue = "Password changed.";
@@ -121,7 +120,6 @@ export default {
               break;
           }
         }, err => {
-          console.log(err.message, err.response.status);
           switch (err.response.status) {
             case 403:
               this.issue = "The Reset link is doesn't exist.";
@@ -143,7 +141,6 @@ export default {
           username: username.toLowerCase().trim(),
           email: this.email.trim()
         }).then((res) => {
-          console.log(res.data);
           if (res.data.length == 1) { // it worked
           this.issue = "Password changed."
           // redirect to dashboard
@@ -159,7 +156,6 @@ export default {
         .post(process.env.BASE_URL + "/api/findcreatorbyemail/", {
           username: username.toLowerCase().trim(),
         }).then((res) => {
-          console.log(res.data);
           if (res.data.length == 1) { // confirm email
             document.getElementById('fauxEmail').innerText = res.data[0].email;
             document.getElementById('fauxDiv').hidden = false;
@@ -188,7 +184,6 @@ export default {
             this.issue = "Username/Email incorrect!";
           } else {
             let id = res.data[0]._id;
-            console.log(id);
             axios
               .post(process.env.BASE_URL + "/api/update/", {
                 id: id,
@@ -199,12 +194,10 @@ export default {
                 this.issue = "Password successfully reset, please login.";
               })
               .catch((error) => {
-                console.log(error);
               });
           }
         })
         .catch((err) => {
-          console.log(err);
           this.reset = "Reset";
           this.issue = "Error connecting to server, please contact support!";
         });
@@ -217,9 +210,6 @@ export default {
   },
   mounted() {
     this.username = this.$route.params.username;
-
-    console.log('er',this.$route.params)
-    console.log('er',this.$route.query)
   }
 };
 </script>
