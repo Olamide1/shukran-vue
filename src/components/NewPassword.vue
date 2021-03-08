@@ -11,7 +11,7 @@
         <div class="uk-card-header">
             <div class="uk-flex-middle">
                 <div class="uk-width-expand" align="center">
-                    <h3 class="uk-card-title uk-margin-remove-bottom">Reset Password</h3>
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Password Change</h3>
                 </div>
             </div>
         </div>
@@ -25,18 +25,7 @@
               placeholder="Username"
             />
           </div>
-          <div class="uk-margin" id="fauxDiv" hidden>
-            Confirm your email is <span id="fauxEmail">{{fauxEmail}}</span>
-          </div>
-          <div class="uk-margin" id="confirmEmailDiv" hidden>
-            <input
-              class="uk-input uk-border-rounded uk-form"
-              v-model="email"
-              type="email"
-              placeholder="Email"
-            />
-          </div>
-          <div class="uk-margin" hidden>
+          <div class="uk-margin" id="confirmEmailDiv">
             <div class="uk-inline">
               <a
                 class="uk-form-icon uk-form-icon-flip"
@@ -47,8 +36,26 @@
               <input
                 class="uk-input uk-border-rounded uk-form uk-form-width-large"
                 :type="passwordFieldType"
-                v-model="password"
-                placeholder="New Password"
+                v-model="newPassword"
+                autocomplete="new-password"
+                placeholder="New password"
+              />
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <a
+                class="uk-form-icon uk-form-icon-flip"
+                href="#!"
+                v-bind:uk-icon="passwordIcon"
+                @click="switchVisibility"
+              ></a>
+              <input
+                class="uk-input uk-border-rounded uk-form uk-form-width-large"
+                :type="passwordFieldType"
+                autocomplete="new-password"
+                v-model="confirmNewPassword"
+                placeholder="Confirm password"
               />
             </div>
           </div>
@@ -57,19 +64,15 @@
             <p>{{issue}}</p>
             <button
               id="checkUsername"
+              :disabled="newPassword !== confirmNewPassword || newPassword == ''"
               class="uk-button uk-border-rounded uk-button-default uk-width-1-1"
-              @click="resetMe"
+              @click="changePassword"
             >{{reset}}</button>
-            <button
-              hidden
-              id="resetPasswordButton"
-              class="uk-button uk-border-rounded uk-button-default uk-width-1-1"
-              @click="resetPassword"
-            >Confirm</button>
           </div>
         </div>
         <div class="uk-card-footer" align="center">
-          <router-link to="/accounts">Login</router-link>
+          <router-link to="/accounts">Login</router-link> | 
+        <router-link to="/resetpassword">Reset Password</router-link>
         </div>
       </div>
     </div>
@@ -79,20 +82,59 @@
 import axios from "axios";
 let md5 = require("md5");
 export default {
-  name: "Reset",
+  name: "NewPassword",
   data() {
     return {
       username: "",
       passwordIcon: "icon: unlock",
       email: "",
       fauxEmail: '',
-      password: "",
+      newPassword: '',
+      confirmNewPassword: '',
       issue: "",
-      reset: "Reset",
+      reset: "Change",
       passwordFieldType: "password",
     };
   },
   methods: {
+    changePassword(){
+      axios
+        .post(process.env.BASE_URL + "/api/changepassword/", {
+          username: this.username.toLowerCase().trim(),
+          email: this.email.trim(),
+          token: this.$route.query.token,
+          password: this.newPassword
+        }).then((res) => {
+          console.log(res);
+          switch (res.status) {
+            case 200:
+              this.issue = "Password changed.";
+              setTimeout(() => {
+                sessionStorage.setItem('username', this.username.toLowerCase().trim())
+                sessionStorage.setItem('id', res.data._id)
+                sessionStorage.setItem('profile', JSON.stringify(res.data))
+                this.$router.push('/dash')
+              }, 1500);
+              break;
+            
+            default:
+              break;
+          }
+        }, err => {
+          console.log(err.message, err.response.status);
+          switch (err.response.status) {
+            case 403:
+              this.issue = "The Reset link is doesn't exist.";
+              break;
+            case 401:
+              this.issue = "The Reset link is invalid. Make a new request.";
+              break;
+          
+            default:
+              break;
+          }
+        }).catch((err) => {})
+    },
     resetPassword(){
       let username = this.username;
       this.issue = "";
@@ -102,10 +144,9 @@ export default {
           email: this.email.trim()
         }).then((res) => {
           console.log(res.data);
-          if (res.data.length == 1) { // confirm email
-            this.issue = "We've sent a password reset link to your email. Use it to reset your password. Valid for 24hrs.";
-            document.getElementById('resetPasswordButton').innerHTML = `Confirmed <span uk-icon="check"></span>`;
-            document.getElementById('resetPasswordButton').disabled = true;
+          if (res.data.length == 1) { // it worked
+          this.issue = "Password changed."
+          // redirect to dashboard
           } else {
             this.issue = "The email didn't match, please try again.";
           }
@@ -172,8 +213,14 @@ export default {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
       this.passwordIcon = this.passwordIcon === "icon: lock" ? "icon: unlock" : "icon: lock";
-    },
+    }
   },
+  mounted() {
+    this.username = this.$route.params.username;
+
+    console.log('er',this.$route.params)
+    console.log('er',this.$route.query)
+  }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

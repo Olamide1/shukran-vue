@@ -17,6 +17,7 @@ import Subscribers from '@/components/Subscribers'
 import Year2020 from '@/components/2020'
 import NotFoundErrorPage from '@/components/404'
 import BossIn from '@/components/BossIn'
+import NewPassword from '@/components/NewPassword'
 
 Vue.use(Router)
 
@@ -133,8 +134,16 @@ const router = new Router({
       name: 'Support',
       component: Support,
       meta: {
-        reload: false,
+        reload: true,
         title: vm => `Shukran ${vm.$route.params.username}`
+      }
+    },
+    {
+      path: '/pr/:username/',
+      name: 'NewPassword',
+      component: NewPassword,
+      meta: {
+        title: `Change password`
       }
     },
     {
