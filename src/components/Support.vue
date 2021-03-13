@@ -458,7 +458,10 @@ unknown user */
         localStorage.setItem('shukran-supporter-email', value)
       },
       $route (to, from) { // necessary ?
-        document.title = to.meta.title
+        console.log('to ====>', to);
+        document.title = to.meta.title;
+        document.querySelector('head meta[property="twitter:image"]').content = `${process.env.BASE_URL}/api/smp/${to.params.username}`;
+        document.querySelector('head meta[property="og:image"]').content = `${process.env.BASE_URL}/api/smp/${to.params.username}`;
       }
     },
     methods: {

@@ -8,11 +8,24 @@ function getTitle (vm) {
         : title
     }
 }
+
+function getMetaImage (vm) {
+    const { username } = vm.$params || vm.params
+    if (username) {
+        return username
+    }
+}
+
 export default {
     created () {
         const title = getTitle(this)
         if (title) {
             document.title = title
+        }
+        let metaImage = getMetaImage(this)
+        if (metaImage) {
+            document.querySelector('head meta[property="twitter:image"]').content = `${process.env.BASE_URL}/api/smp/${metaImage}`;
+            document.querySelector('head meta[property="og:image"]').content = `${process.env.BASE_URL}/api/smp/${metaImage}`;
         }
     }
 }
