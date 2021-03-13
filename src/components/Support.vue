@@ -1,7 +1,6 @@
 <template>
   <div class="support-div">
 
-
     <nav class="uk-navbar uk-navbar-container uk-margin" uk-navbar="boundary-align: true; align: center;">
       <div class="uk-navbar-left">
         <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
@@ -457,6 +456,9 @@ unknown user */
       },
       supporter_email: function (value, oldValue) {
         localStorage.setItem('shukran-supporter-email', value)
+      },
+      $route (to, from) { // necessary ?
+        document.title = to.meta.title
       }
     },
     methods: {

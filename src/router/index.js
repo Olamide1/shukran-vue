@@ -135,7 +135,8 @@ const router = new Router({
       component: Support,
       meta: {
         reload: true,
-        title: vm => `Shukran ${vm.$route.params.username}`
+        title: vm => `Shukran ${vm.$route.params.username}`,
+        icon: vm => `http://localhost:3000/api/smp/${vm.$route.params.username}`
       }
     },
     {

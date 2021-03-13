@@ -186,3 +186,17 @@ calling https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81d
 }
 
 we add our exchange rates, based on our expansion
+
+using https://blog.logrocket.com/image-processing-with-node-and-jimp/ to add our logo to stuff
+
+just google "jimp npm tutorial"
+
+see the res.type here (https://www.youtube.com/watch?v=_ApLt9_bXUA)
+
+How to blow? 
+
+1. Create sharable content.
+
+When creators fill out their profile, design it in such a way, that they'd love to share it. on SM ...I create on YT, IG, TikTok, etc. & even TWTR.
+
+2. Crop their images to square when they upload it.
