@@ -103,7 +103,7 @@ export default {
           username: this.username.toLowerCase().trim(),
           email: this.email.trim(),
           token: this.$route.query.token,
-          password: this.newPassword
+          password: md5(this.newPassword)
         }).then((res) => {
           switch (res.status) {
             case 200:
@@ -132,75 +132,6 @@ export default {
               break;
           }
         }).catch((err) => {})
-    },
-    resetPassword(){
-      let username = this.username;
-      this.issue = "";
-      axios
-        .post(process.env.BASE_URL + "/api/verifyemail/", {
-          username: username.toLowerCase().trim(),
-          email: this.email.trim()
-        }).then((res) => {
-          if (res.data.length == 1) { // it worked
-          this.issue = "Password changed."
-          // redirect to dashboard
-          } else {
-            this.issue = "The email didn't match, please try again.";
-          }
-        })
-    },
-    resetMe(){
-      this.issue = "";
-      let username = this.username;
-      axios
-        .post(process.env.BASE_URL + "/api/findcreatorbyemail/", {
-          username: username.toLowerCase().trim(),
-        }).then((res) => {
-          if (res.data.length == 1) { // confirm email
-            document.getElementById('fauxEmail').innerText = res.data[0].email;
-            document.getElementById('fauxDiv').hidden = false;
-            document.getElementById('confirmEmailDiv').hidden = false;
-            
-            document.getElementById('checkUsername').hidden = true;
-            document.getElementById('resetPasswordButton').hidden = false;
-          } else {
-            this.issue = "That username doesn't exist.";
-          }
-        })
-    },
-    previousResetMe() {
-      let username = this.username;
-      let password = this.password;
-      let email = this.email;
-      this.reset = "Resetting...";
-      axios
-        .post(process.env.BASE_URL + "/api/resetpassword/", {
-          username: username.toLowerCase().trim(),
-          email: email,
-        })
-        .then((res) => {
-          if (res.data.length == 0) {
-            this.reset = "Reset";
-            this.issue = "Username/Email incorrect!";
-          } else {
-            let id = res.data[0]._id;
-            axios
-              .post(process.env.BASE_URL + "/api/update/", {
-                id: id,
-                password: md5(password),
-              })
-              .then((resp) => {
-                this.reset = "Reset";
-                this.issue = "Password successfully reset, please login.";
-              })
-              .catch((error) => {
-              });
-          }
-        })
-        .catch((err) => {
-          this.reset = "Reset";
-          this.issue = "Error connecting to server, please contact support!";
-        });
     },
     switchVisibility() {
       this.passwordFieldType =
