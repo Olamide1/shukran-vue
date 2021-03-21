@@ -200,3 +200,7 @@ How to blow?
 When creators fill out their profile, design it in such a way, that they'd love to share it. on SM ...I create on YT, IG, TikTok, etc. & even TWTR.
 
 2. Crop their images to square when they upload it.
+
+the image preview should be the new creator's page . . .
+
+change time log format on heroku

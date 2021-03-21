@@ -10,7 +10,7 @@ function getTitle (vm) {
 }
 
 function getMetaImage (vm) {
-    console.log(vm);
+    // console.log(vm);
     const { username } = vm.$route.params
     if (username) {
         return username
