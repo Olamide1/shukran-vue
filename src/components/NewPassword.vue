@@ -98,6 +98,7 @@ export default {
   },
   methods: {
     changePassword(){
+      document.getElementById('checkUsername').innerHTML = '<div uk-spinner></div>';
       axios
         .post(process.env.BASE_URL + "/api/changepassword/", {
           username: this.username.toLowerCase().trim(),
@@ -107,6 +108,7 @@ export default {
         }).then((res) => {
           switch (res.status) {
             case 200:
+              document.getElementById('checkUsername').innerText = 'Done.';
               this.issue = "Password changed.";
               setTimeout(() => {
                 sessionStorage.setItem('username', this.username.toLowerCase().trim())
@@ -120,9 +122,10 @@ export default {
               break;
           }
         }, err => {
+          document.getElementById('checkUsername').innerText = 'Change';
           switch (err.response.status) {
             case 403:
-              this.issue = "The Reset link is doesn't exist.";
+              this.issue = "Expired or used reset link."; // or is doesn't exist
               break;
             case 401:
               this.issue = "The Reset link is invalid. Make a new request.";
@@ -131,7 +134,9 @@ export default {
             default:
               break;
           }
-        }).catch((err) => {})
+        }).catch((err) => {
+          console.error('did we get here ?');
+        })
     },
     switchVisibility() {
       this.passwordFieldType =
