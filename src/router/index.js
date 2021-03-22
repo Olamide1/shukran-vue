@@ -18,12 +18,21 @@ import Year2020 from '@/components/2020'
 import NotFoundErrorPage from '@/components/404'
 import BossIn from '@/components/BossIn'
 import NewPassword from '@/components/NewPassword'
+import WallOfLove from '@/components/WallOfLove'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/wall-of-love',
+      name: 'WallOfLove',
+      component: WallOfLove,
+      meta: {
+        title: '❤️❤️❤️❤️❤️'
+      }
+    },
     {
       path: '/who',
       name: 'BossIn',
