@@ -10,6 +10,7 @@
         <div class="uk-position-relative uk-visible-toggle uk-light uk-container" tabindex="-1" uk-slider>
 
             <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@m uk-grid">
+                
                 <li v-for="(creator, i) in this.randomCreators" :key="i">
                     <div class="uk-panel">
                         
@@ -27,6 +28,9 @@
                             <p>{{ creator.summary }}</p>
                         </div>
                     </div>
+                </li>
+                <li id="loader">
+                    <div class="uk-position-center" uk-spinner="ratio: 3"></div>
                 </li>
             </ul>
 
@@ -59,7 +63,8 @@ export default {
                 withCredentials: true
             })
             .then((res) => {
-                this.randomCreators = res.data; 
+                this.randomCreators = res.data;
+                document.getElementById('loader').style.display = 'none'; // later we'll load more creators when they get to the end of the list
             });
         }
     },
