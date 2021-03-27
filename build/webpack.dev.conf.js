@@ -11,6 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+// Renders headlessly in a downloaded version of Chromium through puppeteer
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 
 // add hot-reload related code to entry chunks
@@ -43,9 +44,13 @@ module.exports = merge(baseWebpackConfig, {
     new FriendlyErrorsPlugin(),
     new PrerenderSPAPlugin({
       // Required - The path to the webpack-outputted app to prerender.
-      staticDir: path.join(__dirname, 'dist'),
-      // Required - Routes to render.
+      staticDir: path.join(__dirname, 'dist'), // The path to the folder where index.html is.
+      // Required - list o' Routes to render.
       routes: [ '/cr' ],
+      renderer: new PuppeteerRenderer({
+        // Wait to render until the element specified is detected with document.querySelector.
+        renderAfterElementExists: '#app'
+      })
     })
   ]
 })
