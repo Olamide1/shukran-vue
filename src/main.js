@@ -27,3 +27,7 @@ new Vue({
     return h(App)
   }
 })
+
+document.addEventListener('DOMContentLoaded', function () {
+  root.$mount('#app')
+});
