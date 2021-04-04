@@ -923,7 +923,7 @@ export default {
   },
   beforeCreate() {
     // humm, ...
-    console.log(this.$route);
+    // console.log(this.$route);
     document.querySelector(
       'head meta[property="twitter:image"]'
     ).content = `${process.env.BASE_URL}/api/smp/${this.$route.params.username}`;
