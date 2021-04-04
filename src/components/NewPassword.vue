@@ -9,11 +9,11 @@
     <div class="uk-container-expand" align="center">
       <div class="uk-card uk-card-default fit uk-box-shadow-large uk-padding reset-card">
         <div class="uk-card-header">
-            <div class="uk-flex-middle">
-                <div class="uk-width-expand" align="center">
-                    <h3 class="uk-card-title uk-margin-remove-bottom">Password Change</h3>
-                </div>
+          <div class="uk-flex-middle">
+            <div class="uk-width-expand" align="center">
+              <h3 class="uk-card-title uk-margin-remove-bottom">Password Change</h3>
             </div>
+          </div>
         </div>
 
         <div class="uk-card-body">
@@ -61,18 +61,20 @@
           </div>
 
           <div class="uk-margin">
-            <p>{{issue}}</p>
+            <p>{{ issue }}</p>
             <button
               id="checkUsername"
               :disabled="newPassword !== confirmNewPassword || newPassword == ''"
               class="uk-button uk-border-rounded uk-button-default uk-width-1-1"
               @click="changePassword"
-            >{{reset}}</button>
+            >
+              {{ reset }}
+            </button>
           </div>
         </div>
         <div class="uk-card-footer" align="center">
-          <router-link to="/accounts">Login</router-link> | 
-        <router-link to="/resetpassword">Reset Password</router-link>
+          <router-link to="/accounts">Login</router-link> |
+          <router-link to="/resetpassword">Reset Password</router-link>
         </div>
       </div>
     </div>
@@ -88,65 +90,71 @@ export default {
       username: "",
       passwordIcon: "icon: unlock",
       email: "",
-      fauxEmail: '',
-      newPassword: '',
-      confirmNewPassword: '',
+      fauxEmail: "",
+      newPassword: "",
+      confirmNewPassword: "",
       issue: "",
       reset: "Change",
       passwordFieldType: "password",
     };
   },
   methods: {
-    changePassword(){
-      document.getElementById('checkUsername').innerHTML = '<div uk-spinner></div>';
+    changePassword() {
+      document.getElementById("checkUsername").innerHTML = "<div uk-spinner></div>";
       axios
         .post(process.env.BASE_URL + "/api/changepassword/", {
           username: this.username.toLowerCase().trim(),
           email: this.email.trim(),
           token: this.$route.query.token,
-          password: md5(this.newPassword)
-        }).then((res) => {
-          switch (res.status) {
-            case 200:
-              document.getElementById('checkUsername').innerText = 'Done.';
-              this.issue = "Password changed.";
-              setTimeout(() => {
-                sessionStorage.setItem('username', this.username.toLowerCase().trim())
-                sessionStorage.setItem('id', res.data._id)
-                sessionStorage.setItem('profile', JSON.stringify(res.data))
-                this.$router.push('/dash')
-              }, 1500);
-              break;
-            
-            default:
-              break;
-          }
-        }, err => {
-          document.getElementById('checkUsername').innerText = 'Change';
-          switch (err.response.status) {
-            case 403:
-              this.issue = "Expired or used reset link."; // or is doesn't exist
-              break;
-            case 401:
-              this.issue = "The Reset link is invalid. Make a new request.";
-              break;
-          
-            default:
-              break;
-          }
-        }).catch((err) => {
-          console.error('did we get here ?');
+          password: md5(this.newPassword),
         })
+        .then(
+          (res) => {
+            switch (res.status) {
+              case 200:
+                document.getElementById("checkUsername").innerText = "Done.";
+                this.issue = "Password changed.";
+                setTimeout(() => {
+                  sessionStorage.setItem("username", this.username.toLowerCase().trim());
+                  sessionStorage.setItem("id", res.data._id);
+                  sessionStorage.setItem("profile", JSON.stringify(res.data));
+                  this.$router.push("/dash");
+                }, 1500);
+                break;
+
+              default:
+                break;
+            }
+          },
+          (err) => {
+            document.getElementById("checkUsername").innerText = "Change";
+            switch (err.response.status) {
+              case 403:
+                this.issue = "Expired or used reset link."; // or is doesn't exist
+                break;
+              case 401:
+                this.issue = "The Reset link is invalid. Make a new request.";
+                break;
+
+              default:
+                break;
+            }
+          }
+        )
+        .catch((err) => {
+          console.error("did we get here ?", err);
+        });
     },
     switchVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
-      this.passwordIcon = this.passwordIcon === "icon: lock" ? "icon: unlock" : "icon: lock";
-    }
+      this.passwordIcon =
+        this.passwordIcon === "icon: lock" ? "icon: unlock" : "icon: lock";
+    },
   },
   mounted() {
     this.username = this.$route.params.username;
-  }
+  },
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -174,7 +182,7 @@ export default {
   overflow: auto;
 }
 .reset-card {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 .uk-input {
   border-width: 2px;
@@ -184,13 +192,12 @@ export default {
   color: #fff6fa;
 }
 
-@media (min-width:960px) {
+@media (min-width: 960px) {
   .fit {
     width: 370px;
   }
   .uk-navbar-left {
-  margin-left: 50px;
+    margin-left: 50px;
+  }
 }
-}
-
 </style>

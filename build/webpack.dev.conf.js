@@ -10,7 +10,6 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-const router = require('../src/router/index') // import router from '../router'
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 // Renders headlessly in a downloaded version of Chromium through puppeteer
 const PuppeteerRenderer = PrerenderSPAPlugin.PuppeteerRenderer
@@ -52,9 +51,8 @@ module.exports = merge(baseWebpackConfig, {
         // Wait to render until the element specified is detected with document.querySelector.
         renderAfterElementExists: '#app'
       }),
-      postProcess: (context) => { // TODO
-        // let _routes = router.default.app.$router.getRoutes() // mtd in v3.5.0
-      }
+      /* postProcess: (context) => { // TODO
+      } */
     }),
     new FriendlyErrorsPlugin(), // seem this must be last
     
