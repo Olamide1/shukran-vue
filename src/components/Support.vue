@@ -526,17 +526,7 @@ export default {
     supporter_email: function (value, oldValue) {
       localStorage.setItem("shukran-supporter-email", value);
     },
-    $route(to, from) {
-      // necessary ?
-      console.log("to ====>", to);
-      document.title = to.meta.title;
-      document.querySelector(
-        'head meta[property="twitter:image"]'
-      ).content = `${process.env.BASE_URL}/api/smp/${to.params.username}`;
-      document.querySelector(
-        'head meta[property="og:image"]'
-      ).content = `${process.env.BASE_URL}/api/smp/${to.params.username}`;
-    },
+    $route(to, from) {},
   },
   methods: {
     currencySymbol() {
@@ -930,6 +920,16 @@ export default {
   },
   beforeMount() {
     this.showUserWelcome();
+  },
+  beforeCreate() {
+    // humm, ...
+    console.log(this.$route);
+    document.querySelector(
+      'head meta[property="twitter:image"]'
+    ).content = `${process.env.BASE_URL}/api/smp/${this.$route.params.username}`;
+    document.querySelector(
+      'head meta[property="og:image"]'
+    ).content = `${process.env.BASE_URL}/api/smp/${this.$route.params.username}`;
   },
   mounted() {
     // this.getSubs();
