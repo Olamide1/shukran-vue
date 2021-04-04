@@ -31,8 +31,8 @@
       </div>
     </div>
     <div class="uk-card-footer" align="center">
-        <a href="/OhWell" class="uk-button-text">See Creators</a> | 
-        <router-link to="/">Leave</router-link>
+        <router-link to="/OhWell" class="uk-button-text">See Creators</router-link> | 
+        <router-link to="/">Home</router-link>
     </div>
   </div>
 
@@ -60,7 +60,7 @@ export default {
         this.issue = 'Please fill all fields.'
       } else {
         this.issue = ''
-        this.loginbtn = 'loading...';
+        this.loginbtn = 'loading...'
         axios.post(process.env.BASE_URL + '/api/bosslogin/', {
             username: this.username.toLowerCase().trim(),
             password: this.password.toLowerCase().trim()
@@ -74,7 +74,7 @@ export default {
           }
         }).catch(err => {
           sessionStorage.setItem('++', false)
-          console.log(err)
+          console.error(err)
           this.loginbtn = 'Login'
           this.issue = 'Uhmmm. Try again.'
       })

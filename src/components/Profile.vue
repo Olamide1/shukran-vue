@@ -14,17 +14,17 @@
     <nav class="desktop-nav" uk-navbar>
       <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-          <li class="uk-active">
-            <router-link to="/dash">Dashboard</router-link>
+          <li>
+            <router-link to="/dash" active-class="">Dashboard</router-link>
           </li>
           <li>
-            <router-link to="/subscribers">Shuclans</router-link>
+            <router-link to="/subscribers" active-class>Shuclans</router-link>
           </li>
           <li id="get-tipped" href="#modal-center" uk-toggle>
             <a>Get tipped</a>
           </li>
           <li>
-            <router-link to="/profile">Profile</router-link>
+            <router-link to="/profile" active-class>Profile</router-link>
           </li>
           <li id="give-feedback" uk-toggle="target: #my-id">
             <a>Give feedback</a>
@@ -655,6 +655,9 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+a.router-link-exact-active {
+  color: #333;
+}
 .modal-buttons > * {
   border-radius: 3px;
 }

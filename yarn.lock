@@ -15559,9 +15559,9 @@
     "deepmerge" "^4.2.2"
 
 "vue-router@^3.0.1":
-  "integrity" "sha512-khkrcUIzMcI1rDcNtqkvLwfRFzB97GmJEsPAQdj7t/VvpGhmXLOkUfhc+Ah8CvpSXGXwuWuQO+x8Sy/xDhXZIA=="
-  "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-3.2.0.tgz"
-  "version" "3.2.0"
+  "integrity" "sha512-RRQNLT8Mzr8z7eL4p7BtKvRaTSGdCbTy2+Mm5HTJvLGYSSeG9gDzNasJPP/yOYKLy+/cLG/ftrqq5fvkFwBJEw=="
+  "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-3.5.1.tgz"
+  "version" "3.5.1"
 
 "vue-sfc-descriptor-to-string@^1.0.0":
   "integrity" "sha512-VYNMsrIPZQZau5Gk8IVtgonN1quOznP9/pLIF5m2c4R30KCDDe3NwthrsM7lSUY2K4lezcb8j3Wu8cQhBuZEMQ=="

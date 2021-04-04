@@ -12,9 +12,9 @@
         <div class="uk-margin-medium-bottom uk-card uk-card-default uk-card-body">
             <article class="uk-article">
 
-                <h1 class="uk-article-title"><a class="uk-link-reset" href="">To you,</a></h1>
+                <h1 class="uk-article-title">To you,</h1>
 
-                <p class="uk-article-meta">Written by <a href="https://useshukran.com/cr/chuks">chuks</a> on 31st December, 2020.</p>
+                <p class="uk-article-meta">Written by <router-link to="/cr/chuks">chuks</router-link> on 31st December, 2020.</p>
 
                 <p class="uk-text-lead">2020 has been so many things, it's a bit daunting to sum it up for everyone. Still we must reflect on it so we can, at least, try to make 2021 better. Right?</p>
 

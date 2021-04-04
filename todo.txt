@@ -4,6 +4,11 @@ how to deceive the browser auto box to fill in their username along with their p
 
 show with a graph, the number of creators in we have in different countries in /admin
 
+
+should we have like a legal section for copy rights infringements and how to help our creators navigate it.
+
+Global styles
+
 calling https://openexchangerates.org/api/latest.json?app_id=91527baa61514e6e81db3a2604a4822f
 {
   "disclaimer": "Usage subject to terms: https://openexchangerates.org/terms",

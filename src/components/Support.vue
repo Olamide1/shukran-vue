@@ -206,7 +206,7 @@
               </div>
               <p style="color: #c63968;"> {{tipNudge}}</p>
             </div>
-            <div v-show="parseInt(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
+            <div v-show="parseFloat(amount) >= tipGuard" class="uk-margin uk-flex subscription-nudge">
               <label><input v-model="isSubscribing" class="uk-checkbox" type="checkbox"> Wanna tip {{username}}
                 <b>{{currencySymbol()}}</b>{{amount}}
                 <!-- this time --> every month
@@ -224,7 +224,7 @@
               <p style="color: #c63968;">{{issue}}</p>
             </div>
             <div class="uk-margin">
-              <button :disabled="parseInt(amount) < tipGuard || amount == ''"
+              <button :disabled="parseFloat(amount) < tipGuard || amount == ''"
                 class="uk-button tip-button uk-button-default" @click="save()">{{tipbtn}}</button>
               <!-- <button class="uk-button uk-button-default" type="button" @click="save()">tip recurringly?</button> -->
             </div>
@@ -527,7 +527,7 @@ unknown user */
 
           // before we make this call, let's check if the subscirption amount exits in this.subscirptions
           axios.post(process.env.BASE_URL + '/api/createsubscription/', {
-            amount: parseInt(this.amount),
+            amount: parseFloat(this.amount),
             supporter_email: this.supporter_email, // not using
             creator_email: this.creatorInfo.email, // not using
             creator_username: this.username, // not using
@@ -670,7 +670,7 @@ unknown user */
             var handler = PaystackPop.setup({
             key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
             supporter_email: supporter_email,
-            amount: parseInt(amount) * 100,
+            amount: parseFloat(amount) * 100,
             currency: sessionStorage.getItem("shukran-country-currency"),
             channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
             metadata: {
@@ -717,8 +717,8 @@ unknown user */
 
           FlutterwaveCheckout({
             public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
-            tx_ref: `${supporter_email}-shukran${this.isSubscribing ? 'ing' : ''}-${this.creatorInfo._id} @ ${Date.now()}`,
-            amount: parseInt(amount),
+            tx_ref: `${supporter_email}-shukran${this.isSubscribing ? 'ing' : ''}-${this.creatorInfo._id} @ ${Date.now()} | ${location.href}`,
+            amount: parseFloat(amount), // why previously parseInt ?
             // https://stackoverflow.com/a/40560953
             // make country based on currency? how about ?
             ...(this.currency == "KES") && {

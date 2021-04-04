@@ -10,9 +10,10 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
+const router = require('../src/router/index') // import router from '../router'
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 // Renders headlessly in a downloaded version of Chromium through puppeteer
-const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+const PuppeteerRenderer = PrerenderSPAPlugin.PuppeteerRenderer
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
@@ -41,16 +42,21 @@ module.exports = merge(baseWebpackConfig, {
       serviceWorkerLoader: `<script>${fs.readFileSync(path.join(__dirname,
         './service-worker-dev.js'), 'utf-8')}</script>`
     }),
-    new FriendlyErrorsPlugin(),
-    new PrerenderSPAPlugin({
+    new PrerenderSPAPlugin({ // https://youtu.be/pwHdFPEX4NA?t=760
       // Required - The path to the webpack-outputted app to prerender.
-      staticDir: path.join(__dirname, 'dist'), // The path to the folder where index.html is.
+      staticDir: path.join(__dirname, '/../dist'), // The path to the folder where index.html is.
       // Required - list o' Routes to render.
-      routes: [ '/cr' ],
+      routes: [ '/pricing', '/' ],
+      maxConcurrentRoutes: 2,
       renderer: new PuppeteerRenderer({
         // Wait to render until the element specified is detected with document.querySelector.
         renderAfterElementExists: '#app'
-      })
-    })
+      }),
+      postProcess: (context) => { // TODO
+        // let _routes = router.default.app.$router.getRoutes() // mtd in v3.5.0
+      }
+    }),
+    new FriendlyErrorsPlugin(), // seem this must be last
+    
   ]
 })

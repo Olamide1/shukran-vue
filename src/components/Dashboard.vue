@@ -29,16 +29,14 @@
     <nav class="uk-navbar-container desktop-nav" uk-navbar>
       <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-          <li class="uk-active">
-            <router-link to="/dash">Dashboard</router-link>
+          <li>
+            <router-link to="/dash" active-class>Dashboard</router-link>
           </li>
           <li id="get-tipped" href="#modal-center" uk-toggle>
             <a>Get tipped</a>
           </li>
           <li>
-            <router-link to="/subscribers"><span
-                uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span>
-            </router-link>
+            <router-link to="/subscribers" active-class>Shuclans</router-link>
           </li>
           <li>
             <router-link to="/profile">Profile</router-link>
@@ -1090,6 +1088,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+a.router-link-exact-active {
+  color: #333;
+}
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
   #total-tips-chart { width: 300px !important; } /* your css rules for ipad portrait */
 }
