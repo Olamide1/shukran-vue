@@ -22,6 +22,8 @@
         class="uk-background-blend-multiply uk-background-primary uk-section uk-section-small uk-background-cover"
         v-lazy:background-image="{
           src: `https://drive.google.com/uc?export=view&id=${this.creatorInfo.picture_id}`,
+          // loading: '/static/img/loading.gif',
+          error: '/static/img/blank-profile-picture.png',
         }"
       >
         <div class="uk-container">
@@ -510,7 +512,9 @@ export default {
       cancel: null,
       redirect: "",
       subscriptions: [],
-      creatorInfo: {},
+      creatorInfo: {
+        picture_id: "1aMDqEuCDesg0cTpHJj0IHehEDUEk3l_F", // using default pic, hate 404 console errors
+      },
       emailRegEx: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/, // checking for email, why though?
       issue: "",
     };
@@ -652,7 +656,7 @@ export default {
           this.getSubs();
         })
         .catch((err) => {
-          // console.log('!!', err)
+          // console.error('!!', err)
         })
         .finally(() => {});
     },

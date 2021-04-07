@@ -540,7 +540,7 @@ export default {
     },
   },
   methods: {
-    copyShukranLink() {
+    copyShukranLink(evt) {
       console.log("tryna copy");
       let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
       copyText.select();
