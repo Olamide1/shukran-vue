@@ -9,8 +9,12 @@ function getTitle (vm) {
     }
 }
 
-function getMetaImage (vm) {
-    // console.log(vm);
+/**
+ * if they're in a route like /cr/:username (/cr/chuks). It'll return 'chuks'
+ * @param {VueComponent} vm 
+ * @returns string username
+ */
+function getRouteUsername (vm) {
     const { username } = vm.$route.params
     if (username) {
         return username
@@ -23,10 +27,10 @@ export default {
         if (title) {
             document.title = title
         }
-        let metaImage = getMetaImage(this)
-        if (metaImage) {
-            document.querySelector('head meta[property="twitter:image"]').content = `${process.env.BASE_URL}/api/smp/${metaImage}`;
-            document.querySelector('head meta[property="og:image"]').content = `${process.env.BASE_URL}/api/smp/${metaImage}`;
+        let routeUsername = getRouteUsername(this)
+        if (routeUsername) {
+            document.querySelector('head meta[property="twitter:image"]').content = `${process.env.BASE_URL}/api/smp/${routeUsername}`;
+            document.querySelector('head meta[property="og:image"]').content = `${process.env.BASE_URL}/api/smp/${routeUsername}`;
         }
     }
 }

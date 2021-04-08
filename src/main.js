@@ -19,11 +19,21 @@ Vue.use(VueLazyload, {
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-new Vue({
+const app = new Vue({
   el: '#app',
   router,
   components: { App },
   render: (h) => {
     return h(App)
+  },
+  mounted () {
+    // You'll need this for renderAfterDocumentEvent.
+    document.dispatchEvent(new Event('render-event'))
   }
 })
+// .$mount('#app')
+
+/* document.addEventListener('DOMContentLoaded', function () {
+  // this assumes App.vue template root element has `id="app"
+  app.$mount('#app')
+}); */

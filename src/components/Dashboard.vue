@@ -1,187 +1,9 @@
 <template dashboard-body>
   <div class="uk-container-expand">
-    <nav class="uk-navbar uk-navbar-container uk-margin mobile-nav">
-      <div class="uk-navbar-left">
-        <a class="uk-navbar-toggle" uk-toggle="target: #offcanvas-usage">
-          <span uk-navbar-toggle-icon></span>
-          <span class="uk-margin-small-left"></span>
-        </a>
-
-        <a class="uk-navbar-item uk-logo uk-padding-remove-left">Shukran</a>
-      </div>
-
-      <div class="uk-navbar-right">
-        <div uk-form-custom="target: > * > span:first-child" class="uk-margin-small-right">
-          <select class="" @change="rates()" v-model="currency">
-            <option value="NGN">₦</option>
-            <option value="KES">Ksh</option>
-            <option value="USD">$</option>
-          </select>
-          <button class="uk-button white-bg-button" id="drop-down" type="button" tabindex="-1"
-            style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
-            <span></span>
-            <span uk-icon="icon: chevron-down"></span>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <nav class="uk-navbar-container desktop-nav" uk-navbar>
-      <div class="uk-navbar-left">
-        <ul class="uk-navbar-nav">
-          <li>
-            <router-link to="/dash" active-class>Dashboard</router-link>
-          </li>
-          <li id="get-tipped" href="#modal-center" uk-toggle>
-            <a>Get tipped</a>
-          </li>
-          <li>
-            <router-link to="/subscribers" active-class>Shuclans</router-link>
-          </li>
-          <li>
-            <router-link to="/profile">Profile</router-link>
-          </li>
-          <li id="give-feedback" uk-toggle="target: #my-id">
-            <a>Give feedback</a>
-          </li>
-          <li id="logout" @click="logout">
-            <a>Logout</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-          <li>
-            <a>
-              <div uk-form-custom="target: > * > span:first-child" class="">
-                <select class="" @change="rates()" v-model="currency">
-                  <option value="NGN">₦</option>
-                  <option value="KES">Ksh</option>
-                  <option value="USD">$</option>
-                </select>
-                <button class="uk-button " id="drop-down" type="button" tabindex="-1"
-                  style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
-                  <span></span>
-                  <span uk-icon="icon: chevron-down"></span>
-                </button>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class href="#modal-middle" uk-toggle>
-              <button class="uk-button red-button request-button">Request payout</button>
-            </a>
-          </li>
-          <li>
-            <a>
-              <div ref="file"
-                class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-                v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles.picture_id}`, loading: '/static/img/loading.gif' }"
-                uk-img>
-
-                <div uk-tooltip="Click to change your profile picture" id="add-image" uk-form-custom="target: true">
-                  <input type="file" @change="onFileChanged" />
-                  <span uk-icon="icon: plus;"></span>
-                </div>
-              </div>
-              <progress id="js-progressbar" class="top-nav-progress-bar" value="50" max="100"></progress>
-              <div uk-spinner id="chill"></div>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <top-side-header></top-side-header>
+    
     <div class="uk-section">
-      <!-- sidebar -->
-      <div id="offcanvas-usage" uk-offcanvas>
-        <div class="uk-offcanvas-bar">
-          <button class="uk-offcanvas-close" type="button" uk-close></button>
-
-          <h3>Shukran</h3>
-          <!-- -->
-          <div ref="file" id="image-background"
-            class="uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-            v-lazy:background-image="{src: `https://drive.google.com/uc?export=view&id=${profiles.picture_id}`, loading: '/static/img/loading.gif' }"
-            uk-img>
-            <div uk-tooltip="Click to change your profile picture" id="add-image" uk-form-custom="target: true">
-              <input type="file" @change="onFileChanged" />
-              <span uk-icon="icon: plus; ratio: 2"></span>
-            </div>
-
-          </div>
-          <progress class="side-nav-progress-bar" id="snpb" value="80" max="100"></progress>
-          <div uk-spinner="ratio: 2" id="wait"></div>
-          <!-- -->
-          <ul class="uk-list uk-list-divider">
-            <li>
-              <router-link to="/dash">Dashboard</router-link>
-            </li>
-            <li>
-              <router-link to="/subscribers"><span
-                  uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">Shuclans</span>
-              </router-link>
-            </li>
-            <li id="get-tipped" href="#modal-center" uk-toggle>Get tipped</li>
-            <div id="modal-center" class="uk-flex-top" uk-modal>
-              <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-width-auto tip-modal"
-                uk-overflow-auto>
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <h2 class="uk-modal-title">🎉</h2>
-                <p class="show uk-text-lead">Hey {{ username }}, share the link below to get tipped.</p>
-                <router-link class="uk-text-break " :to="'/cr/' + username">{{ url }}</router-link>
-                <p class="uk-text-meta">
-                  <span class="uk-text-bolder">TL;DR</span> Share link with your audience <textarea name=""
-                    class="uk-textarea uk-form-blank" id="shukran-link" v-model="url"></textarea>
-                </p>
-                <p class="uk-text-meta">
-                  <span class="uk-text-bolder">How exactly do you get tipped, you ask?</span> Include your link in your
-                  profile description on Twitter, Instagram, YouTube, Podcasts, in your blog etc. and ask your audience
-                  to support you.
-                  Talk about it in your YouTube videos, Podcast episodes, and where ever you create content.
-                  Most creators shy away from doing these, and really shouldn't. You can read <u><a
-                      class="uk-text-primary" href="https://blog.useshukran.com/its-not-begging-youre-giving-value">what
-                      we have to say</a></u> concerning that.
-                </p>
-                <p class="uk-margin modal-buttons">
-                  <button @click="copyShukranLink" class="uk-button uk-button-default uk-margin-small-right">Copy
-                    link</button>
-                  <a :href="'https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=If+you+love+my+content,+you+can+support+me+here+https://useshukran.com/cr/'+this.username+'+so+I+can+continue+to+give+more+and+better'"
-                    class="uk-button tweet-it" target="blank">
-                    Tell others
-                    <span class="" uk-icon="twitter"></span>
-                  </a>
-                </p>
-
-              </div>
-            </div>
-            <li>
-              <router-link to="/profile">Profile</router-link>
-            </li>
-            <!--Feedback area start -->
-            <li id="give-feedback" uk-toggle="target: #my-id">
-              Give feedback
-              <a uk-icon="heart"></a>
-            </li>
-            <div id="my-id" uk-modal>
-              <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title">Hi {{username}}</h2>
-                <p>Show some love 😊or raise an issue 🙃</p>
-                <div class="uk-margin">
-                  <textarea class="uk-textarea" placeholder="Type your message" v-model="comment"></textarea>
-                </div>
-                <div class="uk-margin">
-                  <button class="uk-button red-button" @click="submitFeedback">{{feed}}</button>
-                </div>
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-              </div>
-            </div>
-            <!--Feebdack area end -->
-            <li id="logout" @click="logout">Logout</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Sidebar end -->
+      
       <div class="uk-container">
         <h3 class="h3">
           Hello,
@@ -332,6 +154,7 @@
   import axios from "axios";
   import Chart from "chart.js";
   import fx from "money";
+  import TopSideHeader from './TopSideHeader.vue';
   fx.base = "USD";
   fx.rates = { // LiG
     "AED": 3.6732,
@@ -507,6 +330,7 @@
     "ZWL": 322
   };
   export default {
+  components: { TopSideHeader },
     name: "Dashboard",
     data() {
       return {
@@ -950,55 +774,6 @@
             // console.error(err);
           });
       },
-      onFileChanged(event) {
-        let formData = new FormData();
-        formData.append("id", this.profiles._id);
-        formData.append("pic", event.target.files[0]);
-
-        let bar1 = document.getElementById('snpb');
-        let bar2 = document.getElementById('js-progressbar');
-
-        let loader1 = document.getElementById('wait');
-        let loader2 = document.getElementById('chill');
-        bar1.style.display = 'block';
-        bar2.style.display = 'flex';
-        axios.post(process.env.BASE_URL + "/api/update/", formData, {
-            onUploadProgress: progressEvent => {
-              // console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
-              bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
-              if (progressEvent.loaded / progressEvent.total == 1) {
-                bar1.style.display = bar2.style.display = 'none';
-                loader1.style.display = loader2.style.display = 'block';
-              }
-            }
-          })
-          .then(res => {
-            loader1.style.display = loader2.style.display = 'none';
-            this.profiles.picture_id = res.data;
-            sessionStorage.setItem('profile', JSON.stringify(this.profiles)) // update session too
-          })
-          .catch(error => {
-            // console.log("error occured", error);
-          });
-      },
-      submitFeedback() {
-        let username = this.username;
-        let comment = this.comment;
-        this.feed = "Sending...";
-        axios
-          .post(process.env.BASE_URL + "/api/givefeedback/", {
-            username: username,
-            comment: comment
-          })
-          .then(res => {
-            // console.log("feedback submitted");
-            UIkit.modal("#my-id").hide();
-            alert("Thank you for your feedback!");
-          })
-          .catch(err => {
-            // console.log(err);
-          });
-      },
       getBalance() {
         this.balance = this.tipTotal - this.tipWithdrawn;
       },
@@ -1031,7 +806,7 @@
           fetch('https://ipapi.co/json/', { // http://ipinfo.io
               headers: {
                 'Accept': 'application/json',
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
               }
             })
             .then(response => {
@@ -1071,8 +846,6 @@
         })
       // this.getId(); // shouldn't be
 
-
-
       // this.rates(); // so we don't do it on currency change
 
     },
@@ -1088,10 +861,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-a.router-link-exact-active {
-  color: #333;
-}
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
   #total-tips-chart { width: 300px !important; } /* your css rules for ipad portrait */
 }
@@ -1165,86 +934,6 @@ a.router-link-exact-active {
     margin-top: 0px;
   }
 
-  #my-id>div {
-    border-radius: 5px;
-  }
-
-  #my-id>div textarea,
-  #my-id>div button {
-    border-radius: 3px;
-  }
-
-  /** circle progress bar https://stackoverflow.com/a/48441688/9259701 */
-  .top-nav-progress-bar {
-    display: none;
-    z-index: 1;
-    margin-left: -5px;
-
-    position: absolute;
-    height: 46px;
-    width: 46px;
-    /* display: flex; */
-    align-items: center;
-    justify-content: center;
-    color: blue;
-    /* margin:30px 30px; */
-    float: left;
-  }
-
-  .top-nav-progress-bar:before {
-    content: "";
-    background: white;
-    position: absolute;
-    z-index: 100;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin: auto auto;
-  }
-
-  progress.top-nav-progress-bar::-moz-progress-bar {
-    background: transparent;
-  }
-
-  progress.top-nav-progress-bar::-webkit-progress-bar {
-    background: transparent;
-  }
-
-  progress.top-nav-progress-bar::-moz-progress-value {
-    background: blue;
-  }
-
-  progress.top-nav-progress-bar::-webkit-progress-value {
-    background: blue;
-  }
-
-  .top-nav-progress-bar {
-    border-radius: 100%;
-    overflow: hidden;
-    padding: 0;
-  }
-
-  .side-nav-progress-bar {
-    width: 29.5%;
-    position: absolute;
-    margin-top: -7.5px;
-    height: 10px;
-    display: none;
-  }
-
-  #wait {
-    display: none;
-    margin-top: -70px;
-    margin-left: 10px;
-    position: absolute;
-  }
-
-  #chill {
-    display: none;
-    margin-left: -35px;
-    z-index: 20;
-  }
-
   .uk-container-expand {
     background-image: linear-gradient(135deg, #c63968 0%, #ff746c 100%);
 
@@ -1275,8 +964,7 @@ a.router-link-exact-active {
     color: #c63968;
   }
 
-  .h3,
-  .uk-navbar-toggle {
+  .h3 {
     color: #ffffff;
   }
 
@@ -1329,15 +1017,9 @@ a.router-link-exact-active {
     color: #fceedd;
   }
 
-  #modal-middle,
-  #my-id {
+  #modal-middle {
     /* background-color: #fceedd; */
     color: #ff6870;
-  }
-
-  .white-bg-button {
-    background-color: white;
-    color: #000;
   }
 
   .red-button {
@@ -1345,66 +1027,20 @@ a.router-link-exact-active {
     color: #fceedd;
   }
 
-  .request-button {
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  }
 
-  li#give-feedback,
-  li#get-tipped,
-  li#logout {
-    cursor: pointer;
-  }
 
-  li#give-feedback:hover,
-  li#get-tipped:hover,
-  li#logout:hover {
-    text-decoration: underline;
-  }
 
-  #image-background {
-    width: 80px;
-    height: 80px;
-    border-radius: 5px;
-  }
 
-  #add-image {
-    opacity: 0;
-  }
 
-  #add-image:hover {
-    opacity: 1;
-  }
-
+/** ????? what is it doing here? */
   div[data-src][src*="data:image"] {
     background: rgba(0, 0, 0, 0.1);
   }
 
-  .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical.uk-width-auto {
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(4, 4, 4, 0.45);
-  }
 
-  .us {
-    z-index: 10;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-left: -10px;
-  }
 
   /**https://stackoverflow.com/a/32186894 */
 
-  /* ::selection{background:#39f;color:#fff;text-shadow:none;} */
-  /** for dark theme
-.uk-section[data-v-aae30ed8] {
-    background-color: #33302c !important;
-    color: #ff6870 !important;
-}
-
-.uk-container-expand[data-v-aae30ed8] {
-    background-color: #170808;
-    color: #ebebe7 !important; */
   .tippers-table {
     height: 725px;
     overflow-y: auto;
@@ -1482,16 +1118,9 @@ a.router-link-exact-active {
   }
 
   /**good spot */
-  .desktop-nav {
-    margin: 30px;
-    border-radius: 5px;
-    background: #edf4f0 !important;
-    color: #111011 !important;
-  }
 
   @media (min-width: 960px) {
 
-    .mobile-nav,
     .uk-card-badge.uk-label[href] {
       display: none;
     }
@@ -1505,10 +1134,6 @@ a.router-link-exact-active {
 
   @media (max-width: 960px) {
 
-    .desktop-nav,
-    .request-button {
-      display: none;
-    }
 
     .uk-card-body {
       padding: 20px 20px;

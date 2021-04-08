@@ -1,68 +1,11 @@
 <template>
   <div class="uk-container-expand">
-    <nav class="uk-navbar uk-margin mobile-nav">
-      <div class="uk-navbar-left">
-        <a class="uk-navbar-toggle" uk-toggle="target: #offcanvas-usage">
-          <span uk-navbar-toggle-icon></span>
-          <span class="uk-margin-small-left"></span>
-        </a>
-
-        <a class="uk-navbar-item uk-logo uk-padding-remove-left">Shukran</a>
-      </div>
-    </nav>
-
-    <nav class="desktop-nav" uk-navbar>
-      <div class="uk-navbar-left">
-        <ul class="uk-navbar-nav">
-          <li>
-            <router-link to="/dash" active-class="">Dashboard</router-link>
-          </li>
-          <li>
-            <router-link to="/subscribers" active-class>Shuclans</router-link>
-          </li>
-          <li id="get-tipped" href="#modal-center" uk-toggle>
-            <a>Get tipped</a>
-          </li>
-          <li>
-            <router-link to="/profile" active-class>Profile</router-link>
-          </li>
-          <li id="give-feedback" uk-toggle="target: #my-id">
-            <a>Give feedback</a>
-          </li>
-          <li id="logout" @click="logout"><a>Logout</a></li>
-        </ul>
-      </div>
-
-      <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-          <li>
-            <a class="" href="#modal-middle" uk-toggle
-              ><button class="uk-button request-button uk-button-primary">
-                Request payout
-              </button></a
-            >
-          </li>
-          <li>
-            <a>
-              <div
-                class="us uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
-                v-lazy:background-image="{
-                  src: `https://drive.google.com/uc?export=view&id=${profiles[0].picture_id}`,
-                  loading: '../assets/loading.gif',
-                }"
-                uk-img
-              ></div>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <TopSideHeader></TopSideHeader>
 
     <div id="offcanvas-usage" uk-offcanvas>
       <div class="uk-offcanvas-bar">
         <button class="uk-offcanvas-close" type="button" uk-close></button>
         <h3>Shukran</h3>
-        <!-- -->
         <div
           ref="file"
           class="image-background uk-height-small uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
@@ -510,8 +453,10 @@ Design template for profile page https://uidesigndaily.com/posts/sketch-profile-
  */
 // `https://drive.google.com/uc?id=${data.post.m edia[i]}`
 import axios from "axios";
+import TopSideHeader from './TopSideHeader.vue';
 export default {
-  name: "profile",
+  components: { TopSideHeader },
+  name: "Profile",
   data() {
     return {
       username: sessionStorage.getItem("username"),
@@ -541,7 +486,7 @@ export default {
   },
   methods: {
     copyShukranLink(evt) {
-      console.log("tryna copy");
+      // console.log("tryna copy");
       let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
       copyText.select();
       document.execCommand("copy");
@@ -566,14 +511,14 @@ export default {
         })
         .then((res) => {
           this.id = res.data[0]._id;
-          console.log("id");
+          // console.log("id");
           this.profiles = res.data;
           /*if (this.profiles[0].primary_link.slice(0,7) == 'https://'){
               this.profiles[0].primary_link = this.profiles[0].primary_link
             }*/
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     },
     checkUser() {
@@ -582,7 +527,7 @@ export default {
       }
     },
     handlePictureUpload() {
-      console.log("this.$refs", this.$refs);
+      // console.log("this.$refs", this.$refs);
       this.file = this.$refs.file[0].files[0];
     },
     messageUpdate() {
@@ -597,7 +542,7 @@ export default {
         } else if(primary_link.slice(0, 7) !== "https://") {
           primary_link = "https://" + this.profiles[0].primary_link;
         } else {
-          console.log('issue')
+          // console.log('issue')
         }*/
       axios
         .post(process.env.BASE_URL + "/api/update/", {
@@ -608,14 +553,14 @@ export default {
           id: id,
         })
         .then((res) => {
-          console.log("updated");
+          // console.log("updated");
           this.savebtnThree = "Saved!";
           setTimeout(() => {
             this.savebtnThree = "Save";
           }, 3000);
         })
         .catch((err) => {
-          console.log("update err", err);
+          console.error("update err", err);
           this.savebtnThree = "Please try again!";
           setTimeout(() => {
             this.savebtnThree = "Save";
@@ -635,7 +580,7 @@ export default {
           id: id,
         })
         .then((res) => {
-          console.log("updated", res);
+          // console.log("updated", res);
           sessionStorage.setItem("profile", JSON.stringify(res.data));
           this.savebtnFour = "Saved!";
           setTimeout(() => {
@@ -643,7 +588,7 @@ export default {
           }, 5000);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           this.savebtnFour = "Please try again!";
           setTimeout(() => {
             this.savebtnFour = "Save";
@@ -659,10 +604,10 @@ export default {
           },
         })
         .then(function (response) {
-          console.log("how many", response);
+          // console.log("how many", response);
         })
         .catch(function (error) {
-          console.log("baddd", error);
+          // console.error("baddd", error);
         })
         .then(function () {
           // always executed
@@ -682,7 +627,7 @@ export default {
           alert("Thank you for your feedback!"); // alert ?!!??! def no
         })
         .catch((err) => {
-          console.error(err);
+          // console.error(err);
         });
     },
 
@@ -709,7 +654,7 @@ export default {
           account_number: account_number.trim(),
         })
         .then((res) => {
-          console.log("updated");
+          // console.log("updated");
           sessionStorage.setItem("profile", JSON.stringify(res.data));
           this.savebtnTwo = "Saved!";
           setTimeout(() => {
@@ -717,7 +662,7 @@ export default {
           }, 5000);
         })
         .catch((error) => {
-          console.log("error occured", error);
+          // console.error("error occured", error);
           this.savebtnTwo = "Please try again!";
           setTimeout(() => {
             this.savebtnTwo = "Save";
@@ -728,11 +673,11 @@ export default {
       let formData = new FormData();
       formData.append("id", this.id);
       formData.append("pic", event.target.files[0]);
-      console.log(event.target.files);
+      // console.log(event.target.files);
       axios
         .post(process.env.BASE_URL + "/api/update/", formData, {
           onUploadProgress: (progressEvent) => {
-            console.log(progressEvent.loaded / progressEvent.total);
+            // console.log(progressEvent.loaded / progressEvent.total);
           },
         })
         .then((res) => {
@@ -740,7 +685,7 @@ export default {
           this.profiles[0].picture_id = res.data;
         })
         .catch((error) => {
-          console.error("error occured", error);
+          // console.error("error occured", error);
         });
     },
     personalInfo() {
@@ -759,7 +704,7 @@ export default {
           phone: phone.trim(),
         })
         .then((res) => {
-          console.log("updated");
+          // console.log("updated");
           sessionStorage.setItem("profile", JSON.stringify(res.data));
           this.savebtnOne = "Saved!";
           setTimeout(() => {
@@ -767,7 +712,7 @@ export default {
           }, 5000);
         })
         .catch((error) => {
-          console.log("error occured", error);
+          // console.log("error occured", error);
           this.savebtnOne = "Try again!";
           setTimeout(() => {
             this.savebtnOne = "Save";
@@ -785,9 +730,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a.router-link-exact-active {
-  color: #333;
-}
+
 .modal-buttons > * {
   border-radius: 3px;
 }

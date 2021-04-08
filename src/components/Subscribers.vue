@@ -613,7 +613,7 @@
     },
     methods: {
       copyShukranLink(evt) {
-        console.log('tryna copy');
+        // console.log('tryna copy');
         let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
         copyText.select();
         document.execCommand("copy");
@@ -660,11 +660,10 @@
             console.log("error occured deleting", error);
           });
       },
-      changeThresholdPrice(_id) {
+      changeThresholdPrice(_id, event) {
         console.log(_id, event.target.value);
 
         // console.log(event.srcElement.getAttribute('data-index'));
-
         // update product price
         axios.post(process.env.BASE_URL + "/api/updatecontentmetadata/", {
             id: this.profile._id,
@@ -735,7 +734,7 @@
         // set scroll to the end if multiline
         target.scrollTop = target.scrollHeight;
       },
-      addFile() {
+      addFile(event) {
         // this.selectedFile = event.target.files[0]
         let formData = new FormData();
         formData.append("creator_id", this.profile._id);
@@ -1429,20 +1428,6 @@ a.router-link-exact-active {
 
   /**https://stackoverflow.com/a/32186894 */
 
-  /* ::selection{background:#39f;color:#fff;text-shadow:none;} */
-  /** for dark theme
-.uk-section[data-v-aae30ed8] {
-    background-color: #33302c !important;
-    color: #ff6870 !important;
-}
-
-.uk-container-expand[data-v-aae30ed8] {
-    background-color: #170808;
-    color: #ebebe7 !important; */
-  .tippers-table {
-    height: 725px;
-    overflow-y: auto;
-  }
 
   ul.metrics {
     margin-bottom: 25px;
@@ -1529,12 +1514,6 @@ a.router-link-exact-active {
     .uk-card-badge.uk-label[href] {
       display: none;
     }
-
-    .chart-container {
-      position: relative;
-      height: 70vh;
-      width: 37vw;
-    }
   }
 
   @media (max-width: 960px) {
@@ -1546,18 +1525,6 @@ a.router-link-exact-active {
 
     .uk-card-body {
       padding: 20px 20px;
-    }
-
-    .tippers-table {
-      max-height: 520px;
-      height: auto;
-      overflow-y: auto;
-    }
-
-    .chart-container {
-      position: relative;
-      height: 40vh;
-      width: 80vw;
     }
   }
 
