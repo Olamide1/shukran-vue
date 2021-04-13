@@ -44,12 +44,14 @@ module.exports = merge(baseWebpackConfig, {
     new PrerenderSPAPlugin({ // https://youtu.be/pwHdFPEX4NA?t=760
       // Required - The path to the webpack-outputted app to prerender.
       staticDir: path.join(__dirname, '/../dist'), // The path to the folder where index.html is.
-      // Required - list o' Routes to render.
+      // Required - list of Routes to render.
       routes: [ '/pricing', '/' ],
-      maxConcurrentRoutes: 2,
+      maxConcurrentRoutes: 10,
       renderer: new PuppeteerRenderer({
         // Wait to render until the element specified is detected with document.querySelector.
-        renderAfterElementExists: '#app'
+        // renderAfterElementExists: '#app',
+        headless: true,
+        renderAfterDocumentEvent: 'render-event'
       }),
       /* postProcess: (context) => { // TODO
       } */

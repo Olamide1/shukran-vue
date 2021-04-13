@@ -202,6 +202,7 @@
               <div class="uk-margin">
                 <label for="un" class="to-the-left"> Username </label>
                 <input
+                  disabled
                   name="un"
                   type="text"
                   class="uk-input"
