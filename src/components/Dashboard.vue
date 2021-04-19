@@ -1142,8 +1142,8 @@
 
     .chart-container {
       position: relative;
-      height: 70vh;
-      width: 37vw;
+      height: 50vh;
+      min-width: 37vw;
     }
   }
 
@@ -1163,7 +1163,7 @@
     .chart-container {
       position: relative;
       height: 40vh;
-      width: 80vw;
+      width: 40vw;
     }
   }
 
