@@ -578,13 +578,22 @@
             ]
           },
           options: {
+            maintainAspectRatio: false,
+            onResize: (cht, s) => { // size => {width: 292, height: 146}
+              console.log(cht, s);
+
+              /* if (s.height < 100) {
+                cht.width = 150 // s.width * 2;
+                cht.height = 150 // s.height * 2;
+              } */
+            },
             responsive: true,
             cutoutPercentage: 75,
             legend: {
               position: 'bottom',
               labels: {
                 usePointStyle: true,
-                fontSize: 18,
+                fontSize: 15,
               }
             },
             tooltips: {
@@ -861,6 +870,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#chart-container-2 {
+  position: relative;
+  margin: auto;
+  height: 40vh;
+  min-width: 100%;
+}
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
   #total-tips-chart { width: 300px !important; } /* your css rules for ipad portrait */
 }
