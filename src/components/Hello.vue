@@ -6,50 +6,35 @@
     </div>
     </nav>
     <div>
-      <div class="uk-card uk-card-default fit uk-margin-auto uk-box-shadow-large uk-padding login-card" v-if="loginbutton == true">
-    <div class="uk-card-header">
-        <div class="uk-flex-middle">
-            <div class="uk-width-expand">
-                <h3 class="uk-card-title uk-margin-remove-bottom uk-text-center">Login</h3>
-            </div>
-        </div>
-    </div>
-    <div class="uk-card-body">
-      <div class="uk-margin">
-        <input class="uk-input uk-border-rounded" name="username" v-on:keyup.enter="login" v-model="username" type="text" placeholder="Username">
-        <span class="uk-text-meta">
-          Your username, NOT email.
-        </span>
-      </div>
-      <div class="uk-margin">
-        <div class="uk-inline">
-         <input v-on:keyup.enter="login" name="password" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
-         <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
-        </div>
-      </div>
+      
+    
+    
+  
 
-      <div class="uk-margin">
-         <p style="color: #ff5976;">{{issue}}</p>
-        <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="login">{{loginbtn}}</button>
-      </div>
-    </div>
-    <div class="uk-card-footer uk-text-center" >
-        <a @click="loginbutton = false" class="uk-button-text">Sign Up</a> | 
-        <router-link to="/resetpassword">Reset Password</router-link>
-    </div>
-  </div>
 
-  <div v-else>
+
+ 
+ 
+
     <div class="uk-card uk-card-default uk-margin-bottom fit uk-margin-auto uk-width-1-2@m uk-box-shadow-large uk-padding signup-card">
-     <div class="uk-card-header">
+     
+     <!-- <div class="uk-card-header">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-expand" >
+              
                 <h3 class="uk-card-title uk-margin-remove-bottom uk-text-center">Sign up</h3>
             </div>
         </div>
-    </div>
+        
+    </div> -->
+    <ul class="uk-child-width-expand" uk-tab uk-switcher="connect: .login-signup;"><!-- maybe auto choose -->
+                  <li><a href="#">Sign up</a></li>
+                  <li class="uk-active"><a href="#">Login</a></li>
+              </ul>
 
-    <div class="uk-card-body">
+      <ul class="uk-switcher login-signup">
+      <li>
+         <div class="uk-card-body">
       <div class="uk-margin">
         <input v-on:keyup.enter="signup" class="uk-input uk-border-rounded uk-form" data-uk-tooltip title="" v-model="username" type="text" placeholder="Username">
         <span class="uk-text-meta">
@@ -86,12 +71,42 @@
       
     </div>
 
-    <div class="uk-card-footer uk-text-center">
-      <a @click="loginbutton = true" class="uk-button-text">Login</a>
+      </li>
+
+      <li>
+        <div class="uk-card-body">
+      <div class="uk-margin">
+        <input class="uk-input uk-border-rounded" name="username" v-on:keyup.enter="login" v-model="username" type="text" placeholder="Username">
+        <span class="uk-text-meta">
+          Your username, NOT email.
+        </span>
+      </div>
+      <div class="uk-margin">
+        <div class="uk-inline">
+         <input v-on:keyup.enter="login" name="password" class="uk-input uk-border-rounded uk-form-width-large" v-model="password" :type="loginPasswordFieldType" placeholder="Password">
+         <a class="uk-form-icon uk-form-icon-flip" href="#!" v-bind:uk-icon="loginPasswordIcon" @click="switchLoginVisibility"></a>
+        </div>
+      </div>
+
+      <div class="uk-margin">
+         <p style="color: #ff5976;">{{issue}}</p>
+        <button class="uk-button uk-border-rounded uk-button-default uk-width-1-1" @click="login">{{loginbtn}}</button>
+      </div>
     </div>
+    <div class="uk-card-footer uk-text-center" >
+        <router-link to="/resetpassword">Reset Password</router-link>
+    </div>
+      </li>
+    </ul>
+
+   
 
     </div>
-  </div>
+
+    
+      
+
+  
     </div>
   </div>
 </template>
