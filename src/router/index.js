@@ -5,6 +5,7 @@ import Dashboard from '@/components/Dashboard'
 import Profile from '@/components/Profile'
 import Home from '@/components/Home'
 import Support from '@/components/Support'
+import Support2 from '@/components/Support2'
 import ThankYou from '@/components/ThankYou'
 import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
@@ -142,6 +143,16 @@ const router = new Router({
       path: '/cr/:username',
       name: 'Support',
       component: Support,
+      meta: {
+        reload: true,
+        title: vm => `Shukran ${vm.$route.params.username}`,
+        icon: vm => `http://localhost:3000/api/smp/${vm.$route.params.username}`
+      }
+    },
+    {
+      path: '/cr2/:username',
+      name: 'Support2',
+      component: Support2,
       meta: {
         reload: true,
         title: vm => `Shukran ${vm.$route.params.username}`,

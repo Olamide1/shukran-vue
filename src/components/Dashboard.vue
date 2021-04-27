@@ -128,9 +128,11 @@
                           {{ m.message.length === 0 ? "" : m.message.trim().endsWith('.') ? m.message + ' &#8212;' : m.message.concat('.') + ' &#8212;' }}
 
                           <time :datetime="m.transaction_date">
-                            {{new Intl.DateTimeFormat("en" , {
-                                dateStyle: "long"
-                              }).format(new Date(m.transaction_date))}}
+                            {{
+                              new Intl.DateTimeFormat('en-US', 
+                              { month: 'long', day: 'numeric', year: 'numeric' })
+                              .format(new Date(m.transaction_date))
+                            }}
                           </time>
                         </p>
                       </div>
@@ -579,8 +581,8 @@
           },
           options: {
             maintainAspectRatio: false,
-            onResize: (cht, s) => { // size => {width: 292, height: 146}
-              console.log(cht, s);
+            onResize: (cht, size) => { // size => {width: 292, height: 146}
+              // console.log(cht, s);
 
               /* if (s.height < 100) {
                 cht.width = 150 // s.width * 2;

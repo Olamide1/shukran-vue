@@ -41,21 +41,22 @@ module.exports = merge(baseWebpackConfig, {
       serviceWorkerLoader: `<script>${fs.readFileSync(path.join(__dirname,
         './service-worker-dev.js'), 'utf-8')}</script>`
     }),
-    new PrerenderSPAPlugin({ // https://youtu.be/pwHdFPEX4NA?t=760
+    /* new PrerenderSPAPlugin({ // https://youtu.be/pwHdFPEX4NA?t=760
       // Required - The path to the webpack-outputted app to prerender.
       staticDir: path.join(__dirname, '/../dist'), // The path to the folder where index.html is.
       // Required - list of Routes to render.
       routes: [ '/pricing', '/' ],
-      maxConcurrentRoutes: 10,
+      maxConcurrentRoutes: 5,
       renderer: new PuppeteerRenderer({
         // Wait to render until the element specified is detected with document.querySelector.
         // renderAfterElementExists: '#app',
+        timeout: 60000, // ??
+        renderAfterTime: 10000, // ??
         headless: true,
         renderAfterDocumentEvent: 'render-event'
       }),
-      /* postProcess: (context) => { // TODO
-      } */
-    }),
+      // postProcess: (context) => { // TODO }
+    }), */
     new FriendlyErrorsPlugin(), // seem this must be last
     
   ]

@@ -182,12 +182,66 @@
         </div>
       </div>
       <!-- Sidebar end -->
+
+      <!-- Cropper -->
+
+      <div id="cropper-modal" class="cropper-modal uk-flex-top" uk-modal>
+          <div id="inner-cropper" class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+              <button class="uk-modal-close-outside" type="button" uk-close></button>
+
+              <div>
+                <cropper
+                  ref="cropper"
+                  :src="img"
+                  :stencil-props="{
+                    handlers: {},
+                    movable: false,
+                    scalable: false,
+                    aspectRatio: 1,
+                  }"
+                  :resize-image="{
+                    adjustStencil: false
+                  }"
+                  image-restriction="stencil"
+                />
+
+                <div class="uk-margin-top">
+                  <button @click="crop" class="uk-button">
+                    Done
+                  </button>
+
+                  <button @click="rotate(+10)" class="uk-button crop-icon">
+                    <span uk-icon="icon: future"></span>
+                  </button>
+
+                  <button @click="rotate(-10)" class="uk-button crop-icon">
+                    <span uk-icon="icon: history"></span>
+                  </button>
+
+                  <button @click="zoom(2)" class="uk-button crop-icon">
+                    <span uk-icon="icon: expand"></span>
+                  </button>
+
+                  <button @click="zoom(-0.5)" class="uk-button crop-icon">
+                    <span uk-icon="icon: shrink"></span>
+                  </button>
+                </div>
+              </div>
+
+          </div>
+          
+      </div>
+
+      <!-- Cropper end -->
   </div>
 </template>
 
 <script>
   import axios from "axios";
   import fx from "money";
+  import { Cropper } from 'vue-advanced-cropper'; // using Static Cropper
+  import 'vue-advanced-cropper/dist/style.css';
   fx.base = "USD";
   fx.rates = { // LiG
     "AED": 3.6732,
@@ -376,6 +430,8 @@ export default {
       amount: 0,
       tipTotal: 0,
       tipWithdrawn: 0,
+      img: '',
+      finalImage: ''
     }
   },
   methods: {
@@ -430,6 +486,11 @@ export default {
 
         this.tempCurr = this.currency;
 
+
+
+        ////// WORKS ???????
+
+
         if (this.chart1) { // update chart1
           this.chart1.data.datasets[0].data = this.allTips
           this.chart1.update();
@@ -449,9 +510,26 @@ export default {
         this.$forceUpdate();
     },
     onFileChanged(event) {
-        let formData = new FormData();
-        formData.append("id", this.profiles._id);
-        formData.append("pic", event.target.files[0]);
+        
+        // make sure we don't have memory leaks
+        this.img = window.URL.createObjectURL(event.target.files[0])
+
+        UIkit.modal('#cropper-modal').show();
+    },
+    crop() {
+
+        const {
+          coordinates, imageTransforms, visibleArea, canvas 
+        } = this.$refs.cropper.getResult();
+        // You able to do different manipulations at a canvas
+        // but there we just get a cropped image, that can be used 
+        // as src for <img/> to preview result
+        this.finalImage = canvas.toDataURL();
+
+        let imageBuffer = new Buffer(this.finalImage, 'base64'); //console = <Buffer 75 ab 5a 8a ...
+        
+        // console.log('imageBuffer base64', imageBuffer);
+        // console.log('canvas dataurl', this.finalImage);
 
         let bar1 = document.getElementById('snpb');
         let bar2 = document.getElementById('js-progressbar');
@@ -460,24 +538,53 @@ export default {
         let loader2 = document.getElementById('chill');
         bar1.style.display = 'block';
         bar2.style.display = 'flex';
-        axios.post(process.env.BASE_URL + "/api/update/", formData, {
-            onUploadProgress: progressEvent => {
-              // console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
-              bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
-              if (progressEvent.loaded / progressEvent.total == 1) {
-                bar1.style.display = bar2.style.display = 'none';
-                loader1.style.display = loader2.style.display = 'block';
-              }
-            }
-          })
-          .then(res => {
-            loader1.style.display = loader2.style.display = 'none';
-            this.profiles.picture_id = res.data;
-            sessionStorage.setItem('profile', JSON.stringify(this.profiles)) // update session too
-          })
-          .catch(error => {
-            // console.log("error occured", error);
-          });
+
+        // re-assign to be used in nested callback
+        let profile_id = this.profiles._id;
+        let _this = this;
+        canvas.toBlob(
+            function(blob){
+
+                let formData = new FormData();
+                // console.log('++==', _this);
+                formData.append("id", profile_id);
+                formData.append("pic", blob);
+                //continue do something...
+
+                // close modal
+                UIkit.modal('#cropper-modal').hide()
+
+                axios.post(process.env.BASE_URL + "/api/update/", formData, {
+                    onUploadProgress: progressEvent => {
+                      // console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
+                      bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
+                      if (progressEvent.loaded / progressEvent.total == 1) {
+                        bar1.style.display = bar2.style.display = 'none';
+                        loader1.style.display = loader2.style.display = 'block';
+                      }
+                    }
+                })
+                .then(res => {
+                  loader1.style.display = loader2.style.display = 'none';
+                  _this.profiles.picture_id = res.data;
+                  sessionStorage.setItem('profile', JSON.stringify(_this.profiles)) // update session too
+                })
+                .catch(error => {
+                  console.error("error occured", error);
+                });
+            },
+            'image/png',
+            // 0.8
+        );
+    },
+    zoom(degree) {
+			this.$refs.cropper.zoom(degree);
+		},
+    unzoom(degree) {
+			this.$refs.cropper.shrink(degree);
+		},
+    rotate(angle){
+      this.$refs.cropper.rotate(angle);
     },
     copyShukranLink(evt) {
         let copyText = document.getElementById("shukran-link"); // 'https://useshukran.com/cr/' + this.username;
@@ -511,9 +618,18 @@ export default {
 </script>
 
 <style scoped>
+
+/* #inner-cropper {
+  max-width: 40%;
+  max-height: auto;
+} */
+
+.crop-icon {
+  padding: 0 15px;
+}
 .uk-button {
   background-color: #c63968;
-    color: #fceedd;
+  color: #fceedd;
 }
   .uk-navbar-toggle {
     color: #ffffff;
