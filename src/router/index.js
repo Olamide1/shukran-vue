@@ -4,8 +4,8 @@ import Hello from '@/components/Hello'
 import Dashboard from '@/components/Dashboard'
 import Profile from '@/components/Profile'
 import Home from '@/components/Home'
+import OldSupport from '@/components/OldSupport'
 import Support from '@/components/Support'
-import Support2 from '@/components/Support2'
 import ThankYou from '@/components/ThankYou'
 import Admin from '@/components/Admin'
 import Reset from '@/components/Reset'
@@ -140,9 +140,9 @@ const router = new Router({
       }
     },
     {
-      path: '/cr/:username',
-      name: 'Support',
-      component: Support,
+      path: '/old-cr/:username',
+      name: 'OldSupport',
+      component: OldSupport,
       meta: {
         reload: true,
         title: vm => `Shukran ${vm.$route.params.username}`,
@@ -150,9 +150,9 @@ const router = new Router({
       }
     },
     {
-      path: '/cr2/:username',
-      name: 'Support2',
-      component: Support2,
+      path: '/cr/:username',
+      name: 'Support',
+      component: Support,
       meta: {
         reload: true,
         title: vm => `Shukran ${vm.$route.params.username}`,

@@ -1,105 +1,283 @@
 <template>
   <div class="support-div">
+    <nav
+      class="uk-navbar uk-navbar-container uk-margin"
+      uk-navbar="boundary-align: true; align: center;"
+    >
+      <div class="uk-navbar-left">
+        <router-link class="uk-navbar-item uk-logo" to="/">Shukran</router-link>
+      </div>
 
-    <div class="pillar-1">
-      
-    </div>
-   
-    <div class="one quote">
-      <span class="the-quote" uk-icon="icon: quote-right; ratio: 6"></span>
-    </div>
-    <div class="two picture">
-      <div class="inner-background">
-        <div
-        class="uk-background-cover uk-background-muted uk-height-1-1" 
-        
-          v-lazy:background-image="{
-            src: `https://drive.google.com/uc?export=view&id=${this.creatorInfo.picture_id}`,
-            loading: '/static/img/loading.gif',
-            error: '/static/img/blank-profile-picture.png',
-          }"
-        >
-                    <!-- optional text or element -->
-                    <!-- <p class="uk-h4">Cover</p> -->
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li>
+            <router-link to="/accounts" class="lead">Creators</router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="uk-section-default">
+      <div
+        class="uk-background-blend-multiply uk-background-primary uk-section uk-section-small uk-background-cover"
+        v-lazy:background-image="{
+          src: `https://drive.google.com/uc?export=view&id=${this.creatorInfo.picture_id}`,
+          // loading: '/static/img/loading.gif',
+          error: '/static/img/blank-profile-picture.png',
+        }"
+      >
+        <div class="uk-container">
+          <div class="uk-card uk-card-body">
+            <div class="header-combo">
+              <mark>
+                <h4 class="uk-heading-small uk-margin-remove-bottom">
+                  {{ this.creatorInfo.username }}
+                </h4>
+              </mark>
+            </div>
+            <p>
+              <mark>
+                <small>&mdash; {{ this.creatorInfo.craft_type }}</small>
+              </mark>
+            </p>
+
+            <p>
+              <mark>
+                {{ this.creatorInfo.summary }}
+              </mark>
+            </p>
+            <p>
+              <mark>
+                <a :href="this.creatorInfo.primary_link" target="blank"
+                  >Find my content here.</a
+                >
+              </mark>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="three creator-summary">
-      <p>
-        {{ this.creatorInfo.summary }}
-      </p>
-      <p>
-        &#8212;
 
-        {{ this.creatorInfo.craft_type }}
-      </p>
-      <span class="uk-label uk-label-danger">
-        <a class="" :href="this.creatorInfo.primary_link" target="blank">
-          <span uk-icon="icon: link"></span> 
-          <span class="uk-text-middle">
-           Checkout my content.
-          </span> 
-        </a>
-      </span>
-    </div>
-    <div class="four cta-1">
-            <div class="uk-padding-small uk-padding-remove-top">
-              <form class="uk-grid-small" uk-grid>
-                  <div class="uk-width-1-1">
-                      <input
-                        type="text"
-                        class="uk-input"
-                        autocomplete="nickname"
-                        placeholder="Nickname"
-                        v-model="nickname"
-                      />
-                  </div>
-                  <div class="uk-width-1-1">
-                      <input
-                        type="email"
-                        class="uk-input"
-                        autocomplete="email"
-                        placeholder="Email"
-                        v-model="supporter_email"
-                      />
-                  </div>
-                  <div class="uk-width-1-1">
-                      
-                      <div style="display: flex">
-                        <div class="uk-form-controls" style="margin-right: 1px">
-                          <select
-                            @change="showTipNudge()"
-                            v-model="currency"
-                            style="border-radius: 3px"
-                            class="uk-select uk-form-width-xsmall"
-                            id="form-stacked-select"
-                          >
-                            <option class="" value="NGN">₦</option>
-                            <option value="KES">Ksh</option>
-                            <option value="USD">$</option>
-                          </select>
+    <div id="content-parent">
+      <div
+        v-if="this.creatorInfo.content && this.creatorInfo.content.length > 0"
+        class="uk-padding-large-top uk-section uk-section-default uk-section-small uk-padding-remove-bottom"
+      >
+        <div class="uk-container">
+          <div class="header-combo">
+            <h2>Contents</h2>
+            <small>&middot; {{ this.creatorInfo.content.length }}</small>
+          </div>
+
+          <div class="uk-flex uk-flex-row" style="overflow-x: scroll">
+            <div
+              v-for="content in this.creatorInfo.content"
+              :key="content.created_at"
+              class="uk-card uk-card-default description-body"
+            >
+              <div class="uk-card-badge">
+                {{
+                  new Date(content.created_at).toLocaleDateString("en-GB", {
+                    year: "2-digit",
+                    month: "short",
+                  })
+                }}
+              </div>
+              <div class="uk-card-body sk">
+                <h3 class="uk-card-title">
+                  <span class="uk-label">{{ contentType(content.file_type) }}</span>
+                </h3>
+                <p>{{ content.filename }}</p>
+                <p class="peek-it">{{ content.description }}</p>
+                <p uk-margin="" class="get-it">
+                  <a
+                    class="uk-button uk-button-default uk-first-column uk-icon-link"
+                    uk-icon="link"
+                    :href="
+                      content.web_content_link
+                        ? content.web_content_link
+                        : 'https://drive.google.com/uc?id=' +
+                          content.file_id +
+                          '&export=download'
+                    "
+                    download
+                    >Download</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <!-- <div v-for="n in 4" :key="n" class="uk-card uk-card-default uk-card-hover uk-margin-medium-left">
+                        <div class="uk-card-badge">Hot</div>
+                        <div class="uk-card-body sk">
+                           <h3 class="uk-card-title">
+                              <span class="uk-label">PDF</span>
+                           </h3>
+                           <p class="peek-it">Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                           sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.sit amet, consectetur adipiscing elit, 
+                           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                           labore et dolore magna aliqua.sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.sit amet, 
+                           consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                           <p uk-margin="" class="get-it">
+                              <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                           </p>
                         </div>
-                        <input
-                          type="number"
-                          class="uk-input"
-                          placeholder="Amount"
-                          v-model="amount"
-                          @change="showTipNudge"
-                        />
-                      </div>
-                      <p style="color: #c63968">{{ tipNudge }}</p>
-                  </div>
-              </form>
+                  </div> -->
+          </div>
 
-              <div>
-              
-            </div>
-            </div>
+          <!-- // Some form of seperation \\ -->
+
+          <!-- <div class="uk-child-width-1-4@m uk-grid-match uk-grid uk-grid-row-medium" uk-grid="">
+                    <div class="">
+
+                        <div class="uk-card uk-card-default uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">PDF</span>
+                                 </h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uk-grid-margin ">
+
+                        <div class="uk-card uk-card-primary uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">PDF</span> 
+                                </h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uk-grid-margin ">
+
+                        <div class="uk-card uk-card-secondary uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">IMAGE</span>
+                                </h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="uk-grid-margin ">
+
+                        <div class="uk-card uk-card-hover">
+                            <div class="uk-card-badge">Hot</div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">
+                                   <span class="uk-label">VIDEO</span>
+                                </h3>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p uk-margin="">
+                                    <a class="uk-button uk-button-default uk-first-column uk-icon-link" uk-icon="link" href="#">Download</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> -->
+        </div>
+      </div>
     </div>
-    <div class="five cta-2">
 
-      <div class="uk-padding-small uk-padding-remove-top">
-        <div class="uk-margin">
+    <div class="uk-container uk-margin-top">
+      <div class="uk-container-expand" align="center">
+        <div
+          class="uk-card tip-card uk-card-default uk-width-1-2@m"
+          uk-scrollspy="cls: uk-animation-slide-bottom; repeat: false"
+          align="center"
+        >
+          <div class="uk-card-body">
+            <h3 class="uk-card-title">
+              Let <span class="capitalize">{{ username }}</span> know you
+            </h3>
+            <p>
+              You won't have to fill your nickname & email address again for a faster
+              experience.
+            </p>
+            <div>
+              <div class="uk-margin">
+                <input
+                  type="text"
+                  class="uk-input"
+                  autocomplete="nickname"
+                  placeholder="Nickname"
+                  v-model="nickname"
+                />
+                <input
+                  type="email"
+                  class="uk-input"
+                  autocomplete="email"
+                  placeholder="Email"
+                  v-model="supporter_email"
+                />
+                <!-- <input type="text" class="uk-input" autocomplete="tel" placeholder="Phone" v-model="phone"> -->
+              </div>
+            </div>
+            <div>
+              <div style="display: flex">
+                <div class="uk-form-controls" style="margin-right: 1px">
+                  <select
+                    @change="showTipNudge()"
+                    v-model="currency"
+                    style="border-radius: 3px"
+                    class="uk-select uk-form-width-xsmall"
+                    id="form-stacked-select"
+                  >
+                    <option value="NGN">₦</option>
+                    <option value="KES">Ksh</option>
+                    <option value="USD">$</option>
+                  </select>
+                </div>
+                <input
+                  type="number"
+                  class="uk-input"
+                  placeholder="Amount"
+                  v-model="amount"
+                  @change="showTipNudge"
+                />
+              </div>
+              <p style="color: #c63968">{{ tipNudge }}</p>
+            </div>
+            <div
+              v-show="parseFloat(amount) >= tipGuard"
+              class="uk-margin uk-flex subscription-nudge"
+            >
+              <label
+                ><input v-model="isSubscribing" class="uk-checkbox" type="checkbox" />
+                Wanna tip {{ username }} <b>{{ currencySymbol() }}</b
+                >{{ amount }}
+                <!-- this time -->
+                every month
+                <!-- for the next 1 year -->?
+                <a
+                  class="cancel-sub"
+                  href="mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription for ... creator."
+                  data-uk-tooltip
+                  title="A message with instructions would be sent to your email"
+                  >Email us to cancel anytime</a
+                >
+                <!-- Starts from next month. --></label
+              >
+              <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
+            </div>
+            <div class="uk-margin">
               <textarea
                 :placeholder="'Drop an encouraging message for ' + username"
                 class="uk-textarea"
@@ -109,30 +287,6 @@
             <div class="uk-margin">
               <p style="color: #c63968">{{ issue }}</p>
             </div>
-
-            <div
-              v-show="parseFloat(amount) >= tipGuard"
-              class="uk-margin uk-flex subscription-nudge"
-            >
-            <!-- testing color change makes subscritpion request call everytime!! ...undo -->
-              <label
-                ><input v-model="isSubscribing" class="uk-checkbox" type="checkbox" />
-                Wanna tip {{ username }} <b>{{ currencySymbol() }}</b
-                >{{ amount }}
-                <!-- this time -->
-                every month<!-- for the next 1 year -->?
-                <a
-                  class="cancel-sub uk-text-emphasis"
-                  :href="'mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription to ' + username"
-                  data-uk-tooltip
-                  title="A message with instructions would be sent to your email"
-                  >Email us to cancel anytime</a
-                >
-                <!-- Starts from next month. --></label
-              >
-              <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
-            </div>
-
             <div class="uk-margin">
               <button
                 :disabled="parseFloat(amount) < tipGuard || amount == ''"
@@ -143,21 +297,11 @@
               </button>
               <!-- <button class="uk-button uk-button-default" type="button" @click="save()">tip recurringly?</button> -->
             </div>
+          </div>
+          <div></div>
+        </div>
       </div>
-      
     </div>
-    <div class="six url">
-      <div class="uk-text-left uk-padding-small">
-        <span uk-icon="icon: link; ratio: 1.5"></span>
-        <span class="uk-text-truncate uk-text-uppercase uk-text-middle">{{"useshukran.com/cr/" + this.username}}</span>
-      </div>
-      
-    </div>
-
-    <div class="pillar-2">
-      
-    </div>
-
   </div>
 </template>
 <script>
@@ -344,7 +488,7 @@ fx.rates = {
   ZWL: 322,
 };
 export default {
-  name: "Support2",
+  name: "OldSupport",
   data() {
     return {
       username: this.$route.params.username,
@@ -798,156 +942,108 @@ export default {
 };
 </script>
 <style scoped>
-.uk-input, .uk-textarea {
-  border: 1px solid #504343;
-
-  border-radius: 3px;
+.sk p.peek-it {
+  height: 180px;
+  overflow-y: scroll;
 }
 
-.uk-button {
-  background-color: #ff000e;
-  color: #fceedd;
-  border-radius: 3px;
+@media screen and (max-device-width: 415px) {
+  .sk p.peek-it {
+    height: 120px;
+  }
 }
 
-.support-div {
-  display: grid;
-  grid-template-rows: 140px 340px minmax(160px, auto) minmax(50px, auto);
-  grid-template-columns: auto 300px 480px auto;
-
+.description-body {
+  height: auto;
 }
 
-.pillar-1 {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 5;
-
-  background-color: black;
+.get-it {
+  bottom: 30px;
 }
 
-.one.quote {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-
-  padding-top: 30px;
-  padding-left: 20px;
-  
+@media screen and (min-width: 1200px) {
+  .get-it {
+    bottom: 40px;
+  }
 }
 
-.two.picture {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 3;
-
-  padding: 45px;
+.sk {
+  width: 200px;
 }
 
-.two.picture > .inner-background {
-  transform: rotate(5deg);
-  background-color: #ff000e;
-
-  height: -webkit-fill-available;
+.header-combo {
+  display: flex;
+  align-items: baseline;
 }
 
-.two.picture > .inner-background > div {
-  transform: rotate(-5deg);
-}
-
-.three.creator-summary {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-
-  padding-left: calc(20px + 18px);
-}
-
-.three.creator-summary > p:nth-child(1) {
-  
-  /** Major Properties | from https://dev.to/coderchamp/truncate-text-with-css-the-possible-ways-1p4o **/
-  overflow: hidden;
-  max-height: calc(1.5rem * 8); /** 1.5rem is UIKit's font-size, we want 8 line */
-  -webkit-line-clamp: 8; /** we want 8 line */
-  -webkit-box-orient: vertical;
-  display: block;
-  display: -webkit-box;
-  text-overflow: ellipsis;
-}
-
-.three.creator-summary > p:nth-child(2) {
-  
-  /** Major Properties | from https://dev.to/coderchamp/truncate-text-with-css-the-possible-ways-1p4o **/
-  overflow: hidden;
-  max-height: calc(1.5rem * 2); /** 1.5rem is UIKit's font-size, we want 10 line */
-  -webkit-line-clamp: 2; /** we want 10 line */
-  -webkit-box-orient: vertical;
-  display: block;
-  display: -webkit-box;
-  text-overflow: ellipsis;
-}
-
-.three.creator-summary a {
-  color: #fff;
-}
-
-.four.cta-1 {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
-}
-
-.five.cta-2 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 4;
-}
-
-.six.url {
-  grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 4;
-  grid-row-end: 5;
-
-  background-color: #ff6870;
-  color: #000;
-  font-size: 1.5rem;
-  line-height: 1.5; /**.uk-text-lead */
-}
-
-.pillar-2 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 1;
-  grid-row-end: 5;
-
-  background-color: black;
+.subscription-nudge {
+  text-align: left;
 }
 
 .cancel-sub {
   text-decoration: underline;
 }
 
+.support-div {
+  background-image: linear-gradient(135deg, #d44d62 0%, #ff746c 100%);
+}
+
+.tip-button[disabled="disabled"] {
+  cursor: not-allowed;
+}
+
+.show-desktop-only {
+  height: -webkit-fill-available;
+  height: -moz-available;
+}
+
+.uk-navbar,
+.uk-navbar-item,
+.lead {
+  background: transparent;
+  color: #ffffff;
+}
+
+.tip-card {
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uk-button {
+  background-color: #c63968;
+  color: #fceedd;
+  border-radius: 3px;
+}
+
+.uk-input {
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+h3 {
+  color: #ff6870;
+  font-size: 18px;
+}
+
+.show-mobile-only {
+  display: none;
+}
+
 @media screen and (max-device-width: 415px) {
+  .show-mobile-only {
+    display: block;
+  }
 
+  .show-desktop-only {
+    display: none;
+  }
 }
 
-
-@media screen and (min-width: 1200px) {
-
-}
-
-@media screen and (max-device-width: 415px) {
-
-}
-
-
-.the-quote {
-  transform: rotate(180deg);
+.almost-square {
+  border-radius: 10%;
 }
 </style>
