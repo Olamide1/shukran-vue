@@ -459,7 +459,7 @@ export default {
   name: "Profile",
   data() {
     return {
-      username: sessionStorage.getItem("username"),
+      username: JSON.parse(sessionStorage.getItem("profile")).username,
       id: sessionStorage.getItem("id"),
       profiles: [JSON.parse(sessionStorage.getItem("profile"))],
       savebtnOne: "Save",
@@ -468,7 +468,7 @@ export default {
       savebtnFour: "Save",
       url:
         "https://useshukran.com/cr/" +
-        encodeURIComponent(sessionStorage.getItem("username").trim()),
+        encodeURIComponent(JSON.parse(sessionStorage.getItem("profile")).username.trim()),
       comment: "",
       feed: "Submit",
       profile_picture: "",

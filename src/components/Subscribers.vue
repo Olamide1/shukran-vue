@@ -555,7 +555,7 @@
     name: "Subscribers",
     data() {
       return {
-        username: sessionStorage.getItem("username"),
+        username: JSON.parse(sessionStorage.getItem("profile")).username,
         transactions: [],
         allTips: [], // optimise this later
         tipsDates: [],
@@ -563,7 +563,7 @@
           "shukran-country-currency"), // optimse later, use country's currency
         tempCurr: "",
         payoutGuard: 1000, // 1000 naira
-        url: "https://useshukran.com/cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
+        url: "https://useshukran.com/cr/" + encodeURIComponent(JSON.parse(sessionStorage.getItem("profile")).username.trim()),
         copied: "",
         files: [],
         amount: 0,
