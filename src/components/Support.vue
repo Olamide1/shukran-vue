@@ -924,7 +924,10 @@ export default {
 };
 </script>
 <style scoped>
-
+.uk-button.tip-button.uk-button-default:disabled {
+  color: #000;
+  background-color: #8e4f58;
+}
 @media (max-width:960px) {
   .support-div {
     display: none;
