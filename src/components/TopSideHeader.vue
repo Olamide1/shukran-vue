@@ -128,8 +128,8 @@
                 uk-overflow-auto>
                 <button class="uk-modal-close-default" type="button" uk-close></button>
                 <h2 class="uk-modal-title">🎉</h2>
-                <p class="show uk-text-lead">Hey {{ username }}, share the link below to get tipped.</p>
-                <router-link class="uk-text-break " :to="'/cr/' + username">{{ url }}</router-link>
+                <p class="show uk-text-lead">Hey {{ profiles.username }}, share the link below to get tipped.</p>
+                <router-link class="uk-text-break " :to="'/cr/' + profiles.username">{{ url }}</router-link>
                 <p class="uk-text-meta">
                   <span class="uk-text-bolder">TL;DR</span> Share link with your audience <textarea name=""
                     class="uk-textarea uk-form-blank" id="shukran-link" v-model="url"></textarea>
@@ -146,7 +146,7 @@
                 <p class="uk-margin modal-buttons">
                   <button @click="copyShukranLink" class="uk-button uk-button-default uk-margin-small-right">Copy
                     link</button>
-                  <a :href="'https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=If+you+love+my+content,+you+can+support+me+here+https://useshukran.com/cr/'+this.username+'+so+I+can+continue+to+give+more+and+better'"
+                  <a :href="'https://twitter.com/intent/tweet?url=http%3A%2F%2Fuseshukran.com%2F&text=If+you+love+my+content,+you+can+support+me+here+https://useshukran.com/cr/'+this.profiles.username+'+so+I+can+continue+to+give+more+and+better'"
                     class="uk-button tweet-it" target="blank">
                     Tell others
                     <span class="" uk-icon="twitter"></span>
@@ -165,7 +165,7 @@
             </li>
             <div id="my-id" uk-modal>
               <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title">Hi {{username}}</h2>
+                <h2 class="uk-modal-title">Hi {{profiles.username}}</h2>
                 <p>Show some love 😊or raise an issue 🙃</p>
                 <div class="uk-margin">
                   <textarea class="uk-textarea" placeholder="Type your message" v-model="comment"></textarea>
@@ -423,8 +423,8 @@ export default {
       currency: !sessionStorage.getItem("shukran-country-currency") ? "NGN" : sessionStorage.getItem(
           "shukran-country-currency"), // optimse later, use country's currency
       profiles: JSON.parse(sessionStorage.getItem("profile")),
-      username: sessionStorage.getItem("username"), // very redundant!!!
-      url: "https://useshukran.com/cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
+      // username: JSON.parse(sessionStorage.getItem('profile')).username, // very redundant!!!
+      url: "https://useshukran.com/cr/" + encodeURIComponent(JSON.parse(sessionStorage.getItem('profile')).username.trim()),
       comment: "",
       feed: "Send", // why though ? why feed...?
       amount: 0,
@@ -596,7 +596,7 @@ export default {
         }, 5000)
     },
     submitFeedback() {
-        let username = this.username;
+        let username = this.profiles.username;
         let comment = this.comment;
         this.feed = "Sending...";
         axios

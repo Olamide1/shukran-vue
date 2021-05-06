@@ -202,7 +202,6 @@
               <div class="uk-margin">
                 <label for="un" class="to-the-left"> Username </label>
                 <input
-                  disabled
                   name="un"
                   type="text"
                   class="uk-input"
@@ -568,9 +567,43 @@ export default {
           }, 3000);
         });
     },
+    updateRef2() {
+      let id = this.id;
+      let username = this.profiles[0].username;
+      /* if (redirect.slice(0, 7) !== "https://"){
+          redirect = "https://" + this.profiles[0].redirect;
+        } */
+      this.savebtnFour = "saving...";
+      axios
+        .post(process.env.BASE_URL + "/api/update/", {
+          username: username.trim(),
+          id: id,
+        })
+        .then((res) => {
+          // console.log("updated", res);
+          sessionStorage.setItem("profile", JSON.stringify(res.data));
+          this.savebtnFour = "Saved!";
+          setTimeout(() => {
+            this.savebtnFour = "Save";
+          }, 5000);
+        }, (err) => {
+          console.error(err);
+          this.savebtnFour = "Please try again!";
+          setTimeout(() => {
+            this.savebtnFour = "Save";
+          }, 5000);
+        })
+        .catch((err) => {
+          console.error(err);
+          this.savebtnFour = "Please try again!";
+          setTimeout(() => {
+            this.savebtnFour = "Save";
+          }, 5000);
+        });
+    },
     updateRef() {
-      var id = this.id;
-      var redirect = this.profiles[0].redirect;
+      let id = this.id;
+      let redirect = this.profiles[0].redirect;
       /* if (redirect.slice(0, 7) !== "https://"){
           redirect = "https://" + this.profiles[0].redirect;
         } */
@@ -694,7 +727,11 @@ export default {
       var fullname = this.profiles[0].fullname;
       var email = this.profiles[0].email;
       var username = this.profiles[0].username.toLowerCase();
-      var phone = this.profiles[0].phone;
+      // should be dynamic ...for when KE, NG, etc
+      if (this.country_code == 'NG') {
+        let phone = this.profiles[0].phone;
+      }
+      
       this.savebtnOne = "saving...";
       axios
         .post(process.env.BASE_URL + "/api/update/", {
@@ -702,7 +739,7 @@ export default {
           fullname: fullname.trim(),
           email: email.trim(),
           username: username.trim(),
-          phone: phone.trim(),
+          ...(this.country_code == 'NG' && {phone: phone.trim()}), // if NIGERIANs
         })
         .then((res) => {
           // console.log("updated");
@@ -711,9 +748,15 @@ export default {
           setTimeout(() => {
             this.savebtnOne = "Save";
           }, 5000);
+        }, (err) => {
+          console.error();("personalInfo error occured", error);
+          this.savebtnOne = "Try again!";
+          setTimeout(() => {
+            this.savebtnOne = "Save";
+          }, 5000);
         })
         .catch((error) => {
-          // console.log("error occured", error);
+          console.error();("personalInfo error occured", error);
           this.savebtnOne = "Try again!";
           setTimeout(() => {
             this.savebtnOne = "Save";

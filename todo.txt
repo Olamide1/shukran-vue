@@ -209,3 +209,5 @@ When creators fill out their profile, design it in such a way, that they'd love 
 the image preview should be the new creator's page . . .
 
 change time log format on heroku
+
+If you have this number of followers, you should set a goal to have a certain number of hits/visits to your link. Where people actually pay!.
