@@ -1,4 +1,130 @@
 <template>
+  <div>
+    <div class="support-div-mobile">
+    <div class="uk-card uk-card-default uk-width-1-2@m">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-auto">
+                    <img class="uk-border-circle" width="40" height="40" :src="`https://drive.google.com/uc?export=view&id=${this.creatorInfo.picture_id}`">
+                </div>
+                <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">{{username}}</h3>
+                    <p class="uk-text-meta uk-margin-remove-top">{{ this.creatorInfo.craft_type }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="uk-card-body">
+            <p>{{ this.creatorInfo.summary }}</p>
+
+            <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+                <!-- <div class="uk-card-badge uk-label">Badge</div> -->
+                <h3 class="uk-card-title">Support {{username}}</h3>
+                
+                  
+                  <form class="uk-grid-small" uk-grid>
+                  <div class="uk-width-1-1">
+                      <input
+                        type="text"
+                        class="uk-input"
+                        autocomplete="nickname"
+                        placeholder="Nickname"
+                        v-model="nickname"
+                      />
+                  </div>
+                  <div class="uk-width-1-1">
+                      <input
+                        type="email"
+                        class="uk-input"
+                        autocomplete="email"
+                        placeholder="Email"
+                        v-model="supporter_email"
+                      />
+                  </div>
+                  <div class="uk-width-1-1">
+                      
+                      <div style="display: flex">
+                        <div class="uk-form-controls" style="margin-right: 1px">
+                          <select
+                            @change="showTipNudge()"
+                            v-model="currency"
+                            style="border-radius: 3px"
+                            class="uk-select uk-form-width-xsmall"
+                          >
+                            <option class="" value="NGN">₦</option>
+                            <option value="KES">Ksh</option>
+                            <option value="USD">$</option>
+                          </select>
+                        </div>
+                        <input
+                          type="number"
+                          class="uk-input"
+                          placeholder="Amount"
+                          v-model="amount"
+                          @change="showTipNudge"
+                        />
+                      </div>
+                      <p style="color: #c63968">{{ tipNudge }}</p>
+                  </div>
+                  </form>
+
+                  <div class="uk-padding-remove-top">
+        <div class="uk-margin">
+              <textarea
+                :placeholder="'Drop an encouraging message for ' + username"
+                class="uk-textarea"
+                v-model="message"
+              ></textarea>
+            </div>
+            <div class="uk-margin">
+              <p style="color: #c63968">{{ issue }}</p>
+            </div>
+
+            <div
+              v-show="parseFloat(amount) >= tipGuard"
+              class="uk-margin uk-flex subscription-nudge"
+            >
+            <!-- testing color change makes subscritpion request call everytime!! ...undo -->
+              <label
+                ><input v-model="isSubscribing" class="uk-checkbox" type="checkbox" />
+                Wanna tip {{ username }} <b>{{ currencySymbol() }}</b
+                >{{ amount }}
+                <!-- this time -->
+                every month<!-- for the next 1 year -->?
+                <a
+                  class="cancel-sub uk-text-emphasis"
+                  :href="'mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription to ' + username"
+                  data-uk-tooltip
+                  title="A message with instructions would be sent to your email"
+                  >Email us to cancel anytime</a
+                >
+                <!-- Starts from next month. --></label
+              >
+              <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
+            </div>
+
+            <div class="uk-margin">
+              <button
+                :disabled="parseFloat(amount) < tipGuard || amount == ''"
+                class="uk-button tip-button uk-button-default"
+                @click="save()"
+              >
+                {{ tipbtn }}
+              </button>
+              <!-- <button class="uk-button uk-button-default" type="button" @click="save()">tip recurringly?</button> -->
+            </div>
+      </div>
+                
+            </div>
+        </div>
+        <div class="uk-card-footer">
+          
+            <a :href="this.creatorInfo.primary_link" class="uk-button uk-button-text">
+              <span uk-icon="icon: link"></span> 
+              Checkout my content
+            </a>
+        </div>
+    </div>
+  </div>
   <div class="support-div">
 
     <div class="pillar-1">
@@ -72,7 +198,6 @@
                             v-model="currency"
                             style="border-radius: 3px"
                             class="uk-select uk-form-width-xsmall"
-                            id="form-stacked-select"
                           >
                             <option class="" value="NGN">₦</option>
                             <option value="KES">Ksh</option>
@@ -158,6 +283,7 @@
       
     </div>
 
+  </div>
   </div>
 </template>
 <script>
@@ -798,6 +924,23 @@ export default {
 };
 </script>
 <style scoped>
+
+@media (max-width:960px) {
+  .support-div {
+    display: none;
+  }
+}
+
+@media (min-width:960px) {
+  .support-div-mobile {
+    display: none;
+  }
+  .support-div {
+    display: grid;
+    grid-template-rows: 140px 340px minmax(160px, auto) minmax(50px, auto);
+    grid-template-columns: auto 300px 480px auto;
+  }
+}
 .uk-input, .uk-textarea {
   border: 1px solid #504343;
 
@@ -808,13 +951,6 @@ export default {
   background-color: #ff000e;
   color: #fceedd;
   border-radius: 3px;
-}
-
-.support-div {
-  display: grid;
-  grid-template-rows: 140px 340px minmax(160px, auto) minmax(50px, auto);
-  grid-template-columns: auto 300px 480px auto;
-
 }
 
 .pillar-1 {
