@@ -1145,7 +1145,6 @@
     .chart-container {
       position: relative;
       height: 50vh;
-      min-width: 37vw;
     }
   }
 
@@ -1165,7 +1164,6 @@
     .chart-container {
       position: relative;
       height: 40vh;
-      max-width: 100%;
     }
   }
 
