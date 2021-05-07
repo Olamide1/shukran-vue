@@ -1,6 +1,6 @@
 <template>
   <div class="uk-container-expand">
-  <TopSideHeader></TopSideHeader>
+  <top-side-header></top-side-header>
 
     <div id="offcanvas-usage" uk-offcanvas>
       <div class="uk-offcanvas-bar">

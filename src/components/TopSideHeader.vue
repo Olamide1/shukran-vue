@@ -219,11 +219,11 @@
                     <span uk-icon="icon: history"></span>
                   </button>
 
-                  <button @click="zoom(2)" class="uk-button crop-icon">
+                  <button @click="zoom(1.5)" class="uk-button crop-icon">
                     <span uk-icon="icon: expand"></span>
                   </button>
 
-                  <button @click="zoom(-0.5)" class="uk-button crop-icon">
+                  <button @click="zoom(0.5)" class="uk-button crop-icon">
                     <span uk-icon="icon: shrink"></span>
                   </button>
                 </div>
@@ -240,7 +240,10 @@
 <script>
   import axios from "axios";
   import fx from "money";
-  import { Cropper } from 'vue-advanced-cropper'; // using Static Cropper
+  /**
+   * https://norserium.github.io/vue-advanced-cropper/components/cropper.html#events
+   */
+  import { Cropper, StencilPreview, BoundingBox, DraggableArea } from 'vue-advanced-cropper'; // using Static Cropper
   import 'vue-advanced-cropper/dist/style.css';
   fx.base = "USD";
   fx.rates = { // LiG
@@ -417,6 +420,9 @@
     "ZWL": 322
   };
 export default {
+  components: {
+    Cropper
+  },
   name: "TopSideHeader",
   data() {
     return {
@@ -579,9 +585,6 @@ export default {
     },
     zoom(degree) {
 			this.$refs.cropper.zoom(degree);
-		},
-    unzoom(degree) {
-			this.$refs.cropper.shrink(degree);
 		},
     rotate(angle){
       this.$refs.cropper.rotate(angle);
