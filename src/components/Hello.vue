@@ -244,7 +244,7 @@ export default {
   border-radius: 5px;
 }
 .fit {
-  width: 350px;
+  width: 280px;
 }
 @media (max-width:960px) {
   .uk-padding {

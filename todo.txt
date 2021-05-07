@@ -218,3 +218,5 @@ If you have this number of followers, you should set a goal to have a certain nu
 
 ** change username in transaction, and everywhere else when a creator changes their username.
 Use Refs to link models
+
+** force update of cache when new version of our site is out ... mobile view optimization for images ...
