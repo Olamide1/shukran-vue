@@ -190,7 +190,7 @@
 
               <button class="uk-modal-close-outside" type="button" uk-close></button>
 
-              <div>
+              <div id="main-cropper">
                 <cropper
                   ref="cropper"
                   :src="img"
@@ -436,7 +436,7 @@ export default {
       amount: 0,
       tipTotal: 0,
       tipWithdrawn: 0,
-      img: '',
+      img: 'https://useshukran.com/static/img/blank-profile-picture.png', // https://images.unsplash.com/photo-1611232099906-dc95961260a4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80
       finalImage: ''
     }
   },
@@ -668,9 +668,9 @@ export default {
 
    @media (max-width: 960px) {
 
-     a.router-link-exact-active {
-  color: #c63968;
-}
+    a.router-link-exact-active {
+      color: #c63968;
+    }
 
     .desktop-nav,
     .request-button {
@@ -689,7 +689,7 @@ export default {
     z-index: 20;
   }
 
-    #wait {
+  #wait {
     display: none;
     margin-top: -70px;
     margin-left: 10px;
@@ -708,7 +708,7 @@ export default {
     margin-left: -10px;
   }
 
-   .uk-modal-dialog.uk-modal-body.uk-margin-auto-vertical.uk-width-auto {
+   .tip-modal {
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(4, 4, 4, 0.45);
   }
