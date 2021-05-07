@@ -200,8 +200,9 @@
                     scalable: false,
                     aspectRatio: 1,
                   }"
-                  :resize-image="{
-                    adjustStencil: false
+                  :stencil-size="{
+                    width: 300,
+                    height: 300
                   }"
                   image-restriction="stencil"
                 />
