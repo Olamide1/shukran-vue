@@ -165,7 +165,7 @@
             </li>
             <div id="my-id" uk-modal>
               <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title">Hi {{profiles.username}}</h2>
+                <h2 class="uk-modal-title">Hi {{ profiles.username }}</h2>
                 <p>Show some love 😊or raise an issue 🙃</p>
                 <div class="uk-margin">
                   <textarea class="uk-textarea" placeholder="Type your message" v-model="comment"></textarea>

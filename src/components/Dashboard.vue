@@ -336,7 +336,7 @@
     name: "Dashboard",
     data() {
       return {
-        username: sessionStorage.getItem("username"),
+        username: JSON.parse(sessionStorage.getItem('profile')).username,
         transactions: [],
         allTips: [], // optimise this later
         tipsDates: [],
@@ -344,7 +344,7 @@
           "shukran-country-currency"), // optimse later, use country's currency
         tempCurr: "NGN", // cause they come as this
         payoutGuard: 1000, // 1000 NGN
-        url: "https://useshukran.com/cr/" + encodeURIComponent(sessionStorage.getItem("username").trim()),
+        url: "https://useshukran.com/cr/" + encodeURIComponent(JSON.parse(sessionStorage.getItem('profile')).username.trim()),
         copied: "",
         chart1: null, // maybe also show recurring tips
         chart2: null,
@@ -1149,8 +1149,6 @@
   }
 
   @media (max-width: 960px) {
-
-
     .uk-card-body {
       padding: 20px 20px;
     }
