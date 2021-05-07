@@ -68,51 +68,51 @@
                   </form>
 
                   <div class="uk-padding-remove-top">
-        <div class="uk-margin">
-              <textarea
-                :placeholder="'Drop an encouraging message for ' + username"
-                class="uk-textarea"
-                v-model="message"
-              ></textarea>
-            </div>
-            <div class="uk-margin">
-              <p style="color: #c63968">{{ issue }}</p>
-            </div>
+                    <div class="uk-margin">
+                          <textarea
+                            :placeholder="'Drop an encouraging message for ' + username"
+                            class="uk-textarea"
+                            v-model="message"
+                          ></textarea>
+                        </div>
+                        <div class="uk-margin">
+                          <p style="color: #c63968">{{ issue }}</p>
+                        </div>
 
-            <div
-              v-show="parseFloat(amount) >= tipGuard"
-              class="uk-margin uk-flex subscription-nudge"
-            >
-            <!-- testing color change makes subscritpion request call everytime!! ...undo -->
-              <label
-                ><input v-model="isSubscribing" class="uk-checkbox" type="checkbox" />
-                Wanna tip {{ username }} <b>{{ currencySymbol() }}</b
-                >{{ amount }}
-                <!-- this time -->
-                every month<!-- for the next 1 year -->?
-                <a
-                  class="cancel-sub uk-text-emphasis"
-                  :href="'mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription to ' + username"
-                  data-uk-tooltip
-                  title="A message with instructions would be sent to your email"
-                  >Email us to cancel anytime</a
-                >
-                <!-- Starts from next month. --></label
-              >
-              <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
-            </div>
+                        <div
+                          v-show="parseFloat(amount) >= tipGuard"
+                          class="uk-margin uk-flex subscription-nudge"
+                        >
+                        <!-- testing color change makes subscritpion request call everytime!! ...undo -->
+                          <label
+                            ><input v-model="isSubscribing" class="uk-checkbox" type="checkbox" />
+                            Wanna tip {{ username }} <b>{{ currencySymbol() }}</b
+                            >{{ amount }}
+                            <!-- this time -->
+                            every month<!-- for the next 1 year -->?
+                            <a
+                              class="cancel-sub uk-text-emphasis"
+                              :href="'mailto:support@usehukran.com?subject=Hello Shukran&body=Hi, I want to cancel my subscription to ' + username"
+                              data-uk-tooltip
+                              title="A message with instructions would be sent to your email"
+                              >Email us to cancel anytime</a
+                            >
+                            <!-- Starts from next month. --></label
+                          >
+                          <!-- ask them for the time of the month when they'd be debited, you'll be notified before your support would be made -->
+                        </div>
 
-            <div class="uk-margin">
-              <button
-                :disabled="parseFloat(amount) < tipGuard || amount == ''"
-                class="uk-button tip-button uk-button-default"
-                @click="save()"
-              >
-                {{ tipbtn }}
-              </button>
-              <!-- <button class="uk-button uk-button-default" type="button" @click="save()">tip recurringly?</button> -->
-            </div>
-      </div>
+                        <div class="uk-margin">
+                          <button
+                            :disabled="parseFloat(amount) < tipGuard || amount == ''"
+                            class="uk-button tip-button uk-button-default"
+                            @click="save()"
+                          >
+                            {{ tipbtn }}
+                          </button>
+                          <!-- <button class="uk-button uk-button-default" type="button" @click="save()">tip recurringly?</button> -->
+                        </div>
+                  </div>
                 
             </div>
         </div>
@@ -716,7 +716,6 @@ export default {
     },
     save() {
       // [optimize] save their email & nickname & phone number for later autofilling
-
       analytics.identify(this.supporter_email, {
         nickname: this.nickname,
       });

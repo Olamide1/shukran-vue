@@ -1165,7 +1165,7 @@
     .chart-container {
       position: relative;
       height: 40vh;
-      width: 40vw;
+      width: 80vw;
     }
   }
 
