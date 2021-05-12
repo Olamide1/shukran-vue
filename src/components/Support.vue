@@ -11,7 +11,16 @@
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{username}}</h3>
                     <p class="uk-text-meta uk-margin-remove-top">{{ this.creatorInfo.craft_type }}</p>
                 </div>
+
+
+                <div>
+                  <a :href="this.creatorInfo.primary_link" class="uk-button uk-button-text">
+                    <span uk-icon="icon: link"></span> 
+                    Checkout my content
+                  </a>
+                </div>
             </div>
+
         </div>
         <div class="uk-card-body">
             <p>{{ this.creatorInfo.summary }}</p>
@@ -116,13 +125,10 @@
                 
             </div>
         </div>
-        <div class="uk-card-footer">
+        <!-- <div class="uk-card-footer">
           
-            <a :href="this.creatorInfo.primary_link" class="uk-button uk-button-text">
-              <span uk-icon="icon: link"></span> 
-              Checkout my content
-            </a>
-        </div>
+            
+        </div> -->
     </div>
   </div>
   <div class="support-div">
@@ -542,21 +548,21 @@ export default {
           withCredentials: true,
         })
         .then((res) => {
-          // console.log('subs res',res); // debug
+          console.log('subs res',res); // debug
           this.subscriptions = res.data;
         })
         .catch((err) => console.error("subs err", err));
     },
     subbed() {
       try {
-        // console.log('tryigng to sub', this.subscriptions);
+        console.log('tryigng to sub', this.subscriptions);
         // careful here, it's important we use '==' not '===', this.amount is string, sub.amount is int... == would work for comparison, but === won't
         this.paymentID = this.subscriptions.find(
           (sub) =>
             parseFloat(sub.amount) == parseFloat(this.amount) &&
             sub.currency == this.currency
         ).id; // using '?.id' sadly doens't work
-        // console.log(this.paymentID, '99');
+        console.log(this.paymentID, '99');
       } catch (error) {
         // means there are no subs like that
       }
@@ -583,7 +589,7 @@ export default {
             } else {
               return config;
             }
-            // console.log(config)
+            console.log(config)
           },
           function (error) {
             // Do something with request error
@@ -613,13 +619,13 @@ export default {
             this.paymentID = res.data;
           })
           .catch((err) => {
-            // console.log('bad subscription', err)
+            console.log('bad subscription', err)
           })
           .finally(() => {
-            // console.log('we\'re getting the payment plan id')
+            console.log('we\'re getting the payment plan id')
           });
       }
-      // console.log(this.paymentID, '8');
+      console.log(this.paymentID, '8');
     },
     showUserWelcome() {
       axios
@@ -633,12 +639,12 @@ export default {
           }
         )
         .then((res) => {
-          // console.log('creator profile', res) // if res.data is empty, say we don't have any such creators
+          console.log('creator profile', res) // if res.data is empty, say we don't have any such creators
           this.creatorInfo = res.data[0];
           this.getSubs();
         })
         .catch((err) => {
-          // console.error('!!', err)
+          console.error('!!', err)
         })
         .finally(() => {});
     },
@@ -823,7 +829,9 @@ export default {
             // Goes to our flutterwave dashboard
             supporter_message: message,
             supporter_nickname: supporter_nickname,
-            // consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
+            message: message,
+            randome_number: 4898249834,
+            consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
           },
           customer: {
             email: supporter_email, // must be 'email'
@@ -834,7 +842,7 @@ export default {
           },
           callback: function (response) {
             // if transaction not successful, don't do anything... get info why & probably who...
-            // console.log('call back redirect', redirect);
+            console.log('call back redirect', redirect);
             let _redirect = redirect;
             if (response.status == "successful") {
               if (response.currency !== "NGN") {
@@ -887,7 +895,7 @@ export default {
                 .catch((err) => {
                   this.tipbtn = "Tip";
                   this.issue = err; // what if err is not a string?!
-                  // console.error('catch in tip', err)
+                  console.error('catch in tip', err)
                   window.location = process.env.URL + "/thanks"; // this.$router.push('/thanks'); // should we, no because this isn't Vue ?
                 });
             } else {
@@ -908,7 +916,7 @@ export default {
   },
   beforeCreate() {
     // humm, ...
-    // console.log(this.$route);
+    console.log(this.$route);
     document.querySelector(
       'head meta[property="twitter:image"]'
     ).content = `${process.env.BASE_URL}/api/smp/${this.$route.params.username}`;
