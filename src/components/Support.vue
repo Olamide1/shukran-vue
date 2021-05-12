@@ -830,8 +830,9 @@ export default {
             supporter_message: message,
             supporter_nickname: supporter_nickname,
             message: message,
+            customer_id: 34,
             randome_number: 4898249834,
-            consumer_mac: "92a3-912ba-1192a", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
+            consumer_mac: "92a3-912ba-1192a-lol", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
           },
           customer: {
             email: supporter_email, // must be 'email'
@@ -900,6 +901,10 @@ export default {
                 });
             } else {
             }
+          },
+          onclose: function() {
+            // close modal
+            console.log('ouchhh, closeddd');
           },
           customizations: {
             title: "Support " + username,

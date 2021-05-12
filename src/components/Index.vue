@@ -417,7 +417,7 @@ export default {
       document.getElementById("menu-toggle").classList.toggle("is-active");
     },
     getCreators() {
-      // console.log('env', process.env.BASE_URL, process.env.NODE_ENV)
+      console.log('env', process.env.BASE_URL, process.env.NODE_ENV)
       localStorage.removeItem('shukran-amazing-creators')
       axios
         .get(process.env.BASE_URL + "/api/allusers/")
