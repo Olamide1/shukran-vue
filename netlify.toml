@@ -5,4 +5,4 @@
   status = 200
 
 [context.new-face.environment]
-  NODE_ENV = "testing"
+  NODE_ENV = "staging"

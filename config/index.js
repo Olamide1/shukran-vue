@@ -37,8 +37,8 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
   },
-  test: {
-    env: require('./test.env'),
+  stage: {
+    env: require('./stage.env'),
     port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
