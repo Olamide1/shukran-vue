@@ -101,7 +101,7 @@
     
     <div class="uk-flex">
         <div>
-            <span>Total creators</span>
+            <span>No. of creators</span>
             <h1 class="uk-margin-small-top">{{totalUsers}}</h1>
         </div>
         <hr class="uk-divider-vertical">
