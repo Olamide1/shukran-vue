@@ -28,7 +28,7 @@ module.exports = merge(baseWebpackConfig, {
   devtool: '#cheap-module-eval-source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.dev.env
+      'process.env': config.stage.env // THIS IS WHAT SETS THE .ENV, not anything else. not [context.*.*] in netlify.toml or in netlify UI Environment Variable 
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
