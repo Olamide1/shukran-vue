@@ -6,3 +6,6 @@
 
 [context.new-face.environment]
   NODE_ENV = "staging"
+
+[context.branch-deploy]
+  NODE_ENV = "staging"
