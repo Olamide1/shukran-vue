@@ -39,7 +39,7 @@ module.exports = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       serviceWorkerLoader: `<script>${fs.readFileSync(path.join(__dirname,
-        './service-worker-state.js'), 'utf-8')}</script>`
+        './service-worker-dev.js'), 'utf-8')}</script>`
     }),
     /* new PrerenderSPAPlugin({ // https://youtu.be/pwHdFPEX4NA?t=760
       // Required - The path to the webpack-outputted app to prerender.
