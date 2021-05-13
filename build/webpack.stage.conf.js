@@ -22,13 +22,13 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 module.exports = merge(baseWebpackConfig, {
   // mode: 'development',
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
+    rules: utils.styleLoaders({ sourceMap: config.stage.cssSourceMap })
   },
   // cheap-module-eval-source-map is faster for development
   devtool: '#cheap-module-eval-source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.dev.env
+      'process.env': config.stage.env
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
@@ -39,7 +39,7 @@ module.exports = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       serviceWorkerLoader: `<script>${fs.readFileSync(path.join(__dirname,
-        './service-worker-dev.js'), 'utf-8')}</script>`
+        './service-worker-state.js'), 'utf-8')}</script>`
     }),
     /* new PrerenderSPAPlugin({ // https://youtu.be/pwHdFPEX4NA?t=760
       // Required - The path to the webpack-outputted app to prerender.
