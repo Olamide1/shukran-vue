@@ -10,7 +10,7 @@ const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
-const webpackConfig = require('./webpack.staging.conf')
+const webpackConfig = require('./webpack.stage.conf')
 
 const spinner = ora('building for staging...')
 spinner.start()
