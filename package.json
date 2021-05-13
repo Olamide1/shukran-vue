@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node build/build.js",
     "dev-build": "node build/dev-build.js",
-    "test-build": "node build/test-build.js",
+    "stage-build": "node build/stage-build.js",
     "dev": "node build/dev-server.js",
     "e2e": "node test/e2e/runner.js",
     "start": "node build/dev-server.js",
