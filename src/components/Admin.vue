@@ -167,7 +167,7 @@
             <li>
                 <a href="#">Creators</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(user, index) in _users" :key="index">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(user, index) in this.users" :key="index">
                             <div class="uk-width-auto">
                                 <img class="uk-border-circle" width="40" height="40" src="/static/img/icons/favicon-16x16.png">
                             </div>
@@ -186,7 +186,7 @@
             <li>
                 <a href="#">Transactions</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid >
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in _transactions" :key="index">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in this.transactions" :key="index">
                             <div class="uk-width-expand">
                                 <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} {{transaction.username}}</h4>
                                 <div class="uk-margin-small">
@@ -205,7 +205,7 @@
             <li>
                 <a href="#">Withdrawal Request</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in _requests" :key="index"><!-- do reverse from server -->
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in this.requests.reverse()" :key="index"><!-- do reverse from server -->
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount * 0.9}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
                             <div class="uk-margin-small">
@@ -219,7 +219,7 @@
                         </div>
                     </div>
                 </div>
-                <span v-if="_requests.length == 0" align="center">No requests made yet.</span>
+                <span v-if="requests.length == 0" align="center">No requests made yet.</span>
             </li>
             <li>
                 <a href="#">Feedback</a>
