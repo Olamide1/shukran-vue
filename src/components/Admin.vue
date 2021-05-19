@@ -517,11 +517,15 @@ export default {
             axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'paid'
             }).then( res => {
-                console.log('loaded received tips')
+                console.log('loaded received tips', res)
+                let totalPaidVolume = 0, totalnetRevenue = 0
                 for(var i = 0; i < res.data.length; i++){
-                    this.paidVolume += parseFloat(res.data[i].amount) * 0.9;
-                    this.netRevenue += (parseFloat(res.data[i].amount) * 0.1) - 25; // ₦25 is transaction fee for transfer https://wallets.africa/faqs
+                    console.table(`$#${i}`,res.data[i].amount, parseFloat(res.data[i].amount) * 0.9)
+                    totalPaidVolume += parseFloat(res.data[i].amount) * 0.9;
+                    totalnetRevenue += (parseFloat(res.data[i].amount) * 0.1) - 25; // ₦25 is transaction fee for transfer https://wallets.africa/faqs
                 }
+                this.paidVolume = totalPaidVolume
+                this.netRevenue = totalnetRevenue
             }).catch(err => {
                 console.error(err)
             })

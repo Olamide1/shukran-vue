@@ -20,6 +20,7 @@ import NotFoundErrorPage from '@/components/404'
 import BossIn from '@/components/BossIn'
 import NewPassword from '@/components/NewPassword'
 import WallOfLove from '@/components/WallOfLove'
+import IntlTransfers from '@/components/IntlTransfers'
 
 Vue.use(Router)
 
@@ -27,6 +28,13 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/transfers',
+      name: 'IntlTransfers',
+      component: IntlTransfers,
+      meta: {
+        title: 'International Transfers'
+      }
+    },{
       path: '/wall-of-love',
       name: 'WallOfLove',
       component: WallOfLove,
