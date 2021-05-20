@@ -29,7 +29,7 @@
                     uk-tooltip="Transfer to any african account">Shukran International transfers</span></h3>
                 <!-- The button toggling the message modal -->
                 <span class="uk-icon-button send-message-all" uk-icon="info" data-uk-tooltip
-                  title="Send an email message to all your subscribers. Make an announcement or send your love!"
+                  title="Make transfers to any African country from outside Africa"
                   ></span>
               </div>
               <div class="total-revenue">
