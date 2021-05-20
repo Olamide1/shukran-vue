@@ -29,7 +29,6 @@
                 <!-- <div class="uk-card-badge uk-label">Badge</div> -->
                 <h3 class="uk-card-title">Support {{username}}</h3>
                 
-                  
                   <form class="uk-grid-small" uk-grid>
                   <div class="uk-width-1-1">
                       <input

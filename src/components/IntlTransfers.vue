@@ -33,7 +33,7 @@
                   ></span>
               </div>
               <div class="total-revenue">
-                <small>Destination Account Details</small>
+                <p>Destination Account Details</p>
               </div>
               <!-- This is the modal -->
               
@@ -107,7 +107,7 @@
                   </div>
                   <div class="uk-width-1-1">
                       <input
-                        type="email"
+                        type="text"
                         class="uk-input"
                         placeholder="Bank"
                         v-model="destination_bank"
@@ -115,7 +115,7 @@
                   </div>
                   <div class="uk-width-1-1">
                       <input
-                        type="email"
+                        type="tel"
                         class="uk-input"
                         placeholder="Bank Account Number"
                         v-model="destination_bank_account_number"
@@ -129,7 +129,7 @@
                             v-model="sender_currency"
                             style="border-radius: 3px"
                             class="uk-select uk-form-width-xsmall"
-                          >
+                          ><!-- add more list here -->
                             <option class="" value="NGN">₦</option>
                             <option value="KES">Ksh</option>
                             <option value="USD">$</option>
@@ -143,9 +143,11 @@
                         />
                       </div>
 
-                      <small>Destination Account Details</small>
+                      
 
                   </div>
+                  <p class="uk-padding-remove-left">Billing info.</p>
+
                   <div class="uk-width-1-1">
                       <input
                         type="text"
@@ -164,87 +166,25 @@
                         v-model="sender_email"
                       />
                   </div>
-              </form>
 
+                  <p>{{issue}}</p>
+
+                  
+              </form>
+                    <button
+                      :disabled="!amount"
+                      class="uk-button uk-button-default"
+                      @click="save()"
+                    >Send</button>
               <div>
               
             </div>
             </div>
-                <div >
-                  No <span
-                    uk-tooltip="We like to call people who subscribe to paying you recurringly every month 'Shuclans'">shuclans</span>
-                  yet
-                </div>
                 
               </div>
             </div>
           </div>
-          <!-- Total revenue end -->
-
-          <!-- Uncomment for next feature -->
-          <div>
-            <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-top; repeat: true">
-
-              <div class="sub-list-header cont-list-header">
-                <h3 class="uk-card-title">Content list</h3>
-                <div uk-form-custom>
-                  <input ref="addFileInput" type="file" >
-                  <button class="uk-button uk-button-default" type="button" tabindex="1">
-                    <span id="addfile-button-text">Add file</span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="">
-                <ul class="uk-list uk-list-striped">
-                  <!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
-
-                  <!-- // delete the li up // -->
-                  <li >
-                    <div>
-                      <div class="">
-                        <!-- we should make currency a drop down to include other currency too, so creators can use the $ for when their native currency drops -->
-
-                        <div>
-                          <div class="uk-width-expand">
-                            
-                            <div class="th-price uk-text-small">
-                              <span class="uk-label">a name ?</span>
-                              &mdash; Added
-                              <span class="uk-text-meta uk-margin-remove-top">
-                                {{new Date().toDateString()}}
-                              </span>
-                              for shuclans paying
-                              <div class="uk-inline">
-
-                                <label >
-                                  oh wow
-                                </label>
-
-                                <input  uk-tooltip="Click to edit"
-                                  class="uk-input uk-text-meta uk-form-blank threshold-price"
-                                   type="number" placeholder="0.00">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="uk-margin-remove-top uk-margin-remove-bottom the-what"
-                           contenteditable="false">
-                          wo wow
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-                <div >
-                  No <span
-                    uk-tooltip="You can upload materials that'll only be accessible to your Shuklans">uploads</span> yet
-                </div>
-              </div>
-            </div>
-          </div>
-
+          
         </div>
         
       </div>
@@ -435,26 +375,20 @@
     name: "IntlTransfers",
     data() {
       return {
-        transactions: [],
-        allTips: [], // optimise this later
-        tipsDates: [],
+        issue: '',
         sender_currency: 'USD', // optimse later, use country's currency
         tempCurr: "",
         payoutGuard: 1000, // 1000 naira
-        
+        destination_bank: '',
+        destination_country:'',
+        destination_bank_account_number: '',
         files: [],
         sender_fullname: '',
         sender_email: '',
-        amount: 0,
+        amount: "",
         message: '',
         message_subject: '',
         message_status: 'Send',
-        subscribers: [],
-        subscribing_amounts: [],
-        tipTotal: 0,
-        tipWithdrawn: 0,
-        withdrawals: [],
-        profile: JSON.parse(sessionStorage.getItem("profile")),
         balance: 0,
         comment: "",
         feed: "Send",
@@ -464,11 +398,8 @@
       };
     },
     computed: {
-      availableBalance() {
-        return this.tipTotal - this.tipWithdrawn;
-      },
       currencySymbol() {
-        switch (this.currency) {
+        switch (this.sender_currency) {
           case "NGN":
             return "₦";
             break;
@@ -485,79 +416,135 @@
       }
     },
     watch: {
-      profile: {
-        handler(val, oldVal) {},
-        deep: true
-      }
+      
     },
     methods: {
       
       
       
-      
-      
-      
-      
-      
-      
-      sendMsg() {
-        this.message_status = 'Sending...';
-        axios.post(process.env.BASE_URL + "/api/sendmessage/", {
-            username: this.username,
-            subscribers: [...new Set(this.subscribers.map(s => s.name.split('-', 1)[0]))].join(
-            ';'), // get emails, seperate with ';'
-            message: this.message,
-            message_subject: this.message_subject
-          }).then(res => {
-            this.message_status = 'Sent';
-            // console.log("message sent?", res);
-            this.message = '', this.message_subject = '';
-            UIkit.modal('#send-message').hide();
-            alert('Message sent!')
-          })
-          .catch(err => {
-            // tell them to try again later // later on, we'll be trying for them
-            // console.log("send message err", err);
-          });
-      },
-      
-      
-      
-      
-      
-      /* onFileChanged(event) {
-        // this.selectedFile = event.target.files[0]
-        let formData = new FormData();
-        formData.append("id", this.profile._id);
-        formData.append("pic", event.target.files[0]);
-        // console.log(event.target.files);
+      save() {
+      // [optimize] save their email & nickname & phone number for later autofilling
+      analytics.identify(this.sender_email, {
+        fullname: this.sender_fullname,
+      });
+      analytics.track("International Transfer", {
+        authentication: "International Transfer",
+      });
 
-        let bar1 = document.getElementById('snpb');
-        let bar2 = document.getElementById('js-progressbar');
+      localStorage.setItem("shukran-intl-transfer-fullname", this.sender_fullname);
+      localStorage.setItem("shukran-intl-transfer-email", this.sender_email);
+      // localStorage.setItem('shukran-supporter-phone', this.phone);
 
-        let loader1 = document.getElementById('wait');
-        let loader2 = document.getElementById('chill');
-        bar1.style.display = 'block';
-        bar2.style.display = 'flex';
-        axios.post(process.env.BASE_URL + "/api/update/", formData, {
-            onUploadProgress: progressEvent => {
-              // console.log(progressEvent.loaded / progressEvent.total, `${progressEvent.loaded} / ${progressEvent.total}`);
-              bar1.value = bar2.value = parseInt((progressEvent.loaded / progressEvent.total) * 100)
-              if (progressEvent.loaded / progressEvent.total == 1) {
-                bar1.style.display = bar2.style.display = 'none';
-                loader1.style.display = loader2.style.display = 'block';
-              }
+      
+      // let phone = this.phone
+      
+      if (this.sender_email == "" || this.amount == "") {
+        this.issue = "Enter email & amount please";
+      } else {
+        let sender_email = this.sender_email,
+            destination_bank_account_number = this.destination_bank_account_number,
+            destination_bank = this.destination_bank,
+            amount = this.amount,
+            sender_fullname = this.sender_fullname,
+            sender_currency = this.sender_currency,
+            destination_country = this.destination_country
+            ;
+       
+        // flutterwave
+        // console.log('flutter wave visibilty??', this.sender_fullname);
+        
+        FlutterwaveCheckout({
+          public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
+          tx_ref: `${sender_email}-intl-transfer-to-${
+            destination_bank
+          }-${destination_bank_account_number} @ ${Date.now()}`,
+          amount: parseFloat(amount), // why previously parseInt ?
+          // https://stackoverflow.com/a/40560953
+          // make country based on currency? how about ?
+          ...(sender_currency == "KES" && {
+            country: "KE",
+          }), // !sessionStorage.getItem('shukran-country-code') ? "NG" : sessionStorage.getItem('shukran-country-code')
+          currency: sender_currency,
+          ...(sender_currency == "GBP" && {
+            type: "debit_uk_account",
+          }), // to accept uk payments
+          payment_options:
+            "card, mobilemoney, ussd, account, banktransfer, mpesa, qr, payattitude, credit",
+          redirect_url: process.env.BASE_URL + '/thanks', // specified redirect URL
+          
+          meta: {
+            // Goes to our flutterwave dashboard
+            sender_email: sender_email,
+            destination_bank_account_number: destination_bank_account_number,
+            destination_bank: destination_bank,
+            amount: amount,
+            sender_fullname: sender_fullname,
+            // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
+          },
+          customer: {
+            email: sender_email, // must be 'email'
+            fullname: sender_fullname,
+          },
+          callback: function (response) {
+            // if transaction not successful, don't do anything... get info why & probably who...
+            // console.log('resssss', response);
+            // console.log('lemon peppr order, this?', this);
+            if (response.status == "successful") {
+              
+              axios
+                .post(
+                  process.env.BASE_URL + "/api/createinternationaltransaction/",
+                  {
+                    // we should ref the creator id
+                    sender_currency: sender_currency,
+                    destination_country: destination_country,
+                    destination_bank: destination_bank,
+                    amount: amount,
+                    destination_bank_account_number: destination_bank_account_number,
+                    status: status,
+                    sender_fullname: sender_fullname,
+                    sender_email: sender_email
+                  },
+                  {
+                    withCredentials: true,
+                  }
+                )
+                .then((res) => {
+                  // if they subscribed ...refresh the page to show their content.
+                  // console.log("tipped res", JSON.stringify(res));
+                  // console.log("this", JSON.stringify(this));
+                  // console.log(
+                  //   "redirected response",
+                  //   document.URL,
+                  //   JSON.parse(res.config.data).tx_ref
+                  // );
+                  
+                })
+                .catch((err) => {
+                  this.tipbtn = "Tip";
+                  this.issue = err; // what if err is not a string?!
+                  console.error('catch in tip', err)
+                  window.location = process.env.URL + "/thanks"; // this.$router.push('/thanks'); // should we, no because this isn't Vue ?
+                });
+            } else {
             }
-          })
-          .then(res => {
-            loader1.style.display = loader2.style.display = 'none';
-            this.profile.picture_id = res.data;
-            sessionStorage.setItem('profile', JSON.stringify(this.profile)) // update session too
-          })
-          .catch(error => {
-            // console.log("error occured", error);
-          });
-      }, */
+          },
+          onclose: function() {
+            // close modal
+            // console.log('ouchhh, closeddd');
+          },
+          customizations: {
+            title: "Send to Africa",
+            description: `Sending to ${destination_bank}, ${destination_bank_account_number}`,
+            logo: "https://drive.google.com/uc?export=view&id=1GfeklRxs6fyzI7Kz1qYGKaskU_oHfrLq", // https://drive.google.com/file/d/1GfeklRxs6fyzI7Kz1qYGKaskU_oHfrLq/view?usp=sharing
+          },
+        }); // flutterwave ends here
+      }
+    },
+      
+      
+      
+      
       submitFeedback() {
         let username = this.username;
         let comment = this.comment;
