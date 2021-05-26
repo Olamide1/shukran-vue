@@ -826,12 +826,14 @@ export default {
             }),
           meta: {
             // Goes to our flutterwave dashboard
-            supporter_message: message,
+            
+            // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
+            username: username, // creator_username
             supporter_nickname: supporter_nickname,
+            supporter_email: supporter_email,
+            creator_id: creator_id,
             message: message,
-            customer_id: 34,
-            randome_number: 4898249834,
-            consumer_mac: "92a3-912ba-1192a-lol", // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
+            creator_email: creator_email,
           },
           customer: {
             email: supporter_email, // must be 'email'
