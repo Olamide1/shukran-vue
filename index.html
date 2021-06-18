@@ -85,8 +85,10 @@
   <!-- get country code and currency -->
   <script type="text/javascript"> // https://stackoverflow.com/a/35123097
 
-    // should we be checking periodically? or everytime?
-    if(!sessionStorage.getItem('shukran-country-currency')) {
+    // to-do ... move this to the back end!
+    // This updates once data is older than a week
+    // we could make this a service worker ...or shift logic to backend
+    if(!sessionStorage.getItem('shukran-country-data') || (sessionStorage.getItem('shukran-country-data') && Date.now() - JSON.parse(sessionStorage.getItem('shukran-country-data'))["last-update"] > 604800000) ) { // https://countrycode.org/
       fetch('https://ipapi.co/json/', { // http://ipinfo.io
           headers: {
             'Accept': 'application/json',
@@ -100,9 +102,16 @@
           return response.json()
         })
         .then(data => {
+          console.log("\n\n\nchecking country code !");
+          let __data = {
+            'shukran-country-currency': data.currency,
+            'shukran-country-code': data.country_code,
+            'last-update': Date.now()
+          }
           // console.log(data.country_name, "using", data.currency_name, data.currency)
+          sessionStorage.setItem('shukran-country-data', JSON.stringify(__data));
           sessionStorage.setItem('shukran-country-currency', data.currency);
-          sessionStorage.setItem('shukran-country-code', data.country_code);
+          sessionStorage.setItem('shukran-country-code', data.country_code); // commenting for testing
         })
         .catch(error => { // hopefully we never get here. If we do, we ask them for thier country
           // console.error('There has been a problem with our fetch operation:', error);

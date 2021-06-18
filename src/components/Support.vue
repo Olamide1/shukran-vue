@@ -811,7 +811,7 @@ export default {
           // make country based on currency? how about ?
           ...(this.currency == "KES" && {
             country: "KE",
-          }), // !sessionStorage.getItem('shukran-country-code') ? "NG" : sessionStorage.getItem('shukran-country-code')
+          }),
           currency: this.currency,
           ...(this.currency == "GBP" && {
             type: "debit_uk_account",

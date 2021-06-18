@@ -243,7 +243,7 @@
                 <div class="uk-text-meta">
                   {{
                     country_code == "KE"
-                      ? "Kenyan creators must use MPESA"
+                      ? "Payouts available MPESA"
                       : "What bank do you wanna receive your payouts?"
                   }}
                 </div>
@@ -307,8 +307,22 @@
                   v-model="profile.account_name"
                 />
                 <div class="uk-text-meta">
-                  This is for us to vet that we are paying out the correct person.
+                  This is to ensure we pay the right person.
                 </div>
+              </div>
+
+              <!-- for UK creators -->
+              <div class="uk-margin" v-if="country_code == 'GB'">
+                <label for="sc" class="to-the-left">
+                  Sort Code
+                </label>
+                <input
+                  name="sc"
+                  type="text"
+                  class="uk-input"
+                  placeholder="6-digit sort code"
+                  v-model="profile.sort_code"
+                />
               </div>
 
               <div class="uk-margin">
@@ -472,7 +486,7 @@ export default {
       comment: "",
       feed: "Submit",
       profile_picture: "",
-      country_code: sessionStorage.getItem("shukran-country-code"),
+      country_code: sessionStorage.getItem('shukran-country-data') ? JSON.parse(sessionStorage.getItem('shukran-country-data'))["shukran-country-code"] : 'NG', // default is NG
       ngBanks: [,],
     };
   },

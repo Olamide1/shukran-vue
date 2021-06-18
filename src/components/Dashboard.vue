@@ -814,29 +814,41 @@
           });
       },
       getCountryData() {
-        if (!sessionStorage.getItem('shukran-country-currency')) {
-          fetch('https://ipapi.co/json/', { // http://ipinfo.io
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              }
-            })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.json()
-            })
-            .then(data => {
-              // console.log(data.country_name, "using", data.currency_name, data.currency)
-              sessionStorage.setItem('shukran-country-currency', data.currency);
-              this.currency = data.currency;
-              sessionStorage.setItem('shukran-country-code', data.country_code);
-            })
-            .catch(error => { // why did this error happen. let's know... save and send to backend later?
-              // console.error('There has been a problem with our fetch operation:', error);
-            });
-        } else { // use their currency
+        // to-do ... move this to the back end!
+        // make this a global function
+    // This updates once data is older than a week
+    // we could make this a service worker ...or shift logic to backend
+    if(!sessionStorage.getItem('shukran-country-data') || (sessionStorage.getItem('shukran-country-data') && Date.now() - JSON.parse(sessionStorage.getItem('shukran-country-data'))["last-update"] > 604800000) ) { // https://countrycode.org/
+      fetch('https://ipapi.co/json/', { // http://ipinfo.io
+          headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json()
+        })
+        .then(data => {
+          console.log("\n\n\nchecking country code !");
+          let __data = {
+            'shukran-country-currency': data.currency,
+            'shukran-country-code': data.country_code,
+            'last-update': Date.now()
+          }
+          // console.log(data.country_name, "using", data.currency_name, data.currency)
+
+          this.currency = data.currency;
+          sessionStorage.setItem('shukran-country-data', JSON.stringify(__data));
+          sessionStorage.setItem('shukran-country-currency', data.currency);
+          sessionStorage.setItem('shukran-country-code', data.country_code); // commenting for testing
+        })
+        .catch(error => { // hopefully we never get here. If we do, we ask them for thier country
+          // console.error('There has been a problem with our fetch operation:', error);
+        });
+    } else { // use their currency
         }
       }
     },

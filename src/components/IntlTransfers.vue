@@ -463,7 +463,7 @@
           // make country based on currency? how about ?
           ...(sender_currency == "KES" && {
             country: "KE",
-          }), // !sessionStorage.getItem('shukran-country-code') ? "NG" : sessionStorage.getItem('shukran-country-code')
+          }),
           currency: sender_currency,
           ...(sender_currency == "GBP" && {
             type: "debit_uk_account",
