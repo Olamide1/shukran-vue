@@ -394,7 +394,6 @@
       rates(_currency) {
         sessionStorage.setItem('shukran-curr-cur-sym', this.currencySymbol)
 
-        console.log('now using', _currency);
         this.tipTotal = fx(this.tipTotal) // convert tip total
           .from(
             this.tempCurr
@@ -718,7 +717,7 @@
               ); // .toDateString() .toLocaleDateString("en-US")
             }
           }).then(() => {
-            this.rates(); // get the conversion first...
+            this.rates(this.currency); // get the conversion first...
           }).then(() => {
             this.createTipsChart() // then create the first chart chart1
           })
