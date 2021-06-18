@@ -1,6 +1,6 @@
 <template dashboard-body>
   <div class="uk-container-expand">
-    <top-side-header></top-side-header>
+    <top-side-header v-on:change-rates="rates"></top-side-header>
     
     <div class="uk-section">
       
@@ -264,7 +264,7 @@
     "MYR": 4.0505,
     "MZN": 74.81,
     "NAD": 14.69,
-    "NGN": 380, // 396.700509,
+    "NGN": 420, // 396.700509,
     "NIO": 34.873728,
     "NOK": 8.63301,
     "NPR": 117.485776,
@@ -391,36 +391,37 @@
           evt.target.innerText = 'COPY LINK'
         }, 5000)
       },
-      rates() {
+      rates(_currency) {
         sessionStorage.setItem('shukran-curr-cur-sym', this.currencySymbol)
 
+        console.log('now using', _currency);
         this.tipTotal = fx(this.tipTotal) // convert tip total
           .from(
             this.tempCurr
             /* ? this.tempCurr
             : sessionStorage.getItem("shukran-country-currency") */
-          ).to(this.currency);
+          ).to(_currency);
 
         this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
           .from(
             this.tempCurr
             /* ? this.tempCurr
             : sessionStorage.getItem("shukran-country-currency") */
-          ).to(this.currency);
+          ).to(_currency);
 
         this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
           .from(
             this.tempCurr
             /* ? this.tempCurr
             : sessionStorage.getItem("shukran-country-currency") */
-          ).to(this.currency));
+          ).to(_currency));
 
         for (let index = 0; index < this.transactions.length; index++) {
           const element = this.transactions[index];
-          element.amount = fx(element.amount).from(this.tempCurr).to(this.currency)
+          element.amount = fx(element.amount).from(this.tempCurr).to(_currency)
         }
 
-        switch (this.currency) {
+        switch (_currency) {
           case "NGN":
             this.payoutGuard = 1000
             break;
@@ -436,7 +437,8 @@
             .from("NGN")
             .to(this.currency); */
 
-        this.tempCurr = this.currency;
+        this.tempCurr = _currency;
+        this.currency = _currency; // hate that we have to do it like this
 
         if (this.chart1) { // update chart1
           this.chart1.data.datasets[0].data = this.allTips

@@ -353,7 +353,7 @@
     "MYR": 4.0505,
     "MZN": 74.81,
     "NAD": 14.69,
-    "NGN": 380, // 396.700509,
+    "NGN": 420, // 396.700509,
     "NIO": 34.873728,
     "NOK": 8.63301,
     "NPR": 117.485776,
@@ -424,6 +424,7 @@ export default {
   components: {
     Cropper
   },
+  props: [],
   name: "TopSideHeader",
   data() {
     return {
@@ -434,9 +435,6 @@ export default {
       url: "https://useshukran.com/cr/" + encodeURIComponent(JSON.parse(sessionStorage.getItem('profile')).username.trim()),
       comment: "",
       feed: "Send", // why though ? why feed...?
-      amount: 0,
-      tipTotal: 0,
-      tipWithdrawn: 0,
       img: 'https://useshukran.com/static/img/blank-profile-picture.png', // https://images.unsplash.com/photo-1611232099906-dc95961260a4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80
       finalImage: ''
     }
@@ -449,72 +447,7 @@ export default {
     rates() {
         sessionStorage.setItem('shukran-curr-cur-sym', this.currencySymbol)
 
-        this.tipTotal = fx(this.tipTotal) // convert tip total
-          .from(
-            this.tempCurr
-            /* ? this.tempCurr
-            : sessionStorage.getItem("shukran-country-currency") */
-          ).to(this.currency);
-
-        this.tipWithdrawn = fx(this.tipWithdrawn) // convert tip withdrawn
-          .from(
-            this.tempCurr
-            /* ? this.tempCurr
-            : sessionStorage.getItem("shukran-country-currency") */
-          ).to(this.currency);
-
-        this.allTips = this.allTips.map(tip => fx(tip) // convert all other tips
-          .from(
-            this.tempCurr
-            /* ? this.tempCurr
-            : sessionStorage.getItem("shukran-country-currency") */
-          ).to(this.currency));
-
-        for (let index = 0; index < this.transactions.length; index++) {
-          const element = this.transactions[index];
-          element.amount = fx(element.amount).from(this.tempCurr).to(this.currency)
-        }
-
-        switch (this.currency) {
-          case "NGN":
-            this.payoutGuard = 1000
-            break;
-          case "KES":
-            this.payoutGuard = 500
-            break
-          default:
-            this.payoutGuard = 1000
-            break;
-        }
-
-        /* this.payoutGuard = fx(1000) // convert payout guard ...important!
-            .from("NGN")
-            .to(this.currency); */
-
-        this.tempCurr = this.currency;
-
-
-
-        ////// WORKS ???????
-
-
-        if (this.chart1) { // update chart1
-          this.chart1.data.datasets[0].data = this.allTips
-          this.chart1.update();
-        }
-        if (this.chart2) { // update chart2
-          this.chart2.data.datasets[0].data = [this.availableBalance.toFixed(2), this.tipWithdrawn.toFixed(2)]
-          this.chart2.data.labels = [ // These labels appear in the
-            this.currencySymbol + this.availableBalance.toFixed(2) + ' Available',
-            this.currencySymbol + this.tipWithdrawn.toFixed(2) + ' Withdrawn'
-          ]
-          this.chart2.update();
-        }
-        // const rate = fx(this.tipTotal).from(sessionStorage.getItem('shukran-country-currency')).to(this.currency)
-        // console.log(`${sessionStorage.getItem('shukran-country-currency')}${this.tipTotal} = ${this.currency}${rate.toFixed(2)}`)
-
-        // re-render, the whole page, to update the graph
-        this.$forceUpdate();
+        this.$emit('change-rates', this.currency)
     },
     onFileChanged(event) {
         

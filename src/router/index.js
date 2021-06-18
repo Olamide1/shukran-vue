@@ -8,6 +8,7 @@ import OldSupport from '@/components/OldSupport'
 import Support from '@/components/Support'
 import ThankYou from '@/components/ThankYou'
 import Admin from '@/components/Admin'
+import AdminIntl from '@/components/AdminIntl'
 import Reset from '@/components/Reset'
 import Pricing from '@/components/Pricing'
 import Index from '@/components/Index'
@@ -136,6 +137,15 @@ const router = new Router({
       component: Admin,
       meta: {
         title: 'Admin - Shukran',
+        authenticate: true
+      }
+    },
+    {
+      path: '/oga',
+      name: 'AdminIntl',
+      component: AdminIntl,
+      meta: {
+        title: 'Admin - Shukran Transfers',
         authenticate: true
       }
     },
