@@ -76,6 +76,14 @@
                   </div>
                   <div class="uk-width-1-1">
                       <input
+                        type="text"
+                        class="uk-input"
+                        placeholder="Bank Account Name"
+                        v-model="destination_bank_account_name"
+                      />
+                  </div>
+                  <div class="uk-width-1-1">
+                      <input
                         type="tel"
                         class="uk-input"
                         placeholder="Bank Account Number"
@@ -354,6 +362,7 @@
         destination_bank: '',
         destination_country:'',
         destination_bank_account_number: '',
+        destination_bank_account_name: '',
         files: [],
         sender_fullname: '',
         sender_email: '',
@@ -413,6 +422,7 @@
             destination_bank_account_number = this.destination_bank_account_number,
             destination_bank = this.destination_bank,
             amount = this.amount,
+            destination_bank_account_name = this.destination_bank_account_name,
             sender_fullname = this.sender_fullname,
             sender_currency = this.sender_currency,
             destination_country = this.destination_country
@@ -439,6 +449,7 @@
           meta: {
             // Goes to our flutterwave dashboard
             sender_email: sender_email,
+            destination_bank_account_name: destination_bank_account_name,
             destination_bank_account_number: destination_bank_account_number,
             destination_bank: destination_bank,
             amount: amount,
@@ -467,6 +478,7 @@
                     destination_country: destination_country,
                     destination_bank: destination_bank,
                     amount: amount,
+                    destination_bank_account_name: destination_bank_account_name,
                     destination_bank_account_number: destination_bank_account_number,
                     // status: status,
                     sender_fullname: sender_fullname,
@@ -569,6 +581,9 @@ a.router-link-exact-active {
       padding: 0 10px;
       font-size: 0.8rem;
     }
+    .uk-icon-button {
+      width: 40px;
+    }
   }
 
   @media (min-width: 640px) {
@@ -608,9 +623,6 @@ a.router-link-exact-active {
 
   .content-name {
     width: 75%;
-    /* white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; */
   }
 
   @media (max-width: 960px) {
