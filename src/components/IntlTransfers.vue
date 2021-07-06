@@ -9,15 +9,6 @@
         <h3 class="h3">
           Hello
         </h3>
-        <!--<div uk-alert>
-          <a class="uk-alert-close" uk-close></a>
-          <h3>Notice</h3>
-          <p>
-            Hi {{username}}, our 10% charge will take effect on payout requests from hence forth, find the breakdown
-            <router-link to="/pricing">here.</router-link> Shukran!😊
-          </p>
-        </div>-->
-
         <div class=" uk-child-width-1-2@m uk-grid-match" uk-grid uk-height-match="row: false">
 
           <!-- Total revenue start -->
@@ -452,6 +443,9 @@
             destination_bank: destination_bank,
             amount: amount,
             sender_fullname: sender_fullname,
+
+            sender_currency: sender_currency,
+            destination_country: destination_country,
             // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
           },
           customer: {
@@ -474,7 +468,7 @@
                     destination_bank: destination_bank,
                     amount: amount,
                     destination_bank_account_number: destination_bank_account_number,
-                    status: status,
+                    // status: status,
                     sender_fullname: sender_fullname,
                     sender_email: sender_email
                   },
