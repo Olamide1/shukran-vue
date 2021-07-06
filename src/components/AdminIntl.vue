@@ -205,7 +205,7 @@
             <li>
                 <a href="#">Withdrawal Request</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in this.requests.reverse()" :key="index"><!-- do reverse from server -->
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in this.requests" :key="index"><!-- do reverse from server -->
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount * 0.9}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
                             <div class="uk-margin-small">
@@ -333,9 +333,9 @@ export default {
                 console.error(err)
             })
         },
-        loadTransactions(){
-             axios.get(process.env.BASE_URL + '/api/alltransactions/').then( res=> { 
-                console.log('loaded transactions')
+        loadIntlTransactions(){
+             axios.get(process.env.BASE_URL + '/api/allinternationaltransactions/').then( res=> { 
+                console.log('loaded intl transactions', res)
                 this.transactions = res.data
             })
             .then(() => {
@@ -535,7 +535,7 @@ export default {
                 status: 'requested'
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
-                this.requests = resp.data
+                this.requests = resp.data.reverse()
                 this.requested = resp.data.length
             }).catch( err => {
                 console.error(err)
@@ -588,7 +588,7 @@ export default {
     mounted(){
         this.loadUsers()
         this.loadRequest()
-        this.loadTransactions()
+        this.loadIntlTransactions()
         this.loadReceived()
         this.getFeedback()
         this.loadPaid()

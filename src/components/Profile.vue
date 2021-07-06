@@ -140,7 +140,7 @@
 
       <div class="uk-card">
         <div class="uk-card-header">
-          <h3 class="uk-card-title uk-text-center">User Profile</h3>
+          <h3 class="uk-card-title uk-text-center">Creator Profile</h3>
         </div>
 
         <div class="desktop-profile-tab">

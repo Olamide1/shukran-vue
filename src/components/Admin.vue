@@ -167,7 +167,7 @@
             <li>
                 <a href="#">Creators</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(user, index) in this.users" :key="index">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(user, index) in users" :key="index">
                             <div class="uk-width-auto">
                                 <img class="uk-border-circle" width="40" height="40" src="/static/img/icons/favicon-16x16.png">
                             </div>
@@ -186,11 +186,11 @@
             <li>
                 <a href="#">Transactions</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid >
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in this.transactions" :key="index">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in transactions" :key="index">
                             <div class="uk-width-expand">
                                 <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} {{transaction.username}}</h4>
                                 <div class="uk-margin-small">
-                                    <button class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
+                                    <!-- disabled, because should we be able to delete transactions from here ? --><button disabled class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
                                 </div>
                                 <p class="uk-text-meta uk-margin-remove-top">
                                     &mdash;
@@ -205,7 +205,7 @@
             <li>
                 <a href="#">Withdrawal Request</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in this.requests.reverse()" :key="index"><!-- do reverse from server -->
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in requests" :key="index"><!-- do reverse from server -->
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount * 0.9}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
                             <div class="uk-margin-small">
@@ -215,7 +215,11 @@
                                 </div>
                                 
                             </div>
-                            <p class="uk-text-meta uk-margin-remove-top"><time :datetime="request.transaction_date">{{request.transaction_date}}</time>, {{request.status}}</p>
+                            <p class="uk-text-meta uk-margin-remove-top">
+                                <span>{{new Date(request.transaction_date).toLocaleDateString('en-US', 
+                                        {weekday: 'long', year: 'numeric', month: 
+                                            'long', day: 'numeric'})}}</span>, {{request.status}}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -336,7 +340,7 @@ export default {
         loadTransactions(){
              axios.get(process.env.BASE_URL + '/api/alltransactions/').then( res=> { 
                 console.log('loaded transactions')
-                this.transactions = res.data
+                this.transactions = res.data.reverse()
             })
             .then(() => {
                 this.createOverviewChart()
@@ -518,8 +522,8 @@ export default {
                 status: 'paid'
             }).then( res => {
                 console.log('loaded received tips', res)
-                let totalPaidVolume = 0, totalnetRevenue = 0
-                for(var i = 0; i < res.data.length; i++){
+                let totalPaidVolume = 0, totalnetRevenue = 0;
+                for(var i = 0; i < res.data.length; i++){ // should be in backend
                     console.table(`$#${i}`,res.data[i].amount, parseFloat(res.data[i].amount) * 0.9)
                     totalPaidVolume += parseFloat(res.data[i].amount) * 0.9;
                     totalnetRevenue += (parseFloat(res.data[i].amount) * 0.1) - 25; // ₦25 is transaction fee for transfer https://wallets.africa/faqs
@@ -535,7 +539,7 @@ export default {
                 status: 'requested'
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
-                this.requests = resp.data
+                this.requests = resp.data.reverse()
                 this.requested = resp.data.length
             }).catch( err => {
                 console.error(err)

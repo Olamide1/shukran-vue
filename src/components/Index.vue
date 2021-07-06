@@ -19,6 +19,9 @@
                 <a href="#services">Services</a>
               </li>
               <li>
+                <router-link to="/transfers">Transfers</router-link>
+              </li>
+              <li>
                 <a href="#contact">Contact</a>
               </li>
               <li>
@@ -39,6 +42,9 @@
                   </li>
                   <li class="nav-close">
                     <a href="#services">Services</a>
+                  </li>
+                  <li>
+                    <router-link to="/transfers">Transfers</router-link>
                   </li>
                   <li>
                     <a href="#contact">Contact</a>
@@ -314,6 +320,8 @@ With support from your audience, you'll be able to get ahead in your space and k
             <router-link to="/pricing">Pricing</router-link>
           
             <router-link to="/terms">T&C</router-link>
+
+            <router-link to="/transfers">Transfers</router-link>
           
             <router-link to="/how-it-works">How Shukran works</router-link>
           

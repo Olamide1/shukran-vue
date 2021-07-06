@@ -67,7 +67,11 @@ export default {
         }).then(res => {
           if (res.status === 200) {
             sessionStorage.setItem('++', true)
-            this.$router.push('/boss')
+            if (res.data === "transfers") {
+              this.$router.push('/oga')
+            } else if (res.data === "creators") {
+              this.$router.push('/boss')
+            }
           } else {
             this.loginbtn = 'Login'
             this.issue = 'An error occured. Please try again.'

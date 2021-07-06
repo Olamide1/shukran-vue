@@ -29,7 +29,7 @@
                     uk-tooltip="Transfer to any african account">Shukran International transfers</span></h3>
                 <!-- The button toggling the message modal -->
                 <span class="uk-icon-button send-message-all" uk-icon="info" data-uk-tooltip
-                  title="Make transfers to any African country from outside Africa"
+                  title="Make transfers to these african countries from outside africa"
                   ></span>
               </div>
               <div class="total-revenue">
@@ -49,60 +49,30 @@
                         list="african_countries"
                       />
                       <datalist id="african_countries">
+                        <!-- supported currencies rwf ngn ghs kes rwf ugx sll usd eur xaf zar xof zmw -->
                           <option value="Nigeria">Nigeria</option>
-                          <option value="Ethiopia">Ethiopia</option>
-                          <option value="Egypt">Egypt</option>
-                          <option value="DR Congo">DR Congo</option>
-                          <option value="Tanzania">Tanzania</option>
-                          <option value="South Africa">South Africa</option>
+                          <option value="Sierra Leone">Sierra Leone</option>
+                          <option value="Central African Republic">Central African Republic</option>
                           <option value="Kenya">Kenya</option>
                           <option value="Uganda">Uganda</option>
-                          <option value="Algeria">Algeria</option>
-                          <option value="Sudan">Sudan</option>
-                          <option value="Morocco">Morocco</option>
-                          <option value="Angola">Angola</option>
-                          <option value="Mozambique">Mozambique</option>
-                          <option value="Ghana">Ghana</option>
-                          <option value="Madagascar">Madagascar</option>
                           <option value="Cameroon">Cameroon</option>
+                          <option value="Chad">Chad</option>
+                          <option value="DR Congo">DR Congo</option>
+                          <option value="Guinea">Guinea</option>
+                          <option value="Tanzania">Tanzania</option>
+                          <option value="Rwanda">Rwanda</option>
+                          <option value="Ghana">Ghana</option>
+                          <option value="Gabon">Gabon</option>
+                          <option value="Equatorial Guinea">Equatorial Guinea</option>
+                          <option value="Namibia">Namibia</option>
+                          <option value="South Africa">South Africa</option>
                           <option value="Cote d'Ivoire">Côte d'Ivoire</option>
                           <option value="Niger">Niger</option>
                           <option value="Burkina Faso">Burkina Faso</option>
-                          <option value="Mali">Mali</option>
-                          <option value="Malawi">Malawi</option>
-                          <option value="Zambia">Zambia</option>
                           <option value="Senegal">Senegal</option>
-                          <option value="Chad">Chad</option>
-                          <option value="Somalia">Somalia</option>
-                          <option value="Zimbabwe">Zimbabwe</option>
-                          <option value="Guinea">Guinea</option>
-                          <option value="Rwanda">Rwanda</option>
+                          <option value="Mali">Mali</option>
                           <option value="Benin">Benin</option>
-                          <option value="Burundi">Burundi</option>
-                          <option value="Tunisia">Tunisia</option>
-                          <option value="South Sudan">South Sudan</option>
-                          <option value="Togo">Togo</option>
-                          <option value="Sierra Leone">Sierra Leone</option>
-                          <option value="Libya">Libya</option>
-                          <option value="Congo">Congo</option>
-                          <option value="Liberia">Liberia</option>
-                          <option value="Central African Republic">Central African Republic</option>
-                          <option value="Mauritania">Mauritania</option>
-                          <option value="Eritrea">Eritrea</option>
-                          <option value="Namibia">Namibia</option>
-                          <option value="Gambia">Gambia</option>
-                          <option value="Botswana">Botswana</option>
-                          <option value="Gabon">Gabon</option>
-                          <option value="Lesotho">Lesotho</option>
-                          <option value="Guinea-Bissau">Guinea-Bissau</option>
-                          <option value="Equatorial Guinea">Equatorial Guinea</option>
-                          <option value="Mauritius">Mauritius</option>
-                          <option value="Eswatini">Eswatini</option>
-                          <option value="Djibouti">Djibouti</option>
-                          <option value="Comoros">Comoros</option>
-                          <option value="Cabo Verde">Cabo Verde</option>
-                          <option value="Sao Tome & Principe">Sao Tome & Principe</option>
-                          <option value="Seychelles">Seychelles</option>
+                          <option value="Zambia">Zambia</option>
                       </datalist>
                   </div>
                   <div class="uk-width-1-1">
@@ -128,11 +98,21 @@
                           <select
                             v-model="sender_currency"
                             style="border-radius: 3px"
-                            class="uk-select uk-form-width-xsmall"
-                          ><!-- add more list here -->
-                            <option class="" value="NGN">₦</option>
+                            class="uk-select uk-form-width-xsmall">
+                            <option value="USD">$</option>
+                            <option value="EUR">€</option>
+                            <option value="GBP">£</option>
+                            <!-- <option value="NGN">₦</option>
                             <option value="KES">Ksh</option>
                             <option value="USD">$</option>
+                            <option value="RWF">RF</option>
+                            <option value="GHS">GH¢</option>
+                            <option value="UGX">USh</option>
+                            <option value="SLL">Le</option>
+                            <option value="XAF">FCFA</option>
+                            <option value="ZAR">R</option>
+                            <option value="XOF">CFA</option>
+                            <option value="ZMW">ZK</option> -->
                           </select>
                         </div>
                         <input
@@ -176,6 +156,7 @@
                       class="uk-button uk-button-default"
                       @click="save()"
                     >Send</button>
+                    <!-- todo: send email once payment is made -->
               <div>
               
             </div>
@@ -400,18 +381,14 @@
     computed: {
       currencySymbol() {
         switch (this.sender_currency) {
-          case "NGN":
-            return "₦";
-            break;
           case "USD":
             return "$";
-            break;
-          case "KES":
-            return "Ksh";
-            break;
+          case "EUR":
+            return "€";
+          case "GBP":
+            return "£";
           default:
-            return "₦";
-            break;
+            return "$";
         }
       }
     },
@@ -455,15 +432,11 @@
         
         FlutterwaveCheckout({
           public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
-          tx_ref: `${sender_email}-intl-transfer-to-${
+          tx_ref: `${sender_email}-intl-transfer-to-${ // never changing this ref
             destination_bank
           }-${destination_bank_account_number} @ ${Date.now()}`,
           amount: parseFloat(amount), // why previously parseInt ?
           // https://stackoverflow.com/a/40560953
-          // make country based on currency? how about ?
-          ...(sender_currency == "KES" && {
-            country: "KE",
-          }),
           currency: sender_currency,
           ...(sender_currency == "GBP" && {
             type: "debit_uk_account",
