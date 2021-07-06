@@ -70,7 +70,7 @@
                       <input
                         type="text"
                         class="uk-input"
-                        placeholder="Bank"
+                        placeholder="Destination Bank Name"
                         v-model="destination_bank"
                       />
                   </div>
