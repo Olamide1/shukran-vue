@@ -17,10 +17,10 @@
               uk-scrollspy="cls: uk-animation-slide-bottom; repeat: true">
               <div class="sub-list-header">
                 <h3 class="uk-card-title"><span
-                    uk-tooltip="Transfer to any african account">Shukran International transfers</span></h3>
+                    uk-tooltip="Transfer to any African account">Shukran International transfers</span></h3>
                 <!-- The button toggling the message modal -->
                 <span class="uk-icon-button send-message-all" uk-icon="info" data-uk-tooltip
-                  title="Make transfers to these african countries from outside africa"
+                  title="Make transfers to select African countries from outside Africa"
                   ></span>
               </div>
               <div class="total-revenue">
@@ -33,6 +33,7 @@
               <form class="uk-grid-small" uk-grid>
                   <div class="uk-width-1-1">
                       <input
+                      required
                         type="text"
                         class="uk-input"
                         placeholder="Destination country"
@@ -68,6 +69,7 @@
                   </div>
                   <div class="uk-width-1-1">
                       <input
+                      required
                         type="text"
                         class="uk-input"
                         placeholder="Destination Bank Name"
@@ -76,6 +78,7 @@
                   </div>
                   <div class="uk-width-1-1">
                       <input
+                      required
                         type="text"
                         class="uk-input"
                         placeholder="Bank Account Name"
@@ -84,6 +87,7 @@
                   </div>
                   <div class="uk-width-1-1">
                       <input
+                      required
                         type="tel"
                         class="uk-input"
                         placeholder="Bank Account Number"
@@ -95,6 +99,7 @@
                       <div style="display: flex">
                         <div class="uk-form-controls" style="margin-right: 1px">
                           <select
+                          required
                             v-model="sender_currency"
                             style="border-radius: 3px"
                             class="uk-select uk-form-width-xsmall">
@@ -115,6 +120,7 @@
                           </select>
                         </div>
                         <input
+                        required
                           type="number"
                           class="uk-input"
                           placeholder="Amount"
@@ -129,6 +135,7 @@
 
                   <div class="uk-width-1-1">
                       <input
+                      required
                         type="text"
                         class="uk-input"
                         autocomplete="name"
@@ -138,6 +145,7 @@
                   </div>
                   <div class="uk-width-1-1">
                       <input
+                      required
                         type="email"
                         class="uk-input"
                         autocomplete="email"
@@ -150,6 +158,7 @@
 
                   
               </form>
+              <!-- make this bit responsive -->
                     <button
                       :disabled="!amount"
                       class="uk-button uk-button-default"
@@ -357,13 +366,10 @@
       return {
         issue: '',
         sender_currency: 'USD', // optimse later, use country's currency
-        tempCurr: "",
-        payoutGuard: 1000, // 1000 naira
         destination_bank: '',
         destination_country:'',
         destination_bank_account_number: '',
         destination_bank_account_name: '',
-        files: [],
         sender_fullname: '',
         sender_email: '',
         amount: "",
@@ -373,9 +379,6 @@
         balance: 0,
         comment: "",
         feed: "Send",
-        request: "Request",
-        uniqueSupporters: 0,
-        totalRevenue: 0
       };
     },
     computed: {
@@ -396,9 +399,6 @@
       
     },
     methods: {
-      
-      
-      
       save() {
       // [optimize] save their email & nickname & phone number for later autofilling
       analytics.identify(this.sender_email, {
@@ -489,14 +489,6 @@
                   }
                 )
                 .then((res) => {
-                  // if they subscribed ...refresh the page to show their content.
-                  // console.log("tipped res", JSON.stringify(res));
-                  // console.log("this", JSON.stringify(this));
-                  // console.log(
-                  //   "redirected response",
-                  //   document.URL,
-                  //   JSON.parse(res.config.data).tx_ref
-                  // );
                   
                 })
                 .catch((err) => {
@@ -513,9 +505,9 @@
             // console.log('ouchhh, closeddd');
           },
           customizations: {
-            title: "Send to Africa",
+            title: `Send to ${destination_country}`,
             description: `Sending to ${destination_bank}, ${destination_bank_account_number}`,
-            logo: "https://drive.google.com/uc?export=view&id=1GfeklRxs6fyzI7Kz1qYGKaskU_oHfrLq", // https://drive.google.com/file/d/1GfeklRxs6fyzI7Kz1qYGKaskU_oHfrLq/view?usp=sharing
+            logo: "https://drive.google.com/uc?export=view&id=1GfeklRxs6fyzI7Kz1qYGKaskU_oHfrLq",
           },
         }); // flutterwave ends here
       }
@@ -524,7 +516,7 @@
       
       
       
-      submitFeedback() {
+      submitFeedback() { // use later
         let username = this.username;
         let comment = this.comment;
         this.feed = "Sending...";
@@ -542,16 +534,10 @@
             // console.log(err);
           });
       },
-      
-      /* checkUser() {
-        if (this.username == null) {
-          this.$router.push("/accounts");
-        }
-      }, */
+
       
     },
     mounted() {
-      // this.checkUser();
     },
     beforeMount() {}
   };
@@ -651,16 +637,6 @@ a.router-link-exact-active {
 
   #my-id>div textarea,
   #my-id>div button {
-    border-radius: 3px;
-  }
-
-  #send-message>.uk-modal-body {
-    border-radius: 5px;
-  }
-
-  #send-message button,
-  #send-message textarea.uk-textarea,
-  #send-message input.uk-input {
     border-radius: 3px;
   }
 
@@ -848,11 +824,6 @@ a.router-link-exact-active {
     color: #fceedd;
   }
 
-  .request-button.uk-button-primary {
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  }
-
   li#give-feedback,
   li#get-tipped,
   li#logout {
@@ -988,8 +959,7 @@ a.router-link-exact-active {
 
   @media (max-width: 960px) {
 
-    .desktop-nav,
-    .request-button.uk-button-primary {
+    .desktop-nav {
       display: none;
     }
 
