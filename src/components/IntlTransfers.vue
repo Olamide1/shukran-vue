@@ -513,9 +513,6 @@
       }
     },
       
-      
-      
-      
       submitFeedback() { // use later
         let username = this.username;
         let comment = this.comment;

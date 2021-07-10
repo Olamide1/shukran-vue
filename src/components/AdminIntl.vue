@@ -5,7 +5,10 @@
 
     <div class="nav-overlay uk-navbar-left">
 
-        <a class="uk-navbar-item uk-logo" href="#">Shukran</a>
+        <span class="uk-navbar-item uk-logo" href="#">
+            <span>Shukran</span>
+            <span class="uk-text-meta">Intl' Transfers</span>
+            </span>
 
         <ul class="uk-navbar-nav">
             <li><a @click="logout">Logout</a></li>
@@ -97,21 +100,7 @@
 </div>
 
 
-<div class="uk-card uk-card-default uk-card-body uk-margin uk-margin-left uk-margin-right info-card ">
-    
-    <div class="uk-flex">
-        <div>
-            <span>No. of creators</span>
-            <h1 class="uk-margin-small-top">{{totalUsers}}</h1>
-        </div>
-        <hr class="uk-divider-vertical">
-        <hr class="horizontal">
-        <div>
-            <span>No. of tips</span>
-            <h1 class="uk-margin-small-top">{{totalTransact}}</h1>
-        </div>
-    </div>
-</div>
+
 
 <div class="uk-card uk-card-default uk-card-body uk-margin uk-margin-left uk-margin-right info-card ">
     
@@ -149,13 +138,11 @@
 
 <div class="uk-margin uk-margin-left uk-margin-right">
     <ul uk-tab class="uk-visible@s" uk-switcher="connect: .re-tain; animation: uk-animation-fade">
-        <li class="uk-active"><a href="#">Creators</a></li>
         <li><a href="#">Transactions</a></li>
         <li><a href="#">Withdrawal Request</a></li>
         <li class=""><a href="#">Feedback</a></li>
     </ul>
     <ul class="uk-subnav uk-subnav-pill uk-child-width-expand uk-hidden@s uk-text-center" uk-switcher="connect: .re-tain; animation: uk-animation-fade">
-        <li class=""><a href="#" uk-icon="users"></a></li>
         <li><a href="#" uk-icon="credit-card"></a></li>
         <li><a href="#" uk-icon="push"></a></li>
         <li><a href="#" uk-icon="comments"></a></li>
@@ -165,27 +152,24 @@
     <ul class="uk-switcher re-tain uk-margin uk-margin-left uk-margin-right">
 
             <li>
-                <a href="#">Creators</a>
-                <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(user, index) in this.users" :key="index">
-                            <div class="uk-width-auto">
-                                <img class="uk-border-circle" width="40" height="40" src="/static/img/icons/favicon-16x16.png">
-                            </div>
-                            <div class="uk-width-expand">
-                                <h3 class="uk-card-title uk-margin-remove-bottom">{{user.username}}</h3>
-                                <p class="uk-text-meta uk-margin-remove-top">
-                                    {{user.fullname}} &middot; {{user.email}}
-                                </p>
-                            </div>
-                            <div>
-                                <button @click="clickInfo(index)" id="info-modal" class="uk-button uk-button-secondary">Info</button>
-                            </div>
-                        </div>
-                </div>
-            </li>
-            <li>
                 <a href="#">Transactions</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid >
+                    <!-- 
+                        transations have :
+
+
+                    sender_currency
+                    destination_country
+                    destination_bank
+                    amount
+                    destination_bank_account_number
+                    status
+                    sender_fullname
+                    sender_email
+
+                    destination_bank_account_name
+                    transaction_date
+ -->
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in this.transactions" :key="index">
                             <div class="uk-width-expand">
                                 <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} {{transaction.username}}</h4>
@@ -196,18 +180,18 @@
                                     &mdash;
                                     <time datetime="2016-04-01T19:00">
                                         {{transaction.transaction_date}}
-                                    </time>{{transaction.supporter_nickname ? ', by ' + transaction.supporter_nickname : ''}}
+                                    </time>{{transaction.sender_fullname ? ', by ' + transaction.sender_fullname : ''}}
                                 </p>
                             </div>
                         </div>
                 </div>
             </li>
             <li>
-                <a href="#">Withdrawal Request</a>
+                <a href="#">Transfer Request</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in this.requests" :key="index"><!-- do reverse from server -->
                         <div class="uk-width-expand">
-                            <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount * 0.9}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
+                            <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
                             <div class="uk-margin-small">
                                 <div class="uk-button-group">
                                     <button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button>
@@ -224,7 +208,7 @@
             <li>
                 <a href="#">Feedback</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(feedback, index) in _allFeedback" :key="index">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(feedback, index) in allFeedback" :key="index">
                             <div class="uk-width-expand">
                                 <h5 class="uk-margin-remove-bottom">{{feedback.comment}}</h5>
                                 <p class="uk-text-meta uk-margin-remove-top">
@@ -233,6 +217,7 @@
                             </div>
                         </div>
                 </div>
+                <span v-if="allFeedback.length == 0" align="center">No feedback given yet.</span>
             </li>
         
     </ul>
@@ -257,8 +242,6 @@ export default {
             users: [],
             time: 'month',
             transactions: [],
-            totalUsers: 0,
-            totalTransact: 0,
             requests: [],
             transactionVolume: 0,
             paid: 'Pay',
@@ -266,7 +249,7 @@ export default {
             paidVolume: 0,
             requested: 0,
             search: '',
-            allfeedback: [],
+            allFeedback: [],
             deleted: 'Delete',
             overviewChart: null,
         }
@@ -287,16 +270,29 @@ export default {
         },
         clickInfo(index){
             let users = this.users
+            /**
+             * 
+             * 
+                users have these :
+
+                status
+                
+                sender_email
+
+                
+                transaction_date
+             */
                 let modal = UIkit.modal.dialog(`
                             <div class="uk-modal-body uk-margin-auto-vertical">
 
                             <button class="uk-modal-close-default" type="button" uk-close></button>
-                            <h3>${users[parseInt(index)].username} details:</h3>
-                            <p>Bank: ${users[parseInt(index)].bank}</p>
-                            <p>Account name: ${users[parseInt(index)].account_name}</p>
-                            <p>Account Number: ${users[parseInt(index)].account_number}</p>
-                            <p>Craft type: ${users[parseInt(index)].craft_type}</p>
-                            <p>Phone number: ${users[parseInt(index)].phone}</p>
+                            <h3>${users[parseInt(index)].sender_fullname} details:</h3>
+                            <p>Destination Country: ${users[parseInt(index)].destination_country}</p>
+                            <p>Destination Bank: ${users[parseInt(index)].destination_bank}</p>
+                            <p>Destination Account Name: ${users[parseInt(index)].destination_bank_account_name}</p>
+                            <p>Destination Account Number: ${users[parseInt(index)].destination_bank_account_number}</p>
+                            <p>Sender Currency: ${users[parseInt(index)].sender_currency}</p>
+                            <p>Amount To Send: ${users[parseInt(index)].sender_currency} ${users[parseInt(index)].amount}</p>
 
                             </div>
                             <div class="uk-modal-footer uk-text-right">
@@ -325,10 +321,9 @@ export default {
                 });
         },
         loadUsers() {
-            axios.get(process.env.BASE_URL + '/api/allusers/').then(res => {
+            axios.get(process.env.BASE_URL + '/api/allinternationaltransferusers/').then(res => {
                 console.log('loaded users', res.data)
                 this.users = res.data
-                this.totalUsers = this.users.length
             }).catch(err => {
                 console.error(err)
             })
@@ -500,19 +495,6 @@ export default {
                 }
             });
         },
-        loadReceived(){
-            axios.post(process.env.BASE_URL + '/api/requests/', {
-                status: 'received'
-            }).then( res => {
-                console.log('loaded received tips')
-                this.totalTransact = res.data.length
-                for(var i = 0; i < res.data.length; i++){
-                    this.transactionVolume += parseFloat(res.data[i].amount);
-                }
-            }).catch(err => {
-                console.error(err)
-            })
-        },
         loadPaid(){
             axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'paid'
@@ -531,10 +513,9 @@ export default {
             })
         },
         loadRequest() {
-            axios.post(process.env.BASE_URL + '/api/requests/', {
-                status: 'requested'
-            }).then(resp => {
-                console.log('wthdrawal requests loaded')
+            axios.get(process.env.BASE_URL + '/api/internationaltransferrequests/')
+            .then(resp => {
+                console.log('transfer requests loaded')
                 this.requests = resp.data.reverse()
                 this.requested = resp.data.length
             }).catch( err => {
@@ -543,9 +524,9 @@ export default {
         },
         update(id){
             this.paid = 'paying...'
-            axios.post(process.env.BASE_URL + '/api/updatetransaction/', {
+            axios.post(process.env.BASE_URL + '/api/updateinternationaltransaction/', {
                 id: id,
-                status: 'paid'
+                // status: 'paid' // can do this in backend
             }).then( resp => {
                 this.paid = 'Pay'
                 alert('Paid') // More UX/UI
@@ -577,8 +558,8 @@ export default {
             })
         },
         getFeedback(){
-            axios.get(process.env.BASE_URL + '/api/allfeedback/').then( res =>{
-                this.allfeedback = res.data
+            axios.get(process.env.BASE_URL + '/api/allinternationalfeedback/').then( res =>{
+                this.allFeedback = res.data.reverse()
                 console.log('loaded feedback')
             }).catch(err => {
                 console.error(err)
@@ -589,7 +570,6 @@ export default {
         this.loadUsers()
         this.loadRequest()
         this.loadIntlTransactions()
-        this.loadReceived()
         this.getFeedback()
         this.loadPaid()
     }, 
@@ -602,9 +582,6 @@ export default {
                 );
             }
             return filtered;
-        },
-        _allFeedback: function () {
-            return this.allfeedback.reverse();
         },
         _requests: function () {
             return this.requests.reverse();

@@ -228,7 +228,7 @@
             <li>
                 <a href="#">Feedback</a>
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
-                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(feedback, index) in _allFeedback" :key="index">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(feedback, index) in allFeedback" :key="index">
                             <div class="uk-width-expand">
                                 <h5 class="uk-margin-remove-bottom">{{feedback.comment}}</h5>
                                 <p class="uk-text-meta uk-margin-remove-top">
@@ -237,6 +237,7 @@
                             </div>
                         </div>
                 </div>
+                <span v-if="allFeedback.length == 0" align="center">No feedback given yet.</span>
             </li>
         
     </ul>
@@ -270,7 +271,7 @@ export default {
             paidVolume: 0,
             requested: 0,
             search: '',
-            allfeedback: [],
+            allFeedback: [],
             deleted: 'Delete',
             overviewChart: null,
         }
@@ -582,7 +583,7 @@ export default {
         },
         getFeedback(){
             axios.get(process.env.BASE_URL + '/api/allfeedback/').then( res =>{
-                this.allfeedback = res.data
+                this.allFeedback = res.data.reverse()
                 console.log('loaded feedback')
             }).catch(err => {
                 console.error(err)
@@ -606,9 +607,6 @@ export default {
                 );
             }
             return filtered;
-        },
-        _allFeedback: function () {
-            return this.allfeedback.reverse();
         },
         _requests: function () {
             return this.requests.reverse();
