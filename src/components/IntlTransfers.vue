@@ -376,7 +376,7 @@
         sender_fullname: '',
         sender_email: '',
         amount: "",
-        fee: 4.8,
+        fee: 4.76,
         message: '',
         message_subject: '',
         message_status: 'Send',
