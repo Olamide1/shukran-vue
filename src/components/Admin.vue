@@ -188,9 +188,10 @@
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid >
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in transactions" :key="index">
                             <div class="uk-width-expand">
-                                <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} {{transaction.username}}</h4>
+                                <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' + transaction.username : ' received' }}</h4>
                                 <div class="uk-margin-small">
-                                    <!-- disabled, because should we be able to delete transactions from here ? --><button disabled class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
+                                    <!-- removeTransaction, because should we be able to delete transactions from here ? -->
+                                    <button class="uk-button uk-button-small uk-button-danger" @click="removeTransaction(index)">{{deleted}}</button>
                                 </div>
                                 <p class="uk-text-meta uk-margin-remove-top">
                                     &mdash;
@@ -211,7 +212,7 @@
                             <div class="uk-margin-small">
                                 <div class="uk-button-group">
                                     <button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button>
-                                    <button class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(request._id)">{{deleted}}</button>
+                                    <button class="uk-button uk-button-small uk-button-danger" @click="removeTransactionRequest(index)">{{deleted}}</button>
                                 </div>
                                 
                             </div>
@@ -569,6 +570,12 @@ export default {
             }).catch(err => {
                 console.error(err)
             })
+        },
+        removeTransaction(index) {
+            this.transactions.splice(index, 1);
+        },
+        removeTransactionRequest(index) {
+            this.requests.splice(index, 1);
         },
          deleteTransaction(id){// why would we want to delete a transaction?
             this.deleted = 'deleting..'

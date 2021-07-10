@@ -63,7 +63,8 @@
     
     </div>
  </div>
-
+ 
+<!-- 
 <div class="uk-card uk-card-default uk-card-body uk-margin uk-margin-left uk-margin-right chart-card">
     <div>
         <div class="uk-margin-left uk-margin-right uk-flex-middle uk-flex-between uk-flex">
@@ -98,7 +99,7 @@
         </div>
     </div>
 </div>
-
+ -->
 
 
 
@@ -158,27 +159,18 @@
                         transations have :
 
 
-                    sender_currency
-                    destination_country
-                    destination_bank
-                    amount
-                    destination_bank_account_number
-                    status
-                    sender_fullname
                     sender_email
 
-                    destination_bank_account_name
-                    transaction_date
  -->
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(transaction, index) in this.transactions" :key="index">
                             <div class="uk-width-expand">
-                                <h4 class="uk-margin-remove-bottom">NGN{{transaction.amount}} {{transaction.status == 'paid' ? ' paid to ' : ' receivd by ' }} {{transaction.username}}</h4>
+                                <h4 class="uk-margin-remove-bottom">{{transaction.sender_currency}}{{transaction.amount}} {{transaction.status == 'paid' ? ` paid to ${transaction.destination_country} ${transaction.destination_bank} ${transaction.destination_bank_account_number} (${transaction.destination_bank_account_name})` : ' received' }}</h4>
                                 <div class="uk-margin-small">
-                                    <button class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(transaction._id)">{{deleted}}</button>
+                                    <button class="uk-button uk-button-small uk-button-danger" @click="removeTransaction(index)">{{deleted}}</button>
                                 </div>
                                 <p class="uk-text-meta uk-margin-remove-top">
                                     &mdash;
-                                    <time datetime="2016-04-01T19:00">
+                                    <time :datetime="transaction.transaction_date">
                                         {{transaction.transaction_date}}
                                     </time>{{transaction.sender_fullname ? ', by ' + transaction.sender_fullname : ''}}
                                 </p>
@@ -196,7 +188,7 @@
                                 <div class="uk-button-group">
                                     <button class="uk-button uk-button-small" @click="clickInfo(index)">Details</button>
                                     <button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button>
-                                    <button disabled class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(request._id)">{{deleted}}</button>
+                                    <button disabled class="uk-button uk-button-small uk-button-danger" @click="removeTransactionRequest(index)">{{deleted}}</button>
                                 </div>
                                 
                             </div>
@@ -335,13 +327,13 @@ export default {
                 this.transactions = res.data
             })
             .then(() => {
-                this.createOverviewChart()
+                // this.createOverviewChart()
             })
             .catch( error => {
                 console.error(error)
             })
         },
-        createOverviewChart(){ // TODO: 
+        /* createOverviewChart(){ // TODO: 
             let ctx = document.getElementById("overview-chart").getContext("2d");
             // ctx.canvas.width = 1000;
             // ctx.canvas.height = 300;
@@ -454,7 +446,8 @@ export default {
                                 padding: 10,
                                 callback: function(value, index, values) {
                                     // return null to hide
-                                    return /* '₦' +  */new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(value); // Include a naira/ksh sign in the ticks // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
+                                    // prepend '₦' if we want
+                                    return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(value); // Include a naira/ksh sign in the ticks // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
                                 }
                             },
                             gridLines: { // https://www.chartjs.org/docs/latest/axes/styling.html#grid-line-configuration
@@ -495,7 +488,7 @@ export default {
                     }
                 }
             });
-        },
+        }, */
         loadPaid(){
             axios.post(process.env.BASE_URL + '/api/requests/', {
                 status: 'paid'
@@ -547,10 +540,16 @@ export default {
                 console.error(err)
             })
         },
-         deleteTransaction(id){// why would we want to delete a transaction?
+        removeTransaction(index) {
+            this.transactions.splice(index, 1);
+        },
+        removeTransactionRequest(index) {
+            this.requests.splice(index, 1);
+        },
+         deleteTransaction(_id){// why would we want to delete a transaction?
             this.deleted = 'deleting..'
             axios.post(process.env.BASE_URL + '/api/deletetransaction/', {
-                id: id,
+                id: _id,
             }).then( resp => {
                 this.deleted = 'Delete'
                 alert('Deleted')
