@@ -100,6 +100,7 @@
                         <div class="uk-form-controls" style="margin-right: 1px">
                           <select
                           required
+                          @change="feeRate()"
                             v-model="sender_currency"
                             style="border-radius: 3px"
                             class="uk-select uk-form-width-xsmall">
@@ -127,7 +128,9 @@
                           v-model="amount"
                         />
                       </div>
-
+                    <span class="uk-text-meta">
+                      Transaction fee of {{currencySymbol}} {{fee}}
+                    </span>
                       
 
                   </div>
@@ -373,6 +376,7 @@
         sender_fullname: '',
         sender_email: '',
         amount: "",
+        fee: 4.8,
         message: '',
         message_subject: '',
         message_status: 'Send',
@@ -511,6 +515,11 @@
           },
         }); // flutterwave ends here
       }
+    },
+    feeRate(){
+      console.log('curr', this.sender_currency);
+      this.fee = fx(2000) // convert fee rate
+          .from("NGN").to(this.sender_currency).toFixed(2)
     },
       
       submitFeedback() { // use later

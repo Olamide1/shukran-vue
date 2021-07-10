@@ -124,7 +124,7 @@
         <hr class="horizontal">
         <div>
             <span>Payout requests</span>
-            <h1 class="uk-margin-small-top">{{requested}}</h1>
+            <h1 class="uk-margin-small-top">{{requests.length}}</h1>
         </div>
     </div>
 </div>
@@ -270,7 +270,6 @@ export default {
             paid: 'Pay',
             netRevenue: 0,
             paidVolume: 0,
-            requested: 0,
             search: '',
             allFeedback: [],
             deleted: 'Delete',
@@ -542,7 +541,6 @@ export default {
             }).then(resp => {
                 console.log('wthdrawal requests loaded')
                 this.requests = resp.data.reverse()
-                this.requested = resp.data.length
             }).catch( err => {
                 console.error(err)
             })

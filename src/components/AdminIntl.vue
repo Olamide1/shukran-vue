@@ -107,14 +107,14 @@
     
     <div class="uk-flex">
         <div>
-            <span>Tips volume</span>
-            <h1 class="uk-margin-small-top">&#x20a6;{{transactionVolume.toFixed(2)}}</h1>
+            <span>No. of users</span>
+            <h1 class="uk-margin-small-top">{{this.users.length}}</h1>
         </div>
         <hr class="uk-divider-vertical">
         <hr class="horizontal">
         <div>
-            <span>Payout requests</span>
-            <h1 class="uk-margin-small-top">{{requested}}</h1>
+            <span>Transfer requests</span>
+            <h1 class="uk-margin-small-top">{{this.requests.length}}</h1>
         </div>
     </div>
 </div>
@@ -240,7 +240,6 @@ export default {
             paid: 'Pay',
             netRevenue: 0,
             paidVolume: 0,
-            requested: 0,
             search: '',
             allFeedback: [],
             deleted: 'Delete',
@@ -511,7 +510,6 @@ export default {
             .then(resp => {
                 console.log('transfer requests loaded')
                 this.requests = resp.data.reverse()
-                this.requested = resp.data.length
             }).catch( err => {
                 console.error(err)
             })
@@ -530,7 +528,7 @@ export default {
             })
         },
         deleteUser(id){
-            this.deleted = 'deleting..'
+            this.deleted = 'deleting...'
             axios.post(process.env.BASE_URL + '/api/deleteuser/', {
                 id: id,
             }).then( resp => {
