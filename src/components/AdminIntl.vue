@@ -191,11 +191,12 @@
                 <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
                     <div class="uk-grid-small uk-flex-middle" uk-grid v-for="(request, index) in this.requests" :key="index"><!-- do reverse from server -->
                         <div class="uk-width-expand">
-                            <h3 class="uk-card-title uk-margin-remove-bottom">NGN{{request.amount}} by {{request.username}}</h3> <!-- auto calculate how much you should pay out -->
+                            <h3 class="uk-card-title uk-margin-remove-bottom">{{request.sender_currency}}{{request.amount}} by {{request.sender_fullname}}</h3> <!-- auto calculate how much you should pay out -->
                             <div class="uk-margin-small">
                                 <div class="uk-button-group">
+                                    <button class="uk-button uk-button-small" @click="clickInfo(index)">Details</button>
                                     <button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button>
-                                    <button class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(request._id)">{{deleted}}</button>
+                                    <button disabled class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(request._id)">{{deleted}}</button>
                                 </div>
                                 
                             </div>
