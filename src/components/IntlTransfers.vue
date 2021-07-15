@@ -376,7 +376,7 @@
         sender_fullname: '',
         sender_email: '',
         amount: "",
-        fee: 4.76,
+        fee: 5,
         message: '',
         message_subject: '',
         message_status: 'Send',
@@ -518,8 +518,8 @@
     },
     feeRate(){
       console.log('curr', this.sender_currency);
-      this.fee = fx(2000) // convert fee rate
-          .from("NGN").to(this.sender_currency).toFixed(2)
+      this.fee = fx(5) // convert fee rate
+          .from("USD").to(this.sender_currency).toFixed(2)
     },
       
       submitFeedback() { // use later
