@@ -16,6 +16,7 @@
             <option value="NGN">₦</option>
             <option value="KES">Ksh</option>
             <option value="USD">$</option>
+            <option value="GBP">£</option>
           </select>
           <button class="uk-button white-bg-button" id="drop-down" type="button" tabindex="-1"
             style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">
@@ -59,6 +60,7 @@
                   <option value="NGN">₦</option>
                   <option value="KES">Ksh</option>
                   <option value="USD">$</option>
+                  <option value="GBP">£</option>
                 </select>
                 <button class="uk-button" id="drop-down" type="button" tabindex="-1"
                   style="padding: 0 15px; text-transform: capitalize; border-radius: 3px;">

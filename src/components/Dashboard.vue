@@ -369,15 +369,14 @@
         switch (this.currency) {
           case "NGN":
             return "₦";
-            break;
           case "USD":
             return "$";
-            break;
           case "KES":
             return "Ksh";
-            break;
+          case "GBP":
+            return "£";
           default:
-            break;
+            return "$";
         }
       }
     },
