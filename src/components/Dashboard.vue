@@ -832,7 +832,7 @@
           return response.json()
         })
         .then(data => {
-          console.log("\n\n\nchecking country code !");
+          // console.log("\n\n\nchecking country code !");
           let __data = {
             'shukran-country-currency': data.currency,
             'shukran-country-code': data.country_code,
