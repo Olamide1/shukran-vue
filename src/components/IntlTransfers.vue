@@ -429,7 +429,8 @@
             destination_bank_account_name = this.destination_bank_account_name,
             sender_fullname = this.sender_fullname,
             sender_currency = this.sender_currency,
-            destination_country = this.destination_country
+            destination_country = this.destination_country,
+            fee = this.fee
             ;
        
         // flutterwave
@@ -440,7 +441,7 @@
           tx_ref: `${sender_email}-intl-transfer-to-${ // never changing this ref
             destination_bank
           }-${destination_bank_account_number} @ ${Date.now()}`,
-          amount: parseFloat(amount), // why previously parseInt ?
+          amount: parseFloat(amount) + parseFloat(fee), // why previously parseInt ?
           // https://stackoverflow.com/a/40560953
           currency: sender_currency,
           ...(sender_currency == "GBP" && {
@@ -457,8 +458,8 @@
             destination_bank_account_number: destination_bank_account_number,
             destination_bank: destination_bank,
             amount: amount,
+            shukran_fee: fee,
             sender_fullname: sender_fullname,
-
             sender_currency: sender_currency,
             destination_country: destination_country,
             // https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
@@ -481,10 +482,11 @@
                     sender_currency: sender_currency,
                     destination_country: destination_country,
                     destination_bank: destination_bank,
-                    amount: amount,
+                    amount: amount, // when we pay out, we use this currency ...
                     destination_bank_account_name: destination_bank_account_name,
                     destination_bank_account_number: destination_bank_account_number,
                     // status: status,
+                    shukran_fee: fee,
                     sender_fullname: sender_fullname,
                     sender_email: sender_email
                   },

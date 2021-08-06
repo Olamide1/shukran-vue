@@ -140,7 +140,7 @@
 <div class="uk-margin uk-margin-left uk-margin-right">
     <ul uk-tab class="uk-visible@s" uk-switcher="connect: .re-tain; animation: uk-animation-fade">
         <li><a href="#">Transactions</a></li>
-        <li><a href="#">Withdrawal Request</a></li>
+        <li><a href="#">Transfer Request</a></li>
         <li class=""><a href="#">Feedback</a></li>
     </ul>
     <ul class="uk-subnav uk-subnav-pill uk-child-width-expand uk-hidden@s uk-text-center" uk-switcher="connect: .re-tain; animation: uk-animation-fade">
@@ -166,7 +166,7 @@
                             <div class="uk-width-expand">
                                 <h4 class="uk-margin-remove-bottom">{{transaction.sender_currency}}{{transaction.amount}} {{transaction.status == 'paid' ? ` paid to ${transaction.destination_country} ${transaction.destination_bank} ${transaction.destination_bank_account_number} (${transaction.destination_bank_account_name})` : ' received' }}</h4>
                                 <div class="uk-margin-small">
-                                    <button class="uk-button uk-button-small uk-button-danger" @click="removeTransaction(index)">{{deleted}}</button>
+                                    <button class="uk-button uk-button-small uk-button-danger" @click="removeTransaction(index)">{{removed}}</button>
                                 </div>
                                 <p class="uk-text-meta uk-margin-remove-top">
                                     &mdash;
@@ -188,7 +188,7 @@
                                 <div class="uk-button-group">
                                     <button class="uk-button uk-button-small" @click="clickInfo(index)">Details</button>
                                     <button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button>
-                                    <button disabled class="uk-button uk-button-small uk-button-danger" @click="removeTransactionRequest(index)">{{deleted}}</button>
+                                    <button class="uk-button uk-button-small uk-button-danger" @click="removeTransactionRequest(index)">{{removed}}</button> <!-- not sustainable for more than one requests -->
                                 </div>
                                 
                             </div>
@@ -243,6 +243,7 @@ export default {
             search: '',
             allFeedback: [],
             deleted: 'Delete',
+            removed: 'Remove',
             overviewChart: null,
         }
     },
@@ -261,45 +262,46 @@ export default {
             this.$router.push('/')
         },
         clickInfo(index){
-            let users = this.users
+            // let users = this.users;
+            let transactions = this.transactions;
+            console.log("what are transactions??", transactions);
             /**
              * 
              * 
-                users have these :
+                transactions have these :
 
                 status
                 
                 sender_email
 
-                
                 transaction_date
              */
                 let modal = UIkit.modal.dialog(`
                             <div class="uk-modal-body uk-margin-auto-vertical">
 
                             <button class="uk-modal-close-default" type="button" uk-close></button>
-                            <h3>${users[parseInt(index)].sender_fullname} details:</h3>
-                            <p>Destination Country: ${users[parseInt(index)].destination_country}</p>
-                            <p>Destination Bank: ${users[parseInt(index)].destination_bank}</p>
-                            <p>Destination Account Name: ${users[parseInt(index)].destination_bank_account_name}</p>
-                            <p>Destination Account Number: ${users[parseInt(index)].destination_bank_account_number}</p>
-                            <p>Sender Currency: ${users[parseInt(index)].sender_currency}</p>
-                            <p>Amount To Send: ${users[parseInt(index)].sender_currency} ${users[parseInt(index)].amount}</p>
+                            <h3>${transactions[parseInt(index)].sender_fullname} details:</h3>
+                            <p>Destination Country: ${transactions[parseInt(index)].destination_country}</p>
+                            <p>Destination Bank: ${transactions[parseInt(index)].destination_bank}</p>
+                            <p>Destination Account Name: ${transactions[parseInt(index)].destination_bank_account_name}</p>
+                            <p>Destination Account Number: ${transactions[parseInt(index)].destination_bank_account_number}</p>
+                            <p>Sender Currency: ${transactions[parseInt(index)].sender_currency}</p>
+                            <p>Amount To Send: ${transactions[parseInt(index)].sender_currency} ${transactions[parseInt(index)].amount}</p>
 
                             </div>
                             <div class="uk-modal-footer uk-text-right">
                                 <button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
-                                <button class="uk-button uk-button-danger delete" type="button" creator-id="${users[parseInt(index)]._id}">delete</button>
+                                <button disabled class="uk-button uk-button-danger delete" type="button" creator-id="${transactions[parseInt(index)]._id}">delete</button>
                             </div>
                 `);
 
                 const el = modal.$el; // The modal element
                 let deleteButton = el.querySelector('.delete').addEventListener("click", function(e){
                     e.srcElement.innerText = 'deleting...'
-                    axios.post(process.env.BASE_URL + '/api/deleteuser/', {
-                        id: users[parseInt(index)]._id,
-                    }).then( resp => {
-                        e.srcElement.innerText = 'deleted'
+                    axios.post(process.env.BASE_URL + '/api/deleteuser/', { // delete transaction, not user // todo: update this.
+                        id: transactions[parseInt(index)]._id,
+                    }).then(resp => {
+                        e.srcElement.innerText = 'Removed'
                         // close modal
                         setTimeout(function(){
                             el.querySelector('.uk-modal-close-default').click()
@@ -533,7 +535,7 @@ export default {
                 id: id,
             }).then( resp => {
                 this.deleted = 'Delete'
-                alert('Deleted')
+                alert('User Deleted')
             }).catch(err => {
                 console.error(err)
             })
@@ -543,12 +545,13 @@ export default {
         },
         removeTransactionRequest(index) {
             this.requests.splice(index, 1);
+            this.removed = 'Removed'
         },
          deleteTransaction(_id){// why would we want to delete a transaction?
             this.deleted = 'deleting..'
             axios.post(process.env.BASE_URL + '/api/deletetransaction/', {
                 id: _id,
-            }).then( resp => {
+            }).then(resp => {
                 this.deleted = 'Delete'
                 alert('Deleted')
             }).catch(err => {
