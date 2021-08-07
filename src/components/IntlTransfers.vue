@@ -107,8 +107,8 @@
                             <option value="USD">$</option>
                             <option value="EUR">€</option>
                             <option value="GBP">£</option>
-                            <!-- <option value="NGN">₦</option>
-                            <option value="KES">Ksh</option>
+                            <option value="NGN">₦</option>
+                            <!-- <option value="KES">Ksh</option>
                             <option value="USD">$</option>
                             <option value="RWF">RF</option>
                             <option value="GHS">GH¢</option>
@@ -394,6 +394,8 @@
             return "€";
           case "GBP":
             return "£";
+          case "NGN":
+            return "₦";
           default:
             return "$";
         }
