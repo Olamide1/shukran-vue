@@ -439,7 +439,7 @@
         // console.log('flutter wave visibilty??', this.sender_fullname);
         
         FlutterwaveCheckout({
-          public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
+          public_key: "FLWPUBK-3732be568ad10ed050ae72e7b20d2fe9-X",
           tx_ref: `${sender_email}-intl-transfer-to-${ // never changing this ref
             destination_bank
           }-${destination_bank_account_number} @ ${Date.now()}`,

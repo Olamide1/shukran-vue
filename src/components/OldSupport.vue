@@ -816,7 +816,7 @@ export default {
         // flutterwave
 
         FlutterwaveCheckout({
-          public_key: "FLWPUBK-fe9f65ed4b3608107e0c150e34f52c98-X",
+          public_key: "FLWPUBK-3732be568ad10ed050ae72e7b20d2fe9-X",
           tx_ref: `${supporter_email}-shukran${this.isSubscribing ? "ing" : ""}-${
             this.creatorInfo._id
           } @ ${Date.now()} | ${location.href}`,
