@@ -212,7 +212,7 @@
                             <div class="uk-margin-small">
                                 <div class="uk-button-group">
                                     <button class="uk-button uk-button-small" @click="update(request._id)">{{paid}}</button>
-                                    <button class="uk-button uk-button-small uk-button-danger" @click="removeTransactionRequest(index)">{{deleted}}</button>
+                                    <button :data-delete="request._id" class="uk-button uk-button-small uk-button-danger" @click="deleteTransaction(request._id, index)">{{deleted}}</button>
                                 </div>
                                 
                             </div>
@@ -575,14 +575,17 @@ export default {
         removeTransactionRequest(index) {
             this.requests.splice(index, 1);
         },
-         deleteTransaction(id){// why would we want to delete a transaction?
-            this.deleted = 'deleting..'
+         deleteTransaction(id, index){// why would we want to delete a transaction?
+            // this.deleted = 'deleting..'
             axios.post(process.env.BASE_URL + '/api/deletetransaction/', {
                 id: id,
             }).then( resp => {
-                this.deleted = 'Delete'
+                // this.deleted = 'Delete'
                 alert('Deleted')
+
+                this.removeTransactionRequest(index)
             }).catch(err => {
+                alert('Not Deleted')
                 console.error(err)
             })
         },
