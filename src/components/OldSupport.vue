@@ -491,7 +491,7 @@ export default {
   name: "OldSupport",
   data() {
     return {
-      username: this.$route.params.username,
+      username: decodeURI(this.$route.params.username),
       tipGuard: process.env.TIP_GUARD, // should be 100 naira or Ksh // should be dynamic
       tipNudge: "",
       currency: !sessionStorage.getItem("shukran-country-currency")
@@ -644,7 +644,7 @@ export default {
         .post(
           process.env.BASE_URL + "/api/creatorprofile/",
           {
-            username: this.$route.params.username.toLowerCase().trim(),
+            username: decodeURI(this.$route.params.username).toLowerCase().trim(),
           },
           {
             withCredentials: true,
@@ -930,10 +930,10 @@ export default {
     // console.log(this.$route);
     document.querySelector(
       'head meta[property="twitter:image"]'
-    ).content = `${process.env.BASE_URL}/api/smp/${this.$route.params.username}`;
+    ).content = `${process.env.BASE_URL}/api/smp/${decodeURI(this.$route.params.username)}`;
     document.querySelector(
       'head meta[property="og:image"]'
-    ).content = `${process.env.BASE_URL}/api/smp/${this.$route.params.username}`;
+    ).content = `${process.env.BASE_URL}/api/smp/${decodeURI(this.$route.params.username)}`; // decodeURL necessary ?
   },
   mounted() {
     // this.getSubs();

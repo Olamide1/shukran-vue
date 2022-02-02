@@ -153,7 +153,7 @@ export default {
     },
   },
   mounted() {
-    this.username = this.$route.params.username;
+    this.username = decodeURI(this.$route.params.username);
   },
 };
 </script>

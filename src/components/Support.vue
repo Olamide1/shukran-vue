@@ -478,7 +478,7 @@ export default {
   name: "Support",
   data() {
     return {
-      username: this.$route.params.username,
+      username: decodeURI(this.$route.params.username),
       tipGuard: process.env.TIP_GUARD, // should be 100 naira or Ksh // should be dynamic
       tipNudge: "",
       currency: !sessionStorage.getItem("shukran-country-currency")
@@ -631,7 +631,7 @@ export default {
         .post(
           process.env.BASE_URL + "/api/creatorprofile/",
           {
-            username: this.$route.params.username.toLowerCase().trim(),
+            username: decodeURI(this.$route.params.username).toLowerCase().trim(),
           },
           {
             withCredentials: true,
