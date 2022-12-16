@@ -343,7 +343,7 @@
         currency: !sessionStorage.getItem("shukran-country-currency") ? "NGN" : sessionStorage.getItem(
           "shukran-country-currency"), // optimse later, use country's currency
         tempCurr: "NGN", // cause they come as this
-        payoutGuard: 1000, // 1000 NGN
+        payoutGuard: 10, // 1000 NGN
         url: "https://useshukran.com/cr/" + encodeURIComponent(JSON.parse(sessionStorage.getItem('profile')).username.trim()),
         copied: "",
         chart1: null, // maybe also show recurring tips
@@ -421,13 +421,13 @@
 
         switch (_currency) {
           case "NGN":
-            this.payoutGuard = 1000
+            this.payoutGuard = 10
             break;
           case "KES":
-            this.payoutGuard = 500
+            this.payoutGuard = 5
             break
           default:
-            this.payoutGuard = 1000
+            this.payoutGuard = 10
             break;
         }
 
@@ -771,7 +771,10 @@
             username: username,
             amount: amount, // in naira
             status: status,
-            email: this.profiles.email
+            email: this.profiles.email,
+            bank: this.profiles.bank,
+            currency: this.currency,
+            account_number: this.profiles.account_number
           })
           .then(res => {
             // console.log("withdrawRequest done", res);

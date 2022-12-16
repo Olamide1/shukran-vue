@@ -728,6 +728,7 @@ export default {
         authentication: "Tipped creator",
       });
 
+
       localStorage.setItem("shukran-supporter-nickname", this.nickname);
       localStorage.setItem("shukran-supporter-email", this.supporter_email);
       // localStorage.setItem('shukran-supporter-phone', this.phone);
@@ -744,6 +745,10 @@ export default {
       let creator_id = this.creatorInfo._id;
       let redirect = this.creatorInfo.redirect || this.creatorInfo.primary_link;
       let isSub = this.isSubscribing;
+
+      console.log('wh?', `${supporter_email.replace('@', '[at]')}-shukran${this.isSubscribing ? "ing" : ""}-${this.creatorInfo._id} at ${Date.now()} - ${this.creatorInfo.username}`);
+      console.log('cr', this.creatorInfo);
+      let _reff = `${supporter_email.replace('@', '[at]')}-shukran${this.isSubscribing ? "ing" : ""}-${this.creatorInfo._id} at ${Date.now()} - ${this.creatorInfo.username}` // `shukran${this.isSubscribing ? "ing" : ""}_${Date.now()}_${this.creatorInfo.username}`
       if (supporter_email == "" || amount == "") {
         this.issue = "Enter email & amount please";
         this.tipbtn = "Tip";
@@ -752,11 +757,12 @@ export default {
         this.tipbtn = "Tip";
       } else {
         // paystack
-        /* 
-            var handler = PaystackPop.setup({
+        
+            let handler = PaystackPop.setup({
             key: 'pk_live_01351689dce87a8749467a962e29c12f79388c3d',
-            supporter_email: supporter_email,
-            amount: parseFloat(amount) * 100,
+            email: supporter_email,
+            amount: parseInt(amount) * 100,
+            ref: _reff,
             currency: sessionStorage.getItem("shukran-country-currency"),
             channels: ['card', 'bank', 'ussd', 'mobile_money', 'qr'],
             metadata: {
@@ -765,43 +771,110 @@ export default {
                      display_name: "Mobile Number",
                      variable_name: "mobile_number",
                      // value: phone
+                  },
+                  {display_name: 'Creator Username',
+                    variable_name: 'creator_username',
+                    value: username,
                   }
+                   // creator_username
+            // supporter_nickname: supporter_nickname,
+            // supporter_email: supporter_email,
+            // creator_id: creator_id,
+            // message: message,
+            // creator_email: creator_email,
                   ]},
-            callback: function(response){
+            callback: function(response, err){
+              console.log('callback resposonse', response);
                localStorage.setItem('shukran_email', supporter_email)
                localStorage.setItem('shukran_nickname', supporter_nickname)
                // localStorage.setItem('shukran_phone', phone)
-               axios.post(process.env.BASE_URL + '/api/createtransaction/', {
-                  username: username,
-                  supporter_nickname: supporter_nickname,
-                  amount: amount,
-                  currency: currency,
-                  message: message,
-                  status: 'received',
-                  creator_email: creator_email
-                  }).then(res => {
-                     console.log('tipped')
-                     if (redirect == '') {
-                        this.$router.push('/thanks');
-                     } else {
-                        window.location = redirect
-                     }
-                     }).catch(err => {
-                        this.tipbtn = 'Tip'
-                        this.issue = err
-                        console.log(err)
-                     })
-                  console.log('success. transaction ref is ' + response.reference);
+              //  axios.post(process.env.BASE_URL + '/api/createtransaction/', {
+              //     username: username,
+              //     supporter_nickname: supporter_nickname,
+              //     amount: amount,
+              //     currency: currency,
+              //     message: message,
+              //     status: 'received',
+              //     creator_email: creator_email
+              //     }).then(res => {
+              //        console.log('tipped')
+              //        if (redirect == '') {
+              //           this.$router.push('/thanks');
+              //        } else {
+              //           window.location = redirect
+              //        }
+              //        }).catch(err => {
+              //           this.tipbtn = 'Tip'
+              //           this.issue = err
+              //           console.log(err)
+              //        })
+              //     console.log('success. transaction ref is ' + response.reference);
+                console.log('is there err obj', err);
+              if (response.currency !== "NGN") {
+                // we can do more
+                amount = fx(amount) // convert to NGN
+                  .from(response.currency)
+                  .to("NGN");
+              }
+              axios
+                .post(
+                  process.env.BASE_URL + "/api/createtransaction/",
+                  {
+                    // we should ref the creator id
+                    username: username, // creator_username
+                    supporter_nickname: supporter_nickname,
+                    supporter_email: supporter_email,
+                    creator_id: creator_id,
+                    amount: amount,
+                    message: message,
+                    status: "received",
+                    currency: "NGN", // currency
+                    tx_ref: response.tx_ref,
+                    creator_email: creator_email,
+                  },
+                  {
+                    withCredentials: true,
+                  }
+                )
+                .then((res) => {
+                  // if they subscribed ...refresh the page to show their content.
+                  console.log("tipped res", JSON.stringify(res));
+                  console.log("this", JSON.stringify(this));
+                  console.log(
+                    "redirected response",
+                    document.URL,
+                    JSON.parse(res.config.data).tx_ref
+                  );
+                  console.info("_redirect", _redirect);
+                  if (JSON.parse(res.config.data).tx_ref.includes("-shukraning-")) {
+                    // Vue.set('profile', res.data); // instead update sessionStorage ??
+                    location.reload();
+                    location.assign(document.URL + "#content-parent");
+                  } else if (_redirect) {
+                    // show some info telling them they would be redirected
+                    window.location = _redirect;
+                  } else {
+                    window.location = process.env.URL + "/thanks"; // this.$router.push('/thanks');
+                  }
+                })
+                .catch((err) => {
+                  this.tipbtn = "Tip";
+                  this.issue = err; // what if err is not a string?!
+                  console.error('catch in tip', err)
+                  window.location = process.env.URL + "/thanks"; // this.$router.push('/thanks'); // should we, no because this isn't Vue ?
+                });
                   },
             onClose: function(){
                alert('Payment action cancelled'); 
                } 
                });
+               
                handler.openIframe(); // oh well, paystack
-         */
-        // flutterwave
+        
 
-        FlutterwaveCheckout({
+        // flutterwave starts here
+
+        /* FlutterwaveCheckout({
           public_key: "FLWPUBK-3732be568ad10ed050ae72e7b20d2fe9-X",
           tx_ref: `${supporter_email}-shukran${this.isSubscribing ? "ing" : ""}-${
             this.creatorInfo._id
@@ -914,6 +987,9 @@ export default {
               "https://drive.google.com/uc?export=view&id=" + this.creatorInfo.picture_id,
           },
         }); // flutterwave ends here
+         */
+
+
       }
     },
   },

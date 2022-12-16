@@ -22,6 +22,7 @@ import BossIn from '@/components/BossIn'
 import NewPassword from '@/components/NewPassword'
 import WallOfLove from '@/components/WallOfLove'
 import IntlTransfers from '@/components/IntlTransfers'
+import Booking from '@/components/Booking';
 
 Vue.use(Router)
 
@@ -196,6 +197,14 @@ const router = new Router({
       component: Reset,
       meta: {
         title: 'Reset - Shukran'
+      }
+    },
+    {
+      path: '/book',
+      name: 'Book',
+      component: Booking,
+      meta: {
+        title: 'Book Me'
       }
     },
     {
