@@ -7,6 +7,7 @@ import router from './router'
 import VueLazyload from 'vue-lazyload'
 import titleMixin from './mixins/titleMixin'
 import VueMeta from 'vue-meta'
+import VCalender from 'v-calendar' // why is v2 of this not working? https://github.com/nathanreyes/v-calendar/issues/303#issuecomment-536914997
 
 Vue.use(VueMeta)
 Vue.mixin(titleMixin) // not working on page navigation
@@ -17,6 +18,8 @@ Vue.use(VueLazyload, {
   error: '/static/img/placeholder-image.png', // https://stackoverflow.com/a/47677814
 })
 Vue.config.productionTip = false;
+
+Vue.use(VCalender)
 
 /* eslint-disable no-new */
 const app = new Vue({

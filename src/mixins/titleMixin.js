@@ -1,11 +1,13 @@
 // thanks to https://medium.com/@Taha_Shashtari/the-easy-way-to-change-page-title-in-vue-6caf05006863 + fixes
 
 function getTitle (vm) {
-    const { title } = vm.$route.meta
-    if (title) {
-        return typeof title === 'function'
-        ? title(vm)
-        : title
+    if (vm.$route) {
+        const { title } = vm.$route.meta
+        if (title) {
+            return typeof title === 'function'
+            ? title(vm)
+            : title
+        }
     }
 }
 
@@ -15,9 +17,11 @@ function getTitle (vm) {
  * @returns string username
  */
 function getRouteUsername (vm) {
-    const { username } = vm.$route.params
-    if (username) {
-        return username
+    if (vm.$route) {
+        const { username } = vm.$route.params
+        if (username) {
+            return username
+        }
     }
 }
 
