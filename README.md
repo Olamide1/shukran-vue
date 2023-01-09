@@ -1,6 +1,9 @@
 # frontend
 
-> A Vue.js project
+> A Vue.js project for useshukran.com
+
+## What we want to do
+* Something with Google Podcast, and YouTube.
 
 ## Build Setup
 

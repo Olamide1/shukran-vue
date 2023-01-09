@@ -23,6 +23,7 @@ import NewPassword from '@/components/NewPassword'
 import WallOfLove from '@/components/WallOfLove'
 import IntlTransfers from '@/components/IntlTransfers'
 import Booking from '@/components/Booking';
+import YourCalender from '@/components/YourCalender';
 
 Vue.use(Router)
 
@@ -205,6 +206,14 @@ const router = new Router({
       component: Booking,
       meta: {
         title: 'Book Me'
+      }
+    },
+    {
+      path: '/your-calender',
+      name: 'Your Calender',
+      component: YourCalender,
+      meta: {
+        title: 'Be Professional'
       }
     },
     {

@@ -525,25 +525,6 @@
       this.fee = fx(5) // convert fee rate
           .from("USD").to(this.sender_currency).toFixed(2)
     },
-      
-      submitFeedback() { // use later
-        let username = this.username;
-        let comment = this.comment;
-        this.feed = "Sending...";
-        axios
-          .post(process.env.BASE_URL + "/api/givefeedback/", {
-            username: username,
-            comment: comment
-          })
-          .then(res => {
-            // console.log("feedback submitted");
-            UIkit.modal("#my-id").hide();
-            alert("Thank you for your feedback!");
-          })
-          .catch(err => {
-            // console.log(err);
-          });
-      },
 
       
     },
