@@ -122,7 +122,7 @@
             
             uk-img="target: #offcanvas-usage"
             style="height: 414px; width: 414px; margin-left: 6%;"
-          :to="'/cr/' + creator.username" tag="div">
+          :to="'/cr/' + creator.username" slot="div">
                         </router-link>
                     </div>
                   </div>
@@ -130,9 +130,9 @@
                 <div class="col is-6">
                   <p class="has-text-white caps" uk-slider-parallax="x: 100,-100">{{creator.craft_type}}</p>
                   
-                  <router-link :to="'/cr/' + creator.username" tag="h2" uk-slider-parallax="x: 200,-200">{{creator.username}}</router-link>
+                  <router-link :to="'/cr/' + creator.username" slot="h2" uk-slider-parallax="x: 200,-200">{{creator.username}}</router-link>
                   
-                  <router-link :to="'/cr/' + creator.username" tag="p" uk-slider-parallax="x: 300,-300">{{creator.summary}}</router-link>
+                  <router-link :to="'/cr/' + creator.username" slot="p" uk-slider-parallax="x: 300,-300">{{creator.summary}}</router-link>
                   <a class="link is-underlined caps" href="#modal-sections" uk-toggle>Find others</a>
                 </div>
               </div>
@@ -142,14 +142,14 @@
       </div>
 
       <a
-        class="uk-position-center-left uk-position-small uk-hidden-hover"
+        class="uk-position-center-left uk-position-small"
         href="#"
         uk-slidenav-previous
         uk-slider-item="previous"
       ></a>
       
       <a
-        class="uk-position-center-right uk-position-small uk-hidden-hover"
+        class="uk-position-center-right uk-position-small"
         href="#"
         uk-slidenav-next
         uk-slider-item="next"
