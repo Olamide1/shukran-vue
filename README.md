@@ -2,6 +2,9 @@
 
 > A Vue.js project for useshukran.com
 
+## TODOs
+* Do a conversation page. Sth like, find out how much we'll pay you page.
+
 ## What we want to do
 * Something with Google Podcast, and YouTube.
 

@@ -666,47 +666,6 @@ a.router-link-exact-active {
     float: left;
   }
 
-  .top-nav-progress-bar:before {
-    content: "";
-    background: white;
-    position: absolute;
-    z-index: 100;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin: auto auto;
-  }
-
-  progress.top-nav-progress-bar::-moz-progress-bar {
-    background: transparent;
-  }
-
-  progress.top-nav-progress-bar::-webkit-progress-bar {
-    background: transparent;
-  }
-
-  progress.top-nav-progress-bar::-moz-progress-value {
-    background: blue;
-  }
-
-  progress.top-nav-progress-bar::-webkit-progress-value {
-    background: blue;
-  }
-
-  .top-nav-progress-bar {
-    border-radius: 100%;
-    overflow: hidden;
-    padding: 0;
-  }
-
-  .side-nav-progress-bar {
-    width: 29.5%;
-    position: absolute;
-    margin-top: -7.5px;
-    height: 10px;
-    display: none;
-  }
-
   #wait {
     display: none;
     margin-top: -70px;
@@ -731,28 +690,8 @@ a.router-link-exact-active {
     overflow: auto;
   }
 
-  .uk-navbar,
-  .uk-navbar-item,
-  .lead {
-    background: transparent !important;
-    color: #ffffff !important;
-  }
-
   .uk-container-expand {
     color: #ebebe7 !important;
-  }
-
-  .uk-accordion-content {
-    color: #ff6870 !important;
-  }
-
-  .show {
-    color: #c63968;
-  }
-
-  .h3,
-  .uk-navbar-toggle {
-    color: #ffffff;
   }
 
   .uk-offcanvas-bar {
@@ -932,31 +871,12 @@ a.router-link-exact-active {
     height: 100%;
   }
 
-  /**good spot */
-  .desktop-nav {
-    margin: 30px;
-    border-radius: 5px;
-    background: #edf4f0 !important;
-    color: #111011 !important;
-  }
-
   @media (min-width: 960px) {
 
-    .mobile-nav,
-    .uk-card-badge.uk-label[href] {
-      display: none;
-    }
   }
 
   @media (max-width: 960px) {
 
-    .desktop-nav {
-      display: none;
-    }
-
-    .uk-card-body {
-      padding: 20px 20px;
-    }
   }
 
 </style>

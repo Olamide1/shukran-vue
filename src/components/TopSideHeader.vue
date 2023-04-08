@@ -39,22 +39,25 @@
       <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
           <li>
-            <router-link to="/dash" active-class>Dashboard</router-link>
+            <router-link class="header-link" to="/dash" active-class>Dashboard</router-link>
           </li>
           <li id="get-tipped" href="#modal-center" uk-toggle>
-            <a>Get tipped</a>
+            <a class="header-link">Get tipped</a>
           </li>
           <li>
-            <router-link to="/subscribers" active-class>Shuclans</router-link>
+            <router-link class="header-link" to="/subscribers" active-class>Shuclans</router-link>
           </li>
           <li>
-            <router-link to="/profile">Profile</router-link>
+            <router-link class="header-link" to="/your-calender" active-class>Bookings</router-link>
+          </li>
+          <li>
+            <router-link class="header-link" to="/profile">Profile</router-link>
           </li>
           <li id="give-feedback" uk-toggle="target: #my-id">
-            <a>Give feedback</a>
+            <a class="header-link">Give feedback</a>
           </li>
           <li id="logout" @click="logout">
-            <a>Logout</a>
+            <a class="header-link">Logout</a>
           </li>
         </ul>
       </div>
@@ -121,6 +124,8 @@
       </div>
     </nav>
 
+
+    <!-- TODO: the same code should be sidebar and topbar. CSS classes should make the morph accordingly.  -->
     <!-- sidebar -->
     <div id="offcanvas-usage" uk-offcanvas>
       <div class="uk-offcanvas-bar">
@@ -173,11 +178,11 @@
               <p class="show uk-text-lead">
                 Hey {{ profiles.username }}, share the link below to get tipped.
               </p>
-              <router-link class="uk-text-break" :to="'/cr/' + profiles.username">{{
+              <!-- <router-link class="uk-text-break" :to="'/cr/' + profiles.username">{{
                 url
-              }}</router-link>
+              }}</router-link> -->
               <p class="uk-text-meta">
-                <span class="uk-text-bolder">TL;DR</span> Share link with your audience
+                Share this link with your audience
                 <textarea
                   name=""
                   class="uk-textarea uk-form-blank"
@@ -225,6 +230,9 @@
               </p>
             </div>
           </div>
+          <li>
+            <router-link class="header-link" to="/your-calender" active-class>Bookings</router-link>
+          </li>
           <li>
             <router-link to="/profile">Profile</router-link>
           </li>
@@ -675,21 +683,16 @@ export default {
   color: #ffffff;
 }
 .uk-navbar,
-.uk-navbar-item,
-.lead {
+.uk-navbar-item {
   background: transparent !important;
   color: #ffffff !important;
 }
 .desktop-nav {
   border-radius: 5px;
-  color: #111011 !important;
 }
 
-@media (max-width: 640px) {
-  .modal-buttons > .uk-button {
-    padding: 0 10px;
-    font-size: 0.8rem;
-  }
+.header-link {
+  color: #fceedd;
 }
 
 .modal-buttons > * {
@@ -701,6 +704,13 @@ export default {
 .request-button {
   border-radius: 3px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 640px) {
+  .modal-buttons > .uk-button {
+    padding: 0 10px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (min-width: 960px) {
@@ -722,6 +732,7 @@ export default {
     display: none;
   }
 }
+
 .uk-button.white-bg-button {
   background-color: white;
   color: #000;

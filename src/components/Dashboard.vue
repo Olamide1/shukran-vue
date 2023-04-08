@@ -910,13 +910,6 @@ export default {
   overflow: auto;
 }
 
-.uk-navbar,
-.uk-navbar-item,
-.lead {
-  background: transparent !important;
-  color: #ffffff !important;
-}
-
 .wrapper {
   color: #ebebe7 !important;
 }

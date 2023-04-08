@@ -21,3 +21,5 @@ selenium-debug.log
 
 # Our plans
 todo.txt
+# Local Netlify folder
+.netlify
